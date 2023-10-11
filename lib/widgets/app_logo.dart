@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AppIcon extends StatelessWidget {
-  const AppIcon({this.size = 60, Key? key}) : super(key: key);
+class AppLogo extends StatelessWidget {
+  const AppLogo({this.size = 36, Key? key}) : super(key: key);
 
   final double size;
 

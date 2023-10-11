@@ -21,7 +21,7 @@ class Button extends StatelessWidget {
     this.buttonColor = MyColors.prime,
     this.textColor = MyColors.white,
     this.height = 48,
-    this.borderRadius = 32,
+    this.borderRadius = 16,
     this.padding = 4,
     this.textSize = 16,
     this.width = double.infinity,
@@ -65,7 +65,7 @@ class Button extends StatelessWidget {
                       style: style(
                         color: outlined ? buttonColor : textColor,
                         fontSize: textSize,
-                        fontWeight: FontWeight.w600,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
                   ],

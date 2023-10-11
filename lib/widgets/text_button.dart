@@ -15,8 +15,8 @@ class MyTextButton extends StatelessWidget {
       child: Text(
         text,
         style: style(
-          fontSize: 16,
-          color: MyColors.black.withOpacity(0.6),
+          fontSize: 14,
+          color: MyColors.prime,
         ),
       ),
     );
