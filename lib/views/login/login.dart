@@ -1,8 +1,12 @@
 import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/views/register/register.dart';
+import 'package:faircare/views/reset_password/reset_password.dart';
 import 'package:faircare/widgets/app_logo.dart';
 import 'package:faircare/widgets/bg_image.dart';
 import 'package:faircare/widgets/button.dart';
+import 'package:faircare/widgets/checkbox_tile.dart';
 import 'package:faircare/widgets/icon.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/text_button.dart';
@@ -38,8 +42,8 @@ class _LoginPageState extends State<LoginPage> {
                   color: MyColors.white,
                   borderRadius: BorderRadius.circular(24),
                 ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                child: ListView(
+                  shrinkWrap: true,
                   children: [
                     // logo
                     const AppLogo(),
@@ -76,33 +80,16 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Container(
-                              height: 18,
-                              width: 18,
-                              // padding: const EdgeInsets.all(2),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                color: MyColors.prime,
-                              ),
-                              child: const Icon(
-                                Icons.check,
-                                color: MyColors.white,
-                                size: 16,
-                              ),
-                            ),
-                            const HorizontalSpacer(6),
-                            Text(
-                              'Remember Me',
-                              style: style(color: MyColors.darkGrey),
-                            ),
-                          ],
+                        CheckboxTile(
+                          textMain: 'Remember Me',
+                          onTap: () {},
+                          onTextTap: () {},
                         ),
                         MyTextButton(
                           'Passwort vergessen?',
-                          onTap: () {},
+                          onTap: () {
+                            navigate(context, const ResetPasswordPage());
+                          },
                         ),
                       ],
                     ),
@@ -125,7 +112,9 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         MyTextButton(
                           'Account erstellen',
-                          onTap: () {},
+                          onTap: () {
+                            navigate(context, const RegisterPage());
+                          },
                         ),
                       ],
                     ),

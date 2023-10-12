@@ -3,9 +3,15 @@ import 'package:faircare/global/text_style.dart';
 import 'package:flutter/material.dart';
 
 class MyTextButton extends StatelessWidget {
-  const MyTextButton(this.text, {this.onTap, Key? key}) : super(key: key);
+  const MyTextButton(
+    this.text, {
+    this.color = MyColors.prime,
+    this.onTap,
+    Key? key,
+  }) : super(key: key);
 
   final String text;
+  final Color color;
   final void Function()? onTap;
 
   @override
@@ -16,7 +22,7 @@ class MyTextButton extends StatelessWidget {
         text,
         style: style(
           fontSize: 14,
-          color: MyColors.prime,
+          color: color,
         ),
       ),
     );

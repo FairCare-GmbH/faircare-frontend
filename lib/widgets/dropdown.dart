@@ -1,14 +1,15 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class MyDropdown extends StatelessWidget {
-  final String text, value;
+  final String label, value;
   final List<String> items;
   final void Function(String?)? onChanged;
 
   const MyDropdown({
-    required this.text,
+    required this.label,
     required this.value,
     required this.items,
     this.onChanged,
@@ -21,20 +22,24 @@ class MyDropdown extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          text.toUpperCase(),
-          style: style(fontSize: 12),
+          label,
+          style: style(color: MyColors.grey),
         ),
+        const VerticalSpacer(6),
         Container(
           width: double.infinity,
-          height: 32,
+          padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            color: MyColors.white.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(16),
+            border: Border.all(
+              color: MyColors.border,
+            ),
           ),
           child: DropdownButton(
             onChanged: onChanged,
             underline: Container(),
             value: value,
+            itemHeight: items[0].length > 40 ? 70 : 48,
             isExpanded: true,
             items: items
                 .map(

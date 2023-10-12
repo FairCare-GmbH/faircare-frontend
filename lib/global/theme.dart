@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final themeData = ThemeData(
-  primarySwatch: Colors.purple,
+  primarySwatch: Colors.blue,
   fontFamily: GoogleFonts.poppins().fontFamily,
   scaffoldBackgroundColor: MyColors.white,
   appBarTheme: AppBarTheme(

@@ -6,7 +6,7 @@ TextStyle style({
   double fontSize = 14,
   Color color = MyColors.grey,
   FontWeight fontWeight = FontWeight.w400,
-  double height = 1.2,
+  double height = 1.4,
 }) {
   return GoogleFonts.poppins(
     fontSize: fontSize,

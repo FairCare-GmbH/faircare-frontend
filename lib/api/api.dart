@@ -1,5 +1,5 @@
-import 'package:faircare/api/api_urls.dart';
 import 'package:dio/dio.dart';
+import 'package:faircare/api/api_urls.dart';
 
 class Api {
   late Dio client = Dio(options);

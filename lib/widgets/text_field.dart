@@ -67,7 +67,7 @@ class MyTextField extends StatelessWidget {
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: const EdgeInsets.symmetric(
-                horizontal: 20,
+                horizontal: 16,
                 vertical: 0,
               ),
               hintText: hint,

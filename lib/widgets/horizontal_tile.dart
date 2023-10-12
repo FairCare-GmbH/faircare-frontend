@@ -1,4 +1,3 @@
-import 'package:faircare/global/styles.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
