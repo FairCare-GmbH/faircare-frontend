@@ -32,3 +32,6 @@ flutter:
     - assets/
     - assets/images/
     - assets/icons/
+
+scripts:
+  p: git push -u origin main

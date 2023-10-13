@@ -56,7 +56,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
                     const VerticalSpacer(24),
 
-                    // login button
+                    // next button
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: Button(
@@ -72,7 +72,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     const RegisterPageProgress(),
                     const VerticalSpacer(24),
 
-                    // register account
+                    // login
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

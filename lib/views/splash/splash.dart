@@ -1,6 +1,6 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
-import 'package:faircare/views/login/login.dart';
+import 'package:faircare/views/intro/intro.dart';
 import 'package:flutter/material.dart';
 
 class SplashPage extends StatefulWidget {
@@ -18,7 +18,8 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void navigateNext() async {
-    navigate(context, const LoginPage());
+    navigate(context, const IntroPage());
+    // navigate(context, const LoginPage());
   }
 
   @override
