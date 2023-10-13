@@ -8,10 +8,10 @@ TextStyle style({
   FontWeight fontWeight = FontWeight.w400,
   double height = 1.4,
 }) {
-  return GoogleFonts.poppins(
+  return GoogleFonts.readexPro(
     fontSize: fontSize,
     color: color,
     fontWeight: fontWeight,
-    height: height,
+    // height: height,
   );
 }

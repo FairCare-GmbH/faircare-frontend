@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 final themeData = ThemeData(
   primarySwatch: Colors.blue,
-  fontFamily: GoogleFonts.poppins().fontFamily,
+  fontFamily: GoogleFonts.readexPro().fontFamily,
   scaffoldBackgroundColor: MyColors.white,
   appBarTheme: AppBarTheme(
     backgroundColor: MyColors.white,

@@ -19,6 +19,7 @@ dependencies:
       url: https://github.com/MubeenNaeem/ars-dialog.git
       ref: master
   dio: ^5.3.3
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:
