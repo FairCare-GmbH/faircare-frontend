@@ -18,6 +18,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   void navigateNext() async {
+    // navigate(context, const NotificationsPage());
     navigate(context, const MasterPage());
     // navigate(context, const LoginPage());
   }

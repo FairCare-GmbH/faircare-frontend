@@ -3,8 +3,8 @@ import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
-class TourItem extends StatelessWidget {
-  const TourItem({Key? key}) : super(key: key);
+class NotificationItem extends StatelessWidget {
+  const NotificationItem({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class TourItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '10.02.2000',
+                  'Passende Tour gefunden',
                   style: style(
                     color: MyColors.prime,
                     fontSize: 16,
@@ -48,7 +48,7 @@ class TourItem extends StatelessWidget {
                 ),
                 const VerticalSpacer(2),
                 Text(
-                  'Frühdienst',
+                  'Frühdienst, 10.10.2023',
                   style: style(
                     color: MyColors.darkGrey,
                     fontSize: 13,
@@ -58,13 +58,9 @@ class TourItem extends StatelessWidget {
             ),
           ),
           const HorizontalSpacer(12),
-          Text(
-            '95 €',
-            style: style(
-              color: MyColors.darkGrey,
-              fontWeight: FontWeight.w500,
-              fontSize: 16,
-            ),
+          const Icon(
+            Icons.delete,
+            color: MyColors.darkGrey,
           ),
         ],
       ),
