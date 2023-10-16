@@ -1,13 +1,11 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/views/register/account_creation_dialog.dart';
+import 'package:faircare/views/register/next_button.dart';
 import 'package:faircare/views/register/page_progress.dart';
-import 'package:faircare/views/register/register_page_1.dart';
-import 'package:faircare/views/register/register_page_2.dart';
+import 'package:faircare/views/register/register_pages.dart';
 import 'package:faircare/widgets/app_logo.dart';
 import 'package:faircare/widgets/bg_image.dart';
-import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/text_button.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +18,8 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -45,26 +45,13 @@ class _RegisterPageState extends State<RegisterPage> {
                     const VerticalSpacer(24),
 
                     // pages
-                    Flexible(
-                      child: PageView(
-                        children: const [
-                          RegisterFirstPage(),
-                          RegisterSecondPage(),
-                        ],
-                      ),
-                    ),
-
+                    RegisterPages(pageController),
                     const VerticalSpacer(24),
 
                     // next button
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Button(
-                        'Weiter',
-                        onPressed: () {
-                          showAccountCreationDialog(context);
-                        },
-                      ),
+                      child: RegisterNextButton(pageController),
                     ),
                     const VerticalSpacer(16),
 

@@ -1,5 +1,5 @@
+import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/enums.dart';
-import 'package:faircare/models/tour_model.dart';
 import 'package:faircare/views/available_tours/tour_item.dart';
 import 'package:faircare/views/my_sales/app_bar.dart';
 import 'package:faircare/views/my_sales/sales_item.dart';
@@ -62,7 +62,7 @@ class MySalesPage extends StatelessWidget {
                 separatorBuilder: (a, b) => const VerticalSpacer(12),
                 itemCount: 2,
                 itemBuilder: (context, index) {
-                  return TourItem(TourModel(), TourState.completed);
+                  return TourItem(defaultTour, TourState.completed);
                 },
               ),
             ],
