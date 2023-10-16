@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/views/rating_dialog/rating_dialog.dart';
+import 'package:faircare/views/user_dialog/small_circular_rating.dart';
 import 'package:faircare/widgets/app_logo.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/text_button.dart';
@@ -96,21 +98,29 @@ class UserDialog extends StatelessWidget {
                     )
                   ],
                 ),
-                const VerticalSpacer(16),
+                const VerticalSpacer(32),
 
                 // options
-                const ListTile(
-                  title: Text('Meine Bewertungen'),
-                  // leading: Icon(Icons.),
+                ListTile(
+                  title: const Text('Meine Bewertungen'),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
+                  horizontalTitleGap: 0,
+                  leading: const SmallCircularRating(rating: 3.4),
+                  onTap: () {
+                    pop(context);
+                    showRatingDialog(context);
+                  },
                 ),
                 ListTile(
                   title: const Text('Passwort ändern'),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                   horizontalTitleGap: 0,
                   leading: const Icon(Icons.lock, color: MyColors.darkGrey),
                   onTap: () {},
                 ),
                 ListTile(
                   title: const Text('Abmelden'),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                   horizontalTitleGap: 0,
                   leading: const Icon(Icons.logout, color: MyColors.darkGrey),
                   onTap: () {},
@@ -121,6 +131,8 @@ class UserDialog extends StatelessWidget {
           const VerticalSpacer(8),
           const Divider(),
           const VerticalSpacer(8),
+
+          // buttons
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(

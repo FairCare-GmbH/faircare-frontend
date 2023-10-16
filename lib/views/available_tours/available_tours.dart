@@ -1,8 +1,7 @@
-import 'package:faircare/global/colors.dart';
-import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/available_tours/app_bar.dart';
 import 'package:faircare/views/available_tours/filter_chip.dart';
 import 'package:faircare/views/available_tours/tour_item.dart';
+import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
@@ -22,14 +21,7 @@ class AvailableToursPage extends StatelessWidget {
           ),
           children: [
             // filter
-            Text(
-              'Filter',
-              style: style(
-                fontSize: 18,
-                color: MyColors.prime,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            const MyHeading('Filter'),
             const VerticalSpacer(12),
 
             // preferences based filter
@@ -116,14 +108,7 @@ class AvailableToursPage extends StatelessWidget {
             const VerticalSpacer(32),
 
             // tours
-            Text(
-              'Touren',
-              style: style(
-                fontSize: 18,
-                color: MyColors.prime,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            const MyHeading('Touren'),
             const VerticalSpacer(12),
             ListView.separated(
               shrinkWrap: true,

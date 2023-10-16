@@ -1,8 +1,7 @@
-import 'package:faircare/global/colors.dart';
-import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/available_tours/tour_item.dart';
 import 'package:faircare/views/my_sales/app_bar.dart';
 import 'package:faircare/views/my_sales/sales_item.dart';
+import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
@@ -22,14 +21,7 @@ class MySalesPage extends StatelessWidget {
           ),
           children: [
             // overview
-            Text(
-              'Übersicht',
-              style: style(
-                fontSize: 18,
-                color: MyColors.prime,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            const MyHeading('Übersicht'),
             const VerticalSpacer(12),
             SizedBox(
               height: 80,
@@ -59,14 +51,7 @@ class MySalesPage extends StatelessWidget {
             const VerticalSpacer(32),
 
             // completed tours
-            Text(
-              'Abgeschlossene Touren',
-              style: style(
-                fontSize: 18,
-                color: MyColors.prime,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
+            const MyHeading('Abgeschlossene Touren'),
             const VerticalSpacer(12),
             ListView.separated(
               shrinkWrap: true,
