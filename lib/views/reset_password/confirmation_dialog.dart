@@ -24,9 +24,9 @@ class ResetPasswordDialog extends StatelessWidget {
           ),
           const VerticalSpacer(16),
           Text(
-            'Hiermit brichst du deine Anfrage ab. '
-            'Die Tour wird wieder freigegeben und aus deinen '
-            'Touren entfernt.',
+            'Hiermit wird dein Passwort zurückgesetzt. '
+            'Du bekommst von uns eine E-Mail mit einem '
+            'entsprechenden Link.',
             style: style(
               color: MyColors.darkGrey,
               height: 1.4,

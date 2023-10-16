@@ -1,12 +1,12 @@
 import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/user_dialog/user_image.dart';
-import 'package:faircare/widgets/notification_button.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
-class AvailableToursAppBar extends StatelessWidget {
-  const AvailableToursAppBar({Key? key}) : super(key: key);
+class ToursDetailsAppBar extends StatelessWidget {
+  const ToursDetailsAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,32 +20,22 @@ class AvailableToursAppBar extends StatelessWidget {
               const HorizontalSpacer(12),
               Expanded(
                 child: Text(
-                  'Offene Touren',
+                  'FS01040001',
                   style: style(
                     color: MyColors.black,
                     fontSize: 20,
                   ),
                 ),
               ),
-              const NotificationButton(),
-              const SearchButton(),
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => pop(context),
+              )
             ],
           ),
         ),
         const Divider(height: 8),
       ],
-    );
-  }
-}
-
-class SearchButton extends StatelessWidget {
-  const SearchButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.search),
-      onPressed: () {},
     );
   }
 }

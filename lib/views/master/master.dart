@@ -29,7 +29,7 @@ class _MasterPageState extends State<MasterPage> {
       },
       child: SafeArea(
         child: Scaffold(
-          body: tabs[1],
+          body: tabs[0],
           bottomNavigationBar: const BottomNavBar(),
         ),
       ),

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/views/login/login.dart';
 import 'package:faircare/views/rating_dialog/rating_dialog.dart';
 import 'package:faircare/views/user_dialog/small_circular_rating.dart';
 import 'package:faircare/widgets/app_logo.dart';
@@ -123,7 +124,9 @@ class UserDialog extends StatelessWidget {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                   horizontalTitleGap: 0,
                   leading: const Icon(Icons.logout, color: MyColors.darkGrey),
-                  onTap: () {},
+                  onTap: () {
+                    navigateRemove(context, const LoginPage());
+                  },
                 ),
               ],
             ),

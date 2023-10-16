@@ -17,14 +17,13 @@ class MySalesAppBar extends StatelessWidget {
           child: Row(
             children: [
               const UserImage(),
-              const HorizontalSpacer(8),
+              const HorizontalSpacer(12),
               Expanded(
                 child: Text(
                   'Meine Umsätze',
                   style: style(
                     color: MyColors.black,
                     fontSize: 20,
-                    fontWeight: FontWeight.w500,
                   ),
                 ),
               ),
@@ -33,7 +32,7 @@ class MySalesAppBar extends StatelessWidget {
             ],
           ),
         ),
-        const Divider(),
+        const Divider(height: 8),
       ],
     );
   }

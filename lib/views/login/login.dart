@@ -1,6 +1,7 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/views/master/master.dart';
 import 'package:faircare/views/register/register.dart';
 import 'package:faircare/views/reset_password/reset_password.dart';
 import 'package:faircare/widgets/app_logo.dart';
@@ -98,7 +99,9 @@ class _LoginPageState extends State<LoginPage> {
                     // login button
                     Button(
                       'Anmelden',
-                      onPressed: () {},
+                      onPressed: () {
+                        navigate(context, const MasterPage());
+                      },
                     ),
                     const VerticalSpacer(24),
 

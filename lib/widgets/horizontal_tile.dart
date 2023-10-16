@@ -1,16 +1,18 @@
+import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalTile extends StatelessWidget {
-  final String text, selectedText;
-  final IconData? icon;
+  final String text;
+  final String mainText, secondaryText;
+  final Color secondaryColor;
   final void Function()? onTap;
 
   const HorizontalTile(
     this.text, {
-    this.icon,
-    this.selectedText = '',
+    required this.mainText,
+    this.secondaryText = '',
+    this.secondaryColor = MyColors.prime,
     this.onTap,
     Key? key,
   }) : super(key: key);
@@ -20,31 +22,31 @@ class HorizontalTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          vertical: 16,
-          horizontal: 16,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 16),
         child: Row(
           children: [
-            if (icon != null) Icon(icon, size: 24),
-            if (icon != null) const HorizontalSpacer(12),
-            Text(
-              text,
-              style: style(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
+            Expanded(
+              child: Text(
+                text,
+                style: style(fontSize: 16),
               ),
             ),
-            const Spacer(),
             Text(
-              selectedText,
+              secondaryText,
               style: style(
                 fontSize: 16,
-                fontWeight: FontWeight.w300,
+                fontWeight: FontWeight.w500,
+                color: secondaryColor,
               ),
             ),
-            const HorizontalSpacer(6),
-            const Icon(Icons.chevron_right),
+            Text(
+              mainText,
+              style: style(
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                color: MyColors.prime,
+              ),
+            ),
           ],
         ),
       ),

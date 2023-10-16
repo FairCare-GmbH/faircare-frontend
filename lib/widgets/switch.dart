@@ -1,28 +1,54 @@
+import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:flutter/material.dart';
+import 'package:faircare/widgets/spacer.dart';
+import 'package:flutter/cupertino.dart';
 
 class MySwitch extends StatelessWidget {
   final String text;
-  final bool value;
+  final bool value, absorb;
   final void Function(bool?)? onChanged;
 
-  const MySwitch({
-    required this.text,
+  const MySwitch(
+    this.text, {
     required this.value,
+    this.absorb = false,
     this.onChanged,
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SwitchListTile(
-      contentPadding: EdgeInsets.zero,
-      title: Text(
-        text,
-        style: style(fontSize: 16),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: AbsorbPointer(
+        absorbing: absorb,
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                text,
+                style: style(fontSize: 16),
+              ),
+            ),
+            const HorizontalSpacer(6),
+            Transform.scale(
+              scale: 0.9,
+              child: CupertinoSwitch(
+                value: value,
+                activeColor: MyColors.prime,
+                thumbColor:
+                    value ? MyColors.primeLight : MyColors.blueGreyLight,
+                trackColor: MyColors.blueGreyDark,
+                onChanged: (value) {
+                  if (onChanged != null) {
+                    onChanged!(value);
+                  }
+                },
+              ),
+            ),
+          ],
+        ),
       ),
-      value: value,
-      onChanged: onChanged,
     );
   }
 }
