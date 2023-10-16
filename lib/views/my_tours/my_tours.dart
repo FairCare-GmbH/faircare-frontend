@@ -11,41 +11,45 @@ class MyToursPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         const MyToursAppBar(),
-        ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.symmetric(
-            vertical: 12,
-            horizontal: 16,
-          ),
-          children: [
-            // requested tours
-            const MyHeading('Angefragt'),
-            const VerticalSpacer(12),
-            ListView.separated(
-              shrinkWrap: true,
-              separatorBuilder: (a, b) => const VerticalSpacer(12),
-              itemCount: 2,
-              itemBuilder: (context, index) {
-                return TourItem(TourModel(), TourState.requested);
-              },
+        Expanded(
+          child: ListView(
+            shrinkWrap: true,
+            padding: const EdgeInsets.symmetric(
+              vertical: 12,
+              horizontal: 16,
             ),
-            const VerticalSpacer(32),
+            children: [
+              // requested tours
+              const MyHeading('Angefragt'),
+              const VerticalSpacer(12),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                separatorBuilder: (a, b) => const VerticalSpacer(12),
+                itemCount: 2,
+                itemBuilder: (context, index) {
+                  return TourItem(TourModel(), TourState.requested);
+                },
+              ),
+              const VerticalSpacer(32),
 
-            // assigned tours
-            const MyHeading('Zugewiesen'),
-            const VerticalSpacer(12),
-            ListView.separated(
-              shrinkWrap: true,
-              separatorBuilder: (a, b) => const VerticalSpacer(12),
-              itemCount: 2,
-              itemBuilder: (context, index) {
-                return TourItem(TourModel(), TourState.assigned);
-              },
-            ),
-          ],
+              // assigned tours
+              const MyHeading('Zugewiesen'),
+              const VerticalSpacer(12),
+              ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                separatorBuilder: (a, b) => const VerticalSpacer(12),
+                itemCount: 2,
+                itemBuilder: (context, index) {
+                  return TourItem(TourModel(), TourState.assigned);
+                },
+              ),
+            ],
+          ),
         )
       ],
     );

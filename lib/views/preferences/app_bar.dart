@@ -2,11 +2,12 @@ import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/user_dialog/user_image.dart';
 import 'package:faircare/widgets/notification_button.dart';
+import 'package:faircare/widgets/snack_bar.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
-class MySalesAppBar extends StatelessWidget {
-  const MySalesAppBar({Key? key}) : super(key: key);
+class PreferencesAppBar extends StatelessWidget {
+  const PreferencesAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,7 @@ class MySalesAppBar extends StatelessWidget {
               const HorizontalSpacer(12),
               Expanded(
                 child: Text(
-                  'Meine Umsätze',
+                  'Präferenzen',
                   style: style(
                     color: MyColors.black,
                     fontSize: 20,
@@ -28,7 +29,7 @@ class MySalesAppBar extends StatelessWidget {
                 ),
               ),
               const NotificationButton(),
-              const FilterButton(),
+              const SaveButton(),
             ],
           ),
         ),
@@ -38,14 +39,20 @@ class MySalesAppBar extends StatelessWidget {
   }
 }
 
-class FilterButton extends StatelessWidget {
-  const FilterButton({Key? key}) : super(key: key);
+class SaveButton extends StatelessWidget {
+  const SaveButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      icon: const Icon(Icons.filter_alt),
-      onPressed: () {},
+      icon: const Icon(Icons.save),
+      onPressed: () {
+        showSnackBar(
+          context,
+          'Präferenzen gespeichert',
+          icon: Icons.save,
+        );
+      },
     );
   }
 }

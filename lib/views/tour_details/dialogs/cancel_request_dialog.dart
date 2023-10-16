@@ -41,7 +41,7 @@ class CancelRequestDialog extends StatelessWidget {
                 onTap: () {},
               ),
               Button(
-                'Abbrechen',
+                'Zurückziehen',
                 width: 140,
                 height: 40,
                 textSize: 14,

@@ -26,7 +26,7 @@ class RequestDialog extends StatelessWidget {
           Text(
             'Hiermit bestätigst du, dass du die Tour verbindlich '
             'anfragen möchtest. Du hast deine Verfügbarkeit '
-            'sichergestellt und kannst alle Leistungen übernehmen',
+            'sichergestellt und kannst alle Leistungen übernehmen.',
             style: style(
               color: MyColors.darkGrey,
               height: 1.4,

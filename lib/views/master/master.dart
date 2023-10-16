@@ -1,9 +1,12 @@
+import 'package:faircare/blocs/navbar/nav_bar_cubit.dart';
 import 'package:faircare/views/available_tours/available_tours.dart';
 import 'package:faircare/views/master/bottom_nav_bar.dart';
 import 'package:faircare/views/my_sales/my_sales.dart';
 import 'package:faircare/views/my_tours/my_tours.dart';
+import 'package:faircare/views/preferences/preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MasterPage extends StatefulWidget {
   const MasterPage({Key? key}) : super(key: key);
@@ -17,7 +20,7 @@ class _MasterPageState extends State<MasterPage> {
     const AvailableToursPage(),
     const MyToursPage(),
     const MySalesPage(),
-    const AvailableToursPage(),
+    const PreferencesPage(),
   ];
 
   @override
@@ -29,7 +32,11 @@ class _MasterPageState extends State<MasterPage> {
       },
       child: SafeArea(
         child: Scaffold(
-          body: tabs[0],
+          body: BlocBuilder<NavBarCubit, int>(
+            builder: (context, state) {
+              return tabs[state];
+            },
+          ),
           bottomNavigationBar: const BottomNavBar(),
         ),
       ),
