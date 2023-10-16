@@ -20,10 +20,7 @@ class MyTextButton extends StatelessWidget {
       onTap: onTap,
       child: Text(
         text,
-        style: style(
-          fontSize: 14,
-          color: color,
-        ),
+        style: style(fontSize: 14, color: color),
       ),
     );
   }

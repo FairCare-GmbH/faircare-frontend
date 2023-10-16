@@ -1,4 +1,5 @@
 import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/notifications/notification_item.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -13,11 +14,18 @@ class NotificationsPage extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          leading: const Icon(CupertinoIcons.back),
+          leading: IconButton(
+            onPressed: () => pop(context),
+            icon: const Icon(CupertinoIcons.back, size: 28),
+          ),
           centerTitle: true,
           title: Text(
-            'Notifications',
-            style: style(fontSize: 18, color: MyColors.black),
+            'Updates',
+            style: style(
+              fontSize: 20,
+              color: MyColors.black,
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
         body: ListView.separated(

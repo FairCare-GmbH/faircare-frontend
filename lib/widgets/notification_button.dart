@@ -1,4 +1,6 @@
 import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/global.dart';
+import 'package:faircare/views/notifications/notifications.dart';
 import 'package:flutter/material.dart';
 
 class NotificationButton extends StatelessWidget {
@@ -11,7 +13,9 @@ class NotificationButton extends StatelessWidget {
         Center(
           child: IconButton(
             icon: const Icon(Icons.notifications),
-            onPressed: () {},
+            onPressed: () {
+              navigate(context, const NotificationsPage());
+            },
           ),
         ),
         const Positioned(
