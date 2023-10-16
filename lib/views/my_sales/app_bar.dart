@@ -1,5 +1,6 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/views/my_sales/filter_sales.dart';
 import 'package:faircare/views/user_dialog/user_image.dart';
 import 'package:faircare/widgets/notification_button.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -45,7 +46,9 @@ class FilterButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       icon: const Icon(Icons.filter_alt),
-      onPressed: () {},
+      onPressed: () {
+        showFilterBottomSheet(context);
+      },
     );
   }
 }
