@@ -1,18 +1,27 @@
 import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/models/tour_model.dart';
 import 'package:faircare/views/tour_details/tour_details.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class TourItem extends StatelessWidget {
-  const TourItem({Key? key}) : super(key: key);
+  const TourItem(
+    this.model,
+    this.state, {
+    Key? key,
+  }) : super(key: key);
+
+  final TourModel model;
+  final TourState state;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        navigate(context, const TourDetailsPage());
+        navigate(context, TourDetailsPage(model, state));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),

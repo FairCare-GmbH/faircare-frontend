@@ -5,8 +5,8 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/text_button.dart';
 import 'package:flutter/material.dart';
 
-class ResetPasswordDialog extends StatelessWidget {
-  const ResetPasswordDialog({Key? key}) : super(key: key);
+class CancelGiveBackDialog extends StatelessWidget {
+  const CancelGiveBackDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class ResetPasswordDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Passwort zurücksetzen',
+            'Abgabe abbrechen?',
             style: style(
               fontSize: 20,
               color: MyColors.black,
@@ -24,9 +24,8 @@ class ResetPasswordDialog extends StatelessWidget {
           ),
           const VerticalSpacer(16),
           Text(
-            'Hiermit wird dein Passwort zurückgesetzt. '
-            'Du bekommst von uns eine E-Mail mit einem '
-            'entsprechenden Link.',
+            'Hiermit brichst du die Abgabe der Tour ab. Die Tour '
+            'bleibt dir weiterhin zugewiesen und muss gefahren werden. ',
             style: style(
               color: MyColors.darkGrey,
               height: 1.4,
@@ -41,7 +40,7 @@ class ResetPasswordDialog extends StatelessWidget {
                 onTap: () {},
               ),
               Button(
-                'Zurücksetzen',
+                'Abbrechen',
                 width: 140,
                 height: 40,
                 textSize: 14,
@@ -56,7 +55,7 @@ class ResetPasswordDialog extends StatelessWidget {
   }
 }
 
-void showResetPasswordDialog(BuildContext context) {
+void showCancelGiveBackDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (_) {
@@ -65,7 +64,7 @@ void showResetPasswordDialog(BuildContext context) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        child: const ResetPasswordDialog(),
+        child: const CancelGiveBackDialog(),
       );
     },
   );

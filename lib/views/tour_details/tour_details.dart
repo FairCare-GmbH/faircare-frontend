@@ -1,5 +1,13 @@
+import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/enums.dart';
+import 'package:faircare/models/tour_model.dart';
 import 'package:faircare/views/tour_details/app_bar.dart';
+import 'package:faircare/views/tour_details/dialogs/cancel_give_back_dialog.dart';
+import 'package:faircare/views/tour_details/dialogs/cancel_request_dialog.dart';
+import 'package:faircare/views/tour_details/dialogs/give_back_dialog.dart';
+import 'package:faircare/views/tour_details/dialogs/request_dialog.dart';
 import 'package:faircare/views/tour_details/tour_map.dart';
+import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/horizontal_tile.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -7,7 +15,14 @@ import 'package:faircare/widgets/switch.dart';
 import 'package:flutter/material.dart';
 
 class TourDetailsPage extends StatelessWidget {
-  const TourDetailsPage({Key? key}) : super(key: key);
+  const TourDetailsPage(
+    this.model,
+    this.state, {
+    Key? key,
+  }) : super(key: key);
+
+  final TourModel model;
+  final TourState state;
 
   @override
   Widget build(BuildContext context) {
@@ -23,59 +38,90 @@ class TourDetailsPage extends StatelessWidget {
                   vertical: 12,
                   horizontal: 16,
                 ),
-                children: const [
+                children: [
                   // overview
-                  MyHeading('Übersicht'),
-                  VerticalSpacer(12),
-                  TourMap(),
-                  VerticalSpacer(12),
-                  VerticalSpacer(32),
+                  const MyHeading('Übersicht'),
+                  const VerticalSpacer(12),
+                  const TourMap(),
+                  const VerticalSpacer(12),
+                  const VerticalSpacer(24),
 
                   // planning
-                  MyHeading('Planung'),
-                  VerticalSpacer(12),
-                  HorizontalTile(
+                  const MyHeading('Planung'),
+                  const VerticalSpacer(12),
+                  const HorizontalTile(
                     'Start/Ende',
                     mainText: '08:00 - 11:00',
                   ),
-                  HorizontalTile(
+                  const HorizontalTile(
                     'Vergütung',
                     mainText: '95 €',
                   ),
-                  HorizontalTile(
+                  const HorizontalTile(
                     'Geschätzter Stundenlohn',
                     mainText: '31,66 €',
                   ),
-                  VerticalSpacer(32),
+                  const VerticalSpacer(24),
 
                   // details
-                  MyHeading('Details'),
-                  VerticalSpacer(12),
-                  MySwitch(
+                  const MyHeading('Details'),
+                  const VerticalSpacer(12),
+                  const MySwitch(
                     'Hauswirtschaft',
                     value: true,
                     absorb: true,
                   ),
-                  MySwitch(
+                  const MySwitch(
                     'Wundversorgung',
                     value: true,
                     absorb: true,
                   ),
-                  MySwitch(
+                  const MySwitch(
                     'Grundpflege',
                     value: false,
                     absorb: true,
                   ),
-                  MySwitch(
+                  const MySwitch(
                     'Behandlungspflege',
                     value: false,
                     absorb: true,
                   ),
-                  MySwitch(
+                  const MySwitch(
                     'Infektionskrankheiten',
                     value: false,
                     absorb: true,
                   ),
+                  const VerticalSpacer(12),
+
+                  if (state == TourState.available)
+                    Button(
+                      'Anfragen',
+                      onPressed: () {
+                        showRequestDialog(context);
+                      },
+                    ),
+                  if (state == TourState.requested)
+                    Button(
+                      'Abbrechen',
+                      onPressed: () {
+                        showCancelRequestDialog(context);
+                      },
+                    ),
+                  if (state == TourState.assigned)
+                    Button(
+                      'Abgeben',
+                      onPressed: () {
+                        showGiveBackDialog(context);
+                      },
+                    ),
+                  if (state == TourState.givenBack)
+                    Button(
+                      'Abgabe abbrechen',
+                      buttonColor: MyColors.red,
+                      onPressed: () {
+                        showCancelGiveBackDialog(context);
+                      },
+                    ),
                 ],
               ),
             ),

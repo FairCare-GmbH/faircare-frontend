@@ -17,7 +17,7 @@ class AccountCreationDialog extends StatelessWidget {
           Text(
             'Account in Erstellung',
             style: style(
-              fontSize: 18,
+              fontSize: 20,
               color: MyColors.black,
             ),
           ),

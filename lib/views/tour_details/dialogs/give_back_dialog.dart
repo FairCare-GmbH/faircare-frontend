@@ -5,8 +5,8 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/text_button.dart';
 import 'package:flutter/material.dart';
 
-class ResetPasswordDialog extends StatelessWidget {
-  const ResetPasswordDialog({Key? key}) : super(key: key);
+class GiveBackDialog extends StatelessWidget {
+  const GiveBackDialog({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -16,17 +16,45 @@ class ResetPasswordDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Passwort zurücksetzen',
+            'Tour abgeben?',
             style: style(
               fontSize: 20,
               color: MyColors.black,
             ),
           ),
           const VerticalSpacer(16),
-          Text(
-            'Hiermit wird dein Passwort zurückgesetzt. '
-            'Du bekommst von uns eine E-Mail mit einem '
-            'entsprechenden Link.',
+          Text.rich(
+            TextSpan(
+              text: '',
+              children: [
+                TextSpan(
+                  text: 'Hinweis: ',
+                  style: style(
+                    color: MyColors.darkGrey,
+                    height: 1.4,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                TextSpan(
+                  text: 'Bis zur Umplanung der Tour durch FairCare, '
+                      'muss sie weiter gefahren werden.\n\n',
+                  style: style(color: MyColors.darkGrey, height: 1.4),
+                ),
+                TextSpan(
+                  text: 'In dringenden Fällen oder bei Fragen, stehen wir dir '
+                      'unter der',
+                  style: style(color: MyColors.darkGrey, height: 1.4),
+                ),
+                TextSpan(
+                  text: ' 089-2000 60201 ',
+                  style: style(height: 1.4, color: MyColors.prime),
+                ),
+                TextSpan(
+                  text: 'jederzeit  zur Verfügung.',
+                  style: style(color: MyColors.darkGrey, height: 1.4),
+                ),
+              ],
+            ),
             style: style(
               color: MyColors.darkGrey,
               height: 1.4,
@@ -41,7 +69,7 @@ class ResetPasswordDialog extends StatelessWidget {
                 onTap: () {},
               ),
               Button(
-                'Zurücksetzen',
+                'Abgeben',
                 width: 140,
                 height: 40,
                 textSize: 14,
@@ -56,7 +84,7 @@ class ResetPasswordDialog extends StatelessWidget {
   }
 }
 
-void showResetPasswordDialog(BuildContext context) {
+void showGiveBackDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (_) {
@@ -65,7 +93,7 @@ void showResetPasswordDialog(BuildContext context) {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        child: const ResetPasswordDialog(),
+        child: const GiveBackDialog(),
       );
     },
   );

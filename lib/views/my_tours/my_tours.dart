@@ -1,3 +1,5 @@
+import 'package:faircare/global/enums.dart';
+import 'package:faircare/models/tour_model.dart';
 import 'package:faircare/views/available_tours/tour_item.dart';
 import 'package:faircare/views/my_tours/app_bar.dart';
 import 'package:faircare/widgets/heading.dart';
@@ -27,7 +29,7 @@ class MyToursPage extends StatelessWidget {
               separatorBuilder: (a, b) => const VerticalSpacer(12),
               itemCount: 2,
               itemBuilder: (context, index) {
-                return const TourItem();
+                return TourItem(TourModel(), TourState.requested);
               },
             ),
             const VerticalSpacer(32),
@@ -40,7 +42,7 @@ class MyToursPage extends StatelessWidget {
               separatorBuilder: (a, b) => const VerticalSpacer(12),
               itemCount: 2,
               itemBuilder: (context, index) {
-                return const TourItem();
+                return TourItem(TourModel(), TourState.assigned);
               },
             ),
           ],
