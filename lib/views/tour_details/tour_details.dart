@@ -22,7 +22,7 @@ class TourDetailsPage extends StatelessWidget {
   }) : super(key: key);
 
   final TourModel model;
-  final TourState state;
+  final TourType state;
 
   @override
   Widget build(BuildContext context) {
@@ -93,28 +93,28 @@ class TourDetailsPage extends StatelessWidget {
                   ),
                   const VerticalSpacer(12),
 
-                  if (state == TourState.available)
+                  if (state == TourType.available)
                     Button(
                       'Anfragen',
                       onPressed: () {
                         showRequestDialog(context);
                       },
                     ),
-                  if (state == TourState.requested)
+                  if (state == TourType.requested)
                     Button(
                       'Abbrechen',
                       onPressed: () {
                         showCancelRequestDialog(context);
                       },
                     ),
-                  if (state == TourState.assigned)
+                  if (state == TourType.assigned)
                     Button(
                       'Abgeben',
                       onPressed: () {
                         showGiveBackDialog(context);
                       },
                     ),
-                  if (state == TourState.givenBack)
+                  if (state == TourType.givenBack)
                     Button(
                       'Abgabe abbrechen',
                       buttonColor: MyColors.red,

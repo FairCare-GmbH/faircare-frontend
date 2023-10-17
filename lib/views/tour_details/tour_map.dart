@@ -16,8 +16,8 @@ class TourMapState extends State<TourMap> {
       Completer<GoogleMapController>();
 
   static const CameraPosition position = CameraPosition(
-    target: LatLng(37.42796133580664, -122.085749655962),
-    zoom: 14.4746,
+    target: LatLng(37.4279, -122.0857),
+    zoom: 14,
   );
 
   @override
@@ -27,7 +27,7 @@ class TourMapState extends State<TourMap> {
         SizedBox(
           height: 200,
           child: GoogleMap(
-            mapType: MapType.hybrid,
+            mapType: MapType.normal,
             zoomControlsEnabled: false,
             initialCameraPosition: position,
             onMapCreated: (GoogleMapController c) {
@@ -40,8 +40,8 @@ class TourMapState extends State<TourMap> {
           bottom: 32,
           right: 32,
           child: Container(
-            height: 140,
-            width: 140,
+            height: 136,
+            width: 136,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               border: Border.all(color: MyColors.prime, width: 4),

@@ -1,4 +1,5 @@
 import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,16 @@ void showFilterBottomSheet(BuildContext context) {
             'Akueller Monat',
             Icons.date_range,
             selected: true,
-            onTap: () {},
+            onTap: () {
+              pop(context);
+            },
           ),
           FilterItem(
             'Alle Touren',
             Icons.calendar_today,
-            onTap: () {},
+            onTap: () {
+              pop(context);
+            },
           ),
         ],
       );

@@ -62,7 +62,7 @@ class MySalesPage extends StatelessWidget {
                 separatorBuilder: (a, b) => const VerticalSpacer(12),
                 itemCount: 2,
                 itemBuilder: (context, index) {
-                  return TourItem(defaultTour, TourState.completed);
+                  return TourItem(defaultTour, TourType.completed);
                 },
               ),
             ],

@@ -25,8 +25,10 @@ class AccountCreationDialog extends StatelessWidget {
           ),
           const VerticalSpacer(16),
           Text(
-            'Vielen Dank, dass du dich bei uns an-gemeldet hast. Wir werden deine Angaben innerhalb von 24h prüfen und dich bzgl. deiner Anmeldedaten kontaktieren.',
-            style: style(color: MyColors.darkGrey),
+            'Vielen Dank, dass du dich bei uns angemeldet hast. '
+            'Wir werden deine Angaben innerhalb von 24h prüfen '
+            'und dich bzgl. deiner Anmeldedaten kontaktieren.',
+            style: style(color: MyColors.darkGrey, height: 1.4),
           ),
           const VerticalSpacer(16),
           Text.rich(
@@ -35,11 +37,11 @@ class AccountCreationDialog extends StatelessWidget {
               children: [
                 TextSpan(
                   text: '089-2000 60201',
-                  style: style(color: MyColors.prime),
+                  style: style(color: MyColors.prime, height: 1.4),
                 ),
               ],
             ),
-            style: style(color: MyColors.darkGrey),
+            style: style(color: MyColors.darkGrey, height: 1.4),
           ),
           const VerticalSpacer(20),
           Button(

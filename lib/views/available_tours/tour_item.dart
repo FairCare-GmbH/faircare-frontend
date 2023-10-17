@@ -15,7 +15,7 @@ class TourItem extends StatelessWidget {
   }) : super(key: key);
 
   final TourModel model;
-  final TourState state;
+  final TourType state;
 
   @override
   Widget build(BuildContext context) {

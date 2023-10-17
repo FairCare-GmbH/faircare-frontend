@@ -21,7 +21,7 @@ class IntroNextButton extends StatelessWidget {
               navigateRemove(context, const LoginPage());
             } else {
               controller.nextPage(
-                duration: const Duration(milliseconds: 100),
+                duration: const Duration(milliseconds: 500),
                 curve: Curves.easeInOut,
               );
             }

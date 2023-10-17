@@ -20,7 +20,7 @@ class RegisterNextButton extends StatelessWidget {
               showAccountCreationDialog(context);
             } else {
               controller.nextPage(
-                duration: const Duration(milliseconds: 100),
+                duration: const Duration(milliseconds: 500),
                 curve: Curves.easeInOut,
               );
             }
