@@ -1,6 +1,5 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/views/master/bottom_nav_item.dart';
-import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
