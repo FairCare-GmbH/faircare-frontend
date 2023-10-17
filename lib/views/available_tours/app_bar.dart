@@ -57,7 +57,13 @@ class AvailableToursAppBar extends StatelessWidget {
                   context.read<AvailableToursSearchCubit>().hideSearch();
                 },
               ),
-            const Divider(height: 8),
+
+            // divider
+            const Divider(
+              height: 8,
+              color: MyColors.border,
+              thickness: 1,
+            ),
           ],
         );
       },

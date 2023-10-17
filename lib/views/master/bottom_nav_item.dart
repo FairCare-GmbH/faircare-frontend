@@ -26,23 +26,27 @@ class BottomNavItem extends StatelessWidget {
             onTap: () {
               BlocProvider.of<NavBarCubit>(context).setIndex(index);
             },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  icon,
-                  color: index == state ? MyColors.prime : MyColors.darkGrey,
-                ),
-                const VerticalSpacer(4),
-                Text(
-                  text,
-                  overflow: TextOverflow.ellipsis,
-                  style: style(
-                    fontSize: 12,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    icon,
                     color: index == state ? MyColors.prime : MyColors.darkGrey,
                   ),
-                ),
-              ],
+                  const VerticalSpacer(4),
+                  Text(
+                    text,
+                    overflow: TextOverflow.ellipsis,
+                    style: style(
+                      fontSize: 12,
+                      color:
+                          index == state ? MyColors.prime : MyColors.darkGrey,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );

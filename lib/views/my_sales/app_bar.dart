@@ -1,6 +1,5 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/views/my_sales/filter_sales.dart';
 import 'package:faircare/views/user_dialog/user_image.dart';
 import 'package:faircare/widgets/notification_button.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -29,26 +28,17 @@ class MySalesAppBar extends StatelessWidget {
                 ),
               ),
               const NotificationButton(),
-              const FilterButton(),
             ],
           ),
         ),
-        const Divider(height: 8),
+
+        // divider
+        const Divider(
+          height: 8,
+          color: MyColors.border,
+          thickness: 1,
+        ),
       ],
-    );
-  }
-}
-
-class FilterButton extends StatelessWidget {
-  const FilterButton({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.filter_alt),
-      onPressed: () {
-        showFilterBottomSheet(context);
-      },
     );
   }
 }

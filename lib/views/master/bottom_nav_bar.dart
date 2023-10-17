@@ -1,4 +1,6 @@
+import 'package:faircare/global/colors.dart';
 import 'package:faircare/views/master/bottom_nav_item.dart';
+import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -7,33 +9,42 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 56,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
-        child: Row(
-          children: const [
-            BottomNavItem(
-              text: 'Offene Touren',
-              icon: Icons.location_on,
-              index: 0,
+      height: 72,
+      child: Column(
+        children: [
+          const Divider(
+            height: 1,
+            thickness: 1,
+            color: MyColors.border,
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              children: const [
+                BottomNavItem(
+                  text: 'Offene Touren',
+                  icon: Icons.location_on,
+                  index: 0,
+                ),
+                BottomNavItem(
+                  text: 'Meine Touren',
+                  icon: Icons.person_pin_circle,
+                  index: 1,
+                ),
+                BottomNavItem(
+                  text: 'Meine Umsätze',
+                  icon: Icons.bar_chart,
+                  index: 2,
+                ),
+                BottomNavItem(
+                  text: 'Präferenzen',
+                  icon: Icons.settings,
+                  index: 3,
+                ),
+              ],
             ),
-            BottomNavItem(
-              text: 'Meine Touren',
-              icon: Icons.person_pin_circle,
-              index: 1,
-            ),
-            BottomNavItem(
-              text: 'Meine Umsätze',
-              icon: Icons.bar_chart,
-              index: 2,
-            ),
-            BottomNavItem(
-              text: 'Präferenzen',
-              icon: Icons.settings,
-              index: 3,
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
