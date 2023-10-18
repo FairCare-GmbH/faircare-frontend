@@ -1,13 +1,12 @@
-import 'package:faircare/global/colors.dart';
-import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/preferences/app_bar.dart';
+import 'package:faircare/views/preferences/sections/desired_hours.dart';
+import 'package:faircare/views/preferences/sections/desired_tours.dart';
+import 'package:faircare/views/preferences/sections/vacations.dart';
 import 'package:faircare/widgets/dropdown.dart';
 import 'package:faircare/widgets/heading.dart';
-import 'package:faircare/widgets/hours_slider.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/switch.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_xlider/flutter_xlider.dart';
 
 class PreferencesPage extends StatefulWidget {
   const PreferencesPage({Key? key}) : super(key: key);
@@ -89,15 +88,18 @@ class _PreferencesPageState extends State<PreferencesPage> {
 
               // availability
               const MyHeading('Verfügbarkeiten'),
-              const VerticalSpacer(12),
+              const VerticalSpacer(20),
 
-              // select hours range
-              HoursSlider(
-                min: 0,
-                max: 100,
-                selectedRange: const RangeValues(30, 70),
-                onChanged: (val) {},
-              ),
+              // desired hours
+              const DesiredHours(),
+              const VerticalSpacer(32),
+
+              // desired tours
+              const DesiredTours(),
+              const VerticalSpacer(32),
+
+              // vacations
+              const Vacations(),
             ],
           ),
         )

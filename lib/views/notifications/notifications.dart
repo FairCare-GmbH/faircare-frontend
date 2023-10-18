@@ -31,7 +31,7 @@ class NotificationsPage extends StatelessWidget {
         body: ListView.separated(
           padding: const EdgeInsets.all(16),
           shrinkWrap: true,
-          separatorBuilder: (a, b) => const VerticalSpacer(12),
+          separatorBuilder: (a, b) => const VerticalSpacer(10),
           itemCount: 3,
           itemBuilder: (context, index) {
             return const NotificationItem();

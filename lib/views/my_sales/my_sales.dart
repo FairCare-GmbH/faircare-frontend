@@ -99,7 +99,7 @@ class MySalesPage extends StatelessWidget {
               ListView.separated(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (a, b) => const VerticalSpacer(12),
+                separatorBuilder: (a, b) => const VerticalSpacer(10),
                 itemCount: 2,
                 itemBuilder: (context, index) {
                   return TourItem(defaultTour, TourType.completed);

@@ -19,3 +19,17 @@ class MyHeading extends StatelessWidget {
     );
   }
 }
+
+class Subheading extends StatelessWidget {
+  const Subheading(this.text, {Key? key}) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(
+      text,
+      style: style(fontSize: 16, color: MyColors.darkGrey),
+    );
+  }
+}

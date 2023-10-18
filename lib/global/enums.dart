@@ -6,4 +6,6 @@ enum TourType {
   completed,
 }
 
+enum VacationType { old, accepted, pending }
+
 enum SearchState { none, search }
