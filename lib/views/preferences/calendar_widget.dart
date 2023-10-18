@@ -81,10 +81,14 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   final list = [
     ...List.generate(
       31,
-      (i) => {
-        'date': i + 1,
-        'type': Random().nextInt(4), // f, s, fs etc
-        'state': Random().nextInt(5), // free, vacation etc
+      (i) {
+        var type = Random().nextInt(4);
+        var state = Random().nextInt(5);
+        return {
+          'date': i + 1,
+          'type': type, // f, s, fs etc
+          'state': state, // free, vacation etc
+        };
       },
     ),
   ];
@@ -148,7 +152,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             ),
 
           // U
-          if ((type == 0) && state != 0)
+          if (type == 0)
             Positioned(
               bottom: 0,
               right: 0,
@@ -157,7 +161,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 child: Container(height: 18),
               ),
             ),
-          if ((type == 0) && state != 0)
+          if (type == 0)
             Positioned(
               bottom: 0,
               right: 0,
@@ -187,18 +191,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               ),
             ),
 
-          Positioned(
-            // top: -0.35,
-            // right: -0.35,
-            // left: -0.35,
-            // bottom: -0.35,
-            child: Container(
-              decoration: BoxDecoration(
-                color: getBgColor(state),
-                border: Border.all(
-                  color: MyColors.black,
-                  width: 0.1,
-                ),
+          Container(
+            decoration: BoxDecoration(
+              color: getBgColor(state),
+              border: Border.all(
+                color: MyColors.black,
+                width: 0.1,
               ),
             ),
           ),
@@ -225,18 +223,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Positioned(
-            // top: -0.35,
-            // right: -0.35,
-            // left: -0.35,
-            // bottom: -0.35,
-            child: Container(
-              decoration: BoxDecoration(
-                color: MyColors.border,
-                border: Border.all(
-                  color: MyColors.grey,
-                  width: 0.1,
-                ),
+          Container(
+            decoration: BoxDecoration(
+              color: MyColors.border,
+              border: Border.all(
+                color: MyColors.grey,
+                width: 0.1,
               ),
             ),
           ),

@@ -98,6 +98,15 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
     return MyColors.border;
   }
 
+  Color getBgColor(int state) {
+    if (state == 0) return MyColors.white;
+    if (state == 1) return MyColors.green.withOpacity(0.2);
+    if (state == 2) return MyColors.prime.withOpacity(0.2);
+    if (state == 3) return MyColors.red.withOpacity(0.2);
+    if (state == 4) return MyColors.white;
+    return MyColors.white;
+  }
+
   Color getDateColor(int state) {
     if (state == 0) return MyColors.darkGrey;
     if (state == 1) return MyColors.green;
@@ -179,22 +188,16 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
               ),
             ),
 
-          Positioned(
-            top: -0.35,
-            right: -0.35,
-            left: -0.35,
-            bottom: -0.35,
-            child: Container(
-              decoration: BoxDecoration(
-                color: date == 29 || date == 31
-                    ? MyColors.blueGreyDark
-                    : date == 30
-                        ? MyColors.blueGrey
-                        : Colors.transparent,
-                border: Border.all(
-                  color: getColor(state),
-                  width: 0.7,
-                ),
+          Container(
+            decoration: BoxDecoration(
+              color: date == 29 || date == 31
+                  ? MyColors.blueGreyDark
+                  : date == 30
+                      ? MyColors.blueGrey
+                      : getBgColor(state),
+              border: Border.all(
+                color: getColor(state),
+                width: 0.1,
               ),
             ),
           ),
@@ -223,18 +226,12 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Positioned(
-            top: -0.35,
-            right: -0.35,
-            left: -0.35,
-            bottom: -0.35,
-            child: Container(
-              decoration: BoxDecoration(
-                color: MyColors.border,
-                border: Border.all(
-                  color: MyColors.grey,
-                  width: 0.7,
-                ),
+          Container(
+            decoration: BoxDecoration(
+              color: MyColors.border,
+              border: Border.all(
+                color: MyColors.grey,
+                width: 0.1,
               ),
             ),
           ),
