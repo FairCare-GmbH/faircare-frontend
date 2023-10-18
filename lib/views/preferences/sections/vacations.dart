@@ -1,5 +1,7 @@
 import 'package:faircare/global/enums.dart';
+import 'package:faircare/global/global.dart';
 import 'package:faircare/views/preferences/vacation_item.dart';
+import 'package:faircare/views/request_vacation/request_vacation.dart';
 import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -29,7 +31,9 @@ class Vacations extends StatelessWidget {
         const VerticalSpacer(12),
         Button(
           'Urlaub beantragen',
-          onPressed: () {},
+          onPressed: () {
+            navigate(context, const RequestVacationPage());
+          },
         ),
       ],
     );
