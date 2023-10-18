@@ -4,6 +4,7 @@ import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/available_tours/tour_item.dart';
+import 'package:faircare/views/request_vacation/calendar_widget.dart';
 import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -35,6 +36,10 @@ class RequestVacationPage extends StatelessWidget {
         body: ListView(
           padding: const EdgeInsets.all(16),
           children: [
+            // calendar
+            const VacationCalendarWidget(),
+            const VerticalSpacer(16),
+
             // from-to dates
             Row(
               children: [
@@ -78,7 +83,7 @@ class RequestVacationPage extends StatelessWidget {
                 ),
               ],
             ),
-            const VerticalSpacer(12),
+            const VerticalSpacer(16),
 
             // selected vacation dates
             Row(
@@ -87,18 +92,18 @@ class RequestVacationPage extends StatelessWidget {
                   'Ausgewählte Urlaubstage',
                   style: style(fontSize: 16),
                 ),
-                const HorizontalSpacer(8),
+                const HorizontalSpacer(12),
                 Text(
                   '3 / 22',
                   style: style(
                     fontSize: 16,
-                    color: MyColors.prime,
+                    color: MyColors.darkGrey,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
               ],
             ),
-            const VerticalSpacer(12),
+            const VerticalSpacer(16),
 
             // offered tours
             const Subheading('Folgende Touren werden dabei abgegeben:'),

@@ -9,14 +9,14 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class CalendarWidget extends StatefulWidget {
-  const CalendarWidget({Key? key}) : super(key: key);
+class VacationCalendarWidget extends StatefulWidget {
+  const VacationCalendarWidget({Key? key}) : super(key: key);
 
   @override
-  State<CalendarWidget> createState() => _CalendarWidgetState();
+  State<VacationCalendarWidget> createState() => _VacationCalendarWidgetState();
 }
 
-class _CalendarWidgetState extends State<CalendarWidget> {
+class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -110,6 +110,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   Widget? myCalendarBuilder(
       BuildContext context, DateTime day, DateTime focusedDay) {
     final item = list[day.day - 1];
+    final date = item['date']!;
     final type = item['type']!;
     final state = item['state']!;
 
@@ -185,6 +186,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             bottom: -0.35,
             child: Container(
               decoration: BoxDecoration(
+                color: date == 29 || date == 31
+                    ? MyColors.blueGreyDark
+                    : date == 30
+                        ? MyColors.blueGrey
+                        : Colors.transparent,
                 border: Border.all(
                   color: getColor(state),
                   width: 0.7,
@@ -198,7 +204,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             child: Text(
               DateFormat('d').format(day),
               style: style(
-                color: getDateColor(state),
+                color: date == 29 || date == 30 || date == 31
+                    ? MyColors.white
+                    : getDateColor(state),
                 fontSize: 16,
               ),
             ),
