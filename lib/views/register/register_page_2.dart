@@ -2,6 +2,7 @@ import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/checkbox_tile.dart';
 import 'package:faircare/widgets/dropdown.dart';
+import 'package:faircare/widgets/hours_slider.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/text_button.dart';
 import 'package:flutter/material.dart';
@@ -70,17 +71,11 @@ class _RegisterSecondPageState extends State<RegisterSecondPage> {
         const VerticalSpacer(0),
 
         // select hours range
-        RangeSlider(
-          values: hoursRange,
+        HoursSlider(
           min: 0,
           max: 100,
-          labels: RangeLabels(
-            hoursRange.start.round().toString(),
-            hoursRange.end.round().toString(),
-          ),
-          activeColor: MyColors.prime,
-          inactiveColor: MyColors.border,
-          onChanged: (RangeValues values) {},
+          selectedRange: const RangeValues(30, 70),
+          onChanged: (val) {},
         ),
         const VerticalSpacer(0),
 

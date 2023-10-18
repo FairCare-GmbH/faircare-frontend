@@ -24,6 +24,7 @@ dependencies:
   google_maps_flutter: ^2.3.0
   equatable: ^2.0.5
   intl: ^0.18.1
+  flutter_xlider: ^3.5.0
 
 dev_dependencies:
   flutter_test:
