@@ -50,7 +50,7 @@ class GiveBackDialog extends StatelessWidget {
                   style: style(height: 1.4, color: MyColors.prime),
                 ),
                 TextSpan(
-                  text: 'jederzeit  zur Verfügung.',
+                  text: 'jederzeit zur Verfügung.',
                   style: style(color: MyColors.darkGrey, height: 1.4),
                 ),
               ],

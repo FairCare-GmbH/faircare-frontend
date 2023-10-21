@@ -64,9 +64,9 @@ class _LoginPageState extends State<LoginPage> {
                       hint: 'Passwort',
                       obscure: true,
                       controller: passwordController,
-                      suffixWidget: Column(
+                      suffixWidget: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
+                        children: [
                           SvgIcon(
                             icon: 'hide',
                             color: MyColors.darkGrey,
@@ -110,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          'Noch kein Account? ',
+                          'Noch keinen Account? ',
                           style: style(fontSize: 14),
                         ),
                         MyTextButton(

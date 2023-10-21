@@ -16,7 +16,7 @@ class CancelRequestDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Anfrage abbrechen?',
+            'Anfrage zurückziehen?',
             style: style(
               fontSize: 20,
               color: MyColors.black,

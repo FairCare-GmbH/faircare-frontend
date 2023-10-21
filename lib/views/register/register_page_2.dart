@@ -105,16 +105,24 @@ class _RegisterSecondPageState extends State<RegisterSecondPage> {
         // earnings
         Text.rich(
           TextSpan(
-            text: 'Entspricht einem geschätzen durchschnittlichen '
+            text: 'Entspricht einem geschätzen '
                 'Monatsgehalt von ca. ',
             children: [
               TextSpan(
                 text: '960 € - 1920 €',
-                style: style(color: MyColors.prime, fontSize: 13),
+                style: style(
+                  color: MyColors.prime,
+                  fontSize: 14,
+                  height: 1.4,
+                ),
               ),
             ],
           ),
-          style: style(color: MyColors.grey, fontSize: 13),
+          style: style(
+            color: MyColors.grey,
+            fontSize: 14,
+            height: 1.4,
+          ),
         ),
         const VerticalSpacer(24),
 

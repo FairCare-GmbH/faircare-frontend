@@ -29,7 +29,7 @@ class SearchField extends StatelessWidget {
             vertical: 13,
           ),
           border: InputBorder.none,
-          hintText: 'Search',
+          hintText: 'Suche',
           hintStyle: style(fontSize: 18),
           prefixIcon: const Icon(Icons.search, color: MyColors.black),
           suffixIcon: InkWell(

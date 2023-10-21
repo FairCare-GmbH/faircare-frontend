@@ -14,6 +14,7 @@ class IntroPages extends StatelessWidget {
     return Flexible(
       child: PageView(
         controller: controller,
+        physics: const NeverScrollableScrollPhysics(),
         children: const [
           IntroFirstPage(),
           IntroDetailsPage(

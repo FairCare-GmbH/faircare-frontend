@@ -1,10 +1,8 @@
-import 'package:intl/intl.dart';
-
 class TourModel {
   final int id;
   final int ownerNurseId;
-  final String fromTime;
-  final String toTime;
+  final String plannedFromTime;
+  final String plannedToTime;
   final bool hasInfectiousDisease;
   final bool hasMedicalCare;
   final bool hasBasicCare;
@@ -17,16 +15,16 @@ class TourModel {
   final double centerLatitude;
   final int revenue;
   final int maximumCareRadius;
-  final int careDuration;
-  final int commuteDuration;
+  final String actualFromTime;
+  final String actualToTime;
   final DateTime fromDate;
   final DateTime toDate;
 
   TourModel({
     required this.id,
     required this.ownerNurseId,
-    required this.fromTime,
-    required this.toTime,
+    required this.plannedFromTime,
+    required this.plannedToTime,
     required this.hasInfectiousDisease,
     required this.hasMedicalCare,
     required this.hasBasicCare,
@@ -39,8 +37,8 @@ class TourModel {
     required this.centerLatitude,
     required this.revenue,
     required this.maximumCareRadius,
-    required this.careDuration,
-    required this.commuteDuration,
+    required this.actualFromTime,
+    required this.actualToTime,
     required this.fromDate,
     required this.toDate,
   });
@@ -49,8 +47,8 @@ class TourModel {
     return TourModel(
       id: json['id'],
       ownerNurseId: json['ownerNurseId'],
-      fromTime: json['fromTime'],
-      toTime: json['toTime'],
+      plannedFromTime: json['plannedFromTime'],
+      plannedToTime: json['plannedToTime'],
       hasInfectiousDisease: json['hasInfectiousDisease'],
       hasMedicalCare: json['hasMedicalCare'],
       hasBasicCare: json['hasBasicCare'],
@@ -63,8 +61,8 @@ class TourModel {
       centerLatitude: json['centerLatitude'],
       revenue: json['revenue'],
       maximumCareRadius: json['maximumCareRadius'],
-      careDuration: json['careDuration'],
-      commuteDuration: json['commuteDuration'],
+      actualFromTime: json['actualFromTime'],
+      actualToTime: json['actualToTime'],
       fromDate: DateTime.parse(json['fromDate']),
       toDate: DateTime.parse(json['toDate']),
     );
@@ -74,8 +72,8 @@ class TourModel {
     return {
       "id": id,
       "ownerNurseId": ownerNurseId,
-      "fromTime": fromTime,
-      "toTime": toTime,
+      "plannedFromTime": plannedFromTime,
+      "plannedToTime": plannedToTime,
       "hasInfectiousDisease": hasInfectiousDisease,
       "hasMedicalCare": hasMedicalCare,
       "hasBasicCare": hasBasicCare,
@@ -88,18 +86,18 @@ class TourModel {
       "centerLatitude": centerLatitude,
       "revenue": revenue,
       "maximumCareRadius": maximumCareRadius,
-      "careDuration": careDuration,
-      "commuteDuration": commuteDuration,
-      "fromDate": DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').format(fromDate),
-      "toDate": DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').format(toDate),
+      "actualFromTime": actualFromTime,
+      "actualToTime": actualToTime,
+      "fromDate": fromDate.toIso8601String(),
+      "toDate": toDate.toIso8601String(),
     };
   }
 
   TourModel copyWith({
     int? id,
     int? ownerNurseId,
-    String? fromTime,
-    String? toTime,
+    String? plannedFromTime,
+    String? plannedToTime,
     bool? hasInfectiousDisease,
     bool? hasMedicalCare,
     bool? hasBasicCare,
@@ -112,16 +110,16 @@ class TourModel {
     double? centerLatitude,
     int? revenue,
     int? maximumCareRadius,
-    int? careDuration,
-    int? commuteDuration,
+    String? actualFromTime,
+    String? actualToTime,
     DateTime? fromDate,
     DateTime? toDate,
   }) {
     return TourModel(
       id: id ?? this.id,
       ownerNurseId: ownerNurseId ?? this.ownerNurseId,
-      fromTime: fromTime ?? this.fromTime,
-      toTime: toTime ?? this.toTime,
+      plannedFromTime: plannedFromTime ?? this.plannedFromTime,
+      plannedToTime: plannedToTime ?? this.plannedToTime,
       hasInfectiousDisease: hasInfectiousDisease ?? this.hasInfectiousDisease,
       hasMedicalCare: hasMedicalCare ?? this.hasMedicalCare,
       hasBasicCare: hasBasicCare ?? this.hasBasicCare,
@@ -134,8 +132,8 @@ class TourModel {
       centerLatitude: centerLatitude ?? this.centerLatitude,
       revenue: revenue ?? this.revenue,
       maximumCareRadius: maximumCareRadius ?? this.maximumCareRadius,
-      careDuration: careDuration ?? this.careDuration,
-      commuteDuration: commuteDuration ?? this.commuteDuration,
+      actualFromTime: actualFromTime ?? this.actualFromTime,
+      actualToTime: actualToTime ?? this.actualToTime,
       fromDate: fromDate ?? this.fromDate,
       toDate: toDate ?? this.toDate,
     );

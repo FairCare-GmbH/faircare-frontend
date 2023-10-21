@@ -1,3 +1,4 @@
+import 'package:faircare/blocs/auth/register_cubit/register_cubit.dart';
 import 'package:faircare/blocs/navbar/nav_bar_cubit.dart';
 import 'package:faircare/blocs/progress/intro_progress_cubit.dart';
 import 'package:faircare/blocs/progress/register_progress_cubit.dart';
@@ -21,6 +22,9 @@ class BlocProviders {
     ),
     BlocProvider<MyToursSearchCubit>(
       create: (_) => MyToursSearchCubit(),
+    ),
+    BlocProvider<RegisterCubit>(
+      create: (_) => RegisterCubit(),
     ),
   ];
 }

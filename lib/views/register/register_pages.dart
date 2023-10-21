@@ -14,6 +14,7 @@ class RegisterPages extends StatelessWidget {
     return Flexible(
       child: PageView(
         controller: controller,
+        physics: const NeverScrollableScrollPhysics(),
         children: const [
           RegisterFirstPage(),
           RegisterSecondPage(),

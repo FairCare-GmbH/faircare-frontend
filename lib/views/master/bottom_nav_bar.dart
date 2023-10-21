@@ -7,19 +7,19 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return const SizedBox(
       height: 72,
       child: Column(
         children: [
-          const Divider(
+          Divider(
             height: 1,
             thickness: 1,
             color: MyColors.border,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
+            padding: EdgeInsets.symmetric(horizontal: 8),
             child: Row(
-              children: const [
+              children: [
                 BottomNavItem(
                   text: 'Offene Touren',
                   icon: Icons.location_on,
@@ -31,7 +31,7 @@ class BottomNavBar extends StatelessWidget {
                   index: 1,
                 ),
                 BottomNavItem(
-                  text: 'Meine Umsätze',
+                  text: 'Umsätze',
                   icon: Icons.bar_chart,
                   index: 2,
                 ),

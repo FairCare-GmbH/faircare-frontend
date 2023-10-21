@@ -102,7 +102,7 @@ class TourDetailsPage extends StatelessWidget {
                     ),
                   if (state == TourType.requested)
                     Button(
-                      'Abbrechen',
+                      'Zurückziehen',
                       onPressed: () {
                         showCancelRequestDialog(context);
                       },

@@ -38,9 +38,9 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
           ],
         ),
         const VerticalSpacer(12),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             CalendarWeekDay('Mo', color: MyColors.green),
             CalendarWeekDay('Di'),
             CalendarWeekDay('Mi', color: MyColors.red),

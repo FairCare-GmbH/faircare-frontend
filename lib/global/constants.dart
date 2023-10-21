@@ -1,10 +1,24 @@
 import 'package:faircare/models/tour_model.dart';
 
+final qualifications = [
+  'Pflegefachkraft (3J Ausbildung)',
+  'Pflegehilfskraft (1-2J Ausbildung)',
+  'Ungelernte Pflegehilfskraft',
+  'Keine Erfahrung in der Pflege',
+];
+
+final driverLicenseAvailable = [
+  'Vorhanden',
+  'Nicht vorhanden',
+];
+
 var defaultTour = TourModel(
   id: 1,
   ownerNurseId: 2,
-  fromTime: "example from time",
-  toTime: "example to time",
+  actualFromTime: '',
+  actualToTime: '',
+  plannedFromTime: '',
+  plannedToTime: '',
   hasInfectiousDisease: true,
   hasMedicalCare: true,
   hasBasicCare: true,
@@ -17,8 +31,6 @@ var defaultTour = TourModel(
   centerLatitude: 2.34567,
   revenue: 0,
   maximumCareRadius: 10,
-  careDuration: 30,
-  commuteDuration: 15,
   fromDate: DateTime.now(),
   toDate: DateTime.now(),
 );

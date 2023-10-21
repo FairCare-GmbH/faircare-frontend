@@ -1,6 +1,7 @@
+import 'package:faircare/global/constants.dart';
 import 'package:intl/intl.dart';
 
-class UserModel {
+class RegisterModel {
   final String firstName;
   final String lastName;
   final String email;
@@ -16,25 +17,26 @@ class UserModel {
   final int weeklyHourMaximum;
   final String marketingSource;
 
-  UserModel({
-    required this.firstName,
-    required this.lastName,
-    required this.email,
-    required this.phone,
-    required this.address,
-    required this.latitude,
-    required this.longitude,
-    required this.qualification,
-    required this.hasDriversLicense,
-    required this.availableFrom,
-    required this.maximumCareRadius,
-    required this.weeklyHourMinimum,
-    required this.weeklyHourMaximum,
-    required this.marketingSource,
-  });
+  RegisterModel({
+    this.firstName = '',
+    this.lastName = '',
+    this.email = '',
+    this.phone = '',
+    this.address = '',
+    this.latitude = 0.0,
+    this.longitude = 0.0,
+    String? qualification,
+    this.hasDriversLicense = false,
+    DateTime? availableFrom,
+    this.maximumCareRadius = 0,
+    this.weeklyHourMinimum = 0,
+    this.weeklyHourMaximum = 0,
+    this.marketingSource = '',
+  })  : availableFrom = availableFrom ?? DateTime.now(),
+        qualification = qualification ?? qualifications[0];
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    return UserModel(
+  factory RegisterModel.fromJson(Map<String, dynamic> json) {
+    return RegisterModel(
       firstName: json['firstName'],
       lastName: json['lastName'],
       email: json['email'],
@@ -72,7 +74,7 @@ class UserModel {
     };
   }
 
-  UserModel copyWith({
+  RegisterModel copyWith({
     String? firstName,
     String? lastName,
     String? email,
@@ -88,7 +90,7 @@ class UserModel {
     int? weeklyHourMaximum,
     String? marketingSource,
   }) {
-    return UserModel(
+    return RegisterModel(
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
       email: email ?? this.email,
