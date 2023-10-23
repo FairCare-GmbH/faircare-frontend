@@ -4,9 +4,10 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class MyDropdown extends StatelessWidget {
-  final String label, value;
-  final List<String> items;
-  final void Function(String?)? onChanged;
+  final String label;
+  final dynamic value;
+  final List items;
+  final void Function(dynamic)? onChanged;
 
   const MyDropdown({
     required this.label,
@@ -39,13 +40,13 @@ class MyDropdown extends StatelessWidget {
             onChanged: onChanged,
             underline: Container(),
             value: value,
-            itemHeight: items[0].length > 40 ? 70 : 48,
+            itemHeight: 48,
             isExpanded: true,
             items: items
                 .map(
-                  (String e) => DropdownMenuItem(
+                  (e) => DropdownMenuItem(
                     value: e,
-                    child: Text(e),
+                    child: Text(e.toString()),
                   ),
                 )
                 .toList(),

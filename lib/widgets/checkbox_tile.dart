@@ -4,7 +4,8 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class CheckboxTile extends StatelessWidget {
-  const CheckboxTile({
+  const CheckboxTile(
+    this.value, {
     this.textSecondary,
     required this.textMain,
     this.onTap,
@@ -12,6 +13,7 @@ class CheckboxTile extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  final bool value;
   final String? textSecondary;
   final String textMain;
   final VoidCallback? onTap;
@@ -30,11 +32,12 @@ class CheckboxTile extends StatelessWidget {
             // padding: const EdgeInsets.all(2),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(4),
-              color: MyColors.prime,
+              color: value ? MyColors.prime : Colors.transparent,
+              border: Border.all(color: MyColors.prime),
             ),
-            child: const Icon(
+            child: Icon(
               Icons.check,
-              color: MyColors.white,
+              color: value ? MyColors.white : Colors.transparent,
               size: 16,
             ),
           ),

@@ -82,6 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         CheckboxTile(
+                          true,
                           textMain: 'Remember Me',
                           onTap: () {},
                           onTextTap: () {},

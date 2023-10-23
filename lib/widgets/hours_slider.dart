@@ -28,8 +28,8 @@ class HoursSlider extends StatelessWidget {
         min: min,
         max: max,
         labels: RangeLabels(
-          30.toString(),
-          70.toString(),
+          selectedRange.start.toInt().toString(),
+          selectedRange.end.toInt().toString(),
         ),
         activeColor: MyColors.prime,
         inactiveColor: MyColors.border,

@@ -1,9 +1,9 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/views/register/next_button.dart';
-import 'package:faircare/views/register/page_progress.dart';
-import 'package:faircare/views/register/register_pages.dart';
+import 'package:faircare/views/register/pages/register_pages.dart';
+import 'package:faircare/views/register/widgets/next_button.dart';
+import 'package:faircare/views/register/widgets/page_progress.dart';
 import 'package:faircare/widgets/app_logo.dart';
 import 'package:faircare/widgets/bg_image.dart';
 import 'package:faircare/widgets/spacer.dart';

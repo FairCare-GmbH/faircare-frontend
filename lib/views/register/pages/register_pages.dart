@@ -1,6 +1,6 @@
 import 'package:faircare/blocs/progress/register_progress_cubit.dart';
-import 'package:faircare/views/register/register_page_1.dart';
-import 'package:faircare/views/register/register_page_2.dart';
+import 'package:faircare/views/register/pages/register_page_1.dart';
+import 'package:faircare/views/register/pages/register_page_2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

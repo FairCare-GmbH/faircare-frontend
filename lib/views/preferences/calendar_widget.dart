@@ -58,10 +58,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             focusedDay: DateTime.now(),
             rowHeight: 50,
             headerVisible: false,
-            headerStyle: const HeaderStyle(
-              titleCentered: true,
-              formatButtonVisible: false,
-            ),
+            availableGestures: AvailableGestures.horizontalSwipe,
             onPageChanged: (focusedDay) {},
             calendarBuilders: CalendarBuilders(
               defaultBuilder: myCalendarBuilder,

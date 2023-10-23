@@ -15,7 +15,10 @@ class RegisterModel {
   final int maximumCareRadius;
   final int weeklyHourMinimum;
   final int weeklyHourMaximum;
+  final String hoursType;
   final String marketingSource;
+  final bool termsAgreed;
+  final bool dataProtectionAgreed;
 
   RegisterModel({
     this.firstName = '',
@@ -28,12 +31,18 @@ class RegisterModel {
     String? qualification,
     this.hasDriversLicense = false,
     DateTime? availableFrom,
-    this.maximumCareRadius = 0,
-    this.weeklyHourMinimum = 0,
-    this.weeklyHourMaximum = 0,
-    this.marketingSource = '',
+    int? maximumCareRadius,
+    this.weeklyHourMinimum = 1,
+    this.weeklyHourMaximum = 5,
+    String? hoursType,
+    String? marketingSource,
+    this.termsAgreed = false,
+    this.dataProtectionAgreed = false,
   })  : availableFrom = availableFrom ?? DateTime.now(),
-        qualification = qualification ?? qualifications[0];
+        qualification = qualification ?? qualifications[0],
+        maximumCareRadius = maximumCareRadius ?? distances[0],
+        marketingSource = marketingSource ?? sources[0],
+        hoursType = hoursType ?? hoursTypes[0];
 
   factory RegisterModel.fromJson(Map<String, dynamic> json) {
     return RegisterModel(
@@ -51,6 +60,9 @@ class RegisterModel {
       weeklyHourMinimum: json['weeklyHourMinimum'],
       weeklyHourMaximum: json['weeklyHourMaximum'],
       marketingSource: json['marketingSource'],
+      hoursType: json['hoursType'],
+      termsAgreed: json['termsAgreed'],
+      dataProtectionAgreed: json['dataProtectionAgreed'],
     );
   }
 
@@ -71,6 +83,9 @@ class RegisterModel {
       "weeklyHourMinimum": weeklyHourMinimum,
       "weeklyHourMaximum": weeklyHourMaximum,
       "marketingSource": marketingSource,
+      "hoursType": hoursType,
+      "termsAgreed": termsAgreed,
+      "dataProtectionAgreed": dataProtectionAgreed,
     };
   }
 
@@ -88,7 +103,10 @@ class RegisterModel {
     int? maximumCareRadius,
     int? weeklyHourMinimum,
     int? weeklyHourMaximum,
+    String? hoursType,
     String? marketingSource,
+    bool? termsAgreed,
+    bool? dataProtectionAgreed,
   }) {
     return RegisterModel(
       firstName: firstName ?? this.firstName,
@@ -104,7 +122,10 @@ class RegisterModel {
       maximumCareRadius: maximumCareRadius ?? this.maximumCareRadius,
       weeklyHourMinimum: weeklyHourMinimum ?? this.weeklyHourMinimum,
       weeklyHourMaximum: weeklyHourMaximum ?? this.weeklyHourMaximum,
+      hoursType: hoursType ?? this.hoursType,
       marketingSource: marketingSource ?? this.marketingSource,
+      termsAgreed: termsAgreed ?? this.termsAgreed,
+      dataProtectionAgreed: dataProtectionAgreed ?? this.dataProtectionAgreed,
     );
   }
 }

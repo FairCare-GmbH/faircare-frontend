@@ -9,8 +9,8 @@ class Button extends StatelessWidget {
   final void Function()? onPressed;
   final Color buttonColor, textColor;
   final double height, width, borderRadius, padding, textSize;
-  final bool outlined;
   final Widget? child;
+  final bool disabled;
 
   const Button(
     this.text, {
@@ -25,7 +25,7 @@ class Button extends StatelessWidget {
     this.padding = 4,
     this.textSize = 16,
     this.width = double.infinity,
-    this.outlined = false,
+    this.disabled = false,
   }) : super(key: key);
 
   @override
@@ -37,11 +37,8 @@ class Button extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: outlined ? Colors.transparent : buttonColor,
+          color: !disabled ? buttonColor : MyColors.grey,
           borderRadius: BorderRadius.circular(borderRadius),
-          border: Border.all(
-            color: !outlined ? Colors.transparent : buttonColor,
-          ),
         ),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: padding),
@@ -55,7 +52,7 @@ class Button extends StatelessWidget {
                         ? Icon(
                             icon,
                             size: 22,
-                            color: outlined ? buttonColor : textColor,
+                            color: textColor,
                           )
                         : const HorizontalSpacer(0),
                     HorizontalSpacer(icon != null ? 8 : 0),
@@ -63,7 +60,7 @@ class Button extends StatelessWidget {
                       text,
                       textAlign: TextAlign.center,
                       style: style(
-                        color: outlined ? buttonColor : textColor,
+                        color: textColor,
                         fontSize: textSize,
                         fontWeight: FontWeight.w500,
                       ),

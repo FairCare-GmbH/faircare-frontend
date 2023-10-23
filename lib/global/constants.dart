@@ -12,6 +12,22 @@ final driverLicenseAvailable = [
   'Nicht vorhanden',
 ];
 
+final sources = [
+  'FairCare Website',
+  'Google',
+  'Persönliche Empfehlung',
+  'Facebook',
+  'Instagram',
+];
+
+final hoursTypes = [
+  'Minijob',
+  'Teilzeit',
+  'Vollzeit',
+];
+
+final distances = [1, 3, 5, 10, 15];
+
 var defaultTour = TourModel(
   id: 1,
   ownerNurseId: 2,

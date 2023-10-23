@@ -1,6 +1,6 @@
 import 'package:faircare/blocs/auth/register_cubit/register_cubit.dart';
 import 'package:faircare/global/constants.dart';
-import 'package:faircare/models/user_model.dart';
+import 'package:faircare/models/register_model.dart';
 import 'package:faircare/widgets/dropdown.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/text_field.dart';
