@@ -1,11 +1,13 @@
 import 'dart:math';
 
+import 'package:faircare/blocs/preferences/calendar_cubit/calendar_cubit.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/calendar_day_item.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/triangles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -19,59 +21,75 @@ class CalendarWidget extends StatefulWidget {
 class _CalendarWidgetState extends State<CalendarWidget> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
+    return BlocBuilder<PreferencesCalendarCubit, PreferencesCalendarState>(
+      builder: (context, state) {
+        final cubit = BlocProvider.of<PreferencesCalendarCubit>(context);
+
+        return Column(
           children: [
-            Expanded(
-              child: Text(
-                'Oktober 2023',
-                style: style(
-                  fontSize: 16,
-                  color: MyColors.prime,
+            Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    '${state.month} ${state.dateTime.year}',
+                    style: style(
+                      fontSize: 16,
+                      color: MyColors.prime,
+                    ),
+                  ),
                 ),
+                InkWell(
+                  onTap: () {
+                    cubit.previousMonth();
+                  },
+                  child: const Icon(Icons.chevron_left),
+                ),
+                const HorizontalSpacer(12),
+                InkWell(
+                  onTap: () {
+                    cubit.nextMonth();
+                  },
+                  child: const Icon(Icons.chevron_right),
+                ),
+              ],
+            ),
+            const VerticalSpacer(12),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CalendarWeekDay('Mo', color: MyColors.green),
+                CalendarWeekDay('Di'),
+                CalendarWeekDay('Mi', color: MyColors.red),
+                CalendarWeekDay('Do'),
+                CalendarWeekDay('Fr'),
+                CalendarWeekDay('Sa', color: MyColors.prime),
+                CalendarWeekDay('So'),
+              ],
+            ),
+            SizedBox(
+              width: 350,
+              child: TableCalendar(
+                firstDay: DateTime(2020),
+                lastDay: DateTime(2030),
+                focusedDay: state.dateTime,
+                rowHeight: 50,
+                headerVisible: false,
+                availableGestures: AvailableGestures.horizontalSwipe,
+                onPageChanged: (focusedDay) {},
+                calendarBuilders: CalendarBuilders(
+                  defaultBuilder: myCalendarBuilder,
+                  holidayBuilder: myCalendarBuilder,
+                  todayBuilder: myCalendarBuilder,
+                  selectedBuilder: myCalendarBuilder,
+                  outsideBuilder: myOutsideBuilder,
+                ),
+                daysOfWeekVisible: false,
+                onDaySelected: (selectedDay, focusedDay) {},
               ),
             ),
-            const Icon(Icons.chevron_left),
-            const HorizontalSpacer(12),
-            const Icon(Icons.chevron_right),
           ],
-        ),
-        const VerticalSpacer(12),
-        const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CalendarWeekDay('Mo', color: MyColors.green),
-            CalendarWeekDay('Di'),
-            CalendarWeekDay('Mi', color: MyColors.red),
-            CalendarWeekDay('Do'),
-            CalendarWeekDay('Fr'),
-            CalendarWeekDay('Sa', color: MyColors.prime),
-            CalendarWeekDay('So'),
-          ],
-        ),
-        SizedBox(
-          width: 350,
-          child: TableCalendar(
-            firstDay: DateTime(2020),
-            lastDay: DateTime(2030),
-            focusedDay: DateTime.now(),
-            rowHeight: 50,
-            headerVisible: false,
-            availableGestures: AvailableGestures.horizontalSwipe,
-            onPageChanged: (focusedDay) {},
-            calendarBuilders: CalendarBuilders(
-              defaultBuilder: myCalendarBuilder,
-              holidayBuilder: myCalendarBuilder,
-              todayBuilder: myCalendarBuilder,
-              selectedBuilder: myCalendarBuilder,
-              outsideBuilder: myOutsideBuilder,
-            ),
-            daysOfWeekVisible: false,
-            onDaySelected: (selectedDay, focusedDay) {},
-          ),
-        ),
-      ],
+        );
+      },
     );
   }
 

@@ -38,6 +38,21 @@ final days = [
   'Sonntag',
 ];
 
+final months = [
+  'Januar',
+  'Februar',
+  'Marsch',
+  'April',
+  'Mai',
+  'Juni',
+  'Juli',
+  'August',
+  'September',
+  'Oktober',
+  'November',
+  'Dezember'
+];
+
 final tourType = ['Frühdienst', 'Spätdienst'];
 
 var tourExample1 = TourModel(
