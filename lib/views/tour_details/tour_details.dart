@@ -1,5 +1,4 @@
 import 'package:faircare/global/colors.dart';
-import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/models/tour_model.dart';
