@@ -31,7 +31,7 @@ class MyToursPage extends StatelessWidget {
                 separatorBuilder: (a, b) => const VerticalSpacer(10),
                 itemCount: 2,
                 itemBuilder: (context, index) {
-                  return TourItem(defaultTour, TourType.requested);
+                  return TourItem(tourExample1, TourState.requested);
                 },
               ),
               const VerticalSpacer(32),
@@ -45,7 +45,7 @@ class MyToursPage extends StatelessWidget {
                 separatorBuilder: (a, b) => const VerticalSpacer(10),
                 itemCount: 2,
                 itemBuilder: (context, index) {
-                  return TourItem(defaultTour, TourType.assigned);
+                  return TourItem(tourExample1, TourState.assigned);
                 },
               ),
             ],

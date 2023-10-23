@@ -1,4 +1,4 @@
-import 'package:faircare/blocs/navbar/nav_bar_cubit.dart';
+import 'package:faircare/blocs/master/navbar/nav_bar_cubit.dart';
 import 'package:faircare/views/available_tours/available_tours.dart';
 import 'package:faircare/views/master/bottom_nav_bar.dart';
 import 'package:faircare/views/my_sales/my_sales.dart';

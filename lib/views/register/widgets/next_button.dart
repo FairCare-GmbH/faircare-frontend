@@ -1,5 +1,5 @@
+import 'package:faircare/blocs/auth/progress/register_progress_cubit.dart';
 import 'package:faircare/blocs/auth/register_cubit/register_cubit.dart';
-import 'package:faircare/blocs/progress/register_progress_cubit.dart';
 import 'package:faircare/models/register_model.dart';
 import 'package:faircare/views/register/dialogs/account_creation_dialog.dart';
 import 'package:faircare/widgets/button.dart';

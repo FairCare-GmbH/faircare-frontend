@@ -1,5 +1,7 @@
 import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/enums.dart';
+import 'package:faircare/global/extensions.dart';
 import 'package:faircare/models/tour_model.dart';
 import 'package:faircare/views/tour_details/app_bar.dart';
 import 'package:faircare/views/tour_details/dialogs/cancel_give_back_dialog.dart';
@@ -22,10 +24,29 @@ class TourDetailsPage extends StatelessWidget {
   }) : super(key: key);
 
   final TourModel model;
-  final TourType state;
+  final TourState state;
 
   @override
   Widget build(BuildContext context) {
+    final plannedFromTime = model.plannedFromTime.time;
+    final plannedToTime = model.plannedToTime.time;
+    final actualFromTime = model.actualFromTime.time;
+    final actualToTime = model.actualToTime.time;
+
+    final plannedTime = plannedToTime.hour * 60 +
+        plannedToTime.minute -
+        plannedFromTime.hour * 60 +
+        plannedFromTime.minute;
+
+    final actualTime = actualToTime.hour * 60 +
+        actualToTime.minute -
+        actualFromTime.hour * 60 +
+        actualFromTime.minute;
+
+    final plannedHourlyRate =
+        (model.revenue + model.bonus) / (plannedTime / 60);
+    final actualHourlyRate = (model.revenue + model.bonus) / (actualTime / 60);
+
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -42,79 +63,99 @@ class TourDetailsPage extends StatelessWidget {
                   // overview
                   const MyHeading('Übersicht'),
                   const VerticalSpacer(12),
-                  const TourMap(),
+                  TourMap(model),
                   const VerticalSpacer(12),
                   const VerticalSpacer(24),
 
                   // planning
                   const MyHeading('Planung'),
                   const VerticalSpacer(12),
-                  const HorizontalTile(
+
+                  // start and end time
+                  HorizontalTile(
                     'Start/Ende',
-                    mainText: '08:00 - 11:00',
+                    mainText: '${state == TourState.completed ? ' / ' : ''}'
+                        '${model.plannedFromTime} - ${model.plannedToTime}',
+                    secondaryText: state == TourState.completed
+                        ? '${model.actualFromTime} - ${model.actualToTime}'
+                        : '',
+                    secondaryColor: plannedTime >= actualTime
+                        ? MyColors.green
+                        : MyColors.red,
                   ),
-                  const HorizontalTile(
+
+                  // revenue
+                  HorizontalTile(
                     'Vergütung',
-                    mainText: '95 €',
+                    mainText: '${model.revenue + model.bonus} €',
                   ),
-                  const HorizontalTile(
+
+                  // hourly rate
+                  HorizontalTile(
                     'Geschätzter Stundenlohn',
-                    mainText: '31,66 €',
+                    mainText: '${state == TourState.completed ? ' / ' : ''}'
+                        '${plannedHourlyRate.toStringAsFixed(2)}',
+                    secondaryText: state == TourState.completed
+                        ? actualHourlyRate.toStringAsFixed(2)
+                        : '',
+                    secondaryColor: plannedTime >= actualTime
+                        ? MyColors.green
+                        : MyColors.red,
                   ),
                   const VerticalSpacer(24),
 
                   // details
                   const MyHeading('Details'),
                   const VerticalSpacer(12),
-                  const MySwitch(
+                  MySwitch(
                     'Hauswirtschaft',
-                    value: true,
+                    value: model.hasHousekeeping,
                     absorb: true,
                   ),
-                  const MySwitch(
+                  MySwitch(
                     'Wundversorgung',
-                    value: true,
+                    value: model.hasWoundCare,
                     absorb: true,
                   ),
-                  const MySwitch(
+                  MySwitch(
                     'Grundpflege',
-                    value: false,
+                    value: model.hasBasicCare,
                     absorb: true,
                   ),
-                  const MySwitch(
+                  MySwitch(
                     'Behandlungspflege',
-                    value: false,
+                    value: model.hasMedicalCare,
                     absorb: true,
                   ),
-                  const MySwitch(
+                  MySwitch(
                     'Infektionskrankheiten',
-                    value: false,
+                    value: model.hasInfectiousDisease,
                     absorb: true,
                   ),
                   const VerticalSpacer(12),
 
-                  if (state == TourType.available)
+                  if (state == TourState.available)
                     Button(
                       'Anfragen',
                       onPressed: () {
                         showRequestDialog(context);
                       },
                     ),
-                  if (state == TourType.requested)
+                  if (state == TourState.requested)
                     Button(
                       'Zurückziehen',
                       onPressed: () {
                         showCancelRequestDialog(context);
                       },
                     ),
-                  if (state == TourType.assigned)
+                  if (state == TourState.assigned)
                     Button(
                       'Abgeben',
                       onPressed: () {
                         showGiveBackDialog(context);
                       },
                     ),
-                  if (state == TourType.givenBack)
+                  if (state == TourState.givenBack)
                     Button(
                       'Abgabe abbrechen',
                       buttonColor: MyColors.red,

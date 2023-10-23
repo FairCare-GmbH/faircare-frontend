@@ -119,7 +119,7 @@ class AvailableToursPage extends StatelessWidget {
                 separatorBuilder: (a, b) => const VerticalSpacer(10),
                 itemCount: 3,
                 itemBuilder: (context, index) {
-                  return TourItem(defaultTour, TourType.available);
+                  return TourItem(tourExample1, TourState.available);
                 },
               ),
             ],

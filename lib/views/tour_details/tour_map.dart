@@ -1,10 +1,13 @@
 import 'dart:async';
 
+import 'package:faircare/models/tour_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class TourMap extends StatefulWidget {
-  const TourMap({Key? key}) : super(key: key);
+  const TourMap(this.model, {Key? key}) : super(key: key);
+
+  final TourModel model;
 
   @override
   State<TourMap> createState() => TourMapState();
@@ -14,8 +17,11 @@ class TourMapState extends State<TourMap> {
   final Completer<GoogleMapController> controller =
       Completer<GoogleMapController>();
 
-  static const CameraPosition position = CameraPosition(
-    target: LatLng(37.4279, -122.0857),
+  late CameraPosition position = CameraPosition(
+    target: LatLng(
+      widget.model.centerLatitude,
+      widget.model.centerLongitude,
+    ),
     zoom: 14,
   );
 

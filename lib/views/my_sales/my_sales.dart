@@ -1,7 +1,5 @@
-import 'package:faircare/global/constants.dart';
-import 'package:faircare/global/enums.dart';
-import 'package:faircare/views/available_tours/tour_item.dart';
 import 'package:faircare/views/my_sales/app_bar.dart';
+import 'package:faircare/views/my_sales/completed_tours_list.dart';
 import 'package:faircare/views/my_sales/sales_item.dart';
 import 'package:faircare/widgets/filter_chip.dart';
 import 'package:faircare/widgets/heading.dart';
@@ -96,15 +94,7 @@ class MySalesPage extends StatelessWidget {
               // completed tours
               const MyHeading('Abgeschlossene Touren'),
               const VerticalSpacer(12),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (a, b) => const VerticalSpacer(10),
-                itemCount: 2,
-                itemBuilder: (context, index) {
-                  return TourItem(defaultTour, TourType.completed);
-                },
-              ),
+              const CompletedToursList(),
             ],
           ),
         )

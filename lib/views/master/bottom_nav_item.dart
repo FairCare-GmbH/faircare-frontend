@@ -1,4 +1,4 @@
-import 'package:faircare/blocs/navbar/nav_bar_cubit.dart';
+import 'package:faircare/blocs/master/navbar/nav_bar_cubit.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';

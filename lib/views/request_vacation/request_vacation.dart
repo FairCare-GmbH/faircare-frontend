@@ -114,7 +114,7 @@ class RequestVacationPage extends StatelessWidget {
               separatorBuilder: (a, b) => const VerticalSpacer(10),
               itemCount: 1,
               itemBuilder: (context, index) {
-                return TourItem(defaultTour, TourType.assigned);
+                return TourItem(tourExample1, TourState.assigned);
               },
             ),
             const VerticalSpacer(12),

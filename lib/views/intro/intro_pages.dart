@@ -1,4 +1,4 @@
-import 'package:faircare/blocs/progress/intro_progress_cubit.dart';
+import 'package:faircare/blocs/intro/progress/intro_progress_cubit.dart';
 import 'package:faircare/views/intro/intro_details_page.dart';
 import 'package:faircare/views/intro/intro_page_1.dart';
 import 'package:flutter/material.dart';

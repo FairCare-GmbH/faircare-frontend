@@ -1,4 +1,4 @@
-enum TourType {
+enum TourState {
   available,
   assigned,
   givenBack,
