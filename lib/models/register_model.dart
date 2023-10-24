@@ -1,5 +1,4 @@
 import 'package:faircare/global/constants.dart';
-import 'package:intl/intl.dart';
 
 class RegisterModel {
   final String firstName;
@@ -77,8 +76,7 @@ class RegisterModel {
       "longitude": longitude,
       "qualification": qualification,
       "hasDriversLicense": hasDriversLicense,
-      "availableFrom":
-          DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').format(availableFrom),
+      "availableFrom": availableFrom.toIso8601String(),
       "maximumCareRadius": maximumCareRadius,
       "weeklyHourMinimum": weeklyHourMinimum,
       "weeklyHourMaximum": weeklyHourMaximum,

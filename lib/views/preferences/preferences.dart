@@ -1,11 +1,10 @@
 import 'package:faircare/views/preferences/app_bar.dart';
 import 'package:faircare/views/preferences/sections/desired_hours.dart';
 import 'package:faircare/views/preferences/sections/desired_tours.dart';
+import 'package:faircare/views/preferences/sections/general_prefs.dart';
 import 'package:faircare/views/preferences/sections/vacations.dart';
-import 'package:faircare/widgets/dropdown.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
-import 'package:faircare/widgets/switch.dart';
 import 'package:flutter/material.dart';
 
 class PreferencesPage extends StatefulWidget {
@@ -16,19 +15,6 @@ class PreferencesPage extends StatefulWidget {
 }
 
 class _PreferencesPageState extends State<PreferencesPage> {
-  final availableForNewPatients = [
-    'Verfügbar',
-    'Nicht verfügbar',
-  ];
-
-  final distances = [
-    '1 Km',
-    '3 Km',
-    '5 Km',
-    '10 Km',
-    '15 Km',
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,65 +27,28 @@ class _PreferencesPageState extends State<PreferencesPage> {
               vertical: 12,
               horizontal: 16,
             ),
-            children: [
+            children: const [
               // general
-              const MyHeading('Allgemein'),
-              const VerticalSpacer(24),
-              MyDropdown(
-                label: 'Verfügbar für neue Patienten',
-                value: availableForNewPatients[0],
-                items: availableForNewPatients,
-                onChanged: (v) {},
-              ),
-              const VerticalSpacer(24),
-              MyDropdown(
-                label: 'Maximale Distanz zum Start der Tour',
-                value: distances[0],
-                items: distances,
-                onChanged: (v) {},
-              ),
-              const VerticalSpacer(16),
-              MySwitch(
-                'Hauswirtschaft',
-                value: true,
-                onChanged: (v) {},
-              ),
-              MySwitch(
-                'Wundversorgung',
-                value: true,
-                onChanged: (v) {},
-              ),
-              MySwitch(
-                'Grundpflege',
-                value: false,
-                onChanged: (v) {},
-              ),
-              MySwitch(
-                'Behandlungspflege',
-                value: false,
-                onChanged: (v) {},
-              ),
-              MySwitch(
-                'Infektionskrankheiten',
-                value: false,
-                onChanged: (v) {},
-              ),
-              const VerticalSpacer(24),
+              MyHeading('Allgemein'),
+              VerticalSpacer(24),
+              GeneralPreferences(),
+
+              VerticalSpacer(24),
 
               // availability
-              const MyHeading('Verfügbarkeiten'),
-              const VerticalSpacer(20),
+              MyHeading('Verfügbarkeiten'),
+              VerticalSpacer(20),
 
               // desired hours
-              const DesiredHours(),
-              const VerticalSpacer(32),
+              DesiredHours(),
+              VerticalSpacer(32),
 
               // desired tours
-              const DesiredTours(),
-              const VerticalSpacer(32),
+              DesiredTours(),
+              VerticalSpacer(32),
 
               // vacations
-              const Vacations(),
+              Vacations(),
             ],
           ),
         )

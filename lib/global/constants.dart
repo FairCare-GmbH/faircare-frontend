@@ -13,6 +13,11 @@ final driverLicenseAvailable = [
   'Nicht vorhanden',
 ];
 
+final availableForNewPatients = [
+  'Verfügbar',
+  'Nicht verfügbar',
+];
+
 final sources = [
   'FairCare Website',
   'Google',

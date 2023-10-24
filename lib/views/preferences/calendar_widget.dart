@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:faircare/blocs/preferences/calendar_cubit/calendar_cubit.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/models/calendar_model.dart';
 import 'package:faircare/widgets/calendar_day_item.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/triangles.dart';
@@ -57,12 +56,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                CalendarWeekDay('Mo', color: MyColors.green),
+                CalendarWeekDay('Mo'),
                 CalendarWeekDay('Di'),
-                CalendarWeekDay('Mi', color: MyColors.red),
+                CalendarWeekDay('Mi'),
                 CalendarWeekDay('Do'),
                 CalendarWeekDay('Fr'),
-                CalendarWeekDay('Sa', color: MyColors.prime),
+                CalendarWeekDay('Sa'),
                 CalendarWeekDay('So'),
               ],
             ),
@@ -97,13 +96,17 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     ...List.generate(
       31,
       (i) {
-        var type = Random().nextInt(4);
-        var state = Random().nextInt(5);
-        return {
-          'date': i + 1,
-          'type': type, // f, s, fs etc
-          'state': state, // free, vacation etc
-        };
+        int dayOfWeek = (i + 1) % 7;
+        if (dayOfWeek == 0) dayOfWeek = 7;
+
+        return CalendarModel(
+          id: i,
+          nurseId: i,
+          fromDate: DateTime(2023, 10, i + 1),
+          toDate: DateTime(2023, 10, i + 1),
+          dayOfWeek: dayOfWeek,
+          tourType: 0,
+        );
       },
     ),
   ];
@@ -138,8 +141,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   Widget? myCalendarBuilder(
       BuildContext context, DateTime day, DateTime focusedDay) {
     final item = list[day.day - 1];
-    final type = item['type']!;
-    final state = item['state']!;
+    final type = item.tourType;
+    // final state = item['state']!;
 
     return SizedBox(
       width: 50,
@@ -147,16 +150,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         clipBehavior: Clip.none,
         children: [
           // S
-          if ((type == 2 || type == 3) && state != 0)
+          if ((type == 2 || type == 3))
             Positioned(
               top: 0,
               right: 0,
               child: CustomPaint(
-                painter: TopRightTriangle(getColor(state)),
+                painter: TopRightTriangle(getColor(type)),
                 child: Container(height: 18),
               ),
             ),
-          if ((type == 2 || type == 3) && state != 0)
+          if ((type == 2 || type == 3))
             Positioned(
               top: 0,
               right: 0,
@@ -172,7 +175,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               bottom: 0,
               right: 0,
               child: CustomPaint(
-                painter: BottomRightTriangle(getColor(state)),
+                painter: BottomRightTriangle(getColor(type)),
                 child: Container(height: 18),
               ),
             ),
@@ -187,16 +190,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             ),
 
           // F
-          if ((type == 1 || type == 3) && state != 0)
+          if ((type == 1 || type == 3))
             Positioned(
               bottom: 0,
               left: 0,
               child: CustomPaint(
-                painter: BottomLeftTriangle(getColor(state)),
+                painter: BottomLeftTriangle(getColor(type)),
                 child: Container(height: 18),
               ),
             ),
-          if ((type == 1 || type == 3) && state != 0)
+          if ((type == 1 || type == 3))
             Positioned(
               bottom: 0,
               left: 0,
@@ -208,7 +211,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
           Container(
             decoration: BoxDecoration(
-              color: getBgColor(state),
+              color: getBgColor(type),
               border: Border.all(
                 color: MyColors.black,
                 width: 0.1,
@@ -221,7 +224,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             child: Text(
               DateFormat('d').format(day),
               style: style(
-                color: getDateColor(state),
+                color: getDateColor(type),
                 fontSize: 16,
               ),
             ),
@@ -263,3 +266,11 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     );
   }
 }
+
+// var type = Random().nextInt(4);
+// var state = Random().nextInt(5);
+// return {
+//   'date': i + 1,
+//   'type': type, // f, s, fs etc
+//   'state': state, // free, vacation etc
+// };

@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class UserModel {
   final int id;
   final int personId;
@@ -104,8 +102,7 @@ class UserModel {
       "ratingVector1": ratingVector1,
       "ratingCount": ratingCount,
       "hasDriversLicense": hasDriversLicense,
-      "availableFrom":
-          DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').format(availableFrom),
+      "availableFrom": availableFrom.toIso8601String(),
       "maximumCareRadius": maximumCareRadius,
       "weeklyHourMinimum": weeklyHourMinimum,
       "weeklyHourMaximum": weeklyHourMaximum,
