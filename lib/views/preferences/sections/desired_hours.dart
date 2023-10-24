@@ -1,5 +1,4 @@
 import 'package:faircare/blocs/preferences/preferences_cubit/preferences_cubit.dart';
-import 'package:faircare/blocs/preferences/preferences_cubit/preferences_cubit.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/text_style.dart';
