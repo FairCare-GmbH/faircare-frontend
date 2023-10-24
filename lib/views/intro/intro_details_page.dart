@@ -29,6 +29,7 @@ class IntroDetailsPage extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListView(
         shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
         children: [
           Image.asset(
             'assets/icons/$icon.png',

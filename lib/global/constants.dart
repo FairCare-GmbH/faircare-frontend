@@ -1,4 +1,5 @@
 import 'package:faircare/models/tour_model.dart';
+import 'package:faircare/models/user_model.dart';
 
 final qualifications = [
   'Pflegefachkraft (3J Ausbildung)',
@@ -122,4 +123,32 @@ final tourExample3 = TourModel(
   maximumCareRadius: 3,
   fromDate: DateTime(2023, 10, 10),
   toDate: DateTime(2023, 10, 10),
+);
+
+final userExample = UserModel(
+  id: 1,
+  personId: 1001,
+  name: 'Max Mustermann',
+  email: 'mustermann@getfaircare.de',
+  qualification: "Registered Nurse",
+  allowInfectiousDisease: true,
+  allowMedicalCare: true,
+  allowBasicCare: true,
+  allowWoundCare: true,
+  allowHousekeeping: true,
+  ratingVector5: 4,
+  ratingVector4: 2,
+  ratingVector3: 4,
+  ratingVector2: 3,
+  ratingVector1: 4,
+  ratingCount: 21,
+  hasDriversLicense: true,
+  availableFrom: DateTime(2023, 10, 1),
+  maximumCareRadius: 10,
+  weeklyHourMinimum: 20,
+  weeklyHourMaximum: 40,
+  marketingSource: "Online Job Portal",
+  dateCreated: "2023-10-20T15:33:40.866Z",
+  openForPatients: true,
+  isActive: true,
 );

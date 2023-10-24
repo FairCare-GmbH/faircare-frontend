@@ -22,21 +22,22 @@ class DesiredTours extends StatelessWidget {
 
         // color information
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               'Aktive Touren',
               style: style(
                 color: MyColors.green,
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
             ),
             const HorizontalSpacer(4),
             Text(
-              'Freie Verfügbarkeiten',
+              'Verfügbar',
               style: style(
                 color: MyColors.prime,
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -45,7 +46,7 @@ class DesiredTours extends StatelessWidget {
               'Urlaub',
               style: style(
                 color: MyColors.darkGrey,
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
             ),
@@ -54,7 +55,7 @@ class DesiredTours extends StatelessWidget {
               'in Beantragung',
               style: style(
                 color: MyColors.red,
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
             ),

@@ -26,7 +26,7 @@ class IntroPages extends StatelessWidget {
             image1: 'intro_11',
             image2: 'intro_12',
             imageSize1: 50,
-            imageSize2: 240,
+            imageSize2: 230,
           ),
           IntroDetailsPage(
             icon: 'determine',

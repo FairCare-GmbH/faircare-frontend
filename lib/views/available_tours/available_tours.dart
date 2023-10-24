@@ -1,7 +1,5 @@
-import 'package:faircare/global/constants.dart';
-import 'package:faircare/global/enums.dart';
 import 'package:faircare/views/available_tours/app_bar.dart';
-import 'package:faircare/views/available_tours/tour_item.dart';
+import 'package:faircare/views/available_tours/available_tours_list.dart';
 import 'package:faircare/widgets/filter_chip.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -113,15 +111,7 @@ class AvailableToursPage extends StatelessWidget {
               // tours
               const MyHeading('Touren'),
               const VerticalSpacer(12),
-              ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (a, b) => const VerticalSpacer(10),
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return TourItem(tourExample1, TourState.available);
-                },
-              ),
+              const AvailableToursList(),
             ],
           ),
         )

@@ -1,19 +1,24 @@
-class NurseModel {
+import 'package:intl/intl.dart';
+
+class UserModel {
   final int id;
   final int personId;
+  final String name;
+  final String email;
   final String qualification;
   final bool allowInfectiousDisease;
   final bool allowMedicalCare;
   final bool allowBasicCare;
   final bool allowWoundCare;
   final bool allowHousekeeping;
-  final String ratingVector5;
-  final String ratingVector4;
-  final String ratingVector3;
-  final String ratingVector2;
-  final String ratingVector1;
+  final double ratingVector5;
+  final double ratingVector4;
+  final double ratingVector3;
+  final double ratingVector2;
+  final double ratingVector1;
+  final int ratingCount;
   final bool hasDriversLicense;
-  final String availableFrom;
+  final DateTime availableFrom;
   final int maximumCareRadius;
   final int weeklyHourMinimum;
   final int weeklyHourMaximum;
@@ -22,9 +27,11 @@ class NurseModel {
   final bool openForPatients;
   final bool isActive;
 
-  NurseModel({
+  UserModel({
     required this.id,
     required this.personId,
+    required this.name,
+    required this.email,
     required this.qualification,
     required this.allowInfectiousDisease,
     required this.allowMedicalCare,
@@ -36,6 +43,7 @@ class NurseModel {
     required this.ratingVector3,
     required this.ratingVector2,
     required this.ratingVector1,
+    required this.ratingCount,
     required this.hasDriversLicense,
     required this.availableFrom,
     required this.maximumCareRadius,
@@ -47,10 +55,12 @@ class NurseModel {
     required this.isActive,
   });
 
-  factory NurseModel.fromJson(Map<String, dynamic> json) {
-    return NurseModel(
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
       id: json['id'],
       personId: json['personId'],
+      name: json['name'],
+      email: json['email'],
       qualification: json['qualification'],
       allowInfectiousDisease: json['allowInfectiousDisease'],
       allowMedicalCare: json['allowMedicalCare'],
@@ -62,8 +72,9 @@ class NurseModel {
       ratingVector3: json['ratingVector3'],
       ratingVector2: json['ratingVector2'],
       ratingVector1: json['ratingVector1'],
+      ratingCount: json['ratingCount'],
       hasDriversLicense: json['hasDriversLicense'],
-      availableFrom: json['availableFrom'],
+      availableFrom: DateTime.parse(json['availableFrom']),
       maximumCareRadius: json['maximumCareRadius'],
       weeklyHourMinimum: json['weeklyHourMinimum'],
       weeklyHourMaximum: json['weeklyHourMaximum'],
@@ -78,6 +89,8 @@ class NurseModel {
     return {
       "id": id,
       "personId": personId,
+      "name": name,
+      "email": email,
       "qualification": qualification,
       "allowInfectiousDisease": allowInfectiousDisease,
       "allowMedicalCare": allowMedicalCare,
@@ -89,8 +102,10 @@ class NurseModel {
       "ratingVector3": ratingVector3,
       "ratingVector2": ratingVector2,
       "ratingVector1": ratingVector1,
+      "ratingCount": ratingCount,
       "hasDriversLicense": hasDriversLicense,
-      "availableFrom": availableFrom,
+      "availableFrom":
+          DateFormat('yyyy-MM-ddTHH:mm:ss.SSSZ').format(availableFrom),
       "maximumCareRadius": maximumCareRadius,
       "weeklyHourMinimum": weeklyHourMinimum,
       "weeklyHourMaximum": weeklyHourMaximum,
@@ -101,22 +116,25 @@ class NurseModel {
     };
   }
 
-  NurseModel copyWith({
+  UserModel copyWith({
     int? id,
     int? personId,
+    String? name,
+    String? email,
     String? qualification,
     bool? allowInfectiousDisease,
     bool? allowMedicalCare,
     bool? allowBasicCare,
     bool? allowWoundCare,
     bool? allowHousekeeping,
-    String? ratingVector5,
-    String? ratingVector4,
-    String? ratingVector3,
-    String? ratingVector2,
-    String? ratingVector1,
+    double? ratingVector5,
+    double? ratingVector4,
+    double? ratingVector3,
+    double? ratingVector2,
+    double? ratingVector1,
+    int? ratingCount,
     bool? hasDriversLicense,
-    String? availableFrom,
+    DateTime? availableFrom,
     int? maximumCareRadius,
     int? weeklyHourMinimum,
     int? weeklyHourMaximum,
@@ -125,9 +143,11 @@ class NurseModel {
     bool? openForPatients,
     bool? isActive,
   }) {
-    return NurseModel(
+    return UserModel(
       id: id ?? this.id,
       personId: personId ?? this.personId,
+      name: name ?? this.name,
+      email: email ?? this.email,
       qualification: qualification ?? this.qualification,
       allowInfectiousDisease:
           allowInfectiousDisease ?? this.allowInfectiousDisease,
@@ -140,6 +160,7 @@ class NurseModel {
       ratingVector3: ratingVector3 ?? this.ratingVector3,
       ratingVector2: ratingVector2 ?? this.ratingVector2,
       ratingVector1: ratingVector1 ?? this.ratingVector1,
+      ratingCount: ratingCount ?? this.ratingCount,
       hasDriversLicense: hasDriversLicense ?? this.hasDriversLicense,
       availableFrom: availableFrom ?? this.availableFrom,
       maximumCareRadius: maximumCareRadius ?? this.maximumCareRadius,

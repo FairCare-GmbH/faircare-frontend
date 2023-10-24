@@ -1,6 +1,8 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/views/preferences/dialogs/cancel_vacation_dialog.dart';
+import 'package:faircare/views/preferences/dialogs/give_back_vacation_dialog.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
@@ -59,13 +61,27 @@ class VacationItem extends StatelessWidget {
             ),
           ),
           const HorizontalSpacer(12),
-          Icon(
-            getActionIcon(),
-            color: getActionColor(),
+          InkWell(
+            onTap: () => getAction(context),
+            child: Icon(
+              getActionIcon(),
+              color: getActionColor(),
+            ),
           ),
         ],
       ),
     );
+  }
+
+  void getAction(BuildContext context) {
+    switch (type) {
+      case VacationType.old:
+        return;
+      case VacationType.accepted:
+        return showGiveBackVacationDialog(context);
+      case VacationType.pending:
+        return showCancelVacationDialog(context);
+    }
   }
 
   IconData getIcon() {

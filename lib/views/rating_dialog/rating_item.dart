@@ -11,7 +11,7 @@ class RatingItem extends StatelessWidget {
   }) : super(key: key);
 
   final String text;
-  final int rating;
+  final double rating;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class RatingItem extends StatelessWidget {
 class ProgressWidget extends StatelessWidget {
   const ProgressWidget(this.rating, {Key? key}) : super(key: key);
 
-  final int rating;
+  final double rating;
 
   @override
   Widget build(BuildContext context) {
