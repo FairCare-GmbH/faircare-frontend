@@ -11,13 +11,21 @@ class Api {
     validateStatus: (_) => true,
   );
 
-  Future<dynamic> endpoint() async {
-    Map data = {};
+  Future<Map> login(String username, String password) async {
+    Map data = {
+      'user': username,
+      'password': password,
+    };
 
     final response = await client.post(
-      ApiUrl.baseUrl,
+      ApiUrl.login,
       data: data,
     );
+    return response.data;
+  }
+
+  Future<Map> logout() async {
+    final response = await client.post(ApiUrl.logout);
     return response.data;
   }
 }

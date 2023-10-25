@@ -1,3 +1,4 @@
+import 'package:faircare/blocs/auth/login/login_bloc.dart';
 import 'package:faircare/blocs/auth/progress/register_progress_cubit.dart';
 import 'package:faircare/blocs/auth/register_cubit/register_cubit.dart';
 import 'package:faircare/blocs/available_tours/available_tours/available_tours_bloc.dart';
@@ -22,6 +23,11 @@ class BlocProviders {
     // intro
     BlocProvider<IntroProgressCubit>(
       create: (_) => IntroProgressCubit(),
+    ),
+
+    // login
+    BlocProvider<LoginBloc>(
+      create: (_) => LoginBloc(),
     ),
 
     // register

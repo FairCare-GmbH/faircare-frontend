@@ -1,8 +1,10 @@
 import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/models/vacation_model.dart';
 import 'package:faircare/views/preferences/dialogs/cancel_vacation_dialog.dart';
 import 'package:faircare/views/preferences/dialogs/give_back_vacation_dialog.dart';
+import 'package:faircare/views/vacation_details/vacation_details.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -81,7 +83,11 @@ class VacationItem extends StatelessWidget {
 
   void getAction(BuildContext context, bool before) {
     if (model.approvalStatus == 1) {
-      if (before) return;
+      if (before) {
+        return () {
+          navigate(context, const VacationDetailsPage());
+        }();
+      }
       return showGiveBackVacationDialog(context);
     }
     return showCancelVacationDialog(context);
