@@ -31,6 +31,19 @@ class PreferencesCalendarCubit extends Cubit<PreferencesCalendarState> {
       month: months[newDateTime.month - 1],
     ));
   }
+
+  void setMonth(DateTime dateTime) {
+    DateTime newDateTime = DateTime(
+      dateTime.year,
+      dateTime.month,
+      dateTime.day,
+    );
+
+    emit(state.copyWith(
+      dateTime: newDateTime,
+      month: months[newDateTime.month - 1],
+    ));
+  }
 }
 
 class PreferencesCalendarState {

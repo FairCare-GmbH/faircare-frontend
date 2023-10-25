@@ -43,4 +43,8 @@ class PreferencesCubit extends Cubit<PreferencesModel> {
   void setWoundCare(bool value) {
     emit(state.copyWith(allowWoundCare: value));
   }
+
+  void setCompanionship(bool value) {
+    emit(state.copyWith(allowCompanionship: value));
+  }
 }

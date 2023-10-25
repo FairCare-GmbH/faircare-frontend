@@ -72,6 +72,13 @@ class GeneralPreferences extends StatelessWidget {
               },
             ),
             MySwitch(
+              'Betreuung',
+              value: state.allowCompanionship,
+              onChanged: (v) {
+                cubit.setCompanionship(!state.allowCompanionship);
+              },
+            ),
+            MySwitch(
               'Infektionskrankheiten',
               value: state.allowInfectiousDisease,
               onChanged: (v) {

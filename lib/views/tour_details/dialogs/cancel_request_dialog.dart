@@ -16,7 +16,7 @@ class CancelRequestDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(
-            'Anfrage zurückziehen?',
+            'Abgabe zurückziehen?',
             style: style(
               fontSize: 20,
               color: MyColors.black,
@@ -24,9 +24,8 @@ class CancelRequestDialog extends StatelessWidget {
           ),
           const VerticalSpacer(16),
           Text(
-            'Hiermit brichst du deine Anfrage ab. Die Tour '
-            'wird wieder freigegeben und aus deinen '
-            'Touren entfernt.',
+            'Hiermit ziehst du die Abgabe zurück. Die Tour bleibt '
+            'bei dir und muss weiter gefahren werden.',
             style: style(
               color: MyColors.darkGrey,
               height: 1.4,

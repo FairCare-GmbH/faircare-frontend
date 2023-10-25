@@ -1,10 +1,13 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/models/notification_model.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class NotificationItem extends StatelessWidget {
-  const NotificationItem({Key? key}) : super(key: key);
+  const NotificationItem(this.model, {Key? key}) : super(key: key);
+
+  final NotificationModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +42,7 @@ class NotificationItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Passende Tour gefunden',
+                  model.title,
                   style: style(
                     color: MyColors.prime,
                     fontSize: 16,
@@ -48,7 +51,7 @@ class NotificationItem extends StatelessWidget {
                 ),
                 const VerticalSpacer(2),
                 Text(
-                  'Frühdienst, 10.10.2023',
+                  model.subtitle,
                   style: style(
                     color: MyColors.darkGrey,
                     fontSize: 13,

@@ -38,21 +38,22 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   ),
                 ),
                 InkWell(
-                  onTap: () {
-                    cubit.previousMonth();
-                  },
-                  child: const Icon(Icons.chevron_left),
+                  onTap: () => cubit.previousMonth(),
+                  child: const Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Icon(Icons.chevron_left),
+                  ),
                 ),
-                const HorizontalSpacer(12),
                 InkWell(
-                  onTap: () {
-                    cubit.nextMonth();
-                  },
-                  child: const Icon(Icons.chevron_right),
+                  onTap: () => cubit.nextMonth(),
+                  child: const Padding(
+                    padding: EdgeInsets.all(4),
+                    child: Icon(Icons.chevron_right),
+                  ),
                 ),
               ],
             ),
-            const VerticalSpacer(12),
+            const VerticalSpacer(4),
             const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -74,7 +75,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 rowHeight: 50,
                 headerVisible: false,
                 availableGestures: AvailableGestures.horizontalSwipe,
-                onPageChanged: (focusedDay) {},
+                onPageChanged: (focusedDay) {
+                  cubit.setMonth(focusedDay);
+                },
                 calendarBuilders: CalendarBuilders(
                   defaultBuilder: myCalendarBuilder,
                   holidayBuilder: myCalendarBuilder,
@@ -106,6 +109,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           toDate: DateTime(2023, 10, i + 1),
           dayOfWeek: dayOfWeek,
           tourType: 0,
+          hasAssignedTour: true,
         );
       },
     ),

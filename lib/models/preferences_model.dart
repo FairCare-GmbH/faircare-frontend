@@ -11,6 +11,7 @@ class PreferencesModel {
   final bool allowBasicCare;
   final bool allowWoundCare;
   final bool allowHousekeeping;
+  final bool allowCompanionship;
 
   PreferencesModel({
     this.openForPatients = false,
@@ -23,6 +24,7 @@ class PreferencesModel {
     this.allowBasicCare = true,
     this.allowWoundCare = true,
     this.allowHousekeeping = true,
+    this.allowCompanionship = true,
   })  : maximumCareRadius = maximumCareRadius ?? distances[0],
         hoursType = hoursType ?? hoursTypes[0];
 
@@ -38,6 +40,7 @@ class PreferencesModel {
       allowBasicCare: json['allowBasicCare'],
       allowWoundCare: json['allowWoundCare'],
       allowHousekeeping: json['allowHousekeeping'],
+      allowCompanionship: json['allowCompanionship'],
     );
   }
 
@@ -53,6 +56,7 @@ class PreferencesModel {
       "allowBasicCare": allowBasicCare,
       "allowWoundCare": allowWoundCare,
       "allowHousekeeping": allowHousekeeping,
+      "allowCompanionship": allowCompanionship,
     };
   }
 
@@ -67,6 +71,7 @@ class PreferencesModel {
     bool? allowBasicCare,
     bool? allowWoundCare,
     bool? allowHousekeeping,
+    bool? allowCompanionship,
   }) {
     return PreferencesModel(
       openForPatients: openForPatients ?? this.openForPatients,
@@ -80,6 +85,7 @@ class PreferencesModel {
       allowBasicCare: allowBasicCare ?? this.allowBasicCare,
       allowWoundCare: allowWoundCare ?? this.allowWoundCare,
       allowHousekeeping: allowHousekeeping ?? this.allowHousekeeping,
+      allowCompanionship: allowCompanionship ?? this.allowCompanionship,
     );
   }
 }

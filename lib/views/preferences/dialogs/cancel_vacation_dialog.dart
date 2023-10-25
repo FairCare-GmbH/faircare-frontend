@@ -40,7 +40,7 @@ class CancelVacationDialog extends StatelessWidget {
                 onTap: () {},
               ),
               Button(
-                'Zurückgeben',
+                'Zurückziehen',
                 width: 140,
                 height: 40,
                 textSize: 14,

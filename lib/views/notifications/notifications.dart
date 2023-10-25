@@ -1,10 +1,13 @@
+import 'package:faircare/blocs/notifications/notifications/notifications_bloc.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/notifications/notification_item.dart';
+import 'package:faircare/widgets/loading_indicator.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({Key? key}) : super(key: key);
@@ -28,13 +31,21 @@ class NotificationsPage extends StatelessWidget {
             ),
           ),
         ),
-        body: ListView.separated(
-          padding: const EdgeInsets.all(16),
-          shrinkWrap: true,
-          separatorBuilder: (a, b) => const VerticalSpacer(10),
-          itemCount: 3,
-          itemBuilder: (context, index) {
-            return const NotificationItem();
+        body: BlocBuilder<NotificationsBloc, NotificationsState>(
+          builder: (context, state) {
+            if (state is NotificationsLoaded) {
+              return ListView.separated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                padding: const EdgeInsets.all(16),
+                separatorBuilder: (a, b) => const VerticalSpacer(10),
+                itemCount: state.notifications.length,
+                itemBuilder: (_, i) {
+                  return NotificationItem(state.notifications[i]);
+                },
+              );
+            }
+            return const LoadingIndicator();
           },
         ),
       ),

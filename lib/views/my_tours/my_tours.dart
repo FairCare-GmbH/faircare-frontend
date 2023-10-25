@@ -22,7 +22,7 @@ class MyToursPage extends StatelessWidget {
             ),
             children: const [
               // requested tours
-              MyHeading('Angefragt'),
+              MyHeading('Abgabe'),
               VerticalSpacer(12),
               RequestedToursList(),
               VerticalSpacer(32),

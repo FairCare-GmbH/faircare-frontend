@@ -8,6 +8,7 @@ class TourModel {
   final bool hasBasicCare;
   final bool hasWoundCare;
   final bool hasHousekeeping;
+  final bool hasCompanionship;
   final int bonus;
   final int dayOfWeek;
   final int type;
@@ -30,6 +31,7 @@ class TourModel {
     required this.hasBasicCare,
     required this.hasWoundCare,
     required this.hasHousekeeping,
+    required this.hasCompanionship,
     required this.bonus,
     required this.dayOfWeek,
     required this.type,
@@ -54,6 +56,7 @@ class TourModel {
       hasBasicCare: json['hasBasicCare'],
       hasWoundCare: json['hasWoundCare'],
       hasHousekeeping: json['hasHousekeeping'],
+      hasCompanionship: json['hasCompanionship'],
       bonus: json['bonus'],
       dayOfWeek: json['dayOfWeek'],
       type: json['type'],
@@ -79,6 +82,7 @@ class TourModel {
       "hasBasicCare": hasBasicCare,
       "hasWoundCare": hasWoundCare,
       "hasHousekeeping": hasHousekeeping,
+      "hasCompanionship": hasCompanionship,
       "bonus": bonus,
       "dayOfWeek": dayOfWeek,
       "type": type,
@@ -103,6 +107,7 @@ class TourModel {
     bool? hasBasicCare,
     bool? hasWoundCare,
     bool? hasHousekeeping,
+    bool? hasCompanionship,
     int? bonus,
     int? dayOfWeek,
     int? type,
@@ -125,6 +130,7 @@ class TourModel {
       hasBasicCare: hasBasicCare ?? this.hasBasicCare,
       hasWoundCare: hasWoundCare ?? this.hasWoundCare,
       hasHousekeeping: hasHousekeeping ?? this.hasHousekeeping,
+      hasCompanionship: hasCompanionship ?? this.hasCompanionship,
       bonus: bonus ?? this.bonus,
       dayOfWeek: dayOfWeek ?? this.dayOfWeek,
       type: type ?? this.type,

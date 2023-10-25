@@ -5,8 +5,10 @@ import 'package:faircare/blocs/intro/progress/intro_progress_cubit.dart';
 import 'package:faircare/blocs/master/navbar/nav_bar_cubit.dart';
 import 'package:faircare/blocs/my_tours/assigned_tours/assigned_tours_bloc.dart';
 import 'package:faircare/blocs/my_tours/requested_tours/requested_tours_bloc.dart';
+import 'package:faircare/blocs/notifications/notifications/notifications_bloc.dart';
 import 'package:faircare/blocs/preferences/calendar_cubit/calendar_cubit.dart';
 import 'package:faircare/blocs/preferences/preferences_cubit/preferences_cubit.dart';
+import 'package:faircare/blocs/preferences/vacation_requests/vacation_requests_bloc.dart';
 import 'package:faircare/blocs/sales/completed_tours/completed_tours_bloc.dart';
 import 'package:faircare/blocs/search/available_tours_search_cubit.dart';
 import 'package:faircare/blocs/search/my_tours_search_cubit.dart';
@@ -64,6 +66,14 @@ class BlocProviders {
     ),
     BlocProvider<PreferencesCubit>(
       create: (_) => PreferencesCubit(),
+    ),
+    BlocProvider<VacationRequestsBloc>(
+      create: (_) => VacationRequestsBloc()..add(GetVacationRequests()),
+    ),
+
+    // notifications
+    BlocProvider<NotificationsBloc>(
+      create: (_) => NotificationsBloc()..add(GetNotifications()),
     ),
   ];
 }

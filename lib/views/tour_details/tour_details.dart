@@ -127,6 +127,11 @@ class TourDetailsPage extends StatelessWidget {
                     absorb: true,
                   ),
                   MySwitch(
+                    'Betreuung',
+                    value: model.hasCompanionship,
+                    absorb: true,
+                  ),
+                  MySwitch(
                     'Infektionskrankheiten',
                     value: model.hasInfectiousDisease,
                     absorb: true,
