@@ -6,10 +6,14 @@ extension StringExtension on String {
   }
 }
 
-extension IsToday on DateTime {
+extension DateTimeExt on DateTime {
   bool get isToday {
     final now = DateTime.now();
     return (year == now.year && month == now.month && day == now.day);
+  }
+
+  bool isSameDay(DateTime date) {
+    return (year == date.year && month == date.month && day == date.day);
   }
 }
 

@@ -6,7 +6,9 @@ import 'package:faircare/blocs/master/navbar/nav_bar_cubit.dart';
 import 'package:faircare/blocs/my_tours/assigned_tours/assigned_tours_bloc.dart';
 import 'package:faircare/blocs/my_tours/requested_tours/requested_tours_bloc.dart';
 import 'package:faircare/blocs/notifications/notifications/notifications_bloc.dart';
+import 'package:faircare/blocs/preferences/calendar_bloc/calendar_bloc.dart';
 import 'package:faircare/blocs/preferences/calendar_cubit/calendar_cubit.dart';
+import 'package:faircare/blocs/preferences/calendar_data_cubit/calendar_data_cubit.dart';
 import 'package:faircare/blocs/preferences/preferences_cubit/preferences_cubit.dart';
 import 'package:faircare/blocs/preferences/vacation_requests/vacation_requests_bloc.dart';
 import 'package:faircare/blocs/sales/completed_tours/completed_tours_bloc.dart';
@@ -61,14 +63,20 @@ class BlocProviders {
     ),
 
     // preferences
-    BlocProvider<PreferencesCalendarCubit>(
-      create: (_) => PreferencesCalendarCubit(),
+    BlocProvider<PrefsCalendarCubit>(
+      create: (_) => PrefsCalendarCubit(),
     ),
     BlocProvider<PreferencesCubit>(
       create: (_) => PreferencesCubit(),
     ),
     BlocProvider<VacationRequestsBloc>(
       create: (_) => VacationRequestsBloc()..add(GetVacationRequests()),
+    ),
+    BlocProvider<PrefsCalendarBloc>(
+      create: (_) => PrefsCalendarBloc()..add(GetCalendarData()),
+    ),
+    BlocProvider<PrefsCalendarDataCubit>(
+      create: (_) => PrefsCalendarDataCubit(),
     ),
 
     // notifications

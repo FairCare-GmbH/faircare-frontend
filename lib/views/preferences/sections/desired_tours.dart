@@ -1,6 +1,6 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/views/preferences/calendar_widget.dart';
+import 'package:faircare/views/preferences/calendar/calendar_widget.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
