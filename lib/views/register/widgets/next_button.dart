@@ -31,6 +31,7 @@ class RegisterNextButton extends StatelessWidget {
                   }
                 } else if (progressState == 1) {
                   if (state.termsAgreed && state.dataProtectionAgreed) {
+                    //TODO register by calling Api::register(state)
                     showAccountCreationDialog(context);
                   }
                 }

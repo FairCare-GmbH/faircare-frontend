@@ -1,3 +1,6 @@
+import 'dart:html';
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:faircare/repos/auth/auth_repo.dart';
@@ -11,28 +14,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginInitialState()) {
     on<LoginUserEvent>(
       (event, Emitter<LoginState> emit) async {
-        // checking for empty fields
-        if (event.username == '' || event.password == '') {
-          return emit(LoginEmptyFieldsState());
-        }
-
         // starting login user
         try {
           emit(LoginLoadingState());
-          final result = await auth.loginUser(
+
+          final user = await auth.loginUser(
             event.username,
             event.password,
           );
-
-          // success
-          if (result['status']) {
-            emit(LoginSuccessState());
-          }
-
-          // error
-          else {
-            emit(const LoginFailState(''));
-          }
+          //TODO add user to auth repo?
         } catch (e) {
           emit(LoginFailState(e.toString()));
         }

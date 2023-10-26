@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                       Button(
                         'Anmelden',
                         onPressed: () {
-                          navigate(context, const MasterPage());
+                          //navigate(context, const MasterPage());
                           BlocProvider.of<LoginBloc>(context).add(
                             LoginUserEvent(
                               emailController.text,
