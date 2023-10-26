@@ -70,7 +70,7 @@ class DesiredHours extends StatelessWidget {
                   TextSpan(
                     text: ''
                         '${state.weeklyHourMinimum * 24 * 4} € - '
-                        '${state.weeklyHourMaximum * 24 * 4} €',
+                        '${state.weeklyHourMaximum * 28 * 4} €',
                     style: style(
                       color: MyColors.prime,
                       fontSize: 14,
