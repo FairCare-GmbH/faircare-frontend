@@ -41,4 +41,4 @@ flutter:
     - assets/icons/
 
 scripts:
-  p: git push -u origin main
+  p: git push -u fcorigin main
