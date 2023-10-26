@@ -8,7 +8,7 @@ class MyCalendarWeekDays extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
+      children: const [
         CalendarWeekDay('Mo'),
         CalendarWeekDay('Di'),
         CalendarWeekDay('Mi'),

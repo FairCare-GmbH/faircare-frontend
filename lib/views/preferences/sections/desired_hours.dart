@@ -35,8 +35,7 @@ class DesiredHours extends StatelessWidget {
                 state.weeklyHourMaximum.toDouble(),
               ),
               onChanged: (val) {
-                cubit.setMinimumRate(val.start.toInt());
-                cubit.setMaximumRate(val.end.toInt());
+                cubit.setRate(val.start.toInt(), val.end.toInt());
               },
             ),
             const VerticalSpacer(0),
@@ -54,16 +53,6 @@ class DesiredHours extends StatelessWidget {
                             : MyColors.grey,
                         onTap: () {
                           cubit.setHoursType(e);
-                          if (e == hoursTypes[0]) {
-                            cubit.setMinimumRate(1);
-                            cubit.setMaximumRate(5);
-                          } else if (e == hoursTypes[1]) {
-                            cubit.setMinimumRate(5);
-                            cubit.setMaximumRate(34);
-                          } else if (e == hoursTypes[2]) {
-                            cubit.setMinimumRate(35);
-                            cubit.setMaximumRate(50);
-                          }
                         },
                       ),
                     )
