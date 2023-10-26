@@ -40,9 +40,9 @@ class _VacationDetailsCalendarWidgetState
           ],
         ),
         const VerticalSpacer(12),
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: const [
             CalendarWeekDay('Mo', color: MyColors.green),
             CalendarWeekDay('Di'),
             CalendarWeekDay('Mi', color: MyColors.red),

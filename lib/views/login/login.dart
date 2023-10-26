@@ -70,9 +70,9 @@ class _LoginPageState extends State<LoginPage> {
                         hint: 'Passwort',
                         obscure: true,
                         controller: passwordController,
-                        suffixWidget: const Column(
+                        suffixWidget: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             SvgIcon(
                               icon: 'hide',
                               color: MyColors.darkGrey,
