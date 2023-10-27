@@ -102,18 +102,4 @@ class WorkingHoursWidget extends StatelessWidget {
       },
     );
   }
-
-  double getMinValue(RegisterModel state) {
-    if (state.hoursType == hoursTypes[0]) return 1;
-    if (state.hoursType == hoursTypes[1]) return 5;
-    if (state.hoursType == hoursTypes[2]) return 35;
-    return 1;
-  }
-
-  double getMaxValue(RegisterModel state) {
-    if (state.hoursType == hoursTypes[0]) return 5;
-    if (state.hoursType == hoursTypes[1]) return 34;
-    if (state.hoursType == hoursTypes[2]) return 50;
-    return 1;
-  }
 }

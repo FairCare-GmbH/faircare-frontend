@@ -26,6 +26,8 @@ dependencies:
   intl: ^0.18.1
   flutter_xlider: ^3.5.0
   table_calendar: ^3.0.9
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:

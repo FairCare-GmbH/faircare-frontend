@@ -3,6 +3,7 @@ import 'package:faircare/blocs/bloc_listeners.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/views/master/master.dart';
 import 'package:faircare/views/register/register.dart';
 import 'package:faircare/views/reset_password/reset_password.dart';
 import 'package:faircare/widgets/app_logo.dart';
@@ -106,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                       Button(
                         'Anmelden',
                         onPressed: () {
-                          //navigate(context, const MasterPage());
+                          navigate(context, const MasterPage());
                           BlocProvider.of<LoginBloc>(context).add(
                             LoginUserEvent(
                               emailController.text,

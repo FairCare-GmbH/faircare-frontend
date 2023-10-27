@@ -48,7 +48,6 @@ class UserDialog extends StatelessWidget {
                   horizontalTitleGap: 0,
                   leading: const SmallCircularRating(rating: 3.4),
                   onTap: () {
-                    pop(context);
                     showRatingDialog(context);
                   },
                 ),

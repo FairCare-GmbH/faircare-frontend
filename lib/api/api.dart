@@ -5,18 +5,21 @@ import 'package:faircare/models/user_model.dart';
 import 'api_exception.dart';
 
 class Api {
-  static const _baseUrl =
-      true ? 'https://app.getfaircare.de' : 'http://127.0.0.1:3000';
-  late final Dio _client = Dio(BaseOptions(
-    connectTimeout: const Duration(milliseconds: 750),
-    receiveTimeout: const Duration(milliseconds: 2000),
-    sendTimeout: const Duration(milliseconds: 750),
-    headers: {
-      'content-type': 'application/json',
-      'accept': 'application/json',
-    },
-    validateStatus: (_) => true,
-  ));
+  // static const _baseUrl =
+  //     true ? 'https://app.getfaircare.de' : 'http://127.0.0.1:3000';
+  static const _baseUrl = 'https://app.getfaircare.de';
+  late final Dio _client = Dio(
+    BaseOptions(
+      connectTimeout: const Duration(milliseconds: 750),
+      receiveTimeout: const Duration(milliseconds: 2000),
+      sendTimeout: const Duration(milliseconds: 750),
+      headers: {
+        'content-type': 'application/json',
+        'accept': 'application/json',
+      },
+      validateStatus: (_) => true,
+    ),
+  );
 
   Future<Map<String, dynamic>> request(
     String path, {
@@ -57,7 +60,8 @@ class Api {
         'password': password,
       },
     );
-    var jwt = response['access_token']; //TODO handle JWT
+    // TODO handle JWT
+    // var jwt = response['access_token'];
     return UserModel.fromJson(response['nurse']);
   }
 
