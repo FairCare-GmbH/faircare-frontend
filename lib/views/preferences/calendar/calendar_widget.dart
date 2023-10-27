@@ -86,6 +86,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   Color getColor(CalendarModel? model) {
     if (model == null) return MyColors.grey;
     if (model.tourType == 0) return MyColors.grey;
+    if (model.tourType == 4) return MyColors.grey;
     if (model.hasAssignedTour) return MyColors.green;
     if (!model.hasAssignedTour) return MyColors.prime;
     return MyColors.border;
@@ -94,6 +95,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   Color getBgColor(CalendarModel? model) {
     if (model == null) return MyColors.border;
     if (model.tourType == 0) return MyColors.grey.withOpacity(0.2);
+    if (model.tourType == 4) return MyColors.grey.withOpacity(0.2);
     if (model.hasAssignedTour) return MyColors.green.withOpacity(0.2);
     if (!model.hasAssignedTour) return MyColors.prime.withOpacity(0.2);
     return MyColors.white;
@@ -102,6 +104,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   Color getDateColor(CalendarModel? model) {
     if (model == null) return MyColors.grey;
     if (model.tourType == 0) return MyColors.grey;
+    if (model.tourType == 4) return MyColors.grey;
     if (model.hasAssignedTour) return MyColors.green;
     if (!model.hasAssignedTour) return MyColors.prime;
     return MyColors.darkGrey;
@@ -119,7 +122,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         final cubit = BlocProvider.of<PrefsCalendarDataCubit>(context);
         if (model.tourType == 1) cubit.updateData(model.fromDate, 2);
         if (model.tourType == 2) cubit.updateData(model.fromDate, 3);
-        if (model.tourType == 3) cubit.updateData(model.fromDate, 1);
+        if (model.tourType == 3) cubit.updateData(model.fromDate, 4);
+        if (model.tourType == 4) cubit.updateData(model.fromDate, 1);
       },
       child: SizedBox(
         width: 50,
@@ -245,11 +249,3 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     );
   }
 }
-
-// var type = Random().nextInt(4);
-// var state = Random().nextInt(5);
-// return {
-//   'date': i + 1,
-//   'type': type, // f, s, fs etc
-//   'state': state, // free, vacation etc
-// };

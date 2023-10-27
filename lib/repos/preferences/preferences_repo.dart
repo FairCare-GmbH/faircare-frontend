@@ -7,12 +7,19 @@ class PreferencesRepo {
   void setPreferences() async {}
 
   Future<List<CalendarModel>> getCalendarData() async {
+    const days = 120;
+
     return [
       ...List.generate(
-        31,
+        days,
         (i) {
           int dayOfWeek = (i + 1) % 7;
           if (dayOfWeek == 0) dayOfWeek = 7;
+
+          // 0 = U, 1 = F, 2 = S, 3 = FS, 4 = FREE
+          int tourType = Random().nextInt(5);
+          bool tourAssigned = Random().nextBool();
+          if (tourType == 4) tourAssigned = false;
 
           return CalendarModel(
             id: i,
@@ -20,8 +27,8 @@ class PreferencesRepo {
             fromDate: DateTime(2023, 10, i + 1),
             toDate: DateTime(2023, 10, i + 1),
             dayOfWeek: dayOfWeek,
-            tourType: Random().nextInt(4),
-            hasAssignedTour: Random().nextBool(),
+            tourType: tourType,
+            hasAssignedTour: tourAssigned,
           );
         },
       ),
