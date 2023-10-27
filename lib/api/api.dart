@@ -1,8 +1,4 @@
-import 'dart:html';
-import 'dart:js_util';
-
 import 'package:dio/dio.dart';
-
 import 'package:faircare/models/register_model.dart';
 import 'package:faircare/models/user_model.dart';
 
@@ -75,6 +71,8 @@ class Api {
 
   Future<Map> logout() async {
     throw ApiException(
-        code: HttpStatus.notFound, messages: ['Not implemented.']);
+      code: 404,
+      messages: ['Not implemented.'],
+    );
   }
 }
