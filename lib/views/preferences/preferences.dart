@@ -32,27 +32,27 @@ class _PreferencesPageState extends State<PreferencesPage> {
                 horizontal: 16,
               ),
               children: const [
-                // // general
-                // MyHeading('Allgemein'),
-                // VerticalSpacer(24),
-                // GeneralPreferences(),
-                //
-                // VerticalSpacer(24),
-                //
-                // // availability
-                // MyHeading('Verfügbarkeiten'),
-                // VerticalSpacer(20),
-                //
-                // // desired hours
-                // DesiredHours(),
-                // VerticalSpacer(32),
+                // general
+                MyHeading('Allgemein'),
+                VerticalSpacer(24),
+                GeneralPreferences(),
+
+                VerticalSpacer(24),
+
+                // availability
+                MyHeading('Verfügbarkeiten'),
+                VerticalSpacer(20),
+
+                // desired hours
+                DesiredHours(),
+                VerticalSpacer(32),
 
                 // desired tours
                 DesiredTours(),
                 VerticalSpacer(32),
 
-                // // vacations
-                // Vacations(),
+                // vacations
+                Vacations(),
               ],
             ),
           )
