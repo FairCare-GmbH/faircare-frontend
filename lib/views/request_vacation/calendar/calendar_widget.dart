@@ -36,9 +36,6 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
             const VacationCalendarWeekDays(),
             BlocBuilder<VacationCubit, VacationCubitState>(
               builder: (context, vacationState) {
-                print(vacationState.startDate);
-                print(vacationState.endDate);
-
                 return BlocBuilder<PrefsCalendarDaysCubit, List<CalendarModel>>(
                   builder: (context, list) {
                     if (list.isNotEmpty) {

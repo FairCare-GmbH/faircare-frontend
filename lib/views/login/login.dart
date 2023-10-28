@@ -1,6 +1,5 @@
 import 'package:faircare/api/api.dart';
 import 'package:faircare/api/api_exception.dart';
-import 'package:faircare/blocs/auth/login/login_bloc.dart';
 import 'package:faircare/blocs/bloc_listeners.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
@@ -72,9 +71,9 @@ class _LoginPageState extends State<LoginPage> {
                         hint: 'Passwort',
                         obscure: true,
                         controller: passwordController,
-                        suffixWidget: Column(
+                        suffixWidget: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             SvgIcon(
                               icon: 'hide',
                               color: MyColors.darkGrey,
@@ -111,27 +110,26 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           Api.login(
                                   emailController.text, passwordController.text)
-                              .then(
-                                  (user) {
-                                    print(user);
-                                    navigate(context, const MasterPage());
-                                  },
-                                  onError: (error) {
-                                    if(error is ApiException){
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) => AlertDialog(
-                                          title: Text('Error ${error.code}'),
-                                          content: Text(error.messages[0]),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(context, 'OK'),
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }
+                              .then((user) {
+                            print(user);
+                            navigate(context, const MasterPage());
+                          }, onError: (error) {
+                            if (error is ApiException) {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: Text('Error ${error.code}'),
+                                  content: Text(error.messages[0]),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
                           });
                         },
                       ),
