@@ -1,6 +1,5 @@
 import 'package:faircare/api/api.dart';
 import 'package:faircare/api/api_exception.dart';
-import 'package:faircare/blocs/auth/login/login_bloc.dart';
 import 'package:faircare/blocs/bloc_listeners.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
@@ -72,9 +71,9 @@ class _LoginPageState extends State<LoginPage> {
                         hint: 'Passwort',
                         obscure: true,
                         controller: passwordController,
-                        suffixWidget: Column(
+                        suffixWidget: const Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             SvgIcon(
                               icon: 'hide',
                               color: MyColors.darkGrey,

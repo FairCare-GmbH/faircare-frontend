@@ -5,8 +5,6 @@ import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/models/calendar_model.dart';
-import 'package:faircare/views/preferences/calendar/calendar_header.dart';
-import 'package:faircare/views/preferences/calendar/calendar_week_days.dart';
 import 'package:faircare/views/request_vacation/calendar/calendar_header.dart';
 import 'package:faircare/views/request_vacation/calendar/calendar_week_days.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
@@ -95,8 +93,13 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
   Color getColor(CalendarModel? model, VacationCubitState state) {
     if (model == null) return MyColors.grey;
 
-    if (state.startDate == model.fromDate) return Colors.transparent;
-    if (state.endDate == model.fromDate) return Colors.transparent;
+    if (state.startDate != null && state.startDate!.isSameDay(model.fromDate)) {
+      return Colors.transparent;
+    }
+    if (state.endDate != null && state.endDate!.isSameDay(model.fromDate)) {
+      return Colors.transparent;
+    }
+
     if (state.startDate != null &&
         state.endDate != null &&
         model.fromDate.isBefore(state.endDate!) &&
@@ -114,8 +117,12 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
   Color getBgColor(CalendarModel? model, VacationCubitState state) {
     if (model == null) return MyColors.border;
 
-    if (state.startDate == model.fromDate) return MyColors.blueGreyDark;
-    if (state.endDate == model.fromDate) return MyColors.blueGreyDark;
+    if (state.startDate != null && state.startDate!.isSameDay(model.fromDate)) {
+      return MyColors.blueGreyDark;
+    }
+    if (state.endDate != null && state.endDate!.isSameDay(model.fromDate)) {
+      return MyColors.blueGreyDark;
+    }
     if (state.startDate != null &&
         state.endDate != null &&
         model.fromDate.isBefore(state.endDate!) &&
@@ -133,8 +140,12 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
   Color getDateColor(CalendarModel? model, VacationCubitState state) {
     if (model == null) return MyColors.grey;
 
-    if (state.startDate == model.fromDate) return MyColors.white;
-    if (state.endDate == model.fromDate) return MyColors.white;
+    if (state.startDate != null && state.startDate!.isSameDay(model.fromDate)) {
+      return MyColors.white;
+    }
+    if (state.endDate != null && state.endDate!.isSameDay(model.fromDate)) {
+      return MyColors.white;
+    }
     if (state.startDate != null &&
         state.endDate != null &&
         model.fromDate.isBefore(state.endDate!) &&
