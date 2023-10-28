@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:faircare/global/constants.dart';
 
-class PrefsCalendarCubit extends Cubit<PrefsCalendarCubitState> {
-  PrefsCalendarCubit() : super(PrefsCalendarCubitState());
+class PrefsCalendarMonthCubit extends Cubit<PrefsCalendarMonthCubitState> {
+  PrefsCalendarMonthCubit() : super(PrefsCalendarMonthCubitState());
 
   void nextMonth() {
     DateTime dateTime = state.dateTime;
@@ -46,21 +46,21 @@ class PrefsCalendarCubit extends Cubit<PrefsCalendarCubitState> {
   }
 }
 
-class PrefsCalendarCubitState {
+class PrefsCalendarMonthCubitState {
   DateTime dateTime;
   String month;
 
-  PrefsCalendarCubitState({
+  PrefsCalendarMonthCubitState({
     DateTime? dateTime,
     String? month,
   })  : dateTime = dateTime ?? DateTime.now(),
         month = month ?? months[DateTime.now().month - 1];
 
-  PrefsCalendarCubitState copyWith({
+  PrefsCalendarMonthCubitState copyWith({
     DateTime? dateTime,
     String? month,
   }) {
-    return PrefsCalendarCubitState(
+    return PrefsCalendarMonthCubitState(
       dateTime: dateTime ?? this.dateTime,
       month: month ?? this.month,
     );

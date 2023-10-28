@@ -1,5 +1,5 @@
 import 'package:faircare/blocs/preferences/calendar_cubit/calendar_cubit.dart';
-import 'package:faircare/blocs/preferences/calendar_data_cubit/calendar_data_cubit.dart';
+import 'package:faircare/blocs/preferences/calendar_cubit/calendar_data_cubit.dart';
 import 'package:faircare/functions/get_week_days_in_month.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
@@ -15,9 +15,10 @@ class CalendarWeekDay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PrefsCalendarDataCubit, List<CalendarModel>>(
+    return BlocBuilder<PrefsCalendarDaysCubit, List<CalendarModel>>(
       builder: (context, list) {
-        return BlocBuilder<PrefsCalendarCubit, PrefsCalendarCubitState>(
+        return BlocBuilder<PrefsCalendarMonthCubit,
+            PrefsCalendarMonthCubitState>(
           builder: (context, state) {
             Color bgColor = MyColors.white;
             Color textColor = MyColors.darkGrey;
@@ -96,7 +97,7 @@ class CalendarWeekDay extends StatelessWidget {
                 onTap: () {
                   if (greenTours) return;
                   final cubit =
-                      BlocProvider.of<PrefsCalendarDataCubit>(context);
+                      BlocProvider.of<PrefsCalendarDaysCubit>(context);
 
                   if (models[0].tourType == 1) {
                     for (final day in days) {

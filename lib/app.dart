@@ -1,6 +1,7 @@
 import 'package:faircare/blocs/bloc_providers.dart';
 import 'package:faircare/global/theme.dart';
 import 'package:faircare/views/master/master.dart';
+import 'package:faircare/views/request_vacation/request_vacation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -24,6 +25,7 @@ class FaircareApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         home: const MasterPage(),
+        // home: const RequestVacationPage(),
       ),
     );
   }

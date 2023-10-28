@@ -4,7 +4,7 @@ import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/available_tours/tour_item.dart';
-import 'package:faircare/views/request_vacation/calendar_widget.dart';
+import 'package:faircare/views/request_vacation/calendar/calendar_widget.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/cupertino.dart';

@@ -34,8 +34,7 @@ class _MasterPageState extends State<MasterPage> {
         child: Scaffold(
           body: BlocBuilder<NavBarCubit, int>(
             builder: (context, state) {
-              return tabs[3];
-              // return tabs[state];
+              return tabs[state];
             },
           ),
           bottomNavigationBar: const BottomNavBar(),

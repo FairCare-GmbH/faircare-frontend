@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:faircare/models/calendar_model.dart';
 
-class PrefsCalendarDataCubit extends Cubit<List<CalendarModel>> {
-  PrefsCalendarDataCubit() : super([]);
+class PrefsCalendarDaysCubit extends Cubit<List<CalendarModel>> {
+  PrefsCalendarDaysCubit() : super([]);
 
   void setInitialData(List<CalendarModel> data) {
     emit(data);
