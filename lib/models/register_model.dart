@@ -16,6 +16,7 @@ class RegisterModel {
   final int weeklyHourMaximum;
   final String hoursType;
   final String marketingSource;
+  final String password;
   final bool termsAgreed;
   final bool dataProtectionAgreed;
 
@@ -37,6 +38,7 @@ class RegisterModel {
     String? marketingSource,
     this.termsAgreed = false,
     this.dataProtectionAgreed = false,
+    this.password = ''
   })  : availableFrom = availableFrom ?? DateTime.now(),
         qualification = qualification ?? qualifications[0],
         maximumCareRadius = maximumCareRadius ?? distances[0],
@@ -84,6 +86,7 @@ class RegisterModel {
       "hoursType": hoursType,
       "termsAgreed": termsAgreed,
       "dataProtectionAgreed": dataProtectionAgreed,
+      "password": password
     };
   }
 
@@ -105,6 +108,7 @@ class RegisterModel {
     String? marketingSource,
     bool? termsAgreed,
     bool? dataProtectionAgreed,
+    String? password
   }) {
     return RegisterModel(
       firstName: firstName ?? this.firstName,
@@ -124,6 +128,7 @@ class RegisterModel {
       marketingSource: marketingSource ?? this.marketingSource,
       termsAgreed: termsAgreed ?? this.termsAgreed,
       dataProtectionAgreed: dataProtectionAgreed ?? this.dataProtectionAgreed,
+      password: password ?? this.password
     );
   }
 }

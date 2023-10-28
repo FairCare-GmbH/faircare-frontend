@@ -1,3 +1,4 @@
+import 'package:faircare/api/api.dart';
 import 'package:faircare/blocs/auth/progress/register_progress_cubit.dart';
 import 'package:faircare/blocs/auth/register_cubit/register_cubit.dart';
 import 'package:faircare/models/register_model.dart';
@@ -5,6 +6,8 @@ import 'package:faircare/views/register/dialogs/account_creation_dialog.dart';
 import 'package:faircare/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../api/api_exception.dart';
 
 class RegisterNextButton extends StatelessWidget {
   const RegisterNextButton(this.controller, {Key? key}) : super(key: key);
@@ -31,8 +34,13 @@ class RegisterNextButton extends StatelessWidget {
                   }
                 } else if (progressState == 1) {
                   if (state.termsAgreed && state.dataProtectionAgreed) {
-                    //TODO register by calling Api::register(state)
-                    showAccountCreationDialog(context);
+                    Api.register(state).then((user) {
+                      showAccountCreationDialog(context);
+                    }, onError: (error) {
+                      if (error is ApiException) {
+                        error.showDialog(context);
+                      }
+                    });
                   }
                 }
               },

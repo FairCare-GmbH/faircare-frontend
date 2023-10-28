@@ -111,27 +111,12 @@ class _LoginPageState extends State<LoginPage> {
                         onPressed: () {
                           Api.login(
                                   emailController.text, passwordController.text)
-                              .then(
-                                  (user) {
-                                    print(user);
-                                    navigate(context, const MasterPage());
-                                  },
-                                  onError: (error) {
-                                    if(error is ApiException){
-                                      showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) => AlertDialog(
-                                          title: Text('Error ${error.code}'),
-                                          content: Text(error.messages[0]),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(context, 'OK'),
-                                              child: const Text('OK'),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }
+                              .then((user) {
+                            navigate(context, const MasterPage());
+                          }, onError: (error) {
+                            if (error is ApiException) {
+                              error.showDialog(context);
+                            }
                           });
                         },
                       ),
