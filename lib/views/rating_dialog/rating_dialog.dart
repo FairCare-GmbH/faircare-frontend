@@ -17,12 +17,16 @@ class RatingDialog extends StatelessWidget {
       builder: (context, state) {
         if (state is UserDataLoaded) {
           final data = state.user;
-          final average = (data.ratingVector1 +
-                  data.ratingVector2 +
-                  data.ratingVector3 +
-                  data.ratingVector4 +
-                  data.ratingVector5) /
-              5;
+          final average = ((data.ratingVector1 ?? 0) +
+                  (data.ratingVector2 ?? 0) +
+                  (data.ratingVector3 ?? 0) +
+                  (data.ratingVector4 ?? 0) +
+                  (data.ratingVector5 ?? 0)) /
+              (((data.ratingVector1 ?? 0) > 0 ? 1 : 0) +
+                  ((data.ratingVector2 ?? 0) > 0 ? 1 : 0) +
+                  ((data.ratingVector3 ?? 0) > 0 ? 1 : 0) +
+                  ((data.ratingVector4 ?? 0) > 0 ? 1 : 0) +
+                  ((data.ratingVector5 ?? 0) > 0 ? 1 : 0));
 
           return Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -44,7 +48,7 @@ class RatingDialog extends StatelessWidget {
                 const VerticalSpacer(12),
                 CircularRating(
                   rating: average,
-                  totalRating: data.ratingCount,
+                  totalRating: data.ratingCount ?? 0,
                 ),
                 const VerticalSpacer(32),
 
@@ -53,27 +57,27 @@ class RatingDialog extends StatelessWidget {
                 const VerticalSpacer(24),
                 RatingItem(
                   'Freundlichkeit',
-                  rating: data.ratingVector1,
+                  rating: data.ratingVector1 ?? 0,
                 ),
                 const VerticalSpacer(24),
                 RatingItem(
                   'Kompetenz',
-                  rating: data.ratingVector2,
+                  rating: data.ratingVector2 ?? 0,
                 ),
                 const VerticalSpacer(24),
                 RatingItem(
                   'Zuverlässigkeit',
-                  rating: data.ratingVector3,
+                  rating: data.ratingVector3 ?? 0,
                 ),
                 const VerticalSpacer(24),
                 RatingItem(
                   'Gründlichkeit',
-                  rating: data.ratingVector4,
+                  rating: data.ratingVector4 ?? 0,
                 ),
                 const VerticalSpacer(24),
                 RatingItem(
                   'Kommunikation',
-                  rating: data.ratingVector5,
+                  rating: data.ratingVector5 ?? 0,
                 ),
               ],
             ),

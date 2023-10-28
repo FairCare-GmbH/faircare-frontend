@@ -59,7 +59,7 @@ class UserDataWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data.name,
+                      '${data.firstName} ${data.lastName}',
                       style: style(
                         fontSize: 18,
                         color: MyColors.black,

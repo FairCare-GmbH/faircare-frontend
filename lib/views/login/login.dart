@@ -1,3 +1,5 @@
+import 'package:faircare/api/api.dart';
+import 'package:faircare/api/api_exception.dart';
 import 'package:faircare/blocs/auth/login/login_bloc.dart';
 import 'package:faircare/blocs/bloc_listeners.dart';
 import 'package:faircare/global/colors.dart';
@@ -70,9 +72,9 @@ class _LoginPageState extends State<LoginPage> {
                         hint: 'Passwort',
                         obscure: true,
                         controller: passwordController,
-                        suffixWidget: const Column(
+                        suffixWidget: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             SvgIcon(
                               icon: 'hide',
                               color: MyColors.darkGrey,
@@ -107,13 +109,30 @@ class _LoginPageState extends State<LoginPage> {
                       Button(
                         'Anmelden',
                         onPressed: () {
-                          navigate(context, const MasterPage());
-                          BlocProvider.of<LoginBloc>(context).add(
-                            LoginUserEvent(
-                              emailController.text,
-                              passwordController.text,
-                            ),
-                          );
+                          Api.login(
+                                  emailController.text, passwordController.text)
+                              .then(
+                                  (user) {
+                                    print(user);
+                                    navigate(context, const MasterPage());
+                                  },
+                                  onError: (error) {
+                                    if(error is ApiException){
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) => AlertDialog(
+                                          title: Text('Error ${error.code}'),
+                                          content: Text(error.messages[0]),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(context, 'OK'),
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                          });
                         },
                       ),
                       const VerticalSpacer(24),
