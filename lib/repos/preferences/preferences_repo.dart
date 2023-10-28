@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:faircare/models/calendar_model.dart';
 import 'package:faircare/models/vacation_model.dart';
 
@@ -9,37 +7,60 @@ class PreferencesRepo {
   Future<List<CalendarModel>> getCalendarData() async {
     // TOUR TYPE - 0 = U, 1 = F, 2 = S, 3 = FS, 4 = FREE
 
-    const days = 120;
+    List<CalendarModel> data = dataFromApi();
+    List<CalendarModel> finalData = [];
 
-    var data = list;
-    for (int i = 0; i < 120; i++) {
-      final now = DateTime.now();
-      final currentMonth = DateTime(now.year, now.month);
+    for (final item in data) {
+      if (item.fromDate == item.toDate) {
+        finalData.add(item);
+      } else {
+        final fromDate = item.fromDate;
+        final daysDifference = item.toDate.difference(item.fromDate).inDays;
+
+        for (int i = 0; i <= daysDifference; i += 7) {
+          final newDate = DateTime(
+            fromDate.year,
+            fromDate.month,
+            fromDate.day + i,
+          );
+
+          finalData.add(
+            item.copyWith(fromDate: newDate, toDate: newDate),
+          );
+        }
+      }
     }
 
-    return [
-      ...List.generate(
-        days,
-        (i) {
-          int dayOfWeek = (i + 1) % 7;
-          if (dayOfWeek == 0) dayOfWeek = 7;
+    final now = DateTime.now();
+    final currentMonth = DateTime(now.year, now.month);
 
-          int tourType = Random().nextInt(5);
-          bool tourAssigned = Random().nextBool();
-          if (tourType == 4) tourAssigned = false;
+    for (int i = 0; i <= 120; i++) {
+      final date = DateTime(
+        currentMonth.year,
+        currentMonth.month,
+        currentMonth.day + i,
+      );
 
-          return CalendarModel(
-            id: i,
-            nurseId: i,
-            fromDate: DateTime(2023, 10, i + 1),
-            toDate: DateTime(2023, 10, i + 1),
-            dayOfWeek: dayOfWeek,
-            tourType: tourType,
-            hasAssignedTour: tourAssigned,
-          );
-        },
-      ),
-    ];
+      final dateExists = finalData.any(
+        (e) => e.fromDate.isAtSameMomentAs(date),
+      );
+
+      if (!dateExists) {
+        finalData.add(
+          CalendarModel(
+            id: 0,
+            nurseId: 0,
+            fromDate: date,
+            toDate: date,
+            dayOfWeek: date.weekday,
+            tourType: 4,
+            hasAssignedTour: false,
+          ),
+        );
+      }
+    }
+
+    return finalData;
   }
 
   Future<List<VacationModel>> getVacationRequests() async {
@@ -69,68 +90,68 @@ class PreferencesRepo {
   }
 }
 
-final list = [
-  CalendarModel(
-    id: 0,
-    nurseId: 0,
-    fromDate: DateTime(2023, 10, 1),
-    toDate: DateTime(2023, 10, 29),
-    dayOfWeek: 1,
-    tourType: 1,
-    hasAssignedTour: true,
-  ),
-  CalendarModel(
-    id: 0,
-    nurseId: 0,
-    fromDate: DateTime(2023, 10, 6),
-    toDate: DateTime(2023, 10, 27),
-    dayOfWeek: 6,
-    tourType: 2,
-    hasAssignedTour: false,
-  ),
-  CalendarModel(
-    id: 0,
-    nurseId: 0,
-    fromDate: DateTime(2023, 10, 7),
-    toDate: DateTime(2023, 10, 7),
-    dayOfWeek: 7,
-    tourType: 2,
-    hasAssignedTour: false,
-  ),
-  CalendarModel(
-    id: 0,
-    nurseId: 0,
-    fromDate: DateTime(2023, 10, 10),
-    toDate: DateTime(2023, 10, 10),
-    dayOfWeek: 3,
-    tourType: 3,
-    hasAssignedTour: false,
-  ),
-  CalendarModel(
-    id: 0,
-    nurseId: 0,
-    fromDate: DateTime(2023, 10, 14),
-    toDate: DateTime(2023, 10, 14),
-    dayOfWeek: 7,
-    tourType: 2,
-    hasAssignedTour: false,
-  ),
-  CalendarModel(
-    id: 0,
-    nurseId: 0,
-    fromDate: DateTime(2023, 10, 24),
-    toDate: DateTime(2023, 10, 24),
-    dayOfWeek: 3,
-    tourType: 1,
-    hasAssignedTour: false,
-  ),
-  CalendarModel(
-    id: 0,
-    nurseId: 0,
-    fromDate: DateTime(2023, 10, 26),
-    toDate: DateTime(2023, 10, 26),
-    dayOfWeek: 5,
-    tourType: 1,
-    hasAssignedTour: false,
-  ),
-];
+List<CalendarModel> dataFromApi() => [
+      CalendarModel(
+        id: 0,
+        nurseId: 0,
+        fromDate: DateTime(2023, 10, 1),
+        toDate: DateTime(2023, 10, 29),
+        dayOfWeek: 1,
+        tourType: 1,
+        hasAssignedTour: true,
+      ),
+      CalendarModel(
+        id: 0,
+        nurseId: 0,
+        fromDate: DateTime(2023, 10, 6),
+        toDate: DateTime(2023, 10, 27),
+        dayOfWeek: 6,
+        tourType: 2,
+        hasAssignedTour: false,
+      ),
+      CalendarModel(
+        id: 0,
+        nurseId: 0,
+        fromDate: DateTime(2023, 10, 7),
+        toDate: DateTime(2023, 10, 7),
+        dayOfWeek: 7,
+        tourType: 2,
+        hasAssignedTour: false,
+      ),
+      CalendarModel(
+        id: 0,
+        nurseId: 0,
+        fromDate: DateTime(2023, 10, 10),
+        toDate: DateTime(2023, 10, 10),
+        dayOfWeek: 3,
+        tourType: 3,
+        hasAssignedTour: false,
+      ),
+      CalendarModel(
+        id: 0,
+        nurseId: 0,
+        fromDate: DateTime(2023, 10, 14),
+        toDate: DateTime(2023, 10, 14),
+        dayOfWeek: 7,
+        tourType: 2,
+        hasAssignedTour: false,
+      ),
+      CalendarModel(
+        id: 0,
+        nurseId: 0,
+        fromDate: DateTime(2023, 10, 24),
+        toDate: DateTime(2023, 10, 24),
+        dayOfWeek: 3,
+        tourType: 1,
+        hasAssignedTour: false,
+      ),
+      CalendarModel(
+        id: 0,
+        nurseId: 0,
+        fromDate: DateTime(2023, 10, 26),
+        toDate: DateTime(2023, 10, 26),
+        dayOfWeek: 5,
+        tourType: 1,
+        hasAssignedTour: false,
+      ),
+    ];

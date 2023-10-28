@@ -9,13 +9,13 @@ class MyCalendarWeekDays extends StatelessWidget {
     return const Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CalendarWeekDay('Mo'),
-        CalendarWeekDay('Di'),
-        CalendarWeekDay('Mi'),
-        CalendarWeekDay('Do'),
-        CalendarWeekDay('Fr'),
-        CalendarWeekDay('Sa'),
-        CalendarWeekDay('So'),
+        CalendarWeekDay('Mo', 1),
+        CalendarWeekDay('Di', 2),
+        CalendarWeekDay('Mi', 3),
+        CalendarWeekDay('Do', 4),
+        CalendarWeekDay('Fr', 5),
+        CalendarWeekDay('Sa', 6),
+        CalendarWeekDay('So', 7),
       ],
     );
   }

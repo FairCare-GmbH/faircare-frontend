@@ -43,6 +43,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                       lastDay: DateTime(2030),
                       focusedDay: state.dateTime,
                       rowHeight: 50,
+                      startingDayOfWeek: StartingDayOfWeek.monday,
                       headerVisible: false,
                       availableGestures: AvailableGestures.horizontalSwipe,
                       onPageChanged: (focusedDay) => cubit.setMonth(focusedDay),
