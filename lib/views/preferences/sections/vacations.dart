@@ -39,7 +39,7 @@ class Vacations extends StatelessWidget {
         Button(
           'Urlaub beantragen',
           onPressed: () {
-            navigate(context, const RequestVacationPage());
+            navigate(context, const VacationPage());
           },
         ),
       ],

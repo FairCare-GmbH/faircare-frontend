@@ -6,16 +6,16 @@ class MyCalendarWeekDays extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        CalendarWeekDay('Mo'),
-        CalendarWeekDay('Di'),
-        CalendarWeekDay('Mi'),
-        CalendarWeekDay('Do'),
-        CalendarWeekDay('Fr'),
-        CalendarWeekDay('Sa'),
-        CalendarWeekDay('So'),
+      children: [
+        CalendarWeekDay('Mo', 1),
+        CalendarWeekDay('Di', 2),
+        CalendarWeekDay('Mi', 3),
+        CalendarWeekDay('Do', 4),
+        CalendarWeekDay('Fr', 5),
+        CalendarWeekDay('Sa', 6),
+        CalendarWeekDay('So', 7),
       ],
     );
   }

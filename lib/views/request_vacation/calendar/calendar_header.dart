@@ -4,8 +4,8 @@ import 'package:faircare/global/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MyCalendarHeader extends StatelessWidget {
-  const MyCalendarHeader({Key? key}) : super(key: key);
+class VacationCalendarHeader extends StatelessWidget {
+  const VacationCalendarHeader({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

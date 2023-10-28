@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:bloc/bloc.dart';
 import 'package:faircare/models/preferences_model.dart';
 
@@ -28,10 +26,11 @@ class PreferencesCubit extends Cubit<PreferencesModel> {
     } else if (value == hoursTypes[2]) {
       min = 35;
       max = 50;
-    }else{
+    } else {
       throw Exception('invalid state');
     }
-    emit(state.copyWith(hoursType: value, weeklyHourMaximum: max, weeklyHourMinimum: min));
+    emit(state.copyWith(
+        hoursType: value, weeklyHourMaximum: max, weeklyHourMinimum: min));
   }
 
   void setMinimumRate(int value) {
