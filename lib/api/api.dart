@@ -48,7 +48,7 @@ class Api {
   static String _username = '';
   static String _password = '';
 
-  static Future<Map<String, dynamic>> request(
+  static Future<T> request<T>(
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
@@ -84,7 +84,7 @@ class Api {
 
   static Future<UserModel> login(
       String username, String password, bool stayLoggedIn) async {
-    final response = await request(
+    final response = await request<Map>(
       '/nurses/login',
       options: Options(method: 'POST'),
       data: {
