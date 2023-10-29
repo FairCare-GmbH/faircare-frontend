@@ -15,6 +15,7 @@ class MyTextField extends StatelessWidget {
   final Color? color;
   final TextAlign align;
   final Widget? suffixWidget;
+  final Function(String)? onChanged;
 
   const MyTextField(
       {Key? key,
@@ -29,7 +30,8 @@ class MyTextField extends StatelessWidget {
       this.radius = 16,
       this.focusNode,
       this.align = TextAlign.start,
-      this.suffixWidget})
+      this.suffixWidget,
+      this.onChanged})
       : super(key: key);
 
   @override
@@ -57,6 +59,7 @@ class MyTextField extends StatelessWidget {
             textCapitalization: TextCapitalization.sentences,
             obscureText: obscure,
             controller: controller,
+            onChanged: onChanged,
             focusNode: focusNode,
             keyboardType: type,
             textAlign: align,

@@ -18,6 +18,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           final user = await auth.loginUser(
             event.username,
             event.password,
+            true//TODO make conditional
           );
           // TODO add user to auth repo?
         } catch (e) {

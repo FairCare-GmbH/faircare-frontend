@@ -1,6 +1,7 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/views/login/login.dart';
 import 'package:faircare/views/master/master.dart';
 import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -51,7 +52,7 @@ class AccountCreationDialog extends StatelessWidget {
             textSize: 14,
             borderRadius: 32,
             onPressed: () {
-              navigateRemove(context, const MasterPage());
+              navigateRemove(context, const LoginPage());
             },
           )
         ],

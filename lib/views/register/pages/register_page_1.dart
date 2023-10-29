@@ -35,6 +35,9 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
               label: 'Vollständiger Name',
               hint: 'Vollständiger Name',
               controller: nameController,
+              onChanged: (name){
+                cubit.setName(name);
+              },
             ),
             const VerticalSpacer(24),
 
@@ -43,6 +46,9 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
               label: 'E-Mail',
               hint: 'E-Mail',
               controller: emailController,
+              onChanged: (email){
+                cubit.setEmail(email);
+              },
             ),
             const VerticalSpacer(24),
 
@@ -51,6 +57,9 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
               label: 'Telefonnummer',
               hint: 'Telefonnummer',
               controller: phoneController,
+              onChanged: (phone){
+                cubit.setPhone(phone);
+              },
             ),
             const VerticalSpacer(24),
 
@@ -59,6 +68,9 @@ class _RegisterFirstPageState extends State<RegisterFirstPage> {
               label: 'Anschrift',
               hint: 'Anschrift',
               controller: addressController,
+              onChanged: (address){
+                cubit.setAddress(address);
+              },
             ),
             const VerticalSpacer(24),
 

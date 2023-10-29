@@ -81,7 +81,7 @@ class UserDialog extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 MyTextButton(
-                  'Datenschutzerklärung',
+                  'Datenschutz',
                   onTap: () {},
                 ),
                 MyTextButton(

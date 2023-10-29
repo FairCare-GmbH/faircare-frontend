@@ -34,7 +34,7 @@ class RegisterNextButton extends StatelessWidget {
                   }
                 } else if (progressState == 1) {
                   if (state.termsAgreed && state.dataProtectionAgreed) {
-                    Api.register(state).then((user) {
+                    Api.register(state.copyWith(password: state.phone)).then((user) {//TODO allow user to specify own password in the future (not for beta)
                       showAccountCreationDialog(context);
                     }, onError: (error) {
                       if (error is ApiException) {

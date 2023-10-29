@@ -3,14 +3,13 @@ import 'package:dio/dio.dart';
 import 'package:faircare/models/register_model.dart';
 import 'package:faircare/models/user_model.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import 'api_exception.dart';
 
-const condition = true;
-
 class Api {
   static const _baseUrl =
-      condition ? 'https://app.getfaircare.de' : 'http://127.0.0.1:3000';
+  true ? 'https://app.getfaircare.de' : 'http://127.0.0.1:3000';
   static final Dio _client = Dio(BaseOptions(
     connectTimeout: const Duration(milliseconds: 750),
     receiveTimeout: const Duration(milliseconds: 2000),
@@ -34,7 +33,7 @@ class Api {
             print('regenerating access token; $e');
           }
           // If a 401 response is received, refresh the access token
-          await login(_username, _password);
+          await login(_username, _password, false);
           // Update the request header with the new access token
           e.requestOptions.headers['Authorization'] = 'Bearer $_jwt';
 
@@ -50,14 +49,14 @@ class Api {
   static String _password = '';
 
   static Future<Map<String, dynamic>> request(
-    String path, {
-    Object? data,
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
-    ProgressCallback? onReceiveProgress,
-  }) async {
+      String path, {
+        Object? data,
+        Map<String, dynamic>? queryParameters,
+        Options? options,
+        CancelToken? cancelToken,
+        ProgressCallback? onSendProgress,
+        ProgressCallback? onReceiveProgress,
+      }) async {
     final response = await _client.request('$_baseUrl$path',
         data: data,
         queryParameters: queryParameters,
@@ -75,13 +74,14 @@ class Api {
     throw ApiException(
         code: response.statusCode!,
         messages: ((response.data['message'] is List
-                ? response.data['message']
-                : [response.data['message']]) as List<dynamic>)
+            ? response.data['message']
+            : [response.data['message']]) as List<dynamic>)
             .map((e) => e.toString())
             .toList());
   }
 
-  static Future<UserModel> login(String username, String password) async {
+  static Future<UserModel> login(
+      String username, String password, bool stayLoggedIn) async {
     final response = await request(
       '/nurses/login',
       options: Options(method: 'POST'),
@@ -95,6 +95,14 @@ class Api {
     _password = password;
 
     try {
+      if (stayLoggedIn) {
+        const storage = FlutterSecureStorage(
+            aOptions: AndroidOptions(
+              encryptedSharedPreferences: true,
+            ));
+        await storage.write(key: 'username', value: username);
+        await storage.write(key: 'password', value: password);
+      }
       return UserModel.fromJson(response['nurse']);
     } catch (error) {
       if (kDebugMode) {
@@ -102,6 +110,18 @@ class Api {
       }
       rethrow;
     }
+  }
+
+  static Future<bool> isLoggedIn() async {
+    if (_username.isNotEmpty && _password.isNotEmpty) return true;
+
+    const storage = FlutterSecureStorage(
+        aOptions: AndroidOptions(
+          encryptedSharedPreferences: true,
+        ));
+    _username = await storage.read(key: 'username') ?? '';
+    _password = await storage.read(key: 'password') ?? '';
+    return _username.isNotEmpty && _password.isNotEmpty;
   }
 
   static Future<UserModel> register(RegisterModel registerDto) async {
@@ -116,6 +136,12 @@ class Api {
     _jwt = '';
     _username = '';
     _password = '';
+    const storage = FlutterSecureStorage(
+        aOptions: AndroidOptions(
+          encryptedSharedPreferences: true,
+        ));
+    await storage.delete(key: 'username');
+    await storage.delete(key: 'password');
     throw ApiException(code: 404, messages: ['Not implemented.']);
   }
 }

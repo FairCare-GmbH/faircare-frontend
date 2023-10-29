@@ -1,9 +1,12 @@
 import 'package:faircare/blocs/bloc_providers.dart';
 import 'package:faircare/global/theme.dart';
+import 'package:faircare/views/login/login.dart';
 import 'package:faircare/views/master/master.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+
+import 'api/api.dart';
 
 class FaircareApp extends StatelessWidget {
   const FaircareApp({Key? key}) : super(key: key);
@@ -23,7 +26,29 @@ class FaircareApp extends StatelessWidget {
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        home: const MasterPage(),
+        home: FutureBuilder<bool>(
+          future: Api.isLoggedIn(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 60,
+                    height: 60,
+                    child: CircularProgressIndicator(),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Text('Lädt...'),
+                  )
+                ],
+              ));
+            }
+            return snapshot.data! ? const MasterPage() : const LoginPage();
+          },
+        ),
         // home: const RequestVacationPage(),
       ),
     );
