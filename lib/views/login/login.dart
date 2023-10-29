@@ -109,7 +109,9 @@ class _LoginPageState extends State<LoginPage> {
                         'Anmelden',
                         onPressed: () {
                           Api.login(
-                                  emailController.text, passwordController.text)
+                                  emailController.text,
+                                  passwordController.text,
+                                  true) //TODO make staying logged in conditional
                               .then((user) {
                             navigate(context, const MasterPage());
                           }, onError: (error) {
