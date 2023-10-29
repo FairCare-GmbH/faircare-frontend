@@ -12,6 +12,10 @@ extension DateTimeExt on DateTime {
     return (year == now.year && month == now.month && day == now.day);
   }
 
+  DateTime get ymd {
+    return DateTime(year, month, day);
+  }
+
   bool isSameDay(DateTime date) {
     return (year == date.year && month == date.month && day == date.day);
   }

@@ -1,4 +1,3 @@
-import 'package:faircare/global/constants.dart';
 import 'package:faircare/models/user_model.dart';
 
 import '../../api/api.dart';

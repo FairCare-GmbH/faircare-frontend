@@ -116,11 +116,13 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
     return InkWell(
       onTap: () {
-        if (model == null) return;
+        final cubit = BlocProvider.of<PrefsCalendarDaysCubit>(context);
+
+        if (model == null) return cubit.updateData(day, 1);
+
         if (model.tourType == 0) return;
         if (model.hasAssignedTour) return;
 
-        final cubit = BlocProvider.of<PrefsCalendarDaysCubit>(context);
         if (model.tourType == 1) cubit.updateData(model.fromDate, 2);
         if (model.tourType == 2) cubit.updateData(model.fromDate, 3);
         if (model.tourType == 3) cubit.updateData(model.fromDate, 4);

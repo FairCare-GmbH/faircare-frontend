@@ -31,35 +31,6 @@ class PreferencesRepo {
       }
     }
 
-    final now = DateTime.now();
-    final currentMonth = DateTime(now.year, now.month);
-
-    for (int i = 0; i <= 120; i++) {
-      final date = DateTime(
-        currentMonth.year,
-        currentMonth.month,
-        currentMonth.day + i,
-      );
-
-      final dateExists = finalData.any(
-        (e) => e.fromDate.isAtSameMomentAs(date),
-      );
-
-      if (!dateExists) {
-        finalData.add(
-          CalendarModel(
-            id: 0,
-            nurseId: 0,
-            fromDate: date,
-            toDate: date,
-            dayOfWeek: date.weekday,
-            tourType: 4,
-            hasAssignedTour: false,
-          ),
-        );
-      }
-    }
-
     return finalData;
   }
 

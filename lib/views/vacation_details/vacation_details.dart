@@ -65,7 +65,7 @@ class VacationDetailsPage extends StatelessWidget {
                   child: Row(
                     children: [
                       Text(
-                        'Biz',
+                        'Bis',
                         style: style(fontSize: 16),
                       ),
                       const HorizontalSpacer(8),

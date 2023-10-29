@@ -36,6 +36,7 @@ class CalendarWeekDay extends StatelessWidget {
             }
 
             bool greenTours = false;
+
             bool blueTours = false;
 
             // checking for assigned tours
@@ -48,7 +49,18 @@ class CalendarWeekDay extends StatelessWidget {
             }
 
             // checking for available days
-            for (CalendarModel model in models) {
+
+            for (DateTime day in days) {
+              final dayExists = models.any(
+                (e) => e.fromDate.isAtSameMomentAs(day),
+              );
+              if (!dayExists) {
+                blueTours = false;
+                break;
+              }
+              final model = models.singleWhere(
+                (e) => e.fromDate.isAtSameMomentAs(day),
+              );
               if (model.tourType == 1 && !model.hasAssignedTour) {
                 blueTours = true;
               } else {
@@ -58,7 +70,17 @@ class CalendarWeekDay extends StatelessWidget {
             }
 
             if (!blueTours) {
-              for (CalendarModel model in models) {
+              for (DateTime day in days) {
+                final dayExists = models.any(
+                  (e) => e.fromDate.isAtSameMomentAs(day),
+                );
+                if (!dayExists) {
+                  blueTours = false;
+                  break;
+                }
+                final model = models.singleWhere(
+                  (e) => e.fromDate.isAtSameMomentAs(day),
+                );
                 if (model.tourType == 2 && !model.hasAssignedTour) {
                   blueTours = true;
                 } else {
@@ -69,7 +91,17 @@ class CalendarWeekDay extends StatelessWidget {
             }
 
             if (!blueTours) {
-              for (CalendarModel model in models) {
+              for (DateTime day in days) {
+                final dayExists = models.any(
+                  (e) => e.fromDate.isAtSameMomentAs(day),
+                );
+                if (!dayExists) {
+                  blueTours = false;
+                  break;
+                }
+                final model = models.singleWhere(
+                  (e) => e.fromDate.isAtSameMomentAs(day),
+                );
                 if (model.tourType == 3 && !model.hasAssignedTour) {
                   blueTours = true;
                 } else {
@@ -98,6 +130,12 @@ class CalendarWeekDay extends StatelessWidget {
                   if (greenTours) return;
                   final cubit =
                       BlocProvider.of<PrefsCalendarDaysCubit>(context);
+
+                  if (models.isEmpty) {
+                    for (final day in days) {
+                      cubit.updateData(day, 1);
+                    }
+                  }
 
                   if (models[0].tourType == 1) {
                     for (final day in days) {
