@@ -6,9 +6,11 @@ import 'package:flutter/foundation.dart';
 
 import 'api_exception.dart';
 
+const condition = true;
+
 class Api {
   static const _baseUrl =
-      true ? 'https://app.getfaircare.de' : 'http://127.0.0.1:3000';
+      condition ? 'https://app.getfaircare.de' : 'http://127.0.0.1:3000';
   static final Dio _client = Dio(BaseOptions(
     connectTimeout: const Duration(milliseconds: 750),
     receiveTimeout: const Duration(milliseconds: 2000),
@@ -92,9 +94,9 @@ class Api {
     _username = username;
     _password = password;
 
-    try{
+    try {
       return UserModel.fromJson(response['nurse']);
-    }catch(error){
+    } catch (error) {
       if (kDebugMode) {
         print(error);
       }
@@ -114,7 +116,6 @@ class Api {
     _jwt = '';
     _username = '';
     _password = '';
-    throw ApiException(
-        code: 404, messages: ['Not implemented.']);
+    throw ApiException(code: 404, messages: ['Not implemented.']);
   }
 }

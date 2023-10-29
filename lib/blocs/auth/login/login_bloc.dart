@@ -1,5 +1,3 @@
-
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:faircare/repos/auth/auth_repo.dart';
@@ -21,7 +19,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             event.username,
             event.password,
           );
-          //TODO add user to auth repo?
+          // TODO add user to auth repo?
         } catch (e) {
           emit(LoginFailState(e.toString()));
         }

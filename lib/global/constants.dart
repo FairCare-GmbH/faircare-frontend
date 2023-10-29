@@ -1,5 +1,4 @@
 import 'package:faircare/models/tour_model.dart';
-import 'package:faircare/models/user_model.dart';
 
 final qualifications = [
   'Pflegefachkraft (3J Ausbildung)',
@@ -47,7 +46,7 @@ final days = [
 final months = [
   'Januar',
   'Februar',
-  'Marsch',
+  'März',
   'April',
   'Mai',
   'Juni',
