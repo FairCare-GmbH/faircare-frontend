@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:faircare/api/api.dart';
 import 'package:faircare/blocs/user/user/user_bloc.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
@@ -14,8 +15,8 @@ class UserDataWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
-        if (state is UserDataLoaded) {
-          final data = state.user;
+        if (Api.getUser() != null) {
+          final data = Api.getUser()!;
 
           return Row(
             children: [

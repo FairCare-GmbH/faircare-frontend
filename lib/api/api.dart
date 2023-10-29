@@ -80,6 +80,8 @@ class Api {
             .toList());
   }
 
+  static UserModel? _user;
+
   static Future<UserModel> login(
       String username, String password, bool stayLoggedIn) async {
     final response = await request(
@@ -103,7 +105,7 @@ class Api {
         await storage.write(key: 'username', value: username);
         await storage.write(key: 'password', value: password);
       }
-      return UserModel.fromJson(response['nurse']);
+      return _user = UserModel.fromJson(response['nurse']);
     } catch (error) {
       if (kDebugMode) {
         print(error);
@@ -112,16 +114,18 @@ class Api {
     }
   }
 
+  static UserModel? getUser() => _user;
+
   static Future<bool> isLoggedIn() async {
-    if (_username.isNotEmpty && _password.isNotEmpty) return true;
+    if (_user != null) return true;
 
     const storage = FlutterSecureStorage(
         aOptions: AndroidOptions(
       encryptedSharedPreferences: true,
     ));
-    _username = await storage.read(key: 'username') ?? '';
-    _password = await storage.read(key: 'password') ?? '';
-    return _username.isNotEmpty && _password.isNotEmpty;
+    await login(await storage.read(key: 'username') ?? '',
+        await storage.read(key: 'password') ?? '', false);
+    return _user != null;
   }
 
   static Future<UserModel> register(RegisterModel registerDto) async {

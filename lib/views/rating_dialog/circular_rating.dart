@@ -10,12 +10,12 @@ class CircularRating extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final double rating;
+  final double? rating;
   final int totalRating;
 
   @override
   Widget build(BuildContext context) {
-    double progress = rating / 5;
+    double progress = rating ?? 0 / 5;
     double greenPercent = progress - 0.03;
     double redPercent = 1 - progress - 0.03;
 
@@ -46,7 +46,7 @@ class CircularRating extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  '$rating',
+                  rating?.toString() ?? '-',
                   style: style(
                     fontSize: 32,
                     color: MyColors.darkGrey,

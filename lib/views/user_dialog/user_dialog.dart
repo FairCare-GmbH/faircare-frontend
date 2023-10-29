@@ -1,3 +1,4 @@
+import 'package:faircare/api/api.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/views/login/login.dart';
@@ -46,7 +47,8 @@ class UserDialog extends StatelessWidget {
                   title: const Text('Meine Bewertungen'),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 12),
                   horizontalTitleGap: 0,
-                  leading: const SmallCircularRating(rating: 3.4),
+                  leading: SmallCircularRating(
+                      rating: Api.getUser()?.getAverageRating()),
                   onTap: () {
                     showRatingDialog(context);
                   },

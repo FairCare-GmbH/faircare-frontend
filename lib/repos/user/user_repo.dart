@@ -1,8 +1,10 @@
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/models/user_model.dart';
 
+import '../../api/api.dart';
+
 class UserRepo {
   Future<UserModel> getUserDetails() async {
-    throw Exception('not implemented');
+    return Api.getUser()!;
   }
 }

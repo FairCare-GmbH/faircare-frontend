@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'api/api.dart';
+import 'blocs/auth/login/login_bloc.dart';
+import 'blocs/user/user/user_bloc.dart';
 
 class FaircareApp extends StatelessWidget {
   const FaircareApp({Key? key}) : super(key: key);
@@ -45,8 +47,11 @@ class FaircareApp extends StatelessWidget {
                   )
                 ],
               ));
+            }else if(snapshot.data!){
+              return const MasterPage();
+            }else{
+              return const LoginPage();
             }
-            return snapshot.data! ? const MasterPage() : const LoginPage();
           },
         ),
         // home: const RequestVacationPage(),

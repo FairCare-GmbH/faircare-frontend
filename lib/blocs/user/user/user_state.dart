@@ -11,11 +11,7 @@ class UserDataInitial extends UserState {}
 
 class UserDataLoading extends UserState {}
 
-class UserDataLoaded extends UserState {
-  final UserModel user;
-
-  const UserDataLoaded(this.user);
-}
+class UserDataLoaded extends UserState {}
 
 class UserDataError extends UserState {
   final String error;

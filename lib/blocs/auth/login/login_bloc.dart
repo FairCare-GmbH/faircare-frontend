@@ -15,14 +15,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       (event, Emitter<LoginState> emit) async {
         // starting login user
         try {
-          emit(LoginLoadingState());
-
-          final user = await auth.loginUser(
-            event.username,
-            event.password,
-            true//TODO make conditional
-          );
-          //TODO add user to auth repo?
+          emit(LoginSuccessState());
         } catch (e) {
           emit(LoginFailState(e.toString()));
         }

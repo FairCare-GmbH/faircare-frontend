@@ -1,3 +1,4 @@
+import 'package:faircare/api/api.dart';
 import 'package:faircare/blocs/user/user/user_bloc.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/views/rating_dialog/circular_rating.dart';
@@ -15,18 +16,8 @@ class RatingDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
-        if (state is UserDataLoaded) {
-          final data = state.user;
-          final average = ((data.ratingVector1 ?? 0) +
-                  (data.ratingVector2 ?? 0) +
-                  (data.ratingVector3 ?? 0) +
-                  (data.ratingVector4 ?? 0) +
-                  (data.ratingVector5 ?? 0)) /
-              (((data.ratingVector1 ?? 0) > 0 ? 1 : 0) +
-                  ((data.ratingVector2 ?? 0) > 0 ? 1 : 0) +
-                  ((data.ratingVector3 ?? 0) > 0 ? 1 : 0) +
-                  ((data.ratingVector4 ?? 0) > 0 ? 1 : 0) +
-                  ((data.ratingVector5 ?? 0) > 0 ? 1 : 0));
+        if (Api.getUser() != null) {
+          final data = Api.getUser()!;
 
           return Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -47,7 +38,7 @@ class RatingDialog extends StatelessWidget {
                 ),
                 const VerticalSpacer(12),
                 CircularRating(
-                  rating: average,
+                  rating: data.getAverageRating(),
                   totalRating: data.ratingCount ?? 0,
                 ),
                 const VerticalSpacer(32),
