@@ -9,7 +9,7 @@ import 'api_exception.dart';
 
 class Api {
   static const _baseUrl =
-  true ? 'https://app.getfaircare.de' : 'http://127.0.0.1:3000';
+      true ? 'https://app.getfaircare.de' : 'http://127.0.0.1:3000';
   static final Dio _client = Dio(BaseOptions(
     connectTimeout: const Duration(milliseconds: 750),
     receiveTimeout: const Duration(milliseconds: 2000),
@@ -49,14 +49,14 @@ class Api {
   static String _password = '';
 
   static Future<Map<String, dynamic>> request(
-      String path, {
-        Object? data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        CancelToken? cancelToken,
-        ProgressCallback? onSendProgress,
-        ProgressCallback? onReceiveProgress,
-      }) async {
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    CancelToken? cancelToken,
+    ProgressCallback? onSendProgress,
+    ProgressCallback? onReceiveProgress,
+  }) async {
     final response = await _client.request('$_baseUrl$path',
         data: data,
         queryParameters: queryParameters,
@@ -74,8 +74,8 @@ class Api {
     throw ApiException(
         code: response.statusCode!,
         messages: ((response.data['message'] is List
-            ? response.data['message']
-            : [response.data['message']]) as List<dynamic>)
+                ? response.data['message']
+                : [response.data['message']]) as List<dynamic>)
             .map((e) => e.toString())
             .toList());
   }
@@ -98,8 +98,8 @@ class Api {
       if (stayLoggedIn) {
         const storage = FlutterSecureStorage(
             aOptions: AndroidOptions(
-              encryptedSharedPreferences: true,
-            ));
+          encryptedSharedPreferences: true,
+        ));
         await storage.write(key: 'username', value: username);
         await storage.write(key: 'password', value: password);
       }
@@ -117,8 +117,8 @@ class Api {
 
     const storage = FlutterSecureStorage(
         aOptions: AndroidOptions(
-          encryptedSharedPreferences: true,
-        ));
+      encryptedSharedPreferences: true,
+    ));
     _username = await storage.read(key: 'username') ?? '';
     _password = await storage.read(key: 'password') ?? '';
     return _username.isNotEmpty && _password.isNotEmpty;
@@ -138,8 +138,8 @@ class Api {
     _password = '';
     const storage = FlutterSecureStorage(
         aOptions: AndroidOptions(
-          encryptedSharedPreferences: true,
-        ));
+      encryptedSharedPreferences: true,
+    ));
     await storage.delete(key: 'username');
     await storage.delete(key: 'password');
     throw ApiException(code: 404, messages: ['Not implemented.']);
