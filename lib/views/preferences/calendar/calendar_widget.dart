@@ -1,7 +1,6 @@
 import 'package:faircare/blocs/preferences/calendar_cubit/calendar_cubit.dart';
 import 'package:faircare/blocs/preferences/calendar_cubit/calendar_data_cubit.dart';
 import 'package:faircare/global/colors.dart';
-import 'package:faircare/global/extensions.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/models/calendar_model.dart';
 import 'package:faircare/views/preferences/calendar/calendar_header.dart';
@@ -35,34 +34,32 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             const MyCalendarWeekDays(),
             BlocBuilder<PrefsCalendarDaysCubit, List<CalendarModel>>(
               builder: (context, list) {
-                if (list.isNotEmpty) {
-                  return SizedBox(
-                    width: 350,
-                    child: TableCalendar(
-                      firstDay: DateTime(2023),
-                      lastDay: DateTime(2030),
-                      focusedDay: state.dateTime,
-                      rowHeight: 50,
-                      startingDayOfWeek: StartingDayOfWeek.monday,
-                      headerVisible: false,
-                      availableGestures: AvailableGestures.horizontalSwipe,
-                      onPageChanged: (focusedDay) => cubit.setMonth(focusedDay),
-                      calendarBuilders: CalendarBuilders(
-                        defaultBuilder: (_, day, __) => myCalendarBuilder(
-                          day,
-                          getDayData(list, day),
-                        ),
-                        todayBuilder: (_, day, __) => myCalendarBuilder(
-                          day,
-                          getDayData(list, day),
-                        ),
-                        outsideBuilder: myOutsideBuilder,
+                return SizedBox(
+                  width: 350,
+                  child: TableCalendar(
+                    firstDay: DateTime(2023),
+                    lastDay: DateTime(2030),
+                    focusedDay: state.getDate(),
+                    rowHeight: 50,
+                    startingDayOfWeek: StartingDayOfWeek.monday,
+                    headerVisible: false,
+                    availableGestures: AvailableGestures.horizontalSwipe,
+                    onPageChanged: (focusedDay) => cubit.setMonth(focusedDay),
+                    calendarBuilders: CalendarBuilders(
+                      defaultBuilder: (_, day, __) => myCalendarBuilder(
+                        day,
+                        PrefsCalendarDaysCubit.getDayData(list, day),
                       ),
-                      daysOfWeekVisible: false,
-                      onDaySelected: (selectedDay, focusedDay) {},
+                      todayBuilder: (_, day, __) => myCalendarBuilder(
+                        day,
+                        PrefsCalendarDaysCubit.getDayData(list, day),
+                      ),
+                      outsideBuilder: myOutsideBuilder,
                     ),
-                  );
-                }
+                    daysOfWeekVisible: false,
+                    onDaySelected: (selectedDay, focusedDay) {},
+                  ),
+                );
                 return const LoadingIndicator();
               },
             ),
@@ -72,61 +69,51 @@ class _CalendarWidgetState extends State<CalendarWidget> {
     );
   }
 
-  CalendarModel? getDayData(List<CalendarModel> list, DateTime day) {
-    CalendarModel? data;
-    try {
-      data = list.singleWhere(
-        (e) => e.fromDate.isSameDay(day),
-      );
-    } catch (e) {
-      data = null;
-    }
-    return data;
-  }
+  Widget? myCalendarBuilder(DateTime day, List<CalendarModel> models) {
+    final bool isF = models.any((e) => e.tourType == 1 || e.tourType == 3);
+    final bool isFAssigned = isF &&
+        models.any((e) => e.assignedTourType == 1 || e.assignedTourType == 3);
 
-  Color getColor(CalendarModel? model) {
-    if (model == null) return MyColors.grey;
-    if (model.tourType == 0) return MyColors.grey;
-    if (model.tourType == 4) return MyColors.grey;
-    if (model.hasAssignedTour) return MyColors.green;
-    if (!model.hasAssignedTour) return MyColors.prime;
-    return MyColors.border;
-  }
+    final bool isS = models.any((e) => e.tourType == 2 || e.tourType == 3);
+    final bool isSAssigned = isS &&
+        models.any((e) => e.assignedTourType == 2 || e.assignedTourType == 3);
 
-  Color getBgColor(CalendarModel? model) {
-    if (model == null) return MyColors.border;
-    if (model.tourType == 0) return MyColors.grey.withOpacity(0.2);
-    if (model.tourType == 4) return MyColors.grey.withOpacity(0.2);
-    if (model.hasAssignedTour) return MyColors.green.withOpacity(0.2);
-    if (!model.hasAssignedTour) return MyColors.prime.withOpacity(0.2);
-    return MyColors.white;
-  }
+    final bool isU = models.any((e) => e.tourType == 0);
+    final bool isUApproved = isU && models.any((e) => e.assignedTourType == 0);
 
-  Color getDateColor(CalendarModel? model) {
-    if (model == null) return MyColors.grey;
-    if (model.tourType == 0) return MyColors.grey;
-    if (model.tourType == 4) return MyColors.grey;
-    if (model.hasAssignedTour) return MyColors.green;
-    if (!model.hasAssignedTour) return MyColors.prime;
-    return MyColors.darkGrey;
-  }
-
-  Widget? myCalendarBuilder(DateTime day, CalendarModel? model) {
-    final type = model?.tourType;
+    final Color fBgColor = isU && isFAssigned
+        ? MyColors.red
+        : isFAssigned
+            ? MyColors.green
+            : MyColors.prime;
+    final Color sBgColor = isU && isSAssigned
+        ? MyColors.red
+        : isSAssigned
+            ? MyColors.green
+            : MyColors.prime;
+    final Color uBgColor = isUApproved
+        ? MyColors.orange
+        : (isFAssigned || isSAssigned)
+            ? MyColors.red
+            : MyColors.grey;
+    final Color bgColor = isU
+        ? uBgColor.withOpacity(0.2)
+        : (isFAssigned || isSAssigned)
+            ? MyColors.green.withOpacity(0.2)
+            : (isF || isS)
+                ? MyColors.prime.withOpacity(0.2)
+                : MyColors.border;
+    final color = isU
+        ? uBgColor
+        : (isFAssigned || isSAssigned)
+            ? MyColors.green
+            : (isF || isS)
+                ? MyColors.prime
+                : MyColors.darkGrey;
 
     return InkWell(
       onTap: () {
-        final cubit = BlocProvider.of<PrefsCalendarDaysCubit>(context);
-
-        if (model == null) return cubit.updateData(day, 1);
-
-        if (model.tourType == 0) return;
-        if (model.hasAssignedTour) return;
-
-        if (model.tourType == 1) cubit.updateData(model.fromDate, 2);
-        if (model.tourType == 2) cubit.updateData(model.fromDate, 3);
-        if (model.tourType == 3) cubit.updateData(model.fromDate, 4);
-        if (model.tourType == 4) cubit.updateData(model.fromDate, 1);
+        BlocProvider.of<PrefsCalendarDaysCubit>(context).incrementDay(day);
       },
       child: SizedBox(
         width: 50,
@@ -136,7 +123,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             // background
             Container(
               decoration: BoxDecoration(
-                color: getBgColor(model),
+                color: bgColor,
                 border: Border.all(
                   color: MyColors.black,
                   width: 0.1,
@@ -145,16 +132,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
             ),
 
             // S
-            if (type == 2 || type == 3)
+            if (isS)
               Positioned(
                 top: 0,
                 right: 0,
                 child: CustomPaint(
-                  painter: TopRightTriangle(getColor(model)),
+                  painter: TopRightTriangle(sBgColor),
                   child: Container(height: 18),
                 ),
               ),
-            if (type == 2 || type == 3)
+            if (isS)
               Positioned(
                 top: 0,
                 right: 0,
@@ -165,16 +152,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               ),
 
             // U
-            if (type == 0)
+            if (isU)
               Positioned(
                 bottom: 0,
                 right: 0,
                 child: CustomPaint(
-                  painter: BottomRightTriangle(getColor(model)),
+                  painter: BottomRightTriangle(uBgColor),
                   child: Container(height: 18),
                 ),
               ),
-            if (type == 0)
+            if (isU)
               Positioned(
                 bottom: 0,
                 right: 0,
@@ -185,16 +172,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               ),
 
             // F
-            if (type == 1 || type == 3)
+            if (isF)
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: CustomPaint(
-                  painter: BottomLeftTriangle(getColor(model)),
+                  painter: BottomLeftTriangle(fBgColor),
                   child: Container(height: 18),
                 ),
               ),
-            if (type == 1 || type == 3)
+            if (isF)
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -209,7 +196,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               child: Text(
                 DateFormat('d').format(day),
                 style: style(
-                  color: getDateColor(model),
+                  color: color,
                   fontSize: 16,
                 ),
               ),

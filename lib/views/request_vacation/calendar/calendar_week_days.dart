@@ -1,4 +1,4 @@
-import 'package:faircare/widgets/calendar_day_item.dart';
+import 'package:faircare/widgets/calendar_week_day.dart';
 import 'package:flutter/material.dart';
 
 class VacationCalendarWeekDays extends StatelessWidget {

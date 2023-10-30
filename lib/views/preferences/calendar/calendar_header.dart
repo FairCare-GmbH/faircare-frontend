@@ -1,5 +1,6 @@
 import 'package:faircare/blocs/preferences/calendar_cubit/calendar_cubit.dart';
 import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +18,7 @@ class MyCalendarHeader extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                '${state.month} ${state.dateTime.year}',
+                '${months[state.getDate().month - 1]} ${state.getDate().year}',
                 style: style(
                   fontSize: 16,
                   color: MyColors.prime,

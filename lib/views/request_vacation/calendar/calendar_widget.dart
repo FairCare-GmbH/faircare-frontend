@@ -44,7 +44,7 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
                         child: TableCalendar(
                           firstDay: DateTime(2023),
                           lastDay: DateTime(2030),
-                          focusedDay: state.dateTime,
+                          focusedDay: DateTime.now(),
                           rowHeight: 50,
                           startingDayOfWeek: StartingDayOfWeek.monday,
                           headerVisible: false,
@@ -109,8 +109,8 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
 
     if (model.tourType == 0) return MyColors.grey;
     if (model.tourType == 4) return MyColors.grey;
-    if (model.hasAssignedTour) return MyColors.green;
-    if (!model.hasAssignedTour) return MyColors.prime;
+    if (model.assignedTourType != null) return MyColors.green;
+    if (model.assignedTourType == null) return MyColors.prime;
     return MyColors.border;
   }
 
@@ -132,8 +132,8 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
 
     if (model.tourType == 0) return MyColors.grey.withOpacity(0.2);
     if (model.tourType == 4) return MyColors.grey.withOpacity(0.2);
-    if (model.hasAssignedTour) return MyColors.green.withOpacity(0.2);
-    if (!model.hasAssignedTour) return MyColors.prime.withOpacity(0.2);
+    if (model.assignedTourType != null) return MyColors.green.withOpacity(0.2);
+    if (model.assignedTourType == null) return MyColors.prime.withOpacity(0.2);
     return MyColors.white;
   }
 
@@ -155,8 +155,8 @@ class _VacationCalendarWidgetState extends State<VacationCalendarWidget> {
 
     if (model.tourType == 0) return MyColors.grey;
     if (model.tourType == 4) return MyColors.grey;
-    if (model.hasAssignedTour) return MyColors.green;
-    if (!model.hasAssignedTour) return MyColors.prime;
+    if (model.assignedTourType != null) return MyColors.green;
+    if (model.assignedTourType == null) return MyColors.prime;
     return MyColors.darkGrey;
   }
 

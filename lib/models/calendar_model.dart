@@ -5,7 +5,7 @@ class CalendarModel {
   final DateTime toDate;
   final int dayOfWeek;
   final int tourType;
-  final bool hasAssignedTour;
+  final int? assignedTourType;
 
   CalendarModel({
     required this.id,
@@ -14,7 +14,7 @@ class CalendarModel {
     required this.toDate,
     required this.dayOfWeek,
     required this.tourType,
-    required this.hasAssignedTour,
+    required this.assignedTourType,
   });
 
   factory CalendarModel.fromJson(Map<String, dynamic> json) {
@@ -25,7 +25,7 @@ class CalendarModel {
       toDate: DateTime.parse(json['toDate']),
       dayOfWeek: json['dayOfWeek'],
       tourType: json['tourType'],
-      hasAssignedTour: json['hasAssignedTour'],
+      assignedTourType: json['assignedTourType'],
     );
   }
 
@@ -37,7 +37,7 @@ class CalendarModel {
       "toDate": toDate.toIso8601String(),
       "dayOfWeek": dayOfWeek,
       "tourType": tourType,
-      "hasAssignedTour": hasAssignedTour,
+      "assignedTourType": assignedTourType,
     };
   }
 
@@ -48,7 +48,7 @@ class CalendarModel {
     DateTime? toDate,
     int? dayOfWeek,
     int? tourType,
-    bool? hasAssignedTour,
+    int? assignedTourType,
   }) {
     return CalendarModel(
       id: id ?? this.id,
@@ -57,7 +57,7 @@ class CalendarModel {
       toDate: toDate ?? this.toDate,
       dayOfWeek: dayOfWeek ?? this.dayOfWeek,
       tourType: tourType ?? this.tourType,
-      hasAssignedTour: hasAssignedTour ?? this.hasAssignedTour,
+      assignedTourType: assignedTourType ?? this.assignedTourType,
     );
   }
 }

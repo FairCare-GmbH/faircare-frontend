@@ -9,35 +9,133 @@ class PrefsCalendarDaysCubit extends Cubit<List<CalendarModel>> {
     emit(data);
   }
 
-  void updateData(DateTime date, int type) {
-    final fromDate = date.ymd;
+  void incrementDay(DateTime day) {
+    final List<CalendarModel> models = getDayData(state, day);
+    final CalendarModel? dayModel = models
+        .where((e) => e.fromDate.isSameDay(e.toDate) && e.tourType != 0)
+        .firstOrNull;
+    final CalendarModel? weekModel = models
+        .where((e) => !e.fromDate.isSameDay(e.toDate) && e.tourType != 0)
+        .firstOrNull;
+    final CalendarModel? vacationModel =
+        models.where((e) => e.tourType == 0).firstOrNull;
 
-    bool modelExists = state.any((model) => model.fromDate == fromDate);
+    if (vacationModel != null ||
+        weekModel?.tourType == 3 ||
+        dayModel?.assignedTourType == 3 ||
+        (weekModel != null && dayModel?.assignedTourType != null)) {
+      return;
+    }
 
-    List<CalendarModel> updatedData;
-
-    if (modelExists) {
-      updatedData = state.map((model) {
-        if (model.fromDate == fromDate) {
-          return model.copyWith(tourType: type);
-        }
-        return model;
-      }).toList();
+    int? newType;
+    if (weekModel != null) {
+      newType = weekModel.tourType % 2 + 1;
+      if (newType == dayModel?.tourType) newType = null;
+    } else if (dayModel?.assignedTourType != null) {
+      newType = dayModel!.tourType == 3 ? dayModel.assignedTourType! : 3;
     } else {
-      updatedData = List<CalendarModel>.from(state)
-        ..add(
-          CalendarModel(
-            id: 0,
-            nurseId: 0,
-            fromDate: fromDate,
-            toDate: fromDate,
-            dayOfWeek: fromDate.weekday,
-            tourType: type,
-            hasAssignedTour: false,
-          ),
-        );
+      newType = (dayModel?.tourType ?? 0) + 1;
+      if (newType == 4) newType = null;
+    }
+
+    List<CalendarModel> updatedData =
+        state.where((e) => !_isDayMatch(e, day)).toList();
+
+    if (vacationModel != null) updatedData.add(vacationModel);
+    if (weekModel != null) updatedData.add(weekModel);
+    if (newType != null) {
+      updatedData.add(dayModel != null
+          ? dayModel.copyWith(tourType: newType)
+          : CalendarModel(
+              id: 0,
+              nurseId: 0,
+              fromDate: day.ymd,
+              toDate: day.ymd,
+              dayOfWeek: day.weekday,
+              tourType: newType,
+              assignedTourType: null,
+            ));
     }
 
     emit(updatedData);
   }
+
+  void incrementWeek(int weekday) {
+    final List<CalendarModel> models =
+        state.where((e) => e.dayOfWeek == weekday).toList(growable: false);
+    final List<CalendarModel> dayModels = models
+        .where((e) => e.fromDate.isSameDay(e.toDate) && e.tourType != 0)
+        .toList(growable: false);
+    final CalendarModel? weekModel = models
+        .where((e) => !e.fromDate.isSameDay(e.toDate) && e.tourType != 0)
+        .firstOrNull;
+    final CalendarModel? vacationModel =
+        models.where((e) => e.tourType == 0).firstOrNull;
+
+    if (weekModel?.assignedTourType == 3) return;
+
+    int? newType;
+    if (weekModel?.assignedTourType != null) {
+      newType = weekModel!.tourType == 3 ? weekModel.assignedTourType! : 3;
+    } else {
+      newType = (weekModel?.tourType ?? 0) + 1;
+      if (newType == 4) newType = null;
+    }
+
+    List<CalendarModel> updatedData =
+        state.where((e) => e.dayOfWeek != weekday).toList();
+
+    if (vacationModel != null) updatedData.add(vacationModel);
+    if (newType != null) {
+      updatedData.add(weekModel != null
+          ? weekModel.copyWith(
+              tourType: newType,
+              fromDate: DateTime.now().ymd,
+              toDate: DateTime(DateTime.now().year + 15).ymd,
+            )
+          : CalendarModel(
+              id: 0,
+              nurseId: 0,
+              fromDate: DateTime.now().ymd,
+              toDate: DateTime(DateTime.now().year + 15).ymd,
+              dayOfWeek: weekday,
+              tourType: newType,
+              assignedTourType: null,
+            ));
+    }
+
+    updatedData.addAll(dayModels
+        .where((e) => e.assignedTourType != null || e.tourType != newType));
+
+    emit(updatedData);
+  }
+
+  static bool _isDayMatch(CalendarModel model, DateTime day) =>
+      model.fromDate.isSameDay(day) && model.toDate.isSameDay(day) ||
+      _isWeekDayMatch(model, day.weekday);
+
+  static bool _isWeekDayMatch(CalendarModel model, int weekday) =>
+      !model.fromDate.isSameDay(model.toDate) && model.dayOfWeek == weekday;
+
+  static List<CalendarModel> getDayData(
+          List<CalendarModel> state, DateTime day) =>
+      state
+          .where(
+            (e) => _isDayMatch(e, day),
+          )
+          .toList(growable: false);
+
+  static int? reduceTourType(List<CalendarModel> models) => models.isEmpty
+      ? null
+      : models.reduce((value, element) {
+          if (value.tourType == element.tourType) return value;
+
+          if (value.tourType == 0) return value;
+          if (element.tourType == 0) return element;
+
+          if (value.tourType == 3) return value;
+          if (element.tourType == 3) return element;
+
+          return value.copyWith(tourType: 3);
+        }).tourType;
 }

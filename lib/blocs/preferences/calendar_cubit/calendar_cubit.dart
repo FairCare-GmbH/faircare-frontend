@@ -1,68 +1,42 @@
 import 'package:bloc/bloc.dart';
 import 'package:faircare/global/constants.dart';
+import 'package:faircare/global/extensions.dart';
 
 class PrefsCalendarMonthCubit extends Cubit<PrefsCalendarMonthCubitState> {
   PrefsCalendarMonthCubit() : super(PrefsCalendarMonthCubitState());
 
   void nextMonth() {
-    DateTime dateTime = state.dateTime;
-    DateTime newDateTime = DateTime(
-      dateTime.year,
-      dateTime.month + 1,
-      dateTime.day,
-    );
-
-    emit(state.copyWith(
-      dateTime: newDateTime,
-      month: months[newDateTime.month - 1],
-    ));
+    emit(PrefsCalendarMonthCubitState(
+        dateTime: DateTime(
+      state._dateTime.year,
+      state._dateTime.month + 1,
+    )));
   }
 
   void previousMonth() {
-    DateTime dateTime = state.dateTime;
-    DateTime newDateTime = DateTime(
-      dateTime.year,
-      dateTime.month - 1,
-      dateTime.day,
-    );
-
-    emit(state.copyWith(
-      dateTime: newDateTime,
-      month: months[newDateTime.month - 1],
-    ));
+    emit(PrefsCalendarMonthCubitState(
+        dateTime: DateTime(
+      state._dateTime.year,
+      state._dateTime.month - 1,
+    )));
   }
 
   void setMonth(DateTime dateTime) {
-    DateTime newDateTime = DateTime(
+    emit(PrefsCalendarMonthCubitState(
+        dateTime: DateTime(
       dateTime.year,
       dateTime.month,
-      dateTime.day,
-    );
-
-    emit(state.copyWith(
-      dateTime: newDateTime,
-      month: months[newDateTime.month - 1],
-    ));
+    )));
   }
 }
 
 class PrefsCalendarMonthCubitState {
-  DateTime dateTime;
-  String month;
+  final DateTime _dateTime;
 
   PrefsCalendarMonthCubitState({
     DateTime? dateTime,
-    String? month,
-  })  : dateTime = dateTime ?? DateTime.now(),
-        month = month ?? months[DateTime.now().month - 1];
+  }) : _dateTime = DateTime((dateTime ?? DateTime.now().ymd).year,
+            (dateTime ?? DateTime.now().ymd).month);
 
-  PrefsCalendarMonthCubitState copyWith({
-    DateTime? dateTime,
-    String? month,
-  }) {
-    return PrefsCalendarMonthCubitState(
-      dateTime: dateTime ?? this.dateTime,
-      month: month ?? this.month,
-    );
-  }
+  DateTime getDate() => _dateTime;
 }
