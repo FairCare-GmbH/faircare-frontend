@@ -28,9 +28,12 @@ class Api {
         return handler.next(options);
       },
       onError: (DioException e, handler) async {
+        if (kDebugMode) {
+          print('error in request: $e');
+        }
         if (e.response?.statusCode == 401 && _jwt.isNotEmpty) {
           if (kDebugMode) {
-            print('regenerating access token; $e');
+            print('regenerating access token');
           }
           // If a 401 response is received, refresh the access token
           await login(_username, _password, false);
@@ -58,7 +61,7 @@ class Api {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      if(kDebugMode){
+      if (kDebugMode) {
         print('requesting $path using data $data}');
       }
       final response = await _client.request('$_baseUrl$path',
@@ -69,12 +72,27 @@ class Api {
           onSendProgress: onSendProgress,
           onReceiveProgress: onReceiveProgress);
 
-      if(kDebugMode){
+      if (kDebugMode) {
         print('received ${response.statusCode} with data ${response.data}}');
       }
 
-      if (response.statusCode != null && response.statusCode! < 300) {
+      if (response.statusCode! < 300) {
         return response.data;
+      } else if (path != _loginEndpoint &&
+          response.statusCode == 401 &&
+          _jwt.isNotEmpty) {
+        if (kDebugMode) {
+          print('regenerating access token');
+        }
+        // If a 401 response is received, refresh the access token
+        await login(_username, _password, false);
+        return await request(path,
+            data: data,
+            options: options,
+            cancelToken: cancelToken,
+            onReceiveProgress: onReceiveProgress,
+            onSendProgress: onSendProgress,
+            queryParameters: queryParameters);
       } //TODO handle errors related to connectvity, i.e. offline mode
 
       throw ApiException(
@@ -93,11 +111,12 @@ class Api {
   }
 
   static UserModel? _user;
+  static const String _loginEndpoint = '/nurses/login';
 
   static Future<UserModel> login(
       String username, String password, bool stayLoggedIn) async {
     final response = await request<Map>(
-      '/nurses/login',
+      _loginEndpoint,
       options: Options(method: 'POST'),
       data: {
         'user': username,

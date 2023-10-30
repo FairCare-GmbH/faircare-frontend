@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+import 'package:faircare/api/api_exception.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/user_dialog/user_image.dart';
@@ -5,6 +7,10 @@ import 'package:faircare/widgets/notification_button.dart';
 import 'package:faircare/widgets/snack_bar.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../api/api.dart';
+import '../../blocs/preferences/calendar_cubit/calendar_data_cubit.dart';
 
 class PreferencesAppBar extends StatelessWidget {
   const PreferencesAppBar({Key? key}) : super(key: key);
@@ -53,11 +59,21 @@ class SaveButton extends StatelessWidget {
     return IconButton(
       icon: const Icon(Icons.save),
       onPressed: () {
-        showSnackBar(
-          context,
-          'Präferenzen gespeichert',
-          icon: Icons.save,
-        );
+        Api.request('/preferences', options: Options(method: 'POST'), data: {
+          'nurseId': Api.getUser()!.id,
+          'preferences': BlocProvider.of<PrefsCalendarDaysCubit>(context)
+              .state
+              .map((e) => e.toJson())
+              .toList()
+        })
+            .then((value) => showSnackBar(
+                  context,
+                  'Präferenzen gespeichert',
+                  icon: Icons.save,
+                ))
+            .onError((error, stackTrace) {
+          if (error is ApiException) error.showDialog(context);
+        });
       },
     );
   }

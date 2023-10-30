@@ -5,12 +5,9 @@ import 'package:faircare/models/vacation_model.dart';
 import '../../api/api.dart';
 
 class PreferencesRepo {
-  void setPreferences() async {
-
-  }
-
   Future<List<CalendarModel>> getCalendarData() async {
-    return (await Api.request<List>('/preferences/${Api.getUser()!.id}', options: Options(method: 'GET')))
+    return (await Api.request<List>('/preferences/${Api.getUser()!.id}',
+            options: Options(method: 'GET')))
         .map((e) => CalendarModel.fromJson(e))
         .toList(growable: false);
   }

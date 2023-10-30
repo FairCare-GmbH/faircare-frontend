@@ -30,7 +30,8 @@ class FaircareApp extends StatelessWidget {
         ],
         home: FutureBuilder<bool>(
           future: Api.isLoggedIn()
-              .onError((error, stackTrace) => false)
+              .onError((error, stackTrace) =>
+                  false) //TODO log error to figure out why this doesnt' work sometimes. also establish why login request sent twice on startup
               .timeout(const Duration(milliseconds: 2500),
                   onTimeout: () => false),
           builder: (context, snapshot) {
