@@ -29,7 +29,10 @@ class FaircareApp extends StatelessWidget {
           GlobalCupertinoLocalizations.delegate,
         ],
         home: FutureBuilder<bool>(
-          future: Api.isLoggedIn(),
+          future: Api.isLoggedIn()
+              .onError((error, stackTrace) => false)
+              .timeout(const Duration(milliseconds: 2500),
+                  onTimeout: () => false),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(
@@ -47,9 +50,9 @@ class FaircareApp extends StatelessWidget {
                   )
                 ],
               ));
-            }else if(snapshot.data!){
+            } else if (snapshot.data!) {
               return const MasterPage();
-            }else{
+            } else {
               return const LoginPage();
             }
           },
