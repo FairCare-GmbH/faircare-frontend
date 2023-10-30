@@ -57,27 +57,39 @@ class Api {
     ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
   }) async {
-    final response = await _client.request('$_baseUrl$path',
-        data: data,
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-        onSendProgress: onSendProgress,
-        onReceiveProgress: onReceiveProgress);
+    try {
+      if(kDebugMode){
+        print('requesting $path using data $data}');
+      }
+      final response = await _client.request('$_baseUrl$path',
+          data: data,
+          queryParameters: queryParameters,
+          options: options,
+          cancelToken: cancelToken,
+          onSendProgress: onSendProgress,
+          onReceiveProgress: onReceiveProgress);
 
-    if (response.statusCode != null && response.statusCode! < 300) {
-      return response.data;
-    } //TODO handle errors related to connectvity, i.e. offline mode
-    if (kDebugMode) {
-      print(response);
+      if(kDebugMode){
+        print('received ${response.statusCode} with data ${response.data}}');
+      }
+
+      if (response.statusCode != null && response.statusCode! < 300) {
+        return response.data;
+      } //TODO handle errors related to connectvity, i.e. offline mode
+
+      throw ApiException(
+          code: response.statusCode!,
+          messages: ((response.data['message'] is List
+                  ? response.data['message']
+                  : [response.data['message']]) as List<dynamic>)
+              .map((e) => e.toString())
+              .toList());
+    } catch (e) {
+      if (kDebugMode) {
+        print(e);
+      }
+      rethrow;
     }
-    throw ApiException(
-        code: response.statusCode!,
-        messages: ((response.data['message'] is List
-                ? response.data['message']
-                : [response.data['message']]) as List<dynamic>)
-            .map((e) => e.toString())
-            .toList());
   }
 
   static UserModel? _user;

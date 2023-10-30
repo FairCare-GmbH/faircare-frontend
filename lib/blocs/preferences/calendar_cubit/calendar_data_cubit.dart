@@ -47,8 +47,6 @@ class PrefsCalendarDaysCubit extends Cubit<List<CalendarModel>> {
       updatedData.add(dayModel != null
           ? dayModel.copyWith(tourType: newType)
           : CalendarModel(
-              id: 0,
-              nurseId: 0,
               fromDate: day.ymd,
               toDate: day.ymd,
               dayOfWeek: day.weekday,
@@ -94,8 +92,6 @@ class PrefsCalendarDaysCubit extends Cubit<List<CalendarModel>> {
               toDate: DateTime(DateTime.now().year + 15).ymd,
             )
           : CalendarModel(
-              id: 0,
-              nurseId: 0,
               fromDate: DateTime.now().ymd,
               toDate: DateTime(DateTime.now().year + 15).ymd,
               dayOfWeek: weekday,
@@ -124,18 +120,4 @@ class PrefsCalendarDaysCubit extends Cubit<List<CalendarModel>> {
             (e) => _isDayMatch(e, day),
           )
           .toList(growable: false);
-
-  static int? reduceTourType(List<CalendarModel> models) => models.isEmpty
-      ? null
-      : models.reduce((value, element) {
-          if (value.tourType == element.tourType) return value;
-
-          if (value.tourType == 0) return value;
-          if (element.tourType == 0) return element;
-
-          if (value.tourType == 3) return value;
-          if (element.tourType == 3) return element;
-
-          return value.copyWith(tourType: 3);
-        }).tourType;
 }
