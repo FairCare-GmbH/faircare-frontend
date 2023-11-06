@@ -1,18 +1,14 @@
 import 'package:faircare/blocs/auth/login/login_bloc.dart';
 import 'package:faircare/blocs/auth/progress/register_progress_cubit.dart';
 import 'package:faircare/blocs/auth/register_cubit/register_cubit.dart';
-import 'package:faircare/blocs/available_tours/available_tours/available_tours_bloc.dart';
 import 'package:faircare/blocs/intro/progress/intro_progress_cubit.dart';
 import 'package:faircare/blocs/master/navbar/nav_bar_cubit.dart';
-import 'package:faircare/blocs/my_tours/assigned_tours/assigned_tours_bloc.dart';
-import 'package:faircare/blocs/my_tours/requested_tours/requested_tours_bloc.dart';
 import 'package:faircare/blocs/notifications/notifications/notifications_bloc.dart';
-import 'package:faircare/blocs/preferences/calendar_bloc/calendar_bloc.dart';
 import 'package:faircare/blocs/preferences/calendar_cubit/calendar_cubit.dart';
 import 'package:faircare/blocs/preferences/calendar_cubit/calendar_data_cubit.dart';
+import 'package:faircare/blocs/preferences/preferences_bloc.dart';
 import 'package:faircare/blocs/preferences/preferences_cubit/preferences_cubit.dart';
 import 'package:faircare/blocs/preferences/vacation_requests/vacation_requests_bloc.dart';
-import 'package:faircare/blocs/sales/completed_tours/completed_tours_bloc.dart';
 import 'package:faircare/blocs/search/available_tours_search_cubit.dart';
 import 'package:faircare/blocs/search/my_tours_search_cubit.dart';
 import 'package:faircare/blocs/user/user/user_bloc.dart';
@@ -51,18 +47,6 @@ class BlocProviders {
     BlocProvider<MyToursSearchCubit>(
       create: (_) => MyToursSearchCubit(),
     ),
-    BlocProvider<AvailableToursBloc>(
-      create: (_) => AvailableToursBloc()..add(GetAvailableTours()),
-    ),
-    BlocProvider<AssignedToursBloc>(
-      create: (_) => AssignedToursBloc()..add(GetAssignedTours()),
-    ),
-    BlocProvider<RequestedToursBloc>(
-      create: (_) => RequestedToursBloc()..add(GetRequestedTours()),
-    ),
-    BlocProvider<CompletedToursBloc>(
-      create: (_) => CompletedToursBloc()..add(GetCompletedTours()),
-    ),
 
     // user
     BlocProvider<UserBloc>(
@@ -70,6 +54,10 @@ class BlocProviders {
     ),
 
     // preferences
+    BlocProvider<PreferencesBloc>(
+      create: (_) => PreferencesBloc()..add(GetPreferenceData()),
+    ),
+
     BlocProvider<PrefsCalendarMonthCubit>(
       create: (_) => PrefsCalendarMonthCubit(),
     ),
@@ -79,9 +67,7 @@ class BlocProviders {
     BlocProvider<VacationRequestsBloc>(
       create: (_) => VacationRequestsBloc()..add(GetVacationRequests()),
     ),
-    BlocProvider<PrefsCalendarBloc>(
-      create: (_) => PrefsCalendarBloc()..add(GetCalendarData()),
-    ),
+
     BlocProvider<PrefsCalendarDaysCubit>(
       create: (_) => PrefsCalendarDaysCubit(),
     ),

@@ -27,10 +27,10 @@ class TourDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final plannedFromTime = model.plannedFromTime.time;
-    final plannedToTime = model.plannedToTime.time;
-    final actualFromTime = model.actualFromTime.time;
-    final actualToTime = model.actualToTime.time;
+    final plannedFromTime = model.fromTime.time;
+    final plannedToTime = model.toTime.time;
+    final actualFromTime = model.actualFromTime?.time ?? '00:00:00'.time;
+    final actualToTime = model.actualToTime?.time ?? '00:00:00'.time;
 
     final plannedTime = plannedToTime.hour * 60 +
         plannedToTime.minute -
@@ -74,7 +74,7 @@ class TourDetailsPage extends StatelessWidget {
                   HorizontalTile(
                     'Start/Ende',
                     mainText: '${state == TourState.completed ? ' / ' : ''}'
-                        '${model.plannedFromTime} - ${model.plannedToTime}',
+                        '${model.fromTime} - ${model.toTime}',
                     secondaryText: state == TourState.completed
                         ? '${model.actualFromTime} - ${model.actualToTime}'
                         : '',

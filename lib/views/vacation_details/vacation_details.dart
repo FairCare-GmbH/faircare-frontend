@@ -1,14 +1,12 @@
 import 'package:faircare/global/colors.dart';
-import 'package:faircare/global/constants.dart';
-import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/views/available_tours/tour_item.dart';
-import 'package:faircare/views/request_vacation/calendar/calendar_widget.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import '../preferences/calendar/calendar_widget.dart';
 
 class VacationDetailsPage extends StatelessWidget {
   const VacationDetailsPage({Key? key}) : super(key: key);
@@ -36,7 +34,7 @@ class VacationDetailsPage extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           children: [
             // calendar
-            const VacationCalendarWidget(),
+            const CalendarWidget(isVacationPlanner: true),
             const VerticalSpacer(16),
 
             // from-to dates
@@ -93,7 +91,7 @@ class VacationDetailsPage extends StatelessWidget {
                 ),
                 const HorizontalSpacer(12),
                 Text(
-                  '3 / 22',
+                  '3',//TODO display number of vacation days
                   style: style(
                     fontSize: 16,
                     color: MyColors.darkGrey,
@@ -111,9 +109,9 @@ class VacationDetailsPage extends StatelessWidget {
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               separatorBuilder: (a, b) => const VerticalSpacer(10),
-              itemCount: 1,
+              itemCount: 0,
               itemBuilder: (context, index) {
-                return TourItem(tourExample1, TourState.assigned);
+                // return TourItem(tourExample1, TourState.assigned);
               },
             ),
           ],

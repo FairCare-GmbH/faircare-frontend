@@ -19,22 +19,24 @@ class Vacations extends StatelessWidget {
       children: [
         const Subheading('Urlaubsanträge'),
         const VerticalSpacer(12),
-        BlocBuilder<VacationRequestsBloc, VacationRequestsState>(
-          builder: (context, state) {
-            if (state is VacationRequestsLoaded) {
-              return ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                separatorBuilder: (a, b) => const VerticalSpacer(10),
-                itemCount: state.vacations.length,
-                itemBuilder: (_, i) {
-                  return VacationItem(state.vacations[i]);
-                },
-              );
-            }
-            return const LoadingIndicator();
-          },
-        ),
+        BlocProvider<VacationRequestsBloc>(
+            create: (_) => VacationRequestsBloc()..add(GetVacationRequests()),
+            child: BlocBuilder<VacationRequestsBloc, VacationRequestsState>(
+              builder: (context, state) {
+                if (state is VacationRequestsLoaded) {
+                  return ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    separatorBuilder: (a, b) => const VerticalSpacer(10),
+                    itemCount: state.vacations.length,
+                    itemBuilder: (_, i) {
+                      return VacationItem(state.vacations[i]);
+                    },
+                  );
+                }
+                return const LoadingIndicator();
+              },
+            )),
         const VerticalSpacer(12),
         Button(
           'Urlaub beantragen',

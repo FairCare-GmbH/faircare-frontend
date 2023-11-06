@@ -11,21 +11,24 @@ class AvailableToursList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AvailableToursBloc, AvailableToursState>(
-      builder: (context, state) {
-        if (state is AvailableToursLoaded) {
-          return ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (a, b) => const VerticalSpacer(10),
-            itemCount: state.tours.length,
-            itemBuilder: (_, i) {
-              return TourItem(state.tours[i], TourState.available);
-            },
-          );
-        }
-        return const LoadingIndicator();
-      },
+    return BlocProvider(
+      create: (context) => AvailableToursBloc()..add(GetAvailableTours()),
+      child: BlocBuilder<AvailableToursBloc, AvailableToursState>(
+        builder: (context, state) {
+          if (state is AvailableToursLoaded) {
+            return ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: (a, b) => const VerticalSpacer(10),
+              itemCount: state.tours.length,
+              itemBuilder: (_, i) {
+                return TourItem(state.tours[i], TourState.available);
+              },
+            );
+          }
+          return const LoadingIndicator();
+        },
+      ),
     );
   }
 }

@@ -1,92 +1,115 @@
+import 'package:faircare/blocs/preferences/preferences_bloc.dart';
 import 'package:faircare/blocs/preferences/preferences_cubit/preferences_cubit.dart';
 import 'package:faircare/global/constants.dart';
-import 'package:faircare/models/preferences_model.dart';
 import 'package:faircare/widgets/dropdown.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/switch.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../widgets/loading_indicator.dart';
+
 class GeneralPreferences extends StatelessWidget {
   const GeneralPreferences({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PreferencesCubit, PreferencesModel>(
+    return BlocBuilder<PreferencesBloc, PreferenceState>(
       builder: (context, state) {
-        final cubit = BlocProvider.of<PreferencesCubit>(context);
+        final bloc = BlocProvider.of<PreferencesBloc>(context);
 
-        return Column(
-          children: [
-            // availability
-            MyDropdown(
-              label: 'Verfügbar für neue Patienten',
-              value: availableForNewPatients[state.openForPatients ? 0 : 1],
-              items: availableForNewPatients,
-              onChanged: (v) {
-                if (v == null) return;
-                cubit.setAvailability(v == availableForNewPatients[0]);
-              },
-            ),
-            const VerticalSpacer(24),
+        if (state is PreferenceLoaded) {
+          return Column(
+            children: [
+              // availability
+              MyDropdown(
+                label: 'Verfügbar für neue Patienten',
+                value: availableForNewPatients[
+                    state.userModel.openForPatients ? 0 : 1],
+                items: availableForNewPatients,
+                onChanged: (v) {
+                  if (v == null) return;
+                  bloc.add(UpdatePreferenceUser(state.userModel.copyWith(
+                      openForPatients: v == availableForNewPatients[0])));
+                  //cubit.setAvailability(v == availableForNewPatients[0]);
+                },
+              ),
+              const VerticalSpacer(24),
 
-            // distance
-            MyDropdown(
-              label: 'Maximale Distanz zum Start der Tour',
-              value: '${state.maximumCareRadius} Km',
-              items: distances.map((e) => '$e Km').toList(),
-              onChanged: (v) {
-                if (v == null) return;
-                cubit.setDistance(
-                  int.parse(v.toString().split(' ')[0]),
-                );
-              },
-            ),
-            const VerticalSpacer(16),
-            MySwitch(
-              'Hauswirtschaft',
-              value: state.allowHousekeeping,
-              onChanged: (v) {
-                cubit.setHousekeeping(!state.allowHousekeeping);
-              },
-            ),
-            MySwitch(
-              'Wundversorgung',
-              value: state.allowWoundCare,
-              onChanged: (v) {
-                cubit.setWoundCare(!state.allowWoundCare);
-              },
-            ),
-            MySwitch(
-              'Grundpflege',
-              value: state.allowBasicCare,
-              onChanged: (v) {
-                cubit.setBasicCare(!state.allowBasicCare);
-              },
-            ),
-            MySwitch(
-              'Behandlungspflege',
-              value: state.allowMedicalCare,
-              onChanged: (v) {
-                cubit.setMedicalCare(!state.allowMedicalCare);
-              },
-            ),
-            MySwitch(
-              'Betreuung',
-              value: state.allowCompanionship,
-              onChanged: (v) {
-                cubit.setCompanionship(!state.allowCompanionship);
-              },
-            ),
-            MySwitch(
-              'Infektionskrankheiten',
-              value: state.allowInfectiousDisease,
-              onChanged: (v) {
-                cubit.setInfectiousDisease(!state.allowInfectiousDisease);
-              },
-            ),
-          ],
-        );
+              // distance
+              MyDropdown(
+                label: 'Maximale Distanz zum Start der Tour',
+                value: '${state.userModel.maximumCareRadius} Km',
+                items: distances.map((e) => '$e Km').toList(),
+                onChanged: (v) {
+                  if (v == null) return;
+                  bloc.add(UpdatePreferenceUser(state.userModel.copyWith(
+                      maximumCareRadius:
+                          int.parse(v.toString().split(' ')[0]))));
+                },
+              ),
+              const VerticalSpacer(16),
+              MySwitch(
+                'Hauswirtschaft',
+                value: state.userModel.allowHousekeeping,
+                onChanged: (v) {
+                  bloc.add(UpdatePreferenceUser(state.userModel.copyWith(
+                      allowHousekeeping:
+                          v ?? !state.userModel.allowHousekeeping)));
+                },
+              ),
+              MySwitch(
+                'Wundversorgung',
+                value: state.userModel.allowWoundCare,
+                onChanged: (v) {
+                  bloc.add(UpdatePreferenceUser(state.userModel.copyWith(
+                      allowWoundCare: v ?? !state.userModel.allowWoundCare)));
+                },
+              ),
+              MySwitch(
+                'Grundpflege',
+                value: state.userModel.allowBasicCare,
+                onChanged: (v) {
+                  bloc.add(UpdatePreferenceUser(state.userModel.copyWith(
+                      allowBasicCare: v ?? !state.userModel.allowBasicCare)));
+                },
+              ),
+              MySwitch(
+                'Behandlungspflege',
+                value: state.userModel.allowMedicalCare,
+                onChanged: (v) {
+                  bloc.add(UpdatePreferenceUser(state.userModel.copyWith(
+                      allowMedicalCare:
+                          v ?? !state.userModel.allowMedicalCare)));
+                },
+              ),
+              MySwitch(
+                'Betreuung',
+                value: state.userModel.allowCompanionship,
+                onChanged: (v) {
+                  bloc.add(UpdatePreferenceUser(state.userModel.copyWith(
+                      allowCompanionship:
+                          v ?? !state.userModel.allowCompanionship)));
+                },
+              ),
+              MySwitch(
+                'Infektionskrankheiten',
+                value: state.userModel.allowInfectiousDisease,
+                onChanged: (v) {
+                  bloc.add(UpdatePreferenceUser(state.userModel.copyWith(
+                      allowInfectiousDisease:
+                          v ?? !state.userModel.allowInfectiousDisease)));
+                },
+              ),
+            ],
+          );
+        } else if (state is PreferenceError) {
+          print(state.error);
+          print(state.stack);
+          return Text(state.error.toString());
+        } else {
+          return const LoadingIndicator();
+        }
       },
     );
   }

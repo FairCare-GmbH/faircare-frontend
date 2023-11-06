@@ -12,7 +12,7 @@ class AssignedToursBloc extends Bloc<AssignedToursEvent, AssignedToursState> {
       (event, emit) async {
         try {
           emit(AssignedToursLoading());
-          final tours = await ToursRepo().getAssignedTours();
+          final tours = await ToursRepo().getMyTours();
           emit(AssignedToursLoaded(tours));
         } catch (e) {
           emit(AssignedToursError(e.toString()));

@@ -83,7 +83,7 @@ class VacationDates extends StatelessWidget {
                 ),
                 const HorizontalSpacer(12),
                 Text(
-                  '$vacationDays / 22',
+                  '$vacationDays',//TODO how many vacation dates
                   style: style(
                     fontSize: 16,
                     color: MyColors.darkGrey,

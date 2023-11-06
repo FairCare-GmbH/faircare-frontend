@@ -11,21 +11,24 @@ class CompletedToursList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CompletedToursBloc, CompletedToursState>(
-      builder: (context, state) {
-        if (state is CompletedToursLoaded) {
-          return ListView.separated(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            separatorBuilder: (a, b) => const VerticalSpacer(10),
-            itemCount: state.tours.length,
-            itemBuilder: (_, i) {
-              return TourItem(state.tours[i], TourState.completed);
-            },
-          );
-        }
-        return const LoadingIndicator();
-      },
+    return BlocProvider<CompletedToursBloc>(
+      create: (_) => CompletedToursBloc()..add(GetCompletedTours()),
+      child: BlocBuilder<CompletedToursBloc, CompletedToursState>(
+        builder: (context, state) {
+          if (state is CompletedToursLoaded) {
+            return ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              separatorBuilder: (a, b) => const VerticalSpacer(10),
+              itemCount: state.tours.length,
+              itemBuilder: (_, i) {
+                return TourItem(state.tours[i], TourState.completed);
+              },
+            );
+          }
+          return const LoadingIndicator();
+        },
+      ),
     );
   }
 }

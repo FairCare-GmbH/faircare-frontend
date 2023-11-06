@@ -9,7 +9,7 @@ import 'api_exception.dart';
 
 class Api {
   static const _baseUrl =
-      true ? 'https://app.getfaircare.de' : 'http://127.0.0.1:3000';
+      true ? 'https://app.getfaircare.de' : 'http://192.168.178.26:3000';
   static final Dio _client = Dio(BaseOptions(
     connectTimeout: const Duration(milliseconds: 750),
     receiveTimeout: const Duration(milliseconds: 2000),
@@ -77,6 +77,11 @@ class Api {
       }
 
       if (response.statusCode! < 300) {
+        if (response.data is String) {
+          throw ApiException(
+              code: 500,
+              messages: ['received poorly formed response from server']);
+        }
         return response.data;
       } else if (path != _loginEndpoint &&
           response.statusCode == 401 &&

@@ -1,8 +1,8 @@
 class TourModel {
   final int id;
   final int ownerNurseId;
-  final String plannedFromTime;
-  final String plannedToTime;
+  final String fromTime;
+  final String toTime;
   final bool hasInfectiousDisease;
   final bool hasMedicalCare;
   final bool hasBasicCare;
@@ -15,17 +15,18 @@ class TourModel {
   final double centerLongitude;
   final double centerLatitude;
   final int revenue;
-  final int maximumCareRadius;
-  final String actualFromTime;
-  final String actualToTime;
+  final double maximumCareRadius;
+  final String? actualFromTime;
+  final String? actualToTime;
   final DateTime fromDate;
   final DateTime toDate;
+  final bool isOpen;
 
   TourModel({
     required this.id,
     required this.ownerNurseId,
-    required this.plannedFromTime,
-    required this.plannedToTime,
+    required this.fromTime,
+    required this.toTime,
     required this.hasInfectiousDisease,
     required this.hasMedicalCare,
     required this.hasBasicCare,
@@ -39,18 +40,19 @@ class TourModel {
     required this.centerLatitude,
     required this.revenue,
     required this.maximumCareRadius,
-    required this.actualFromTime,
-    required this.actualToTime,
+    this.actualFromTime,
+    this.actualToTime,
     required this.fromDate,
     required this.toDate,
+    required this.isOpen,
   });
 
   factory TourModel.fromJson(Map<String, dynamic> json) {
     return TourModel(
       id: json['id'],
       ownerNurseId: json['ownerNurseId'],
-      plannedFromTime: json['plannedFromTime'],
-      plannedToTime: json['plannedToTime'],
+      fromTime: json['fromTime'],
+      toTime: json['toTime'],
       hasInfectiousDisease: json['hasInfectiousDisease'],
       hasMedicalCare: json['hasMedicalCare'],
       hasBasicCare: json['hasBasicCare'],
@@ -68,6 +70,7 @@ class TourModel {
       actualToTime: json['actualToTime'],
       fromDate: DateTime.parse(json['fromDate']),
       toDate: DateTime.parse(json['toDate']),
+      isOpen: json['isOpen'],
     );
   }
 
@@ -75,8 +78,8 @@ class TourModel {
     return {
       "id": id,
       "ownerNurseId": ownerNurseId,
-      "plannedFromTime": plannedFromTime,
-      "plannedToTime": plannedToTime,
+      "plannedFromTime": fromTime,
+      "plannedToTime": toTime,
       "hasInfectiousDisease": hasInfectiousDisease,
       "hasMedicalCare": hasMedicalCare,
       "hasBasicCare": hasBasicCare,
@@ -94,6 +97,7 @@ class TourModel {
       "actualToTime": actualToTime,
       "fromDate": fromDate.toIso8601String(),
       "toDate": toDate.toIso8601String(),
+      "isOpen": isOpen,
     };
   }
 
@@ -114,17 +118,18 @@ class TourModel {
     double? centerLongitude,
     double? centerLatitude,
     int? revenue,
-    int? maximumCareRadius,
+    double? maximumCareRadius,
     String? actualFromTime,
     String? actualToTime,
     DateTime? fromDate,
     DateTime? toDate,
+    bool? isOpen,
   }) {
     return TourModel(
       id: id ?? this.id,
       ownerNurseId: ownerNurseId ?? this.ownerNurseId,
-      plannedFromTime: plannedFromTime ?? this.plannedFromTime,
-      plannedToTime: plannedToTime ?? this.plannedToTime,
+      fromTime: plannedFromTime ?? fromTime,
+      toTime: plannedToTime ?? toTime,
       hasInfectiousDisease: hasInfectiousDisease ?? this.hasInfectiousDisease,
       hasMedicalCare: hasMedicalCare ?? this.hasMedicalCare,
       hasBasicCare: hasBasicCare ?? this.hasBasicCare,
@@ -142,6 +147,7 @@ class TourModel {
       actualToTime: actualToTime ?? this.actualToTime,
       fromDate: fromDate ?? this.fromDate,
       toDate: toDate ?? this.toDate,
+      isOpen: isOpen ?? this.isOpen,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:faircare/blocs/bloc_listeners.dart';
+import 'package:faircare/blocs/preferences/preferences_bloc.dart';
 import 'package:faircare/views/preferences/app_bar.dart';
 import 'package:faircare/views/preferences/sections/desired_hours.dart';
 import 'package:faircare/views/preferences/sections/desired_tours.dart';
@@ -19,8 +20,8 @@ class PreferencesPage extends StatefulWidget {
 class _PreferencesPageState extends State<PreferencesPage> {
   @override
   Widget build(BuildContext context) {
-    return MultiBlocListener(
-      listeners: BlocListeners.prefsListeners,
+    return BlocProvider(
+      create: (_) => PreferencesBloc()..add(GetPreferenceData()),
       child: Column(
         children: [
           const PreferencesAppBar(),

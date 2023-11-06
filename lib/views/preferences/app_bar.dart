@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:faircare/api/api_exception.dart';
+import 'package:faircare/blocs/preferences/preferences_bloc.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/user_dialog/user_image.dart';
@@ -59,21 +60,21 @@ class SaveButton extends StatelessWidget {
     return IconButton(
       icon: const Icon(Icons.save),
       onPressed: () {
-        Api.request('/preferences', options: Options(method: 'POST'), data: {
-          'nurseId': Api.getUser()!.id,
-          'preferences': BlocProvider.of<PrefsCalendarDaysCubit>(context)
-              .state
-              .map((e) => e.toJson())
-              .toList()
-        })
-            .then((value) => showSnackBar(
-                  context,
-                  'Präferenzen gespeichert',
-                  icon: Icons.save,
-                ))
-            .onError((error, stackTrace) {
-          if (error is ApiException) error.showDialog(context);
-        });
+        final state = BlocProvider.of<PreferencesBloc>(context).state;
+        if (state is PreferenceLoaded) {
+          Api.request('/preferences', options: Options(method: 'POST'), data: {
+            'nurse': state.userModel.toJson(),
+            'preferences': state.preferences.map((e) => e.toJson()).toList()
+          })
+              .then((value) => showSnackBar(
+                    context,
+                    'Präferenzen gespeichert',
+                    icon: Icons.save,
+                  ))
+              .onError((error, stackTrace) {
+            if (error is ApiException) error.showDialog(context);
+          });
+        }
       },
     );
   }

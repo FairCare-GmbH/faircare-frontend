@@ -1,5 +1,4 @@
 import 'package:faircare/blocs/auth/login/login_bloc.dart';
-import 'package:faircare/blocs/preferences/calendar_bloc/calendar_bloc.dart';
 import 'package:faircare/blocs/preferences/calendar_cubit/calendar_data_cubit.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/views/master/master.dart';
@@ -18,18 +17,6 @@ class BlocListeners {
           navigate(context, const MasterPage());
         }
         if (state is LoginFailState) {}
-      },
-    ),
-  ];
-
-  static final List<BlocListener> prefsListeners = [
-    BlocListener<PrefsCalendarBloc, PrefsCalendarState>(
-      listener: (context, state) {
-        if (state is PrefsCalendarLoaded) {
-          BlocProvider.of<PrefsCalendarDaysCubit>(context).setInitialData(
-            state.data,
-          );
-        }
       },
     ),
   ];

@@ -1,8 +1,6 @@
-import 'package:faircare/blocs/preferences/preferences_cubit/preferences_cubit.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/models/preferences_model.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/hours_slider.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -10,83 +8,110 @@ import 'package:faircare/widgets/text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../blocs/preferences/preferences_bloc.dart';
+import '../../../widgets/loading_indicator.dart';
+
 class DesiredHours extends StatelessWidget {
   const DesiredHours({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<PreferencesCubit, PreferencesModel>(
+    return BlocBuilder<PreferencesBloc, PreferenceState>(
       builder: (context, state) {
-        final cubit = BlocProvider.of<PreferencesCubit>(context);
+        final bloc = BlocProvider.of<PreferencesBloc>(context);
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // working hours
-            const Subheading('Gewünschte Arbeitszeit in Stunden'),
-            const VerticalSpacer(0),
+        if (state is PreferenceLoaded) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // working hours
+              const Subheading('Gewünschte Arbeitszeit in Stunden'),
+              const VerticalSpacer(0),
 
-            // select hours range
-            HoursSlider(
-              min: 0,
-              max: 50,
-              selectedRange: RangeValues(
-                state.weeklyHourMinimum.toDouble(),
-                state.weeklyHourMaximum.toDouble(),
+              // select hours range
+              HoursSlider(
+                min: 0,
+                max: 50,
+                selectedRange: RangeValues(
+                  state.userModel.weeklyHourMinimum.toDouble(),
+                  state.userModel.weeklyHourMaximum.toDouble(),
+                ),
+                onChanged: (val) {
+                  bloc.add(UpdatePreferenceUser(state.userModel.copyWith(
+                      weeklyHourMinimum: val.start.toInt(),
+                      weeklyHourMaximum: val.end.toInt())));
+                },
               ),
-              onChanged: (val) {
-                cubit.setRate(val.start.toInt(), val.end.toInt());
-              },
-            ),
-            const VerticalSpacer(0),
+              const VerticalSpacer(0),
 
-            // select work type
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                ...hoursTypes
-                    .map(
-                      (e) => MyTextButton(
-                        e,
-                        color: state.hoursType == e
-                            ? MyColors.prime
-                            : MyColors.grey,
-                        onTap: () {
-                          cubit.setHoursType(e);
-                        },
-                      ),
-                    )
-                    .toList(),
-              ],
-            ),
-            const VerticalSpacer(16),
-
-            // earnings
-            Text.rich(
-              TextSpan(
-                text: 'Entspricht einem geschätzen durchschnittlichen '
-                    'Monatsgehalt von ca. ',
+              // select work type
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  TextSpan(
-                    text: ''
-                        '${state.weeklyHourMinimum * 24 * 4} € - '
-                        '${state.weeklyHourMaximum * 28 * 4} €',
-                    style: style(
-                      color: MyColors.prime,
-                      fontSize: 14,
-                      height: 1.4,
-                    ),
-                  ),
+                  ...hoursTypes
+                      .map(
+                        (e) => MyTextButton(
+                          e,
+                          color: e ==
+                                  hoursTypes[state
+                                              .userModel.weeklyHourMaximum <=
+                                          5
+                                      ? 0
+                                      : (state.userModel.weeklyHourMaximum <= 34
+                                          ? 1
+                                          : 2)]
+                              ? MyColors.prime
+                              : MyColors.grey,
+                          onTap: () {
+                            bloc.add(UpdatePreferenceUser(state.userModel
+                                .copyWith(
+                                    weeklyHourMinimum: e == hoursTypes[0]
+                                        ? 1
+                                        : (e == hoursTypes[1] ? 20 : 35),
+                                    weeklyHourMaximum: e == hoursTypes[0]
+                                        ? 5
+                                        : (e == hoursTypes[1] ? 34 : 50))));
+                          },
+                        ),
+                      )
+                      .toList(),
                 ],
               ),
-              style: style(
-                color: MyColors.grey,
-                fontSize: 14,
-                height: 1.4,
+              const VerticalSpacer(16),
+
+              // earnings
+              Text.rich(
+                TextSpan(
+                  text: 'Entspricht einem geschätzen durchschnittlichen '
+                      'Monatsgehalt von ca. ',
+                  children: [
+                    TextSpan(
+                      text: ''
+                          '${state.userModel.weeklyHourMinimum * 24 * 4} € - '
+                          '${state.userModel.weeklyHourMaximum * 28 * 4} €',
+                      style: style(
+                        color: MyColors.prime,
+                        fontSize: 14,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
+                ),
+                style: style(
+                  color: MyColors.grey,
+                  fontSize: 14,
+                  height: 1.4,
+                ),
               ),
-            ),
-          ],
-        );
+            ],
+          );
+        } else if (state is PreferenceError) {
+          print(state.error);
+          print(state.stack);
+          return Text(state.error.toString());
+        } else {
+          return const LoadingIndicator();
+        }
       },
     );
   }

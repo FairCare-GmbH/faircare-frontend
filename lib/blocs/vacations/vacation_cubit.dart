@@ -7,8 +7,12 @@ class VacationCubit extends Cubit<VacationCubitState> {
     emit(VacationCubitState(startDate: date, endDate: null));
   }
 
-  void setEndDate(DateTime date) {
+  void setEndDate(DateTime? date) {
     emit(VacationCubitState(startDate: state.startDate, endDate: date));
+  }
+
+  void setStartEndDate(DateTime? startDate, DateTime? endDate) {
+    emit(VacationCubitState(startDate: startDate, endDate: endDate));
   }
 }
 
