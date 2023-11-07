@@ -1,6 +1,7 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/enums.dart';
+import 'package:faircare/global/extensions.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/models/tour_model.dart';
@@ -41,7 +42,7 @@ class TourItem extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: Center(
-                child: model.fromDate.isAtSameMomentAs(model.toDate)
+                child: model.fromDate.isSameDay(model.toDate)
                     ? Text(
                         '1x',
                         style: style(
@@ -62,9 +63,9 @@ class TourItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    model.fromDate.isAtSameMomentAs(model.toDate)
+                    model.fromDate.isSameDay(model.toDate)
                         ? DateFormat('dd.MM.yyyy').format(model.fromDate)
-                        : days[model.dayOfWeek],
+                        : '${days[model.dayOfWeek]}s',
                     style: style(
                       color: model.bonus > 0 ? MyColors.yellow : MyColors.prime,
                       fontSize: 16,

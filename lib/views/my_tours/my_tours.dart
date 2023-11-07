@@ -1,4 +1,4 @@
-import 'package:faircare/blocs/my_tours/assigned_tours/assigned_tours_bloc.dart';
+import 'package:faircare/blocs/my_tours/my_tours_bloc.dart';
 import 'package:faircare/views/my_tours/app_bar.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -17,10 +17,10 @@ class MyToursPage extends StatelessWidget {
       children: [
         const MyToursAppBar(),
         BlocProvider(
-          create: (context) => AssignedToursBloc()..add(GetAssignedTours()),
-          child: BlocBuilder<AssignedToursBloc, AssignedToursState>(
+          create: (context) => MyToursBloc()..add(GetMyTours()),
+          child: BlocBuilder<MyToursBloc, MyToursState>(
             builder: (context, state) {
-              if (state is AssignedToursLoaded) {
+              if (state is MyToursLoaded) {
                 final releasing = state.tours.where((element) => element.isOpen).toList(growable: false);
                 final assigned = state.tours.where((element) => !element.isOpen).toList(growable: false);
 
@@ -33,7 +33,7 @@ class MyToursPage extends StatelessWidget {
                     ),
                     children: [
                       // requested tours
-                      const MyHeading('Abgabe'),
+                      const MyHeading('In Abgabe'),
                       const VerticalSpacer(12),
                       ListView.separated(
                         shrinkWrap: true,
@@ -47,7 +47,7 @@ class MyToursPage extends StatelessWidget {
                       const VerticalSpacer(32),
 
                       // assigned tours
-                      const MyHeading('Zugewiesen'),
+                      const MyHeading('Meine Touren'),
                       const VerticalSpacer(12),
                       ListView.separated(
                         shrinkWrap: true,
