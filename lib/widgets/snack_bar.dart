@@ -3,12 +3,12 @@ import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
-void showSnackBar(BuildContext context, String text, {IconData? icon}) {
+void showSnackBar(BuildContext context, String text, {Color? bgColor, IconData? icon}) {
   ScaffoldMessenger.of(context)
     ..removeCurrentSnackBar()
     ..showSnackBar(
       SnackBar(
-        backgroundColor: MyColors.prime,
+        backgroundColor: bgColor ?? MyColors.prime,
         content: Row(
           children: [
             if (icon != null) Icon(icon, color: MyColors.white),

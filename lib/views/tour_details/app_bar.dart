@@ -6,7 +6,9 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 class ToursDetailsAppBar extends StatelessWidget {
-  const ToursDetailsAppBar({Key? key}) : super(key: key);
+  const ToursDetailsAppBar({Key? key, required this.title}) : super(key: key);
+
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +22,7 @@ class ToursDetailsAppBar extends StatelessWidget {
               const HorizontalSpacer(12),
               Expanded(
                 child: Text(
-                  'FS01040001',
+                  title,
                   style: style(
                     color: MyColors.black,
                     fontSize: 20,

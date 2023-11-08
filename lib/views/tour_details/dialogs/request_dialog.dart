@@ -38,7 +38,9 @@ class RequestDialog extends StatelessWidget {
             children: [
               MyTextButton(
                 'Abbrechen',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context, false);
+                },
               ),
               Button(
                 'Anfragen',
@@ -46,7 +48,9 @@ class RequestDialog extends StatelessWidget {
                 height: 40,
                 textSize: 14,
                 borderRadius: 32,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
               ),
             ],
           )
@@ -56,8 +60,8 @@ class RequestDialog extends StatelessWidget {
   }
 }
 
-void showRequestDialog(BuildContext context) {
-  showDialog(
+Future<bool?> showRequestDialog(BuildContext context) {
+  return showDialog<bool>(
     context: context,
     builder: (_) {
       return Dialog(

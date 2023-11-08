@@ -8,11 +8,14 @@ import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../api/api.dart';
 import '../../api/api_exception.dart';
+import '../../blocs/preferences/calendar_cubit/calendar_cubit.dart';
+import '../../blocs/preferences/vacation_requests/vacation_requests_bloc.dart';
 import '../../blocs/vacations/vacation_cubit.dart';
 import '../../widgets/snack_bar.dart';
 import '../preferences/calendar/calendar_widget.dart';
@@ -39,8 +42,12 @@ class VacationPage extends StatelessWidget {
             ),
           ),
         ),
-        body: BlocProvider<PreferencesBloc>(
-            create: (_) => PreferencesBloc()..add(GetPreferenceData()),
+        body: MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                  create: (_) => PreferencesBloc()..add(GetPreferenceData())),
+              BlocProvider(create: (_) => VacationCubit())
+            ],
             child: ListView(
               padding: const EdgeInsets.all(16),
               children: [
@@ -50,41 +57,36 @@ class VacationPage extends StatelessWidget {
 
                 const VacationDates(),
 
-                // offered tours
-                const Subheading('Folgende Touren werden dabei abgegeben:'),
                 const VerticalSpacer(12),
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  separatorBuilder: (a, b) => const VerticalSpacer(10),
-                  itemCount: 1,
-                  itemBuilder: (context, index) {
-                    // return TourItem(tourExample1, TourState.assigned);
-                  },
-                ),
-                const VerticalSpacer(12),
-                Button(
-                  'Beantragen',
-                  onPressed: () {
-                    final state = BlocProvider.of<VacationCubit>(context).state;
-                    Api.request(
-                        '/preferences/${Api.getUser()!.id}/vacation-requests',
-                        options: Options(method: 'POST'),
-                        data: {
-                          'fromDate': state.startDate.toString(),
-                          'toDate': state.endDate.toString()
-                        }).then((value) {
-                      showSnackBar(
-                        context,
-                        'Urlaub beantragt',
-                        icon: Icons.save,
-                      );
-                      pop(context);
-                    }).onError((error, stackTrace) {
-                      if (error is ApiException) error.showDialog(context);
-                    });
-                  },
-                ),
+                BlocBuilder<VacationCubit, VacationCubitState>(
+                    builder: (context, state) {
+                  return Button(
+                    'Beantragen',
+                    onPressed: () {
+                      Api.request(
+                          '/preferences/${Api.getUser()!.id}/vacation-requests',
+                          options: Options(method: 'POST'),
+                          data: {
+                            'fromDate': state.startDate.toString(),
+                            'toDate': state.endDate.toString()
+                          }).then((value) {
+                        showSnackBar(
+                          context,
+                          'Urlaub beantragt',
+                          icon: Icons.save,
+                        );
+                        Navigator.of(context).pop(true);
+                      }).onError((error, stackTrace) {
+                        if (error is ApiException) {
+                          error.showDialog(context);
+                        } else if (kDebugMode) {
+                          print(error);
+                          print(stackTrace);
+                        }
+                      });
+                    },
+                  );
+                })
               ],
             )),
       ),

@@ -52,25 +52,7 @@ class BlocProviders {
     BlocProvider<UserBloc>(
       create: (_) => UserBloc()..add(GetUserData()),
     ),
-
-    // preferences
-    BlocProvider<PreferencesBloc>(
-      create: (_) => PreferencesBloc()..add(GetPreferenceData()),
-    ),
-
-    BlocProvider<PrefsCalendarMonthCubit>(
-      create: (_) => PrefsCalendarMonthCubit(),
-    ),
-    BlocProvider<PreferencesCubit>(
-      create: (_) => PreferencesCubit(),
-    ),
-    BlocProvider<VacationRequestsBloc>(
-      create: (_) => VacationRequestsBloc()..add(GetVacationRequests()),
-    ),
-
-    BlocProvider<PrefsCalendarDaysCubit>(
-      create: (_) => PrefsCalendarDaysCubit(),
-    ),
+    
 
     // notifications
     BlocProvider<NotificationsBloc>(

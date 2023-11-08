@@ -37,7 +37,9 @@ class CancelGiveBackDialog extends StatelessWidget {
             children: [
               MyTextButton(
                 'Abbrechen',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context, false);
+                },
               ),
               Button(
                 'Zurückziehen',
@@ -45,7 +47,9 @@ class CancelGiveBackDialog extends StatelessWidget {
                 height: 40,
                 textSize: 14,
                 borderRadius: 32,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
               ),
             ],
           )
@@ -55,8 +59,8 @@ class CancelGiveBackDialog extends StatelessWidget {
   }
 }
 
-void showCancelGiveBackDialog(BuildContext context) {
-  showDialog(
+Future<bool?> showCancelGiveBackDialog(BuildContext context) {
+  return showDialog<bool>(
     context: context,
     builder: (_) {
       return Dialog(

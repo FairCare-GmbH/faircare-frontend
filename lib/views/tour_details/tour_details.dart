@@ -15,6 +15,8 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/switch.dart';
 import 'package:flutter/material.dart';
 
+import '../../api/api.dart';
+
 class TourDetailsPage extends StatelessWidget {
   const TourDetailsPage(
     this.model,
@@ -42,15 +44,20 @@ class TourDetailsPage extends StatelessWidget {
         actualFromTime.hour * 60 +
         actualFromTime.minute;
 
-    final plannedHourlyRate =
-        (model.revenue + model.bonus) / (plannedTime / 60);
+    final plannedHourlyRate = (model.revenue + model.bonus) /
+        (plannedTime == 0 ? 1 : plannedTime / 60);
     final actualHourlyRate = (model.revenue + model.bonus) / (actualTime / 60);
 
     return SafeArea(
       child: Scaffold(
         body: Column(
           children: [
-            const ToursDetailsAppBar(),
+            ToursDetailsAppBar(
+                title: 'F${model.fromDate.year}${model.fromDate.month}${model.fromDate.day}-${model.id}'),
+            // overview
+
+            TourMap(model),
+            const VerticalSpacer(2),
             Expanded(
               child: ListView(
                 shrinkWrap: true,
@@ -59,13 +66,6 @@ class TourDetailsPage extends StatelessWidget {
                   horizontal: 16,
                 ),
                 children: [
-                  // overview
-                  const MyHeading('Übersicht'),
-                  const VerticalSpacer(12),
-                  TourMap(model),
-                  const VerticalSpacer(12),
-                  const VerticalSpacer(24),
-
                   // planning
                   const MyHeading('Planung'),
                   const VerticalSpacer(12),
@@ -93,9 +93,9 @@ class TourDetailsPage extends StatelessWidget {
                   HorizontalTile(
                     'Geschätzter Stundenlohn',
                     mainText: '${state == TourState.completed ? ' / ' : ''}'
-                        '${plannedHourlyRate.toStringAsFixed(2)}',
+                        '${plannedHourlyRate.toStringAsFixed(2)} €',
                     secondaryText: state == TourState.completed
-                        ? actualHourlyRate.toStringAsFixed(2)
+                        ? '${actualHourlyRate.toStringAsFixed(2)} €'
                         : '',
                     secondaryColor: plannedTime >= actualTime
                         ? MyColors.green
@@ -138,33 +138,38 @@ class TourDetailsPage extends StatelessWidget {
                   ),
                   const VerticalSpacer(12),
 
-                  if (state == TourState.available)
+                  if (model.isOpen && model.ownerNurseId != Api.getUser()!.id)
                     Button(
                       'Anfragen',
                       onPressed: () {
-                        showRequestDialog(context);
+                        showRequestDialog(context).then((value){
+                          if(value == true){
+                            Navigator.pop(context, TourState.requested);
+                          }
+                        });
                       },
                     ),
-                  if (state == TourState.requested)
-                    Button(
-                      'Zurückziehen',
-                      onPressed: () {
-                        showCancelRequestDialog(context);
-                      },
-                    ),
-                  if (state == TourState.assigned)
+                  if (!model.isOpen && model.ownerNurseId == Api.getUser()!.id)
                     Button(
                       'Abgeben',
                       onPressed: () {
-                        showGiveBackDialog(context);
+                        showGiveBackDialog(context).then((value){
+                          if(value == true){
+                            Navigator.pop(context, TourState.givenBack);
+                          }
+                        });
                       },
                     ),
-                  if (state == TourState.givenBack)
+                  if (model.isOpen && model.ownerNurseId == Api.getUser()!.id)
                     Button(
                       'Abgabe abbrechen',
                       buttonColor: MyColors.red,
                       onPressed: () {
-                        showCancelGiveBackDialog(context);
+                        showCancelGiveBackDialog(context).then((value){
+                          if(value == true){
+                            Navigator.pop(context, TourState.assigned);
+                          }
+                        });
                       },
                     ),
                 ],

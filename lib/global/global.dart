@@ -8,7 +8,7 @@ double height(BuildContext context) {
   return MediaQuery.of(context).size.height;
 }
 
-Future navigate(BuildContext context, Widget to) async {
+Future<T> navigate<T>(BuildContext context, Widget to) async {
   return await Navigator.of(context).push(
     MaterialPageRoute(
       builder: (_) => to,

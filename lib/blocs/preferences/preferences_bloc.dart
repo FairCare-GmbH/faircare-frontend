@@ -48,6 +48,7 @@ class PreferencesBloc extends Bloc<PreferenceEvent, PreferenceState> {
 
     on<IncrementPreferenceDay>((event, emit) async {
       if (state is PreferenceLoaded) {
+        if (event.day.isBefore(DateTime.now())) return;
         final List<CalendarModel> models =
             (state as PreferenceLoaded).getDayData(event.day);
         final CalendarModel? dayModel = models
@@ -93,7 +94,7 @@ class PreferencesBloc extends Bloc<PreferenceEvent, PreferenceState> {
                   dayOfWeek: event.day.weekday,
                   tourType: newType,
                   assignedTourType: null,
-                ));
+                  assignedTourIds: null));
         }
 
         emit(PreferenceLoaded(
@@ -137,24 +138,23 @@ class PreferencesBloc extends Bloc<PreferenceEvent, PreferenceState> {
               ? weekModel.copyWith(
                   tourType: newType,
                   fromDate: DateTime.now().ymd,
-                  //TODO fromDate.ymd, problem: also need to display it in that way
                   toDate: DateTime(event.fromDate.year + 50).ymd,
                 )
               : CalendarModel(
                   fromDate: DateTime.now().ymd,
-                  //TODO fromDate.ymd, problem: also need to display it in that way
                   toDate: DateTime(event.fromDate.year + 50).ymd,
                   dayOfWeek: event.weekday,
                   tourType: newType,
                   assignedTourType: null,
+                  assignedTourIds: null,
                 ));
         }
 
         updatedData.addAll(dayModels
             .where((e) => e.assignedTourType != null || e.tourType != newType));
 
-        emit(PreferenceLoaded(updatedData,
-            (state as PreferenceLoaded).userModel));
+        emit(PreferenceLoaded(
+            updatedData, (state as PreferenceLoaded).userModel));
       }
     });
   }
@@ -198,7 +198,6 @@ class IncrementPreferenceWeekday extends PreferenceEvent {
   IncrementPreferenceWeekday(this.weekday, this.fromDate);
 }
 
-
 abstract class PreferenceState {
   PreferenceState();
 }
@@ -225,6 +224,28 @@ class PreferenceLoaded extends PreferenceState {
         (e) => _isDayMatch(e, day),
       )
       .toList(growable: false);
+
+  List<CalendarModel> getReducedRangeDays(
+          DateTime from, DateTime to) =>
+      preferences
+          .where((e) =>
+              _isDayMatch(e, from) ||
+              e.fromDate.isAfter(from) && e.fromDate.isBefore(to))
+          .toList(growable: false);
+
+  List<CalendarModel> getExplodedRangeDays(DateTime from, DateTime to) {
+    from = from.ymd;
+    to = to.ymd;
+    final count = to.difference(from).inDays;
+    List<CalendarModel> models = [];
+    for (var i = 0; i < count; i++) {
+      final f = from.add(Duration(days: i));
+      for (var d in getDayData(f)) {
+        models.add(d.copyWith(fromDate: f, toDate: f));
+      }
+    }
+    return models;
+  }
 }
 
 class PreferenceError extends PreferenceState {

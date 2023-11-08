@@ -37,7 +37,9 @@ class CancelVacationDialog extends StatelessWidget {
             children: [
               MyTextButton(
                 'Abbrechen',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context, false);
+                },
               ),
               Button(
                 'Zurückziehen',
@@ -45,7 +47,9 @@ class CancelVacationDialog extends StatelessWidget {
                 height: 40,
                 textSize: 14,
                 borderRadius: 32,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
               ),
             ],
           )
@@ -55,8 +59,8 @@ class CancelVacationDialog extends StatelessWidget {
   }
 }
 
-void showCancelVacationDialog(BuildContext context) {
-  showDialog(
+Future showCancelVacationDialog(BuildContext context) {
+  return showDialog(
     context: context,
     builder: (_) {
       return Dialog(

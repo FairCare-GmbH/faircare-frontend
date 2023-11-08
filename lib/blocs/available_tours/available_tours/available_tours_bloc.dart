@@ -19,6 +19,7 @@ class AvailableToursBloc
           final tours = (await Api.request<List>('/tour-plans',
                   options: Options(method: 'GET')))
               .map((e) => TourModel.fromJson(e))
+              .where((e) => e.ownerNurseId != Api.getUser()!.id)
               .toList(growable: false);
           emit(AvailableToursLoaded(tours));
         } catch (e) {

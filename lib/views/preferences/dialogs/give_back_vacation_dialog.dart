@@ -38,7 +38,9 @@ class GiveBackVacationDialog extends StatelessWidget {
             children: [
               MyTextButton(
                 'Abbrechen',
-                onTap: () {},
+                onTap: () {
+                  Navigator.pop(context, false);
+                },
               ),
               Button(
                 'Zurückgeben',
@@ -46,7 +48,9 @@ class GiveBackVacationDialog extends StatelessWidget {
                 height: 40,
                 textSize: 14,
                 borderRadius: 32,
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context, true);
+                },
               ),
             ],
           )
@@ -56,8 +60,8 @@ class GiveBackVacationDialog extends StatelessWidget {
   }
 }
 
-void showGiveBackVacationDialog(BuildContext context) {
-  showDialog(
+Future<bool?> showGiveBackVacationDialog(BuildContext context) {
+  return showDialog<bool>(
     context: context,
     builder: (_) {
       return Dialog(

@@ -1,10 +1,17 @@
 import 'package:faircare/blocs/vacations/vacation_cubit.dart';
 import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/text_style.dart';
+import 'package:faircare/widgets/loading_indicator.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+
+import '../../blocs/preferences/preferences_bloc.dart';
+import '../../widgets/heading.dart';
+import '../available_tours/tour_item.dart';
+import 'calendar_tour_item.dart';
 
 class VacationDates extends StatelessWidget {
   const VacationDates({Key? key}) : super(key: key);
@@ -83,7 +90,7 @@ class VacationDates extends StatelessWidget {
                 ),
                 const HorizontalSpacer(12),
                 Text(
-                  '$vacationDays',//TODO how many vacation dates
+                  '$vacationDays', //TODO how many vacation dates
                   style: style(
                     fontSize: 16,
                     color: MyColors.darkGrey,
@@ -93,6 +100,33 @@ class VacationDates extends StatelessWidget {
               ],
             ),
             const VerticalSpacer(16),
+
+            // offered tours
+            const Subheading('Folgende Touren werden dabei abgegeben:'),
+            const VerticalSpacer(12),
+
+            BlocBuilder<PreferencesBloc, PreferenceState>(
+                builder: (context, prefsState) {
+              if (prefsState is PreferenceLoaded &&
+                  state.startDate != null &&
+                  state.endDate != null) {
+                final tours = prefsState
+                    .getExplodedRangeDays(state.startDate!, state.endDate!)
+                    .where((e) => e.assignedTourType != null)
+                    .toList(growable: false);
+
+                return ListView.separated(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  separatorBuilder: (a, b) => const VerticalSpacer(10),
+                  itemCount: tours.length,
+                  itemBuilder: (context, index) {
+                    return CalendarTourItem(tours[index], TourState.assigned);
+                  },
+                );
+              }
+              return const Text('');
+            }),
           ],
         );
       },

@@ -15,50 +15,38 @@ class TourMap extends StatefulWidget {
 }
 
 class TourMapState extends State<TourMap> {
-  final Completer<GoogleMapController> controller =
+  final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
-  late CameraPosition position = CameraPosition(
-    target: LatLng(
-      widget.model.centerLatitude,
-      widget.model.centerLongitude,
-    ),
-    zoom: 14,
+  late final CameraPosition cameraPosition = CameraPosition(
+    target: LatLng(widget.model.centerLatitude, widget.model.centerLongitude),
+    zoom: 45000 / widget.model.maximumCareRadius,
   );
+
+  late final Circle circle = Circle(
+      circleId: CircleId(widget.model.id.toString()),
+      center: LatLng(widget.model.centerLatitude, widget.model.centerLongitude),
+      radius: widget.model.maximumCareRadius,
+      fillColor: MyColors.prime.withOpacity(0.3),
+      strokeColor: MyColors.prime.withOpacity(0.6),
+      strokeWidth: 3);
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        SizedBox(
-          height: 200,
-          child: GoogleMap(
-            mapType: MapType.normal,
-            zoomControlsEnabled: false,
-            zoomGesturesEnabled: true,
-            initialCameraPosition: position,
-            onMapCreated: (GoogleMapController c) {
-              controller.complete(c);
-            },
-          ),
-        ),
-        Positioned(
-          top: 32,
-          bottom: 32,
-          right: 32,
-          child: AbsorbPointer(
-            absorbing: true,
-            child: Container(
-              height: 136,
-              width: 136,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(color: MyColors.prime, width: 4),
-              ),
-            ),
-          ),
-        ),
-      ],
+    return SizedBox(
+      height: 200,
+      child: GoogleMap(
+        mapType: MapType.normal,
+        myLocationEnabled: true,
+        zoomGesturesEnabled: true,
+        myLocationButtonEnabled: true,
+        zoomControlsEnabled: false,
+        initialCameraPosition: cameraPosition,
+        onMapCreated: (GoogleMapController controller) {
+          _controller.complete(controller);
+        },
+        circles: {circle},
+      ),
     );
   }
 }

@@ -32,60 +32,68 @@ class CalendarWidget extends StatelessWidget {
   }
 
   Widget getCalendar(BuildContext context) {
-    return BlocBuilder<PrefsCalendarMonthCubit, PrefsCalendarMonthCubitState>(
-      builder: (context, state) {
-        final cubit = BlocProvider.of<PrefsCalendarMonthCubit>(context);
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(create: (_) => PrefsCalendarMonthCubit()),
+        ],
+        child:
+            BlocBuilder<PrefsCalendarMonthCubit, PrefsCalendarMonthCubitState>(
+          builder: (context, state) {
+            final cubit = BlocProvider.of<PrefsCalendarMonthCubit>(context);
 
-        return BlocBuilder<PreferencesBloc, PreferenceState>(
-          builder: (context, prefs) {
-            if (prefs is PreferenceLoaded) {
-              return Column(
-                children: [
-                  const MyCalendarHeader(),
-                  const VerticalSpacer(4),
-                  MyCalendarWeekDays(isVacationPlanner: isVacationPlanner),
-                  SizedBox(
-                    width: 350,
-                    child: TableCalendar(
-                      firstDay: DateTime(2023),
-                      lastDay: DateTime(2030),
-                      focusedDay: state.getDate(),
-                      rowHeight: 50,
-                      startingDayOfWeek: StartingDayOfWeek.monday,
-                      headerVisible: false,
-                      availableGestures: AvailableGestures.horizontalSwipe,
-                      onPageChanged: (focusedDay) => cubit.setMonth(focusedDay),
-                      calendarBuilders: CalendarBuilders(
-                        defaultBuilder: (_, day, __) =>
-                            myCalendarBuilder(day, prefs, context),
-                        todayBuilder: (_, day, __) =>
-                            myCalendarBuilder(day, prefs, context),
-                        outsideBuilder: myOutsideBuilder,
-                      ),
-                      daysOfWeekVisible: false,
-                      onDaySelected: (selectedDay, focusedDay) {},
-                    ),
-                  )
-                ],
-              );
-            } else {
-              return const LoadingIndicator();
-            }
+            return BlocBuilder<PreferencesBloc, PreferenceState>(
+              builder: (context, prefs) {
+                if (prefs is PreferenceLoaded) {
+                  return Column(
+                    children: [
+                      const MyCalendarHeader(),
+                      const VerticalSpacer(4),
+                      MyCalendarWeekDays(isVacationPlanner: isVacationPlanner),
+                      SizedBox(
+                        width: 350,
+                        child: TableCalendar(
+                          firstDay: DateTime(2023),
+                          lastDay: DateTime(2030),
+                          focusedDay: state.getDate(),
+                          rowHeight: 50,
+                          startingDayOfWeek: StartingDayOfWeek.monday,
+                          headerVisible: false,
+                          availableGestures: AvailableGestures.horizontalSwipe,
+                          onPageChanged: (focusedDay) =>
+                              cubit.setMonth(focusedDay),
+                          calendarBuilders: CalendarBuilders(
+                            defaultBuilder: (_, day, __) =>
+                                myCalendarBuilder(day, prefs, context),
+                            todayBuilder: (_, day, __) =>
+                                myCalendarBuilder(day, prefs, context),
+                            outsideBuilder: myOutsideBuilder,
+                          ),
+                          daysOfWeekVisible: false,
+                          onDaySelected: (selectedDay, focusedDay) {},
+                        ),
+                      )
+                    ],
+                  );
+                } else {
+                  return const LoadingIndicator();
+                }
+              },
+            );
           },
-        );
-      },
-    );
+        ));
   }
 
   Widget? myCalendarBuilder(
       DateTime day, PreferenceLoaded state, BuildContext context) {
+    final bool isPast = day.isBefore(DateTime.now());
+
     final models = state.getDayData(day);
     final bool isF = models.any((e) => e.tourType == 1 || e.tourType == 3);
-    final bool isFAssigned = isF &&
+    final bool isFAssigned =
         models.any((e) => e.assignedTourType == 1 || e.assignedTourType == 3);
 
     final bool isS = models.any((e) => e.tourType == 2 || e.tourType == 3);
-    final bool isSAssigned = isS &&
+    final bool isSAssigned =
         models.any((e) => e.assignedTourType == 2 || e.assignedTourType == 3);
 
     final bool isU = models.any((e) => e.tourType == 0);
@@ -93,14 +101,18 @@ class CalendarWidget extends StatelessWidget {
 
     final Color fBgColor = isU && isFAssigned
         ? MyColors.red
-        : isFAssigned
+        : isFAssigned && isF
             ? MyColors.green
-            : MyColors.prime;
+            : isFAssigned && !isF
+                ? MyColors.red
+                : MyColors.prime;
     final Color sBgColor = isU && isSAssigned
         ? MyColors.red
-        : isSAssigned
+        : isSAssigned && isS
             ? MyColors.green
-            : MyColors.prime;
+            : isSAssigned && !isS
+                ? MyColors.red
+                : MyColors.prime;
     final Color uBgColor = isUApproved
         ? MyColors.orange
         : (isFAssigned || isSAssigned)
@@ -178,7 +190,9 @@ class CalendarWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 color: day.isSameDay(DateTime.now())
                     ? MyColors.prime.withOpacity(0.1)
-                    : bgColor,
+                    : !isPast
+                        ? bgColor
+                        : MyColors.border,
                 border: Border.all(
                   color: MyColors.black,
                   width: 0.1,
@@ -194,16 +208,18 @@ class CalendarWidget extends StatelessWidget {
               ),
 
             // S
-            if (isS)
+            if (!isPast && isS || isSAssigned)
               Positioned(
                 top: 0,
                 right: 0,
                 child: CustomPaint(
-                  painter: TopRightTriangle(sBgColor),
+                  painter: TopRightTriangle(isPast && isSAssigned
+                      ? MyColors.green.withOpacity(.5)
+                      : sBgColor),
                   child: Container(height: 18),
                 ),
               ),
-            if (isS)
+            if (!isPast && isS || isSAssigned)
               Positioned(
                 top: 0,
                 right: 0,
@@ -219,7 +235,8 @@ class CalendarWidget extends StatelessWidget {
                 bottom: 0,
                 right: 0,
                 child: CustomPaint(
-                  painter: BottomRightTriangle(uBgColor),
+                  painter: BottomRightTriangle(
+                      !isPast ? uBgColor : uBgColor.withOpacity(.5)),
                   child: Container(height: 18),
                 ),
               ),
@@ -234,16 +251,18 @@ class CalendarWidget extends StatelessWidget {
               ),
 
             // F
-            if (isF)
+            if (!isPast && isF || isFAssigned)
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: CustomPaint(
-                  painter: BottomLeftTriangle(fBgColor),
+                  painter: BottomLeftTriangle(isPast && isFAssigned
+                      ? MyColors.green.withOpacity(.5)
+                      : fBgColor),
                   child: Container(height: 18),
                 ),
               ),
-            if (isF)
+            if (!isPast && isF || isFAssigned)
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -258,7 +277,7 @@ class CalendarWidget extends StatelessWidget {
               child: Text(
                 DateFormat('d').format(day),
                 style: style(
-                  color: day.isSameDay(DateTime.now()) ? MyColors.prime : color,
+                  color: isPast ? MyColors.darkGrey : color,
                   fontWeight: day.isSameDay(DateTime.now())
                       ? FontWeight.bold
                       : FontWeight.normal,
