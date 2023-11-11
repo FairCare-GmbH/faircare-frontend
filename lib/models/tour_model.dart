@@ -27,7 +27,7 @@ class TourModel {
   final int? actualCommuteDuration;
   final int plannedCommuteDistance;
   final int? actualCommuteDistance;
-  final double plannedCommuteRadius;
+  final int plannedCommuteRadius;
 
   TourModel({
     required this.id,
@@ -77,7 +77,7 @@ class TourModel {
     int? actualCommuteDistance,
     double? centerLongitude,
     double? centerLatitude,
-    double? plannedCommuteRadius,
+    int? plannedCommuteRadius,
     int? revenue,
     int? bonus,
     bool? hasInfectiousDisease,

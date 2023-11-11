@@ -30,13 +30,13 @@ class FaircareApp extends StatelessWidget {
           future: Api.isLoggedIn()
               .onError((error, stackTrace) =>
                   false) //TODO log error to figure out why this doesnt' work sometimes. also establish why login request sent twice on startup
-              .timeout(const Duration(milliseconds: 2500),
+              .timeout(const Duration(milliseconds: 3500),
                   onTimeout: () => false),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
               return const Center(
                   child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                //mainAxisAlsignment: MainAxisAlignment.center,//TODO was this necessary? not sure why this suddenly wasn't available. perhaps because of the upgrade to the dart SDK (3.0)
                 children: [
                   SizedBox(
                     width: 60,

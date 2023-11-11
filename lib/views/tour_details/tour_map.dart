@@ -20,13 +20,13 @@ class TourMapState extends State<TourMap> {
 
   late final CameraPosition cameraPosition = CameraPosition(
     target: LatLng(widget.model.centerLatitude, widget.model.centerLongitude),
-    zoom: 45000 / widget.model.plannedCommuteRadius,
+    zoom: 9,
   );
 
   late final Circle circle = Circle(
       circleId: CircleId(widget.model.id.toString()),
       center: LatLng(widget.model.centerLatitude, widget.model.centerLongitude),
-      radius: widget.model.plannedCommuteRadius,
+      radius: widget.model.plannedCommuteRadius.toDouble(),
       fillColor: MyColors.prime.withOpacity(0.3),
       strokeColor: MyColors.prime.withOpacity(0.6),
       strokeWidth: 3);
