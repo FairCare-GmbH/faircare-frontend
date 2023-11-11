@@ -10,8 +10,8 @@ class UserModel {
   String email;
   String phone;
   String address;
-  int latitude;
-  int longitude;
+  double latitude;
+  double longitude;
   DateTime lastUpdate;
   String qualification;
   bool allowInfectiousDisease;
@@ -28,7 +28,7 @@ class UserModel {
   int? ratingCount;
   bool hasDriversLicense;
   String availableFrom;
-  int maximumCareRadius;
+  double maximumCareRadius;
   int weeklyHourMinimum;
   int weeklyHourMaximum;
   String marketingSource;
@@ -99,8 +99,8 @@ class UserModel {
     String? email,
     String? phone,
     String? address,
-    int? latitude,
-    int? longitude,
+    double? latitude,
+    double? longitude,
     DateTime? lastUpdate,
     String? qualification,
     bool? allowInfectiousDisease,
@@ -117,7 +117,7 @@ class UserModel {
     int? ratingCount,
     bool? hasDriversLicense,
     String? availableFrom,
-    int? maximumCareRadius,
+    double? maximumCareRadius,
     int? weeklyHourMinimum,
     int? weeklyHourMaximum,
     String? marketingSource,
@@ -172,8 +172,8 @@ class UserModel {
         email: json["email"],
         phone: json["phone"],
         address: json["address"],
-        latitude: json["latitude"],
-        longitude: json["longitude"],
+        latitude: json["latitude"].toDouble(),
+        longitude: json["longitude"].toDouble(),
         lastUpdate: DateTime.parse(json["lastUpdate"]),
         qualification: json["qualification"],
         allowInfectiousDisease: json["allowInfectiousDisease"],
@@ -190,7 +190,7 @@ class UserModel {
         ratingCount: json["ratingCount"],
         hasDriversLicense: json["hasDriversLicense"],
         availableFrom: json["availableFrom"],
-        maximumCareRadius: json["maximumCareRadius"],
+        maximumCareRadius: json["maximumCareRadius"].toDouble(),
         weeklyHourMinimum: json["weeklyHourMinimum"],
         weeklyHourMaximum: json["weeklyHourMaximum"],
         marketingSource: json["marketingSource"],

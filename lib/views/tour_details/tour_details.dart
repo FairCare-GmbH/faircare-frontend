@@ -4,7 +4,6 @@ import 'package:faircare/global/extensions.dart';
 import 'package:faircare/models/tour_model.dart';
 import 'package:faircare/views/tour_details/app_bar.dart';
 import 'package:faircare/views/tour_details/dialogs/cancel_give_back_dialog.dart';
-import 'package:faircare/views/tour_details/dialogs/cancel_request_dialog.dart';
 import 'package:faircare/views/tour_details/dialogs/give_back_dialog.dart';
 import 'package:faircare/views/tour_details/dialogs/request_dialog.dart';
 import 'package:faircare/views/tour_details/tour_map.dart';
@@ -29,10 +28,10 @@ class TourDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final plannedFromTime = model.fromTime.time;
-    final plannedToTime = model.toTime.time;
-    final actualFromTime = model.actualFromTime?.time ?? '00:00:00'.time;
-    final actualToTime = model.actualToTime?.time ?? '00:00:00'.time;
+    final plannedFromTime = model.plannedStartTime.time;
+    final plannedToTime = model.plannedEndTime.time;
+    final actualFromTime = model.actualStartTime?.time ?? '00:00:00'.time;
+    final actualToTime = model.actualEndTime?.time ?? '00:00:00'.time;
 
     final plannedTime = plannedToTime.hour * 60 +
         plannedToTime.minute -
@@ -53,7 +52,8 @@ class TourDetailsPage extends StatelessWidget {
         body: Column(
           children: [
             ToursDetailsAppBar(
-                title: 'F${model.fromDate.year}${model.fromDate.month}${model.fromDate.day}-${model.id}'),
+                title:
+                    'F${model.tourDate.year}${model.tourDate.month}${model.tourDate.day}-${model.id}'),
             // overview
 
             TourMap(model),
@@ -74,9 +74,9 @@ class TourDetailsPage extends StatelessWidget {
                   HorizontalTile(
                     'Start/Ende',
                     mainText: '${state == TourState.completed ? ' / ' : ''}'
-                        '${model.fromTime} - ${model.toTime}',
+                        '${model.plannedStartTime} - ${model.plannedEndTime}',
                     secondaryText: state == TourState.completed
-                        ? '${model.actualFromTime} - ${model.actualToTime}'
+                        ? '${model.actualStartTime} - ${model.actualEndTime}'
                         : '',
                     secondaryColor: plannedTime >= actualTime
                         ? MyColors.green
@@ -142,8 +142,8 @@ class TourDetailsPage extends StatelessWidget {
                     Button(
                       'Anfragen',
                       onPressed: () {
-                        showRequestDialog(context).then((value){
-                          if(value == true){
+                        showRequestDialog(context).then((value) {
+                          if (value == true) {
                             Navigator.pop(context, TourState.requested);
                           }
                         });
@@ -153,8 +153,8 @@ class TourDetailsPage extends StatelessWidget {
                     Button(
                       'Abgeben',
                       onPressed: () {
-                        showGiveBackDialog(context).then((value){
-                          if(value == true){
+                        showGiveBackDialog(context).then((value) {
+                          if (value == true) {
                             Navigator.pop(context, TourState.givenBack);
                           }
                         });
@@ -165,8 +165,8 @@ class TourDetailsPage extends StatelessWidget {
                       'Abgabe abbrechen',
                       buttonColor: MyColors.red,
                       onPressed: () {
-                        showCancelGiveBackDialog(context).then((value){
-                          if(value == true){
+                        showCancelGiveBackDialog(context).then((value) {
+                          if (value == true) {
                             Navigator.pop(context, TourState.assigned);
                           }
                         });

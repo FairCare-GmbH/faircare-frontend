@@ -1,4 +1,4 @@
-import 'package:faircare/widgets/calendar_week_day.dart';
+import 'package:faircare/widgets/calendar_week_day.widget.dart';
 import 'package:flutter/material.dart';
 
 class MyCalendarWeekDays extends StatelessWidget {
@@ -12,13 +12,13 @@ class MyCalendarWeekDays extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        CalendarWeekDay('Mo', 1, isVacationPlanner),
-        CalendarWeekDay('Di', 2, isVacationPlanner),
-        CalendarWeekDay('Mi', 3, isVacationPlanner),
-        CalendarWeekDay('Do', 4, isVacationPlanner),
-        CalendarWeekDay('Fr', 5, isVacationPlanner),
-        CalendarWeekDay('Sa', 6, isVacationPlanner),
-        CalendarWeekDay('So', 7, isVacationPlanner),
+        CalendarWeekDayWidget('Mo', 1, isVacationPlanner),
+        CalendarWeekDayWidget('Di', 2, isVacationPlanner),
+        CalendarWeekDayWidget('Mi', 3, isVacationPlanner),
+        CalendarWeekDayWidget('Do', 4, isVacationPlanner),
+        CalendarWeekDayWidget('Fr', 5, isVacationPlanner),
+        CalendarWeekDayWidget('Sa', 6, isVacationPlanner),
+        CalendarWeekDayWidget('So', 7, isVacationPlanner),
       ],
     );
   }

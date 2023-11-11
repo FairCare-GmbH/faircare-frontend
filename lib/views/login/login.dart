@@ -1,7 +1,6 @@
 import 'package:faircare/api/api.dart';
 import 'package:faircare/api/api_exception.dart';
 import 'package:faircare/blocs/bloc_listeners.dart';
-import 'package:faircare/blocs/user/user/user_bloc.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
@@ -19,7 +18,6 @@ import 'package:faircare/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../blocs/auth/login/login_bloc.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);

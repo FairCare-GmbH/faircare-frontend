@@ -5,11 +5,12 @@ import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/hours_slider.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/text_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../blocs/preferences/preferences_bloc.dart';
 import '../../../widgets/loading_indicator.dart';
+import '../state/preferences.bloc.dart';
 
 class DesiredHours extends StatelessWidget {
   const DesiredHours({Key? key}) : super(key: key);
@@ -106,8 +107,10 @@ class DesiredHours extends StatelessWidget {
             ],
           );
         } else if (state is PreferenceError) {
-          print(state.error);
-          print(state.stack);
+          if (kDebugMode) {
+            print(state.error);
+            print(state.stack);
+          }
           return Text(state.error.toString());
         } else {
           return const LoadingIndicator();

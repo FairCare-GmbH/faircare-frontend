@@ -1,4 +1,4 @@
-import 'package:faircare/blocs/preferences/calendar_cubit/calendar_cubit.dart';
+import 'package:faircare/views/preferences/state/calendar.cubit.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/text_style.dart';

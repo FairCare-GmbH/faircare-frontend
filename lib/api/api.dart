@@ -11,9 +11,9 @@ class Api {
   static const _baseUrl =
       false ? 'https://app.getfaircare.de' : 'http://192.168.68.104:3000';
   static final Dio _client = Dio(BaseOptions(
-    connectTimeout: const Duration(milliseconds: 750),
-    receiveTimeout: const Duration(milliseconds: 2000),
-    sendTimeout: const Duration(milliseconds: 750),
+    connectTimeout: const Duration(milliseconds: 2000),
+    receiveTimeout: const Duration(milliseconds: 4000),
+    sendTimeout: const Duration(milliseconds: 3000),
     headers: {
       'content-type': 'application/json',
       'accept': 'application/json',
@@ -62,7 +62,7 @@ class Api {
   }) async {
     try {
       if (kDebugMode) {
-        print('requesting $path using data $data}');
+        print('requesting $path using data ${data ?? queryParameters}');
       }
       final response = await _client.request('$_baseUrl$path',
           data: data,
@@ -71,7 +71,6 @@ class Api {
           cancelToken: cancelToken,
           onSendProgress: onSendProgress,
           onReceiveProgress: onReceiveProgress);
-
       if (kDebugMode) {
         print('received ${response.statusCode} with data ${response.data}}');
       }

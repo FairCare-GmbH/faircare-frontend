@@ -111,6 +111,8 @@ class VacationDetailsPage extends StatelessWidget {
               separatorBuilder: (a, b) => const VerticalSpacer(10),
               itemCount: 0,
               itemBuilder: (context, index) {
+                return null;
+              
                 // return TourItem(tourExample1, TourState.assigned);
               },
             ),

@@ -1,13 +1,13 @@
-import 'package:faircare/blocs/preferences/preferences_bloc.dart';
-import 'package:faircare/blocs/preferences/preferences_cubit/preferences_cubit.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/widgets/dropdown.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/switch.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../widgets/loading_indicator.dart';
+import '../state/preferences.bloc.dart';
 
 class GeneralPreferences extends StatelessWidget {
   const GeneralPreferences({Key? key}) : super(key: key);
@@ -39,13 +39,13 @@ class GeneralPreferences extends StatelessWidget {
               // distance
               MyDropdown(
                 label: 'Maximale Distanz zum Start der Tour',
-                value: '${state.userModel.maximumCareRadius} Km',
+                value: '${state.userModel.maximumCareRadius.toInt()} Km',
                 items: distances.map((e) => '$e Km').toList(),
                 onChanged: (v) {
                   if (v == null) return;
                   bloc.add(UpdatePreferenceUser(state.userModel.copyWith(
                       maximumCareRadius:
-                          int.parse(v.toString().split(' ')[0]))));
+                          double.parse(v.toString().split(' ')[0]))));
                 },
               ),
               const VerticalSpacer(16),
@@ -104,8 +104,10 @@ class GeneralPreferences extends StatelessWidget {
             ],
           );
         } else if (state is PreferenceError) {
-          print(state.error);
-          print(state.stack);
+          if (kDebugMode) {
+            print(state.error);
+            print(state.stack);
+          }
           return Text(state.error.toString());
         } else {
           return const LoadingIndicator();

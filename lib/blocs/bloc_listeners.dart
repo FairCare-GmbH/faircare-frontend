@@ -1,5 +1,4 @@
 import 'package:faircare/blocs/auth/login/login_bloc.dart';
-import 'package:faircare/blocs/preferences/calendar_cubit/calendar_data_cubit.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/views/master/master.dart';
 import 'package:faircare/widgets/snack_bar.dart';

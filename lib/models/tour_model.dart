@@ -1,8 +1,9 @@
+import 'dart:convert';
+
 class TourModel {
   final int id;
   final int ownerNurseId;
-  final String fromTime;
-  final String toTime;
+  final DateTime tourDate;
   final bool hasInfectiousDisease;
   final bool hasMedicalCare;
   final bool hasBasicCare;
@@ -15,18 +16,22 @@ class TourModel {
   final double centerLongitude;
   final double centerLatitude;
   final int revenue;
-  final double maximumCareRadius;
-  final String? actualFromTime;
-  final String? actualToTime;
-  final DateTime fromDate;
-  final DateTime toDate;
   final bool isOpen;
+  final String plannedStartTime;
+  final String plannedEndTime;
+  final String? actualStartTime;
+  final String? actualEndTime;
+  final int plannedCareDuration;
+  final int plannedCommuteDuration;
+  final int? actualCareDuration;
+  final int? actualCommuteDuration;
+  final int plannedCommuteDistance;
+  final int? actualCommuteDistance;
+  final double plannedCommuteRadius;
 
   TourModel({
     required this.id,
     required this.ownerNurseId,
-    required this.fromTime,
-    required this.toTime,
     required this.hasInfectiousDisease,
     required this.hasMedicalCare,
     required this.hasBasicCare,
@@ -39,115 +44,146 @@ class TourModel {
     required this.centerLongitude,
     required this.centerLatitude,
     required this.revenue,
-    required this.maximumCareRadius,
-    this.actualFromTime,
-    this.actualToTime,
-    required this.fromDate,
-    required this.toDate,
     required this.isOpen,
+    required this.tourDate,
+    required this.plannedStartTime,
+    required this.plannedEndTime,
+    this.actualStartTime,
+    this.actualEndTime,
+    required this.plannedCareDuration,
+    required this.plannedCommuteDuration,
+    this.actualCareDuration,
+    this.actualCommuteDuration,
+    required this.plannedCommuteDistance,
+    this.actualCommuteDistance,
+    required this.plannedCommuteRadius,
   });
-
-  factory TourModel.fromJson(Map<String, dynamic> json) {
-    return TourModel(
-      id: json['id'],
-      ownerNurseId: json['ownerNurseId'],
-      fromTime: json['fromTime'],
-      toTime: json['toTime'],
-      hasInfectiousDisease: json['hasInfectiousDisease'],
-      hasMedicalCare: json['hasMedicalCare'],
-      hasBasicCare: json['hasBasicCare'],
-      hasWoundCare: json['hasWoundCare'],
-      hasHousekeeping: json['hasHousekeeping'],
-      hasCompanionship: json['hasCompanionship'],
-      bonus: json['bonus'],
-      dayOfWeek: json['dayOfWeek'],
-      type: json['type'],
-      centerLongitude: json['centerLongitude'],
-      centerLatitude: json['centerLatitude'],
-      revenue: json['revenue'],
-      maximumCareRadius: json['maximumCareRadius'],
-      actualFromTime: json['actualFromTime'],
-      actualToTime: json['actualToTime'],
-      fromDate: DateTime.parse(json['fromDate']),
-      toDate: DateTime.parse(json['toDate']),
-      isOpen: json['isOpen'],
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "id": id,
-      "ownerNurseId": ownerNurseId,
-      "plannedFromTime": fromTime,
-      "plannedToTime": toTime,
-      "hasInfectiousDisease": hasInfectiousDisease,
-      "hasMedicalCare": hasMedicalCare,
-      "hasBasicCare": hasBasicCare,
-      "hasWoundCare": hasWoundCare,
-      "hasHousekeeping": hasHousekeeping,
-      "hasCompanionship": hasCompanionship,
-      "bonus": bonus,
-      "dayOfWeek": dayOfWeek,
-      "type": type,
-      "centerLongitude": centerLongitude,
-      "centerLatitude": centerLatitude,
-      "revenue": revenue,
-      "maximumCareRadius": maximumCareRadius,
-      "actualFromTime": actualFromTime,
-      "actualToTime": actualToTime,
-      "fromDate": fromDate.toIso8601String(),
-      "toDate": toDate.toIso8601String(),
-      "isOpen": isOpen,
-    };
-  }
 
   TourModel copyWith({
     int? id,
     int? ownerNurseId,
-    String? plannedFromTime,
-    String? plannedToTime,
+    bool? isOpen,
+    DateTime? tourDate,
+    int? dayOfWeek,
+    String? plannedStartTime,
+    String? plannedEndTime,
+    String? actualStartTime,
+    String? actualEndTime,
+    int? plannedCareDuration,
+    int? plannedCommuteDuration,
+    int? actualCareDuration,
+    int? actualCommuteDuration,
+    int? plannedCommuteDistance,
+    int? actualCommuteDistance,
+    double? centerLongitude,
+    double? centerLatitude,
+    double? plannedCommuteRadius,
+    int? revenue,
+    int? bonus,
     bool? hasInfectiousDisease,
     bool? hasMedicalCare,
     bool? hasBasicCare,
     bool? hasWoundCare,
     bool? hasHousekeeping,
     bool? hasCompanionship,
-    int? bonus,
-    int? dayOfWeek,
     int? type,
-    double? centerLongitude,
-    double? centerLatitude,
-    int? revenue,
-    double? maximumCareRadius,
-    String? actualFromTime,
-    String? actualToTime,
-    DateTime? fromDate,
-    DateTime? toDate,
-    bool? isOpen,
-  }) {
-    return TourModel(
-      id: id ?? this.id,
-      ownerNurseId: ownerNurseId ?? this.ownerNurseId,
-      fromTime: plannedFromTime ?? fromTime,
-      toTime: plannedToTime ?? toTime,
-      hasInfectiousDisease: hasInfectiousDisease ?? this.hasInfectiousDisease,
-      hasMedicalCare: hasMedicalCare ?? this.hasMedicalCare,
-      hasBasicCare: hasBasicCare ?? this.hasBasicCare,
-      hasWoundCare: hasWoundCare ?? this.hasWoundCare,
-      hasHousekeeping: hasHousekeeping ?? this.hasHousekeeping,
-      hasCompanionship: hasCompanionship ?? this.hasCompanionship,
-      bonus: bonus ?? this.bonus,
-      dayOfWeek: dayOfWeek ?? this.dayOfWeek,
-      type: type ?? this.type,
-      centerLongitude: centerLongitude ?? this.centerLongitude,
-      centerLatitude: centerLatitude ?? this.centerLatitude,
-      revenue: revenue ?? this.revenue,
-      maximumCareRadius: maximumCareRadius ?? this.maximumCareRadius,
-      actualFromTime: actualFromTime ?? this.actualFromTime,
-      actualToTime: actualToTime ?? this.actualToTime,
-      fromDate: fromDate ?? this.fromDate,
-      toDate: toDate ?? this.toDate,
-      isOpen: isOpen ?? this.isOpen,
-    );
-  }
+  }) =>
+      TourModel(
+        id: id ?? this.id,
+        ownerNurseId: ownerNurseId ?? this.ownerNurseId,
+        isOpen: isOpen ?? this.isOpen,
+        tourDate: tourDate ?? this.tourDate,
+        dayOfWeek: dayOfWeek ?? this.dayOfWeek,
+        plannedStartTime: plannedStartTime ?? this.plannedStartTime,
+        plannedEndTime: plannedEndTime ?? this.plannedEndTime,
+        actualStartTime: actualStartTime ?? this.actualStartTime,
+        actualEndTime: actualEndTime ?? this.actualEndTime,
+        plannedCareDuration: plannedCareDuration ?? this.plannedCareDuration,
+        plannedCommuteDuration:
+            plannedCommuteDuration ?? this.plannedCommuteDuration,
+        actualCareDuration: actualCareDuration ?? this.actualCareDuration,
+        actualCommuteDuration:
+            actualCommuteDuration ?? this.actualCommuteDuration,
+        plannedCommuteDistance:
+            plannedCommuteDistance ?? this.plannedCommuteDistance,
+        actualCommuteDistance:
+            actualCommuteDistance ?? this.actualCommuteDistance,
+        centerLongitude: centerLongitude ?? this.centerLongitude,
+        centerLatitude: centerLatitude ?? this.centerLatitude,
+        plannedCommuteRadius: plannedCommuteRadius ?? this.plannedCommuteRadius,
+        revenue: revenue ?? this.revenue,
+        bonus: bonus ?? this.bonus,
+        hasInfectiousDisease: hasInfectiousDisease ?? this.hasInfectiousDisease,
+        hasMedicalCare: hasMedicalCare ?? this.hasMedicalCare,
+        hasBasicCare: hasBasicCare ?? this.hasBasicCare,
+        hasWoundCare: hasWoundCare ?? this.hasWoundCare,
+        hasHousekeeping: hasHousekeeping ?? this.hasHousekeeping,
+        hasCompanionship: hasCompanionship ?? this.hasCompanionship,
+        type: type ?? this.type,
+      );
+
+  factory TourModel.fromRawJson(String str) =>
+      TourModel.fromJson(json.decode(str));
+
+  String toRawJson() => json.encode(toJson());
+
+  factory TourModel.fromJson(Map<String, dynamic> json) => TourModel(
+        id: json["id"],
+        ownerNurseId: json["ownerNurseId"],
+        isOpen: json["isOpen"],
+        tourDate: DateTime.parse(json["tourDate"]),
+        dayOfWeek: json["dayOfWeek"],
+        plannedStartTime: json["plannedStartTime"],
+        plannedEndTime: json["plannedEndTime"],
+        actualStartTime: json["actualStartTime"],
+        actualEndTime: json["actualEndTime"],
+        plannedCareDuration: json["plannedCareDuration"],
+        plannedCommuteDuration: json["plannedCommuteDuration"],
+        actualCareDuration: json["actualCareDuration"],
+        actualCommuteDuration: json["actualCommuteDuration"],
+        plannedCommuteDistance: json["plannedCommuteDistance"],
+        actualCommuteDistance: json["actualCommuteDistance"],
+        centerLongitude: json["centerLongitude"],
+        centerLatitude: json["centerLatitude"],
+        plannedCommuteRadius: json["plannedCommuteRadius"],
+        revenue: json["revenue"],
+        bonus: json["bonus"],
+        hasInfectiousDisease: json["hasInfectiousDisease"],
+        hasMedicalCare: json["hasMedicalCare"],
+        hasBasicCare: json["hasBasicCare"],
+        hasWoundCare: json["hasWoundCare"],
+        hasHousekeeping: json["hasHousekeeping"],
+        hasCompanionship: json["hasCompanionship"],
+        type: json["type"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "ownerNurseId": ownerNurseId,
+        "isOpen": isOpen,
+        "tourDate": tourDate.toIso8601String(),
+        "dayOfWeek": dayOfWeek,
+        "plannedStartTime": plannedStartTime,
+        "plannedEndTime": plannedEndTime,
+        "actualStartTime": actualStartTime,
+        "actualEndTime": actualEndTime,
+        "plannedCareDuration": plannedCareDuration,
+        "plannedCommuteDuration": plannedCommuteDuration,
+        "actualCareDuration": actualCareDuration,
+        "actualCommuteDuration": actualCommuteDuration,
+        "plannedCommuteDistance": plannedCommuteDistance,
+        "actualCommuteDistance": actualCommuteDistance,
+        "centerLongitude": centerLongitude,
+        "centerLatitude": centerLatitude,
+        "plannedCommuteRadius": plannedCommuteRadius,
+        "revenue": revenue,
+        "bonus": bonus,
+        "hasInfectiousDisease": hasInfectiousDisease,
+        "hasMedicalCare": hasMedicalCare,
+        "hasBasicCare": hasBasicCare,
+        "hasWoundCare": hasWoundCare,
+        "hasHousekeeping": hasHousekeeping,
+        "hasCompanionship": hasCompanionship,
+        "type": type,
+      };
 }

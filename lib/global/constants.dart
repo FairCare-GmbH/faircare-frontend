@@ -1,4 +1,3 @@
-import 'package:faircare/models/tour_model.dart';
 
 final qualifications = [
   'Pflegefachkraft (3J Ausbildung)',

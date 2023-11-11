@@ -12,12 +12,36 @@ extension DateTimeExt on DateTime {
     return (year == now.year && month == now.month && day == now.day);
   }
 
+  bool get isInPast {
+    return isBefore(DateTime.now().ymd);
+  }
+
+  bool get isInFuture {
+    return isAfter(DateTime.now().ymd);
+  }
+
+  bool get isTodayOrInPast {
+    return isToday || isInPast;
+  }
+
+  bool get isTodayOrInFuture {
+    return isToday || isInFuture;
+  }
+
   DateTime get ymd {
     return DateTime(year, month, day);
   }
 
   bool isSameDay(DateTime date) {
     return (year == date.year && month == date.month && day == date.day);
+  }
+
+  bool isSameDayOrBefore(DateTime date) {
+    return isSameDay(date) || isBefore(date);
+  }
+
+  bool isSameDayOrAfter(DateTime date) {
+    return isSameDay(date) || isAfter(date);
   }
 }
 

@@ -1,5 +1,4 @@
-import 'package:faircare/blocs/preferences/calendar_cubit/calendar_cubit.dart';
-import 'package:faircare/blocs/preferences/preferences_bloc.dart';
+import 'package:faircare/views/preferences/state/calendar.cubit.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/global/text_style.dart';
@@ -14,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../blocs/vacations/vacation_cubit.dart';
+import '../state/preferences.bloc.dart';
 
 class CalendarWidget extends StatelessWidget {
   final bool isVacationPlanner;
@@ -85,51 +85,34 @@ class CalendarWidget extends StatelessWidget {
 
   Widget? myCalendarBuilder(
       DateTime day, PreferenceLoaded state, BuildContext context) {
-    final bool isPast = day.isBefore(DateTime.now());
-
-    final models = state.getDayData(day);
-    final bool isF = models.any((e) => e.tourType == 1 || e.tourType == 3);
-    final bool isFAssigned =
-        models.any((e) => e.assignedTourType == 1 || e.assignedTourType == 3);
-
-    final bool isS = models.any((e) => e.tourType == 2 || e.tourType == 3);
-    final bool isSAssigned =
-        models.any((e) => e.assignedTourType == 2 || e.assignedTourType == 3);
-
-    final bool isU = models.any((e) => e.tourType == 0);
-    final bool isUApproved = isU && models.any((e) => e.assignedTourType == 0);
-
-    final Color fBgColor = isU && isFAssigned
+    final pref = state.getDayPref(day);
+    final Color fBgColor = pref.isFAssigned && pref.isU
         ? MyColors.red
-        : isFAssigned && isF
+        : pref.isFAssigned
             ? MyColors.green
-            : isFAssigned && !isF
-                ? MyColors.red
-                : MyColors.prime;
-    final Color sBgColor = isU && isSAssigned
+            : MyColors.prime;
+    final Color sBgColor = pref.isU && pref.isSAssigned
         ? MyColors.red
-        : isSAssigned && isS
+        : pref.isSAssigned
             ? MyColors.green
-            : isSAssigned && !isS
-                ? MyColors.red
-                : MyColors.prime;
-    final Color uBgColor = isUApproved
+            : MyColors.prime;
+    final Color uBgColor = pref.isUAssigned
         ? MyColors.orange
-        : (isFAssigned || isSAssigned)
+        : (pref.isFAssigned || pref.isSAssigned)
             ? MyColors.red
             : MyColors.grey;
-    final Color bgColor = isU
+    final Color bgColor = pref.isU
         ? uBgColor.withOpacity(0.2)
-        : (isFAssigned || isSAssigned)
+        : (pref.isFAssigned || pref.isSAssigned)
             ? MyColors.green.withOpacity(0.2)
-            : (isF || isS)
+            : (pref.isF || pref.isS)
                 ? MyColors.prime.withOpacity(0.2)
                 : MyColors.border;
-    Color color = isU
+    Color color = pref.isU
         ? uBgColor
-        : (isFAssigned || isSAssigned)
+        : (pref.isFAssigned || pref.isSAssigned)
             ? MyColors.green
-            : (isF || isS)
+            : (pref.isF || pref.isS)
                 ? MyColors.prime
                 : MyColors.darkGrey;
 
@@ -160,24 +143,36 @@ class CalendarWidget extends StatelessWidget {
     return InkWell(
       onTap: () {
         if (isVacationPlanner) {
+          if (pref.isU) return;
           final cubit = BlocProvider.of<VacationCubit>(context);
-          final state = cubit.state;
+          final selection = cubit.state;
 
-          if (state.startDate == null) {
+          if (selection.startDate == null) {
             cubit.setStartDate(day);
-          } else if (state.startDate!.isBefore(day) ||
-              state.startDate!.isSameDay(day)) {
-            if (state.endDate != null && state.endDate!.isSameDay(day)) {
+          } else if (selection.startDate!.isBefore(day) ||
+              selection.startDate!.isSameDay(day)) {
+            if (selection.endDate != null &&
+                selection.endDate!.isSameDay(day)) {
               cubit.setStartEndDate(day, null);
             } else {
+              final vacationDays =
+                  day.difference(selection.startDate!).inDays + 1;
+              for (var i = 0; i < vacationDays; i++) {
+                if (state
+                    .getDayPref(selection.startDate!.add(Duration(days: i)))
+                    .isU) {
+                  cubit.setStartEndDate(day, null);
+                  return;
+                }
+              }
               cubit.setEndDate(day);
             }
           } else {
             cubit.setStartEndDate(day, null);
           }
-        } else {
+        } else if (pref.incrementDay()) {
           BlocProvider.of<PreferencesBloc>(context)
-              .add(IncrementPreferenceDay(day));
+              .add(UpdatePreferenceList(state.preferences));
         }
       },
       child: SizedBox(
@@ -188,9 +183,9 @@ class CalendarWidget extends StatelessWidget {
             // background
             Container(
               decoration: BoxDecoration(
-                color: day.isSameDay(DateTime.now())
+                color: day.isToday
                     ? MyColors.prime.withOpacity(0.1)
-                    : !isPast
+                    : !pref.isInPast
                         ? bgColor
                         : MyColors.border,
                 border: Border.all(
@@ -208,18 +203,17 @@ class CalendarWidget extends StatelessWidget {
               ),
 
             // S
-            if (!isPast && isS || isSAssigned)
+            if ((!pref.isU && pref.isS) || pref.isSAssigned)
               Positioned(
                 top: 0,
                 right: 0,
                 child: CustomPaint(
-                  painter: TopRightTriangle(isPast && isSAssigned
-                      ? MyColors.green.withOpacity(.5)
-                      : sBgColor),
+                  painter: TopRightTriangle(
+                      pref.isInPast ? sBgColor.withOpacity(.5) : sBgColor),
                   child: Container(height: 18),
                 ),
               ),
-            if (!isPast && isS || isSAssigned)
+            if ((!pref.isU && pref.isS) || pref.isSAssigned)
               Positioned(
                 top: 0,
                 right: 0,
@@ -230,17 +224,17 @@ class CalendarWidget extends StatelessWidget {
               ),
 
             // U
-            if (isU)
+            if (pref.isU)
               Positioned(
                 bottom: 0,
                 right: 0,
                 child: CustomPaint(
                   painter: BottomRightTriangle(
-                      !isPast ? uBgColor : uBgColor.withOpacity(.5)),
+                      pref.isInPast ? uBgColor.withOpacity(.5) : uBgColor),
                   child: Container(height: 18),
                 ),
               ),
-            if (isU)
+            if (pref.isU)
               Positioned(
                 bottom: 0,
                 right: 0,
@@ -251,18 +245,17 @@ class CalendarWidget extends StatelessWidget {
               ),
 
             // F
-            if (!isPast && isF || isFAssigned)
+            if ((!pref.isU && pref.isF) || pref.isFAssigned)
               Positioned(
                 bottom: 0,
                 left: 0,
                 child: CustomPaint(
-                  painter: BottomLeftTriangle(isPast && isFAssigned
-                      ? MyColors.green.withOpacity(.5)
-                      : fBgColor),
+                  painter: BottomLeftTriangle(
+                      pref.isInPast ? fBgColor.withOpacity(.5) : fBgColor),
                   child: Container(height: 18),
                 ),
               ),
-            if (!isPast && isF || isFAssigned)
+            if ((!pref.isU && pref.isF) || pref.isFAssigned)
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -277,10 +270,8 @@ class CalendarWidget extends StatelessWidget {
               child: Text(
                 DateFormat('d').format(day),
                 style: style(
-                  color: isPast ? MyColors.darkGrey : color,
-                  fontWeight: day.isSameDay(DateTime.now())
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+                  color: pref.isInPast ? MyColors.darkGrey : color,
+                  fontWeight: day.isToday ? FontWeight.bold : FontWeight.normal,
                   fontSize: 16,
                 ),
               ),
