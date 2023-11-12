@@ -6,7 +6,7 @@ class NurseRatingModel {
   double? ratingVector3;
   double? ratingVector2;
   double? ratingVector1;
-  int? ratingCount;
+  int? ratingsCount;
 
   NurseRatingModel({
     required this.ratingVector5,
@@ -14,7 +14,7 @@ class NurseRatingModel {
     required this.ratingVector3,
     required this.ratingVector2,
     required this.ratingVector1,
-    required this.ratingCount,
+    required this.ratingsCount,
   });
 
   double? getAverageRating() {
@@ -39,7 +39,7 @@ class NurseRatingModel {
     double? ratingVector3,
     double? ratingVector2,
     double? ratingVector1,
-    int? ratingCount,
+    int? ratingsCount,
   }) =>
       NurseRatingModel(
         ratingVector5: ratingVector5 ?? this.ratingVector5,
@@ -47,7 +47,7 @@ class NurseRatingModel {
         ratingVector3: ratingVector3 ?? this.ratingVector3,
         ratingVector2: ratingVector2 ?? this.ratingVector2,
         ratingVector1: ratingVector1 ?? this.ratingVector1,
-        ratingCount: ratingCount ?? this.ratingCount,
+        ratingsCount: ratingsCount ?? this.ratingsCount,
       );
 
   factory NurseRatingModel.fromJson(Map<String, dynamic> json) => NurseRatingModel(
@@ -56,7 +56,7 @@ class NurseRatingModel {
         ratingVector3: json["ratingVector3"]?.toDouble(),
         ratingVector2: json["ratingVector2"]?.toDouble(),
         ratingVector1: json["ratingVector1"]?.toDouble(),
-        ratingCount: json["ratingCount"],
+        ratingsCount: json["ratingsCount"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -65,6 +65,6 @@ class NurseRatingModel {
         "ratingVector3": ratingVector3,
         "ratingVector2": ratingVector2,
         "ratingVector1": ratingVector1,
-        "ratingCount": ratingCount,
+        "ratingsCount": ratingsCount,
       };
 }

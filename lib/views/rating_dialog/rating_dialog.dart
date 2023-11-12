@@ -38,7 +38,7 @@ class RatingDialog extends StatelessWidget {
                 const VerticalSpacer(12),
                 CircularRating(
                   rating: state.ratings.getAverageRating(),
-                  totalRating: state.ratings.ratingCount ?? 0,
+                  totalRating: state.ratings.ratingsCount ?? 0,
                 ),
                 const VerticalSpacer(32),
 
