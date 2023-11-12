@@ -30,7 +30,7 @@ class CircularRating extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  rating?.toString() ?? '-',
+                  rating?.toStringAsFixed(2) ?? '-',
                   style: style(
                     fontSize: 32,
                     color: MyColors.darkGrey,

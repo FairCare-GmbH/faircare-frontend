@@ -13,7 +13,7 @@ class SmallCircularRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double progress = rating ?? 0 / 5;
+    double progress = (rating ?? 0) / 5;
 
     return CircularPercentIndicator(
       radius: 13,
@@ -23,7 +23,7 @@ class SmallCircularRating extends StatelessWidget {
       backgroundColor: MyColors.red,
       progressColor: MyColors.green,
       center: Text(
-        rating?.toString() ?? '-',
+        rating?.toStringAsFixed(1) ?? '-',
         style: style(
           fontSize: 11,
           color: MyColors.darkGrey,
