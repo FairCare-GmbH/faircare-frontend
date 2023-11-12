@@ -39,12 +39,12 @@ class OpenToursAppBar extends StatelessWidget {
                       ),
                     ),
                     const NotificationButton(),
-                    IconButton(
-                      icon: const Icon(Icons.search),
-                      onPressed: () {
-                        context.read<AvailableToursSearchCubit>().showSearch();
-                      },
-                    )
+                    // IconButton(
+                    //   icon: const Icon(Icons.search),
+                    //   onPressed: () {
+                    //     context.read<AvailableToursSearchCubit>().showSearch();
+                    //   },
+                    // )
                   ],
                 ),
               ),

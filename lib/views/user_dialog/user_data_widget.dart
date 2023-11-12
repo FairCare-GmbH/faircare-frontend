@@ -17,7 +17,6 @@ class UserDataWidget extends StatelessWidget {
       builder: (context, state) {
         if (Api.getUser() != null) {
           final data = Api.getUser()!;
-
           return Row(
             children: [
               Stack(
@@ -25,10 +24,11 @@ class UserDataWidget extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: BorderRadius.circular(24),
-                    child: CachedNetworkImage(
-                      imageUrl: 'https://thispersondoesnotexist.com/',
-                      width: 48,
-                    ),
+                    child: const Icon(Icons.person, size: 48),
+                    // child: CachedNetworkImage(
+                    //   imageUrl: 'https://thispersondoesnotexist.com/',
+                    //   width: 48,
+                    // ),
                   ),
                   Positioned(
                     right: 0,

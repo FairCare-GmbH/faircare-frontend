@@ -14,11 +14,10 @@ class RatingDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<UserBloc>(context).add(GetUserData());
     return BlocBuilder<UserBloc, UserState>(
       builder: (context, state) {
-        if (Api.getUser() != null) {
-          final data = Api.getUser()!;
-
+        if (state is UserDataLoaded) {
           return Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Column(
@@ -38,8 +37,8 @@ class RatingDialog extends StatelessWidget {
                 ),
                 const VerticalSpacer(12),
                 CircularRating(
-                  rating: data.getAverageRating(),
-                  totalRating: data.ratingCount ?? 0,
+                  rating: state.ratings.getAverageRating(),
+                  totalRating: state.ratings.ratingCount ?? 0,
                 ),
                 const VerticalSpacer(32),
 
@@ -48,27 +47,27 @@ class RatingDialog extends StatelessWidget {
                 const VerticalSpacer(24),
                 RatingItem(
                   'Freundlichkeit',
-                  rating: data.ratingVector1 ?? 0,
+                  rating: state.ratings.ratingVector1 ?? 0,
                 ),
                 const VerticalSpacer(24),
                 RatingItem(
                   'Kompetenz',
-                  rating: data.ratingVector2 ?? 0,
+                  rating: state.ratings.ratingVector2 ?? 0,
                 ),
                 const VerticalSpacer(24),
                 RatingItem(
                   'Zuverlässigkeit',
-                  rating: data.ratingVector3 ?? 0,
+                  rating: state.ratings.ratingVector3 ?? 0,
                 ),
                 const VerticalSpacer(24),
                 RatingItem(
                   'Gründlichkeit',
-                  rating: data.ratingVector4 ?? 0,
+                  rating: state.ratings.ratingVector4 ?? 0,
                 ),
                 const VerticalSpacer(24),
                 RatingItem(
                   'Kommunikation',
-                  rating: data.ratingVector5 ?? 0,
+                  rating: state.ratings.ratingVector5 ?? 0,
                 ),
               ],
             ),

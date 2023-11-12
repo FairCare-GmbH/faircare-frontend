@@ -72,7 +72,7 @@ class Api {
           onSendProgress: onSendProgress,
           onReceiveProgress: onReceiveProgress);
       if (kDebugMode) {
-        print('received ${response.statusCode} with data ${response.data}}');
+        print('received ${response.statusCode} with data ${response.data}');
       }
 
       if (response.statusCode! < 300) {

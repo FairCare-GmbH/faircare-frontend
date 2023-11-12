@@ -39,12 +39,12 @@ class MyToursAppBarWidget extends StatelessWidget {
                       ),
                     ),
                     const NotificationButton(),
-                    IconButton(
-                      icon: const Icon(Icons.search),
-                      onPressed: () {
-                        context.read<MyToursSearchCubit>().showSearch();
-                      },
-                    )
+                    // IconButton(
+                    //   icon: const Icon(Icons.search),
+                    //   onPressed: () {
+                    //     context.read<MyToursSearchCubit>().showSearch();
+                    //   },
+                    // )
                   ],
                 ),
               ),

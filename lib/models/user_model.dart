@@ -20,12 +20,6 @@ class UserModel {
   bool allowWoundCare;
   bool allowHousekeeping;
   bool allowCompanionship;
-  double? ratingVector5;
-  double? ratingVector4;
-  double? ratingVector3;
-  double? ratingVector2;
-  double? ratingVector1;
-  int? ratingCount;
   bool hasDriversLicense;
   String availableFrom;
   double maximumCareRadius;
@@ -56,12 +50,6 @@ class UserModel {
     required this.allowWoundCare,
     required this.allowHousekeeping,
     required this.allowCompanionship,
-    required this.ratingVector5,
-    required this.ratingVector4,
-    required this.ratingVector3,
-    required this.ratingVector2,
-    required this.ratingVector1,
-    required this.ratingCount,
     required this.hasDriversLicense,
     required this.availableFrom,
     required this.maximumCareRadius,
@@ -72,22 +60,6 @@ class UserModel {
     required this.openForPatients,
     required this.isActive,
   });
-
-  double? getAverageRating() {
-    final avg = ((ratingVector1 ?? 0) +
-            (ratingVector2 ?? 0) +
-            (ratingVector3 ?? 0) +
-            (ratingVector4 ?? 0) +
-            (ratingVector5 ?? 0)) /
-        max(
-            1,
-            (((ratingVector1 ?? 0) > 0 ? 1 : 0) +
-                ((ratingVector2 ?? 0) > 0 ? 1 : 0) +
-                ((ratingVector3 ?? 0) > 0 ? 1 : 0) +
-                ((ratingVector4 ?? 0) > 0 ? 1 : 0) +
-                ((ratingVector5 ?? 0) > 0 ? 1 : 0)));
-    return avg == 0 ? null : avg;
-  }
 
   UserModel copyWith({
     int? id,
@@ -145,12 +117,6 @@ class UserModel {
         allowWoundCare: allowWoundCare ?? this.allowWoundCare,
         allowHousekeeping: allowHousekeeping ?? this.allowHousekeeping,
         allowCompanionship: allowCompanionship ?? this.allowCompanionship,
-        ratingVector5: ratingVector5 ?? this.ratingVector5,
-        ratingVector4: ratingVector4 ?? this.ratingVector4,
-        ratingVector3: ratingVector3 ?? this.ratingVector3,
-        ratingVector2: ratingVector2 ?? this.ratingVector2,
-        ratingVector1: ratingVector1 ?? this.ratingVector1,
-        ratingCount: ratingCount ?? this.ratingCount,
         hasDriversLicense: hasDriversLicense ?? this.hasDriversLicense,
         availableFrom: availableFrom ?? this.availableFrom,
         maximumCareRadius: maximumCareRadius ?? this.maximumCareRadius,
@@ -182,12 +148,6 @@ class UserModel {
         allowWoundCare: json["allowWoundCare"],
         allowHousekeeping: json["allowHousekeeping"],
         allowCompanionship: json["allowCompanionship"],
-        ratingVector5: json["ratingVector5"]?.toDouble(),
-        ratingVector4: json["ratingVector4"]?.toDouble(),
-        ratingVector3: json["ratingVector3"]?.toDouble(),
-        ratingVector2: json["ratingVector2"]?.toDouble(),
-        ratingVector1: json["ratingVector1"]?.toDouble(),
-        ratingCount: json["ratingCount"],
         hasDriversLicense: json["hasDriversLicense"],
         availableFrom: json["availableFrom"],
         maximumCareRadius: json["maximumCareRadius"].toDouble(),
@@ -219,12 +179,6 @@ class UserModel {
         "allowWoundCare": allowWoundCare,
         "allowHousekeeping": allowHousekeeping,
         "allowCompanionship": allowCompanionship,
-        "ratingVector5": ratingVector5,
-        "ratingVector4": ratingVector4,
-        "ratingVector3": ratingVector3,
-        "ratingVector2": ratingVector2,
-        "ratingVector1": ratingVector1,
-        "ratingCount": ratingCount,
         "hasDriversLicense": hasDriversLicense,
         "availableFrom": availableFrom,
         "maximumCareRadius": maximumCareRadius,

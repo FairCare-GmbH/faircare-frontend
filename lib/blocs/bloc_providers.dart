@@ -7,7 +7,6 @@ import 'package:faircare/blocs/notifications/notifications/notifications_bloc.da
 import 'package:faircare/blocs/search/available_tours_search_cubit.dart';
 import 'package:faircare/blocs/search/my_tours_search_cubit.dart';
 import 'package:faircare/blocs/user/user/user_bloc.dart';
-import 'package:faircare/blocs/vacations/vacation_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BlocProviders {
@@ -43,20 +42,14 @@ class BlocProviders {
       create: (_) => MyToursSearchCubit(),
     ),
 
-    // user
+    // notifications
     BlocProvider<UserBloc>(
       create: (_) => UserBloc()..add(GetUserData()),
     ),
-    
 
     // notifications
     BlocProvider<NotificationsBloc>(
       create: (_) => NotificationsBloc()..add(GetNotifications()),
-    ),
-
-    // vacation
-    BlocProvider<VacationCubit>(
-      create: (_) => VacationCubit(),
     ),
   ];
 }

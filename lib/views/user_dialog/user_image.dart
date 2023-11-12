@@ -13,10 +13,11 @@ class UserImage extends StatelessWidget {
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(24),
-        child: CachedNetworkImage(
-          imageUrl: 'https://thispersondoesnotexist.com/',
-          width: 36,
-        ),
+        child: const Icon(Icons.person, size: 36),
+        // child: CachedNetworkImage(
+        //   imageUrl: 'https://thispersondoesnotexist.com/',
+        //   width: 36,
+        // ),
       ),
     );
   }

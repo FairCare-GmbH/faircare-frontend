@@ -1,20 +1,21 @@
 part of 'user_bloc.dart';
 
-abstract class UserState extends Equatable {
-  const UserState();
-
-  @override
-  List<Object> get props => [];
+abstract class UserState {
+  UserState();
 }
 
 class UserDataInitial extends UserState {}
 
 class UserDataLoading extends UserState {}
 
-class UserDataLoaded extends UserState {}
+class UserDataLoaded extends UserState {
+  final NurseRatingModel ratings;
+
+  UserDataLoaded({required this.ratings});
+}
 
 class UserDataError extends UserState {
   final String error;
 
-  const UserDataError(this.error);
+  UserDataError(this.error);
 }
