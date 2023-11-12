@@ -24,8 +24,11 @@ class CompletedToursListWidget extends StatelessWidget {
               return TourItemWidget(
                   state.tours[i],
                   TourState.completed,
-                  () => BlocProvider.of<CompletedToursBloc>(context)
-                      .add(GetCompletedTours()));
+                  () => BlocProvider.of<CompletedToursBloc>(context).add(
+                      GetCompletedTours(
+                          from: state.from,
+                          to: state.to,
+                          searchType: state.searchType)));
             },
           );
         }

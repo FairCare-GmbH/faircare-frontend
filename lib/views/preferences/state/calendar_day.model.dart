@@ -92,6 +92,7 @@ class CalendarDayModel {
       if (isF && isS) {
         dayPrefs.clear();
       } else if (isF) {
+        dayPrefs.remove(f);
         dayPrefs.add(PreferenceModel(
             startDate: day, endDate: day, dayOfWeek: day.weekday, type: 2));
       } else {

@@ -12,6 +12,8 @@ extension DateTimeExt on DateTime {
     return (year == now.year && month == now.month && day == now.day);
   }
 
+  int get daysFromToday => DateTime.now().ymd.difference(ymd).inDays;
+
   bool get isInPast {
     return isBefore(DateTime.now().ymd);
   }

@@ -32,7 +32,7 @@ class DesiredHours extends StatelessWidget {
               // select hours range
               HoursSlider(
                 min: 0,
-                max: 50,
+                max: 70,
                 selectedRange: RangeValues(
                   state.userModel.weeklyHourMinimum.toDouble(),
                   state.userModel.weeklyHourMaximum.toDouble(),

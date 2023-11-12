@@ -11,28 +11,28 @@ class OpenToursListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => OpenToursBloc()..add(GetOpenTours()),
-      child: BlocBuilder<OpenToursBloc, OpenToursState>(
-        builder: (context, state) {
-          if (state is OpenToursLoaded) {
-            return ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: (a, b) => const VerticalSpacer(10),
-              itemCount: state.tours.length,
-              itemBuilder: (_, i) {
-                return TourItemWidget(
-                    state.tours[i],
-                    TourState.available,
-                    () => BlocProvider.of<OpenToursBloc>(context)
-                        .add(GetOpenTours()));
-              },
-            );
-          }
-          return const LoadingIndicator();
-        },
-      ),
+    return BlocBuilder<OpenToursBloc, OpenToursState>(
+      builder: (context, state) {
+        if (state is OpenToursLoaded) {
+          return ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (a, b) => const VerticalSpacer(10),
+            itemCount: state.tours.length,
+            itemBuilder: (_, i) {
+              return TourItemWidget(
+                  state.tours[i],
+                  TourState.available,
+                  () => BlocProvider.of<OpenToursBloc>(context).add(
+                      GetOpenTours(
+                          from: state.from,
+                          to: state.to,
+                          searchType: state.searchType)));
+            },
+          );
+        }
+        return const LoadingIndicator();
+      },
     );
   }
 }

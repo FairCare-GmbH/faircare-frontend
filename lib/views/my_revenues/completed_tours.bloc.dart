@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
-import 'package:faircare/global/extensions.dart';
 import 'package:faircare/models/tour_model.dart';
 
 import '../../api/api.dart';
@@ -12,16 +10,19 @@ class CompletedToursBloc
     on<GetCompletedTours>(
       (event, emit) async {
         try {
-          emit(CompletedToursLoading());
-          final tours = (await Api.request<List>('/tours/mine',
-              options: Options(method: 'GET'),
-              queryParameters: {
-                'from': DateTime.now().ymd,
-                'to': DateTime.now().ymd.subtract(const Duration(days: 90)),
+          if (state is! CompletedToursLoaded) {
+            emit(CompletedToursLoading());
+          }
+          final tours = (await Api.request<List>('/tours/mine/completed',
+                  options: Options(method: 'GET'),
+                  queryParameters: {
+                'from': event.from,
+                'to': event.to,
               }))
               .map((e) => TourModel.fromJson(e))
               .toList(growable: false);
-          emit(CompletedToursLoaded(tours));
+          emit(CompletedToursLoaded(
+              tours, event.from, event.to, event.searchType));
         } catch (e) {
           emit(CompletedToursError(e.toString()));
         }
@@ -30,20 +31,21 @@ class CompletedToursBloc
   }
 }
 
-abstract class CompletedToursEvent extends Equatable {
-  const CompletedToursEvent();
-
-  @override
-  List<Object> get props => [];
+abstract class CompletedToursEvent {
+  CompletedToursEvent();
 }
 
-class GetCompletedTours extends CompletedToursEvent {}
+class GetCompletedTours extends CompletedToursEvent {
+  final DateTime from;
+  final DateTime to;
+  final int searchType;
 
-abstract class CompletedToursState extends Equatable {
-  const CompletedToursState();
+  GetCompletedTours(
+      {required this.from, required this.to, required this.searchType});
+}
 
-  @override
-  List<Object> get props => [];
+abstract class CompletedToursState {
+  CompletedToursState();
 }
 
 class CompletedToursInitial extends CompletedToursState {}
@@ -52,12 +54,15 @@ class CompletedToursLoading extends CompletedToursState {}
 
 class CompletedToursLoaded extends CompletedToursState {
   final List<TourModel> tours;
+  final DateTime from;
+  final DateTime to;
+  final int searchType;
 
-  const CompletedToursLoaded(this.tours);
+  CompletedToursLoaded(this.tours, this.from, this.to, this.searchType);
 }
 
 class CompletedToursError extends CompletedToursState {
   final String error;
 
-  const CompletedToursError(this.error);
+  CompletedToursError(this.error);
 }

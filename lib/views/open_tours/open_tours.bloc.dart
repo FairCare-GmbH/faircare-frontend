@@ -1,24 +1,24 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:faircare/models/tour_model.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../api/api.dart';
 
 class OpenToursBloc extends Bloc<OpenToursEvent, OpenToursState> {
-  //TODO handle filters
   OpenToursBloc() : super(OpenToursInitial()) {
     on<GetOpenTours>(
       (event, emit) async {
         try {
           final user = Api.getUser()!;
-          emit(OpenToursLoading());
+          if (state is! OpenToursLoaded) {
+            emit(OpenToursLoading());
+          }
           final tours = (await Api.request<List>('/tours',
                   options: Options(method: 'GET'),
                   queryParameters: {
-                'from': DateTime.now(),
-                'to': DateTime.now().add(const Duration(days: 90)),
+                'from': event.from,
+                'to': event.to,
                 'centerLongitude': user.longitude,
                 'centerLatitude': user.latitude,
                 'geoRadius': user.maximumCareRadius
@@ -26,7 +26,7 @@ class OpenToursBloc extends Bloc<OpenToursEvent, OpenToursState> {
               .map((e) => TourModel.fromJson(e))
               .where((e) => e.ownerNurseId != Api.getUser()!.id)
               .toList(growable: false);
-          emit(OpenToursLoaded(tours));
+          emit(OpenToursLoaded(tours, event.from, event.to, event.searchType));
         } catch (e, s) {
           if (kDebugMode) {
             print(e.toString());
@@ -39,20 +39,21 @@ class OpenToursBloc extends Bloc<OpenToursEvent, OpenToursState> {
   }
 }
 
-abstract class OpenToursEvent extends Equatable {
-  const OpenToursEvent();
-
-  @override
-  List<Object> get props => [];
+abstract class OpenToursEvent {
+  OpenToursEvent();
 }
 
-class GetOpenTours extends OpenToursEvent {}
+class GetOpenTours extends OpenToursEvent {
+  final DateTime from;
+  final DateTime to;
+  final int searchType;
 
-abstract class OpenToursState extends Equatable {
-  const OpenToursState();
+  GetOpenTours(
+      {required this.from, required this.to, required this.searchType});
+}
 
-  @override
-  List<Object> get props => [];
+abstract class OpenToursState {
+  OpenToursState();
 }
 
 class OpenToursInitial extends OpenToursState {}
@@ -61,12 +62,15 @@ class OpenToursLoading extends OpenToursState {}
 
 class OpenToursLoaded extends OpenToursState {
   final List<TourModel> tours;
+  final DateTime from;
+  final DateTime to;
+  final int searchType;
 
-  const OpenToursLoaded(this.tours);
+  OpenToursLoaded(this.tours, this.from, this.to, this.searchType);
 }
 
 class OpenToursError extends OpenToursState {
   final String error;
 
-  const OpenToursError(this.error);
+  OpenToursError(this.error);
 }

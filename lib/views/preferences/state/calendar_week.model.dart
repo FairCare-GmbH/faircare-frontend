@@ -59,10 +59,12 @@ class CalendarWeekModel {
     } else if (isF) {
       final f = this.f!;
       if (f.endDate
-          .isBefore(DateTime.now().ymd.add(const Duration(days: 365 * 50)))) {
+          .isBefore(DateTime.now().ymd.add(const Duration(days: 14)))) {
         weekPrefs.remove(f);
         weekPrefs.add(f.copyWith(endDate: DateTime.now().ymd));
         return incrementWeek();
+      }else{
+        weekPrefs.remove(f);
       }
 
       for (var d in dayPrefs) {
