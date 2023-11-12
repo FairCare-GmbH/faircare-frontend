@@ -15,22 +15,6 @@ class CircularRating extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double progress = rating ?? 0 / 5;
-    double greenPercent = progress - 0.03;
-    double redPercent = 1 - progress - 0.03;
-
-    if (greenPercent < 0) greenPercent = 0;
-    if (redPercent < 0) redPercent = 0;
-
-    if (rating == 5) {
-      greenPercent = 1;
-      redPercent = 0;
-    }
-
-    if (rating == 0) {
-      greenPercent = 0;
-      redPercent = 1;
-    }
 
     return Center(
       child: Stack(
@@ -38,7 +22,7 @@ class CircularRating extends StatelessWidget {
           CircularPercentIndicator(
             radius: 100,
             lineWidth: 12,
-            percent: redPercent,
+            percent: 1,
             startAngle: 349.5,
             reverse: true,
             circularStrokeCap: CircularStrokeCap.round,
@@ -65,7 +49,7 @@ class CircularRating extends StatelessWidget {
           CircularPercentIndicator(
             radius: 100,
             lineWidth: 12,
-            percent: greenPercent,
+            percent: (rating ?? 0) / 5,
             circularStrokeCap: CircularStrokeCap.round,
             backgroundColor: Colors.transparent,
             progressColor: MyColors.green,
