@@ -18,7 +18,8 @@ import '../../widgets/snack_bar.dart';
 class TourItemWidget extends StatelessWidget {
   const TourItemWidget(
     this.model,
-    this.state, this.refreshCallback, {
+    this.state,
+    this.refreshCallback, {
     Key? key,
   }) : super(key: key);
 
@@ -127,7 +128,7 @@ class TourItemWidget extends StatelessWidget {
             ),
             const HorizontalSpacer(12),
             Text(
-              '${model.revenue + model.bonus} €',
+              '${((model.revenue + model.bonus) / 100).toStringAsFixed(2)} €',
               style: style(
                 color: model.bonus > 0 ? MyColors.yellow : MyColors.darkGrey,
                 fontWeight: FontWeight.w500,

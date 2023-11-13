@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
+import 'package:faircare/global/extensions.dart';
 import 'package:faircare/models/tour_model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -15,8 +16,8 @@ class MyToursBloc extends Bloc<MyToursEvent, MyToursState> {
           final tours = (await Api.request<List>('/tours/mine',
                   options: Options(method: 'GET'),
                   queryParameters: {
-                'from': DateTime.now(),
-                'to': DateTime.now().add(const Duration(days: 90)),
+                'from': DateTime.now().ymd,
+                'to': DateTime.now().ymd.add(const Duration(days: 90)),
               }))
               .map((e) => TourModel.fromJson(e))
               .toList(growable: false);

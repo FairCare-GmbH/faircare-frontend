@@ -1,3 +1,4 @@
+import 'package:faircare/global/extensions.dart';
 import 'package:faircare/views/my_tours/my_tours.bloc.dart';
 import 'package:faircare/views/my_tours/my_tours_app_bar.widget.dart';
 import 'package:faircare/widgets/heading.dart';
@@ -21,11 +22,16 @@ class MyToursView extends StatelessWidget {
           child: BlocBuilder<MyToursBloc, MyToursState>(
             builder: (context, state) {
               if (state is MyToursLoaded) {
+                final today = state.tours
+                    .where((element) => element.tourDate.isToday)
+                    .toList(growable: false);
                 final releasing = state.tours
-                    .where((element) => element.isOpen)
+                    .where((element) =>
+                        element.isOpen && !element.tourDate.isToday)
                     .toList(growable: false);
                 final assigned = state.tours
-                    .where((element) => !element.isOpen)
+                    .where((element) =>
+                        !element.isOpen && !element.tourDate.isToday)
                     .toList(growable: false);
 
                 return Expanded(
@@ -36,6 +42,23 @@ class MyToursView extends StatelessWidget {
                       horizontal: 16,
                     ),
                     children: [
+                      const MyHeading('Heute'),
+                      const VerticalSpacer(12),
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        separatorBuilder: (a, b) => const VerticalSpacer(10),
+                        itemCount: today.length,
+                        itemBuilder: (_, i) {
+                          return TourItemWidget(
+                              today[i],
+                              TourState.requested,
+                                  () => BlocProvider.of<MyToursBloc>(context)
+                                  .add(GetMyTours()));
+                        },
+                      ),
+                      const VerticalSpacer(32),
+
                       // requested tours
                       const MyHeading('In Abgabe'),
                       const VerticalSpacer(12),

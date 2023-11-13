@@ -9,6 +9,7 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/tour_model.dart';
 import 'completed_tours.bloc.dart';
 
 class MyRevenuesView extends StatelessWidget {
@@ -142,16 +143,22 @@ class MyRevenuesView extends StatelessWidget {
                                   .map((e) => e.revenue + e.bonus)
                                   .reduce((v, e) => v + e)) /
                           100;
-                      final hours = state.tours.isEmpty
-                          ? 0
+
+                      final List<TourModel> tours = state.tours.isEmpty
+                          ? []
                           : state.tours
-                                  .map((e) =>
+                          .where((e) =>
+                      e.actualStartTime != null &&
+                          e.actualEndTime != null).toList();
+
+                      final hours = tours.isNotEmpty ?
+                                  tours.map((e) =>
                                       (e.actualEndTime!.time.hour * 60 +
                                           e.actualEndTime!.time.minute) -
                                       (e.actualStartTime!.time.hour * 60 -
                                           e.actualStartTime!.time.minute))
                                   .reduce((v, e) => v + e) /
-                              60;
+                              60 : 0;
                       return SizedBox(
                         height: 80,
                         child: ListView(
