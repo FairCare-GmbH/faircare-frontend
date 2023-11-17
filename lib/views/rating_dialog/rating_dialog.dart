@@ -1,4 +1,3 @@
-import 'package:faircare/api/api.dart';
 import 'package:faircare/blocs/user/user/user_bloc.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/views/rating_dialog/circular_rating.dart';

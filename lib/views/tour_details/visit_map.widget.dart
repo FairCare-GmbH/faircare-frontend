@@ -1,8 +1,6 @@
 import 'dart:async';
 
 import 'package:faircare/global/colors.dart';
-import 'package:faircare/models/tour_model.dart';
-import 'package:faircare/views/my_tours/tour_visit.model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 

@@ -1,4 +1,3 @@
-import 'package:faircare/api/api.dart';
 import 'package:faircare/blocs/user/user/user_bloc.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';

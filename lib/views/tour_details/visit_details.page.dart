@@ -1,25 +1,14 @@
 import 'package:faircare/global/colors.dart';
-import 'package:faircare/global/enums.dart';
-import 'package:faircare/global/extensions.dart';
 import 'package:faircare/models/patient.model.dart';
-import 'package:faircare/models/tour_model.dart';
 import 'package:faircare/views/my_tours/tour_visit.model.dart';
-import 'package:faircare/views/my_tours/tour_visits_list.widget.dart';
 import 'package:faircare/views/tour_details/app_bar.dart';
-import 'package:faircare/views/tour_details/dialogs/cancel_give_back_dialog.dart';
-import 'package:faircare/views/tour_details/dialogs/give_back_dialog.dart';
-import 'package:faircare/views/tour_details/dialogs/request_dialog.dart';
-import 'package:faircare/views/tour_details/tour_map.dart';
 import 'package:faircare/views/tour_details/visit_map.widget.dart';
-import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/horizontal_tile.dart';
 import 'package:faircare/widgets/spacer.dart';
-import 'package:faircare/widgets/switch.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../api/api.dart';
 
 class VisitDetailsPage extends StatelessWidget {
   const VisitDetailsPage(

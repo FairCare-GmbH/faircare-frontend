@@ -1,11 +1,9 @@
 import 'package:faircare/global/colors.dart';
-import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/views/my_tours/tour_visit.model.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 import '../../models/patient.model.dart';
 import '../tour_details/visit_details.page.dart';

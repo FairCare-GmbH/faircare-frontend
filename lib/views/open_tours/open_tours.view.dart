@@ -2,7 +2,6 @@ import 'package:faircare/global/extensions.dart';
 import 'package:faircare/views/open_tours/open_tours_list.widget.dart';
 import 'package:faircare/widgets/filter_chip.dart';
 import 'package:faircare/widgets/heading.dart';
-import 'package:faircare/widgets/loading_indicator.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,8 +1,5 @@
 import 'package:faircare/views/my_tours/tour_visit_item.widget.dart';
 import 'package:faircare/views/my_tours/tour_details.bloc.dart';
-import 'package:faircare/views/open_tours/open_tours.bloc.dart';
-import 'package:faircare/global/enums.dart';
-import 'package:faircare/views/open_tours/tour_item.widget.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:faircare/api/api.dart';
 import 'package:faircare/blocs/user/user/user_bloc.dart';
 import 'package:faircare/global/colors.dart';

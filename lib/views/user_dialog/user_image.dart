@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:faircare/views/user_dialog/user_dialog.dart';
 import 'package:flutter/material.dart';
 
