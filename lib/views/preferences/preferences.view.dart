@@ -31,28 +31,28 @@ class _PreferencesViewState extends State<PreferencesView> {
                 vertical: 12,
                 horizontal: 16,
               ),
-              children: const [
+              children: [
                 // general
-                MyHeading('Allgemein'),
-                VerticalSpacer(24),
+                const MyHeading('Allgemein'),
+                const VerticalSpacer(24),
                 GeneralPreferences(),
 
-                VerticalSpacer(24),
+                const VerticalSpacer(24),
 
                 // availability
-                MyHeading('Verfügbarkeiten'),
-                VerticalSpacer(20),
+                const MyHeading('Verfügbarkeiten'),
+                const VerticalSpacer(20),
 
                 // desired hours
-                DesiredHours(),
-                VerticalSpacer(32),
+                const DesiredHours(),
+                const VerticalSpacer(32),
 
                 // desired tours
-                DesiredTours(),
-                VerticalSpacer(32),
+                const DesiredTours(),
+                const VerticalSpacer(32),
 
                 // vacations
-                Vacations(),
+                const Vacations(),
               ],
             ),
           )

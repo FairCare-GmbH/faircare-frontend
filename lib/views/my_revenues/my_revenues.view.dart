@@ -140,25 +140,25 @@ class MyRevenuesView extends StatelessWidget {
                       final revenue = (state.tours.isEmpty
                               ? 0
                               : state.tours
-                                  .map((e) => e.revenue + e.bonus)
+                                  .map((e) =>
+                                      (e.myActualWageCents ?? 0) + e.bonus)
                                   .reduce((v, e) => v + e)) /
                           100;
 
                       final List<TourModel> tours = state.tours.isEmpty
                           ? []
                           : state.tours
-                          .where((e) =>
-                      e.actualStartTime != null &&
-                          e.actualEndTime != null).toList();
+                              .where((e) =>
+                                  e.actualStartTime != null &&
+                                  e.actualEndTime != null)
+                              .toList();
 
-                      final hours = tours.isNotEmpty ?
-                                  tours.map((e) =>
-                                      (e.actualEndTime!.time.hour * 60 +
-                                          e.actualEndTime!.time.minute) -
-                                      (e.actualStartTime!.time.hour * 60 -
-                                          e.actualStartTime!.time.minute))
+                      final hours = tours.isNotEmpty
+                          ? tours
+                                  .map((e) => e.actualDurationMinutes ?? 0)
                                   .reduce((v, e) => v + e) /
-                              60 : 0;
+                              60
+                          : 0;
                       return SizedBox(
                         height: 80,
                         child: ListView(

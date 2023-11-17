@@ -128,7 +128,7 @@ class TourItemWidget extends StatelessWidget {
             ),
             const HorizontalSpacer(12),
             Text(
-              '${((model.revenue + model.bonus) / 100).toStringAsFixed(2)} €',
+              '${((model.myActualWageCents ?? model.myPlannedWageCents ?? 0) / 100).toStringAsFixed(0)} €',
               style: style(
                 color: model.bonus > 0 ? MyColors.yellow : MyColors.darkGrey,
                 fontWeight: FontWeight.w500,

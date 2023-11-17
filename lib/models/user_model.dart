@@ -2,7 +2,6 @@ import 'dart:math';
 
 class UserModel {
   int id;
-  String type;
   String prefix;
   String firstName;
   String lastName;
@@ -29,10 +28,10 @@ class UserModel {
   DateTime dateCreated;
   bool openForPatients;
   bool isActive;
+  int? hourlyWage;
 
   UserModel({
     required this.id,
-    required this.type,
     required this.prefix,
     required this.firstName,
     required this.lastName,
@@ -59,11 +58,11 @@ class UserModel {
     required this.dateCreated,
     required this.openForPatients,
     required this.isActive,
+    required this.hourlyWage,
   });
 
   UserModel copyWith({
     int? id,
-    String? type,
     String? prefix,
     String? firstName,
     String? lastName,
@@ -96,10 +95,10 @@ class UserModel {
     DateTime? dateCreated,
     bool? openForPatients,
     bool? isActive,
+    int? hourlyWage,
   }) =>
       UserModel(
         id: id ?? this.id,
-        type: type ?? this.type,
         prefix: prefix ?? this.prefix,
         firstName: firstName ?? this.firstName,
         lastName: lastName ?? this.lastName,
@@ -111,7 +110,8 @@ class UserModel {
         longitude: longitude ?? this.longitude,
         lastUpdate: lastUpdate ?? this.lastUpdate,
         qualification: qualification ?? this.qualification,
-        allowInfectiousDisease: allowInfectiousDisease ?? this.allowInfectiousDisease,
+        allowInfectiousDisease:
+            allowInfectiousDisease ?? this.allowInfectiousDisease,
         allowMedicalCare: allowMedicalCare ?? this.allowMedicalCare,
         allowBasicCare: allowBasicCare ?? this.allowBasicCare,
         allowWoundCare: allowWoundCare ?? this.allowWoundCare,
@@ -126,11 +126,11 @@ class UserModel {
         dateCreated: dateCreated ?? this.dateCreated,
         openForPatients: openForPatients ?? this.openForPatients,
         isActive: isActive ?? this.isActive,
+        hourlyWage: hourlyWage ?? this.hourlyWage,
       );
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json["id"],
-        type: json["type"],
         prefix: json["prefix"],
         firstName: json["firstName"],
         lastName: json["lastName"],
@@ -157,11 +157,11 @@ class UserModel {
         dateCreated: DateTime.parse(json["dateCreated"]),
         openForPatients: json["openForPatients"],
         isActive: json["isActive"],
+        hourlyWage: json["hourlyWage"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "type": type,
         "prefix": prefix,
         "firstName": firstName,
         "lastName": lastName,
@@ -188,5 +188,6 @@ class UserModel {
         "dateCreated": dateCreated.toIso8601String(),
         "openForPatients": openForPatients,
         "isActive": isActive,
+        "hourlyWage": hourlyWage,
       };
 }

@@ -2,6 +2,7 @@ import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/models/tour_model.dart';
+import 'package:faircare/views/my_tours/tour_visits_list.widget.dart';
 import 'package:faircare/views/tour_details/app_bar.dart';
 import 'package:faircare/views/tour_details/dialogs/cancel_give_back_dialog.dart';
 import 'package:faircare/views/tour_details/dialogs/give_back_dialog.dart';
@@ -28,25 +29,6 @@ class TourDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final plannedFromTime = model.plannedStartTime.time;
-    final plannedToTime = model.plannedEndTime.time;
-    final actualFromTime = model.actualStartTime?.time ?? '00:00:00'.time;
-    final actualToTime = model.actualEndTime?.time ?? '00:00:00'.time;
-
-    final plannedTime = plannedToTime.hour * 60 +
-        plannedToTime.minute -
-        plannedFromTime.hour * 60 +
-        plannedFromTime.minute;
-
-    final actualTime = actualToTime.hour * 60 +
-        actualToTime.minute -
-        actualFromTime.hour * 60 +
-        actualFromTime.minute;
-
-    final plannedHourlyRate = (model.revenue + model.bonus) /
-        (plannedTime == 0 ? 1 : plannedTime / 60);
-    final actualHourlyRate = (model.revenue + model.bonus) / (actualTime / 60);
-
     return SafeArea(
       child: Scaffold(
         body: Column(
@@ -74,33 +56,59 @@ class TourDetailsPage extends StatelessWidget {
                   HorizontalTile(
                     'Start/Ende',
                     mainText: '${state == TourState.completed ? ' / ' : ''}'
-                        '${model.plannedStartTime} - ${model.plannedEndTime}',
+                        '${model.plannedStartTime.substring(0, 5)} - ${model.plannedEndTime.substring(0, 5)}',
                     secondaryText: state == TourState.completed
-                        ? '${model.actualStartTime} - ${model.actualEndTime}'
+                        ? '${model.actualStartTime?.substring(0, 5)} - ${model.actualEndTime?.substring(0, 5)}'
                         : '',
-                    secondaryColor: plannedTime >= actualTime
+                    secondaryColor: model.plannedDurationMinutes >=
+                            (model.actualDurationMinutes ?? 0)
                         ? MyColors.green
                         : MyColors.red,
                   ),
 
-                  // revenue
                   HorizontalTile(
                     'Vergütung',
-                    mainText: '${model.revenue + model.bonus} €',
+                    mainText:
+                        '${((model.myActualWageCents ?? 0) / 100).toStringAsFixed(2)} €',
                   ),
 
-                  // hourly rate
                   HorizontalTile(
-                    'Geschätzter Stundenlohn',
-                    mainText: '${state == TourState.completed ? ' / ' : ''}'
-                        '${plannedHourlyRate.toStringAsFixed(2)} €',
-                    secondaryText: state == TourState.completed
-                        ? '${actualHourlyRate.toStringAsFixed(2)} €'
-                        : '',
-                    secondaryColor: plannedTime >= actualTime
-                        ? MyColors.green
+                    'Bonus',
+                    mainText: '',
+                    secondaryText:
+                        '${model.bonus > 0 ? '+' : ''} ${((model.bonus) / 100).toStringAsFixed(2)} €',
+                    secondaryColor: model.plannedDurationMinutes >=
+                            (model.actualDurationMinutes ?? 0)
+                        ? (model.bonus > 0 ? MyColors.green : MyColors.prime)
                         : MyColors.red,
                   ),
+
+                  // HorizontalTile(
+                  //   'Vergütung',
+                  //   mainText:
+                  //   '${state == TourState.completed ? ' / ' : ''}'
+                  //       '${(((model.myPlannedWageCents ?? 0) + model.bonus) / 100).toStringAsFixed(2)} €',
+                  //   secondaryText:
+                  //       '${(((model.myActualWageCents ?? 0) + model.bonus) / 100).toStringAsFixed(2)} €',
+                  //   secondaryColor: model.plannedDurationMinutes >=
+                  //           (model.actualDurationMinutes ?? 0)
+                  //       ? MyColors.green
+                  //       : MyColors.red,
+                  // ),
+                  //
+                  // // hourly rate
+                  // HorizontalTile(
+                  //   'Stundenlohn',
+                  //   mainText: '${state == TourState.completed ? ' / ' : ''}'
+                  //       '${(((model.myPlannedWageCents ?? 0) / (model.plannedDurationMinutes / 60)) / 100).toStringAsFixed(2)} €',
+                  //   secondaryText: state == TourState.completed
+                  //       ? '${(((model.myActualWageCents ?? 0) / ((model.actualDurationMinutes ?? 0) / 60)) / 100).toStringAsFixed(2)} €'
+                  //       : '',
+                  //   secondaryColor: model.plannedDurationMinutes >=
+                  //           (model.actualDurationMinutes ?? 0)
+                  //       ? MyColors.green
+                  //       : MyColors.red,
+                  // ),
                   const VerticalSpacer(24),
 
                   // details
@@ -138,7 +146,14 @@ class TourDetailsPage extends StatelessWidget {
                   ),
                   const VerticalSpacer(12),
 
-                  if (model.isOpen && model.ownerNurseId != Api.getUser()!.id)
+                  if (model.ownerNurseId == Api.getUser()!.id)
+                    TourVisitsListWidget(tourId: model.id),
+
+                  const VerticalSpacer(12),
+
+                  if (model.tourDate.isInFuture &&
+                      model.isOpen &&
+                      model.ownerNurseId != Api.getUser()!.id)
                     Button(
                       'Anfragen',
                       onPressed: () {
@@ -149,7 +164,9 @@ class TourDetailsPage extends StatelessWidget {
                         });
                       },
                     ),
-                  if (!model.isOpen && model.ownerNurseId == Api.getUser()!.id)
+                  if (model.tourDate.isInFuture &&
+                      !model.isOpen &&
+                      model.ownerNurseId == Api.getUser()!.id)
                     Button(
                       'Abgeben',
                       onPressed: () {
@@ -160,7 +177,9 @@ class TourDetailsPage extends StatelessWidget {
                         });
                       },
                     ),
-                  if (model.isOpen && model.ownerNurseId == Api.getUser()!.id)
+                  if (model.tourDate.isInFuture &&
+                      model.isOpen &&
+                      model.ownerNurseId == Api.getUser()!.id)
                     Button(
                       'Abgabe abbrechen',
                       buttonColor: MyColors.red,

@@ -28,6 +28,7 @@ dependencies:
   table_calendar: ^3.0.9
   flutter_secure_storage: ^9.0.0
   permission_handler: ^11.0.1
+  url_launcher: ^6.2.1
   flutter_localizations:
     sdk: flutter
 

@@ -7,10 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../widgets/loading_indicator.dart';
+import '../../../widgets/text_field.dart';
 import '../state/preferences.bloc.dart';
 
 class GeneralPreferences extends StatelessWidget {
-  const GeneralPreferences({Key? key}) : super(key: key);
+  TextEditingController? addressController;
+
+  GeneralPreferences({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,18 @@ class GeneralPreferences extends StatelessWidget {
         if (state is PreferenceLoaded) {
           return Column(
             children: [
-              // availability
+              // address
+              MyTextField(
+                label: 'Anschrift',
+                hint: 'Anschrift',
+                controller: addressController ??=
+                    TextEditingController(text: state.userModel.address),
+                onChanged: (address) {
+                  bloc.add(UpdatePreferenceUser(
+                      state.userModel.copyWith(address: address)));
+                },
+              ),
+              const VerticalSpacer(24),
               MyDropdown(
                 label: 'Verfügbar für neue Patienten',
                 value: availableForNewPatients[

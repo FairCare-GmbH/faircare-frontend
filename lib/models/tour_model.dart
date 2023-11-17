@@ -1,5 +1,8 @@
 import 'dart:convert';
 
+import 'package:faircare/api/api.dart';
+import 'package:faircare/global/extensions.dart';
+
 class TourModel {
   final int id;
   final int ownerNurseId;
@@ -186,4 +189,35 @@ class TourModel {
         "hasCompanionship": hasCompanionship,
         "type": type,
       };
+
+  int get plannedDurationMinutes => ((plannedEndTime.time.hour * 60 +
+          plannedEndTime.time.minute) -
+          (plannedStartTime.time.hour * 60 +
+          plannedStartTime.time.minute))
+      .toInt();
+
+  int? get actualDurationMinutes => actualEndTime == null ||
+          actualStartTime == null
+      ? null
+      : ((actualEndTime!.time.hour * 60 +
+              actualEndTime!.time.minute) -
+              (actualStartTime!.time.hour * 60 +
+              actualStartTime!.time.minute))
+          .toInt();
+
+  int get plannedHourlyRevenueCents =>
+      ((revenue / plannedDurationMinutes) * 60).round();
+
+  int? get actualHourlyRevenueCents => actualDurationMinutes == null
+      ? null
+      : ((revenue / actualDurationMinutes!) * 60).round();
+
+  int? get myPlannedWageCents => Api.getUser()?.hourlyWage == null
+      ? null
+      : (Api.getUser()!.hourlyWage! * (plannedDurationMinutes / 60)).round();
+
+  int? get myActualWageCents => Api.getUser()?.hourlyWage == null ||
+          actualDurationMinutes == null
+      ? null
+      : (Api.getUser()!.hourlyWage! * (actualDurationMinutes! / 60)).round();
 }
