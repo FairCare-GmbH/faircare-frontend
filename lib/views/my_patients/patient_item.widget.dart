@@ -1,30 +1,26 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/views/my_tours/tour_visit.model.dart';
+import 'package:faircare/views/my_patients/patient_details.view.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
 import '../../models/patient.model.dart';
 import '../tour_details/visit_details.page.dart';
 
-class TourVisitItemWidget extends StatelessWidget {
-  const TourVisitItemWidget(
-    this.visit,
+class PatientItemWidget extends StatelessWidget {
+  const PatientItemWidget(
     this.patient, {
     Key? key,
   }) : super(key: key);
 
-  final TourVisitModel visit;
-  final PatientModel? patient;
+  final PatientModel patient;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        if (visit.type == 1) {
-          navigate(context, VisitDetailsPage(visit, patient!));
-        }
+        navigate(context, PatientDetailsView(patient));
       },
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
@@ -38,15 +34,15 @@ class TourVisitItemWidget extends StatelessWidget {
               height: 32,
               width: 32,
               decoration: BoxDecoration(
-                color: visit.bonus > 0 ? MyColors.yellow : MyColors.prime,
+                color: patient.pflegegrad != null
+                    ? MyColors.prime
+                    : MyColors.yellow,
                 shape: BoxShape.circle,
               ),
               child: Center(
                 child: //model.fromDate.isSameDay(model.toDate)?
                     Text(
-                  patient == null
-                      ? 'I'
-                      : (patient!.pflegegrad?.toString() ?? 'V'),
+                  patient.pflegegrad?.toString() ?? 'V',
                   style: style(
                     color: MyColors.white,
                     fontWeight: FontWeight.w600,
@@ -66,18 +62,13 @@ class TourVisitItemWidget extends StatelessWidget {
                 children: [
                   Text(
                     // model.fromDate.isSameDay(model.toDate)
-                    visit.type == 1
-                        ? '${patient!.firstName} ${patient!.lastName}'
-                        : visit.type == 2
-                            ? 'Pause'
-                            : visit.type == 4
-                                ? (visit.patientId == 1
-                                    ? 'Koordinationszeit'
-                                    : 'Verwaltungstätigkeit')
-                                : throw Exception('unknown type'),
+                    '${patient.firstName} ${patient.lastName}',
+
                     //: '${days[model.dayOfWeek]}s',
                     style: style(
-                      color: visit.bonus > 0 ? MyColors.yellow : MyColors.prime,
+                      color: patient.pflegegrad != null
+                          ? MyColors.prime
+                          : MyColors.yellow,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -94,12 +85,13 @@ class TourVisitItemWidget extends StatelessWidget {
               ),
             ),
             const HorizontalSpacer(12),
-            Text(
-              (visit.actualStartTime ?? visit.plannedStartTime).substring(0, 5),
-              style: style(
-                color: visit.bonus > 0 ? MyColors.yellow : MyColors.darkGrey,
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
+            InkWell(
+              onTap: () {
+                navigate(context, PatientDetailsView(patient));
+              },
+              child: const Icon(
+                Icons.chevron_right,
+                color: MyColors.grey,
               ),
             ),
           ],

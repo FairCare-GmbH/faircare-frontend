@@ -31,15 +31,20 @@ class BottomNavBar extends StatelessWidget {
                   index: 1,
                 ),
                 BottomNavItem(
+                  text: 'Meine Patienten',
+                  icon: Icons.person_3_sharp,
+                  index: 4,
+                ),
+                BottomNavItem(
                   text: 'Umsätze',
                   icon: Icons.bar_chart,
                   index: 2,
                 ),
-                BottomNavItem(
-                  text: 'Präferenzen',
-                  icon: Icons.settings,
-                  index: 3,
-                ),
+                // BottomNavItem(
+                //   text: 'Präferenzen',
+                //   icon: Icons.settings,
+                //   index: 3,
+                // ),
               ],
             ),
           ),

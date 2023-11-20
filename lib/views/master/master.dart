@@ -1,5 +1,6 @@
 import 'package:faircare/blocs/master/navbar/nav_bar_cubit.dart';
 import 'package:faircare/views/master/bottom_nav_bar.dart';
+import 'package:faircare/views/my_patients/my_patients.view.dart';
 import 'package:faircare/views/my_revenues/my_revenues.view.dart';
 import 'package:faircare/views/my_tours/my_tours.view.dart';
 import 'package:faircare/views/preferences/preferences.view.dart';
@@ -22,6 +23,7 @@ class _MasterPageState extends State<MasterPage> {
     const MyToursView(),
     const MyRevenuesView(),
     const PreferencesView(),
+    const MyPatientsView(),
   ];
 
   @override

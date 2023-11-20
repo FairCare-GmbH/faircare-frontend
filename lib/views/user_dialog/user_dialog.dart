@@ -12,6 +12,9 @@ import 'package:faircare/widgets/text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../blocs/master/navbar/nav_bar_cubit.dart';
+import '../preferences/preferences.view.dart';
+
 class UserDialog extends StatelessWidget {
   const UserDialog({Key? key}) : super(key: key);
 
@@ -59,6 +62,19 @@ class UserDialog extends StatelessWidget {
                           showRatingDialog(context);
                         },
                       ),
+
+                      ListTile(
+                        title: const Text('Meine Präferenzen'),
+                        contentPadding:
+                            const EdgeInsets.symmetric(horizontal: 12),
+                        horizontalTitleGap: 0,
+                        leading: const Icon(Icons.settings,  color: MyColors.darkGrey),
+                        onTap: () async {
+                         pop(context);
+                         BlocProvider.of<NavBarCubit>(context).setIndex(3);
+                        },
+                      ),
+
                       ListTile(
                         title: const Text('Passwort ändern'),
                         contentPadding:

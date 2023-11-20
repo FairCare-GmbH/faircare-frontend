@@ -98,7 +98,7 @@ class PatientModel {
         address: json["address"],
         latitude: json["latitude"],
         longitude: json["longitude"],
-        dateOfBirth: DateTime.parse(json["dateOfBirth"]),
+        dateOfBirth: json["dateOfBirth"] == null ? null : DateTime.parse(json["dateOfBirth"]),
         dateCreated: DateTime.parse(json["dateCreated"]),
         lastUpdate: DateTime.parse(json["lastUpdate"]),
         plannedCareStart: json["plannedCareStart"],

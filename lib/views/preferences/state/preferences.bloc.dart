@@ -17,12 +17,15 @@ class PreferencesBloc extends Bloc<PreferenceEvent, PreferenceState> {
     on<GetPreferenceData>((event, emit) async {
       try {
         emit(PreferenceLoading());
+        final now = DateTime.now();
+        final from = DateTime(now.year, now.month - 1, 1);
+        final to = DateTime(now.year, now.month + 2, 0);
         final data = (await Api.request<Map<String, dynamic>>(
             '/preferences/mine',
             options: Options(method: 'GET'),
             queryParameters: {
-              'from': DateTime.now().subtract(const Duration(days: 90)),
-              'to': DateTime.now().add(const Duration(days: 90)),
+              'from': from,
+              'to': to,
             }));
 
         emit(PreferenceLoaded(

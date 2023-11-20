@@ -2,6 +2,7 @@ import 'package:faircare/global/extensions.dart';
 import 'package:faircare/views/my_revenues/completed_tours_list.widget.dart';
 import 'package:faircare/views/my_revenues/my_revenues_app_bar.widget.dart';
 import 'package:faircare/views/my_revenues/revenue_items.widget.dart';
+import 'package:faircare/widgets/activity_circle.widget.dart';
 import 'package:faircare/widgets/filter_chip.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
@@ -159,37 +160,45 @@ class MyRevenuesView extends StatelessWidget {
                                   .reduce((v, e) => v + e) /
                               60
                           : 0;
-                      return SizedBox(
-                        height: 80,
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          children: [
-                            RevenueItemsWidget(
-                              icon: Icons.euro_symbol,
-                              title: 'Einnahmen',
-                              count: '${revenue.toStringAsFixed(2)} €',
+                      return Column(
+                        children: [
+                          const ActivityCircleWidget(
+                            hourlyRevenueCents: 5858,
+                            rating: 4.5,
+                          ),
+                          SizedBox(
+                            height: 80,
+                            child: ListView(
+                              scrollDirection: Axis.horizontal,
+                              children: [
+                                RevenueItemsWidget(
+                                  icon: Icons.euro_symbol,
+                                  title: 'Einnahmen',
+                                  count: '${revenue.toStringAsFixed(2)} €',
+                                ),
+                                const HorizontalSpacer(12),
+                                RevenueItemsWidget(
+                                  icon: Icons.published_with_changes,
+                                  title: 'Stundenlohn',
+                                  count:
+                                      '${(hours == 0 ? 0 : (revenue / hours)).toStringAsFixed(2)} €',
+                                ),
+                                const HorizontalSpacer(12),
+                                RevenueItemsWidget(
+                                  icon: Icons.hourglass_bottom,
+                                  title: 'Arbeitstunden',
+                                  count: hours.toStringAsFixed(1),
+                                ),
+                                const HorizontalSpacer(12),
+                                RevenueItemsWidget(
+                                  icon: Icons.directions_car,
+                                  title: 'Touren',
+                                  count: state.tours.length.toString(),
+                                ),
+                              ],
                             ),
-                            const HorizontalSpacer(12),
-                            RevenueItemsWidget(
-                              icon: Icons.published_with_changes,
-                              title: 'Stundenlohn',
-                              count:
-                                  '${(hours == 0 ? 0 : (revenue / hours)).toStringAsFixed(2)} €',
-                            ),
-                            const HorizontalSpacer(12),
-                            RevenueItemsWidget(
-                              icon: Icons.hourglass_bottom,
-                              title: 'Arbeitstunden',
-                              count: hours.toStringAsFixed(1),
-                            ),
-                            const HorizontalSpacer(12),
-                            RevenueItemsWidget(
-                              icon: Icons.directions_car,
-                              title: 'Touren',
-                              count: state.tours.length.toString(),
-                            ),
-                          ],
-                        ),
+                          )
+                        ],
                       );
                     } else {
                       return const LoadingIndicator();

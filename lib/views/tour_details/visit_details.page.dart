@@ -9,6 +9,8 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../my_patients/patient_actions.widget.dart';
+import '../my_patients/patient_contact_details.widget.dart';
 
 class VisitDetailsPage extends StatelessWidget {
   const VisitDetailsPage(
@@ -70,18 +72,6 @@ class VisitDetailsPage extends StatelessWidget {
                   ),
 
                   HorizontalTile(
-                    'Adresse',
-                    mainText: patient.address,
-                    onTap: () async {
-                      final googleUrl = Uri.parse(
-                          'https://www.google.com/maps/search/?api=1&query=${patient.latitude},${patient.longitude}');
-                      if (!await launchUrl(googleUrl)) {
-                        throw 'Could not open the map.';
-                      }
-                    },
-                  ),
-
-                  HorizontalTile(
                     'Vergütung',
                     mainText:
                         '${((visit.myActualWageCents ?? 0) / 100).toStringAsFixed(2)} €',
@@ -127,6 +117,11 @@ class VisitDetailsPage extends StatelessWidget {
                   //       : MyColors.red,
                   // ),
                   const VerticalSpacer(24),
+                  const MyHeading('Kontakt'),
+                  const VerticalSpacer(12),
+                  PatientContactDetailsWidget(patient: patient),
+                  const VerticalSpacer(24),
+                  PatientActionsWidget(patient: patient),
 
                   // const MyHeading('Leistungen'),
                   // const VerticalSpacer(12),
