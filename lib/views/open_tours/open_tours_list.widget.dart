@@ -1,6 +1,6 @@
 import 'package:faircare/views/open_tours/open_tours.bloc.dart';
 import 'package:faircare/global/enums.dart';
-import 'package:faircare/views/open_tours/tour_item.widget.dart';
+import 'package:faircare/views/open_tours/tour_list_item.widget.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
@@ -20,9 +20,8 @@ class OpenToursListWidget extends StatelessWidget {
             separatorBuilder: (a, b) => const VerticalSpacer(10),
             itemCount: state.tours.length,
             itemBuilder: (_, i) {
-              return TourItemWidget(
+              return TourListItemWidget(
                   state.tours[i],
-                  TourState.available,
                   () => BlocProvider.of<OpenToursBloc>(context).add(
                       GetOpenTours(
                           from: state.from,

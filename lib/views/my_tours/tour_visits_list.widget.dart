@@ -1,4 +1,4 @@
-import 'package:faircare/views/my_tours/tour_visit_item.widget.dart';
+import 'package:faircare/views/my_tours/patient_visit_list_item.widget.dart';
 import 'package:faircare/views/my_tours/tour_details.bloc.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -13,24 +13,23 @@ class TourVisitsListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => TourDetailsBloc()..add(GetTourDetails(tourId)),
-      child: BlocBuilder<TourDetailsBloc, TourDetailsState>(
-        builder: (context, state) {
-          if (state is TourDetailsLoaded) {
-            return ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              separatorBuilder: (a, b) => const VerticalSpacer(10),
-              itemCount: state.visits.length,
-              itemBuilder: (_, i) {
-                return TourVisitItemWidget(state.visits[i].visit, state.visits[i].patient);
-              },
-            );
-          }
-          return const LoadingIndicator();
-        },
-      ),
+    return BlocBuilder<TourDetailsBloc, TourDetailsState>(
+      builder: (context, state) {
+        if (state is TourDetailsLoaded) {
+          return ListView.separated(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            separatorBuilder: (a, b) => const VerticalSpacer(10),
+            itemCount: state.visits.length,
+            itemBuilder: (_, i) {
+              return PatientVisitListItemWidget(
+                  visit: state.visits[i].visit,
+                  patient: state.visits[i].patient);
+            },
+          );
+        }
+        return const LoadingIndicator();
+      },
     );
   }
 }

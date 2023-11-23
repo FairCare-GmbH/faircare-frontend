@@ -1,9 +1,9 @@
-import 'package:faircare/views/my_patients/patient_item.widget.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../widgets/loading_indicator.dart';
+import '../my_tours/patient_visit_list_item.widget.dart';
 import 'my_patients.bloc.dart';
 import 'my_patients_app_bar.widget.dart';
 
@@ -36,7 +36,8 @@ class MyPatientsView extends StatelessWidget {
                         separatorBuilder: (a, b) => const VerticalSpacer(10),
                         itemCount: state.patients.length,
                         itemBuilder: (_, i) {
-                          return PatientItemWidget(state.patients[i]);
+                          return PatientVisitListItemWidget(
+                              patient: state.patients[i]);
                         },
                       ),
                     ],

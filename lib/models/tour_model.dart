@@ -190,19 +190,16 @@ class TourModel {
         "type": type,
       };
 
-  int get plannedDurationMinutes => ((plannedEndTime.time.hour * 60 +
-          plannedEndTime.time.minute) -
-          (plannedStartTime.time.hour * 60 +
-          plannedStartTime.time.minute))
-      .toInt();
+  int get plannedDurationMinutes =>
+      ((plannedEndTime.time.hour * 60 + plannedEndTime.time.minute) -
+              (plannedStartTime.time.hour * 60 + plannedStartTime.time.minute))
+          .toInt();
 
   int? get actualDurationMinutes => actualEndTime == null ||
           actualStartTime == null
       ? null
-      : ((actualEndTime!.time.hour * 60 +
-              actualEndTime!.time.minute) -
-              (actualStartTime!.time.hour * 60 +
-              actualStartTime!.time.minute))
+      : ((actualEndTime!.time.hour * 60 + actualEndTime!.time.minute) -
+              (actualStartTime!.time.hour * 60 + actualStartTime!.time.minute))
           .toInt();
 
   int get plannedHourlyRevenueCents =>
@@ -212,12 +209,10 @@ class TourModel {
       ? null
       : ((revenue / actualDurationMinutes!) * 60).round();
 
-  int? get myPlannedWageCents => Api.getUser()?.hourlyWage == null
-      ? null
-      : (Api.getUser()!.hourlyWage! * (plannedDurationMinutes / 60)).round();
+  int get myPlannedWageCents =>
+      (Api.getUser()!.hourlyWage * (plannedDurationMinutes / 60)).round();
 
-  int? get myActualWageCents => Api.getUser()?.hourlyWage == null ||
-          actualDurationMinutes == null
+  int? get myActualWageCents => actualDurationMinutes == null
       ? null
-      : (Api.getUser()!.hourlyWage! * (actualDurationMinutes! / 60)).round();
+      : (Api.getUser()!.hourlyWage * (actualDurationMinutes! / 60)).round();
 }

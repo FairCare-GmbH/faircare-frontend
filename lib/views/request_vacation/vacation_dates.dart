@@ -4,7 +4,7 @@ import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/models/tour_model.dart';
-import 'package:faircare/views/open_tours/tour_item.widget.dart';
+import 'package:faircare/views/open_tours/tour_list_item.widget.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -122,9 +122,8 @@ class VacationDates extends StatelessWidget {
                 separatorBuilder: (a, b) => const VerticalSpacer(10),
                 itemCount: tours.length,
                 itemBuilder: (context, index) {
-                  return TourItemWidget(
+                  return TourListItemWidget(
                       tours[index],
-                      TourState.assigned,
                       () => BlocProvider.of<PreferencesBloc>(context)
                         ..add(GetPreferenceData()));
                 },

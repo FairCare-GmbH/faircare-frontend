@@ -27,7 +27,7 @@ class UserModel {
   DateTime dateCreated;
   bool openForPatients;
   bool isActive;
-  int? hourlyWage;
+  int hourlyWage;
 
   UserModel({
     required this.id,

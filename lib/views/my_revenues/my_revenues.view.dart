@@ -163,7 +163,7 @@ class MyRevenuesView extends StatelessWidget {
                       return Column(
                         children: [
                           const ActivityCircleWidget(
-                            hourlyRevenueCents: 5858,
+                            hourlyRevenueCents: 2401,
                             rating: 4.5,
                           ),
                           SizedBox(

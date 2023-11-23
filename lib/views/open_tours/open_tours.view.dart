@@ -17,7 +17,7 @@ class OpenToursView extends StatelessWidget {
     return BlocProvider(
       create: (context) => OpenToursBloc()
         ..add(GetOpenTours(
-            from: DateTime.now().ymd,
+            from: DateTime.now().add(const Duration(days: 1)).ymd,
             to: DateTime.now().ymd.add(const Duration(days: 90)),
             searchType: 0)),
       child:

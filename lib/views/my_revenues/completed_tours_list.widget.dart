@@ -5,7 +5,7 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../open_tours/tour_item.widget.dart';
+import '../open_tours/tour_list_item.widget.dart';
 
 class CompletedToursListWidget extends StatelessWidget {
   const CompletedToursListWidget({Key? key}) : super(key: key);
@@ -21,9 +21,8 @@ class CompletedToursListWidget extends StatelessWidget {
             separatorBuilder: (a, b) => const VerticalSpacer(10),
             itemCount: state.tours.length,
             itemBuilder: (_, i) {
-              return TourItemWidget(
+              return TourListItemWidget(
                   state.tours[i],
-                  TourState.completed,
                   () => BlocProvider.of<CompletedToursBloc>(context).add(
                       GetCompletedTours(
                           from: state.from,

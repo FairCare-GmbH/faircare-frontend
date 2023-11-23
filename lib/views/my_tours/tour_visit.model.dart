@@ -141,8 +141,17 @@ class TourVisitModel {
         "bonus": bonus,
       };
 
+  int get plannedDurationMinutes =>
+      plannedCareDuration + plannedCommuteDuration;
+
+  int? get actualDurationMinutes =>
+      actualCareDuration == null || actualCommuteDuration == null
+          ? null
+          : (actualCareDuration! + actualCommuteDuration!);
+
   int get plannedHourlyRevenueCents =>
-      ((revenue / (plannedCareDuration + plannedCommuteDuration)) * 3600).round();
+      ((revenue / (plannedCareDuration + plannedCommuteDuration)) * 3600)
+          .round();
 
   int? get actualHourlyRevenueCents =>
       actualCareDuration == null || actualCommuteDuration == null
@@ -150,17 +159,14 @@ class TourVisitModel {
           : ((revenue / (actualCareDuration! + actualCommuteDuration!)) * 3600)
               .round();
 
-  int? get myPlannedWageCents => Api.getUser()?.hourlyWage == null
-      ? null
-      : (Api.getUser()!.hourlyWage! *
-              ((plannedCareDuration + plannedCommuteDuration) / 3600))
-          .round();
+  int get myPlannedWageCents => (Api.getUser()!.hourlyWage *
+          ((plannedCareDuration + plannedCommuteDuration) / 3600))
+      .round();
 
-  int? get myActualWageCents => Api.getUser()?.hourlyWage == null ||
-          actualCareDuration == null ||
-          actualCommuteDuration == null
-      ? null
-      : (Api.getUser()!.hourlyWage! *
-              ((actualCareDuration! + actualCommuteDuration!) / 3600))
-          .round();
+  int? get myActualWageCents =>
+      actualCareDuration == null || actualCommuteDuration == null
+          ? null
+          : (Api.getUser()!.hourlyWage *
+                  ((actualCareDuration! + actualCommuteDuration!) / 3600))
+              .round();
 }

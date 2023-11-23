@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../global/enums.dart';
 import '../../widgets/loading_indicator.dart';
-import '../open_tours/tour_item.widget.dart';
+import '../open_tours/tour_list_item.widget.dart';
 
 class MyToursView extends StatelessWidget {
   const MyToursView({Key? key}) : super(key: key);
@@ -50,10 +50,9 @@ class MyToursView extends StatelessWidget {
                         separatorBuilder: (a, b) => const VerticalSpacer(10),
                         itemCount: today.length,
                         itemBuilder: (_, i) {
-                          return TourItemWidget(
+                          return TourListItemWidget(
                               today[i],
-                              TourState.requested,
-                                  () => BlocProvider.of<MyToursBloc>(context)
+                              () => BlocProvider.of<MyToursBloc>(context)
                                   .add(GetMyTours()));
                         },
                       ),
@@ -68,9 +67,8 @@ class MyToursView extends StatelessWidget {
                         separatorBuilder: (a, b) => const VerticalSpacer(10),
                         itemCount: releasing.length,
                         itemBuilder: (_, i) {
-                          return TourItemWidget(
+                          return TourListItemWidget(
                               releasing[i],
-                              TourState.requested,
                               () => BlocProvider.of<MyToursBloc>(context)
                                   .add(GetMyTours()));
                         },
@@ -86,9 +84,8 @@ class MyToursView extends StatelessWidget {
                         separatorBuilder: (a, b) => const VerticalSpacer(10),
                         itemCount: assigned.length,
                         itemBuilder: (_, i) {
-                          return TourItemWidget(
+                          return TourListItemWidget(
                               assigned[i],
-                              TourState.requested,
                               () => BlocProvider.of<MyToursBloc>(context)
                                   .add(GetMyTours()));
                         },
