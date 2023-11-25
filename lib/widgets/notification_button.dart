@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +25,7 @@ class NotificationButton extends StatelessWidget {
           child: Center(
             child: CircleAvatar(
               radius: 3,
-              backgroundColor: MyColors.prime,
+              backgroundColor: FCColors.prime,
             ),
           ),
         ),

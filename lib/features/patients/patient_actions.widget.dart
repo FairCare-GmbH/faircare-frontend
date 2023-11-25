@@ -1,7 +1,7 @@
 import 'package:faircare/features/patients/patient.model.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../../global/colors.dart';
+import '../../global/fc_colors.dart';
 import '../../widgets/button.dart';
 import '../../widgets/spacer.dart';
 
@@ -15,12 +15,12 @@ class PatientActionsWidget extends StatelessWidget {
     return Column(children: [
       Button(
         'Änderungswünsche',
-        buttonColor: MyColors.prime,
+        buttonColor: FCColors.prime,
         onPressed: () {},
       ),
       const VerticalSpacer(8),
       Button('Verordnung Hochladen',
-          buttonColor: MyColors.yellow, onPressed: () {}),
+          buttonColor: FCColors.yellow, onPressed: () {}),
     ]);
   }
 }

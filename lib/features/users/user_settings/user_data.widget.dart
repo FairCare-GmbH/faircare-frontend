@@ -1,6 +1,6 @@
 import 'package:faircare/api/api.dart';
 import 'package:faircare/features/users/user_bloc.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -35,12 +35,12 @@ class UserDataWidget extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                        color: MyColors.white,
+                        color: FCColors.white,
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
                             blurRadius: 5,
-                            color: MyColors.black.withOpacity(0.1),
+                            color: FCColors.black.withOpacity(0.1),
                             offset: const Offset(2, 2),
                           ),
                         ],
@@ -62,13 +62,13 @@ class UserDataWidget extends StatelessWidget {
                       '${data.firstName} ${data.lastName}',
                       style: style(
                         fontSize: 18,
-                        color: MyColors.black,
+                        color: FCColors.black,
                       ),
                     ),
                     Text(
                       data.email,
                       style: style(
-                        color: MyColors.darkGrey,
+                        color: FCColors.darkGrey,
                         height: 1.4,
                       ),
                     ),

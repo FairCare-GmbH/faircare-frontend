@@ -1,5 +1,5 @@
 import 'package:faircare/features/users/user_bloc.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/features/ratings/small_circular_rating.widget.dart';
 import 'package:faircare/features/users/user_settings/user_data.widget.dart';
@@ -67,7 +67,7 @@ class UserSettingsDialog extends StatelessWidget {
                         contentPadding:
                             const EdgeInsets.symmetric(horizontal: 12),
                         horizontalTitleGap: 0,
-                        leading: const Icon(Icons.settings,  color: MyColors.darkGrey),
+                        leading: const Icon(Icons.settings,  color: FCColors.darkGrey),
                         onTap: () async {
                          pop(context);
                          BlocProvider.of<NavBarCubit>(context).setIndex(3);
@@ -80,7 +80,7 @@ class UserSettingsDialog extends StatelessWidget {
                             const EdgeInsets.symmetric(horizontal: 12),
                         horizontalTitleGap: 0,
                         leading:
-                            const Icon(Icons.lock, color: MyColors.darkGrey),
+                            const Icon(Icons.lock, color: FCColors.darkGrey),
                         onTap: () {},
                       ),
                       ListTile(
@@ -89,7 +89,7 @@ class UserSettingsDialog extends StatelessWidget {
                             const EdgeInsets.symmetric(horizontal: 12),
                         horizontalTitleGap: 0,
                         leading:
-                            const Icon(Icons.logout, color: MyColors.darkGrey),
+                            const Icon(Icons.logout, color: FCColors.darkGrey),
                         onTap: () {
                           navigateRemove(context, const LoginView());
                         },

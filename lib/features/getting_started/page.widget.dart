@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ class GettingStartedPageWidget extends StatelessWidget {
             title,
             textAlign: TextAlign.center,
             style: style(
-              color: MyColors.prime,
+              color: FCColors.prime,
               fontSize: 22,
               fontWeight: FontWeight.w500,
             ),
@@ -50,13 +50,13 @@ class GettingStartedPageWidget extends StatelessWidget {
           Text(
             subtitle,
             textAlign: TextAlign.center,
-            style: style(color: MyColors.darkGrey, fontWeight: FontWeight.w500),
+            style: style(color: FCColors.darkGrey, fontWeight: FontWeight.w500),
           ),
           const VerticalSpacer(20),
           Text(
             text1,
             textAlign: TextAlign.center,
-            style: style(color: MyColors.darkGrey),
+            style: style(color: FCColors.darkGrey),
           ),
           const VerticalSpacer(20),
           Image.asset('assets/images/$image1.png', height: imageSize1),
@@ -64,7 +64,7 @@ class GettingStartedPageWidget extends StatelessWidget {
           Text(
             text2,
             textAlign: TextAlign.center,
-            style: style(color: MyColors.darkGrey),
+            style: style(color: FCColors.darkGrey),
           ),
           if (image2 != '') ...[
             const VerticalSpacer(20),

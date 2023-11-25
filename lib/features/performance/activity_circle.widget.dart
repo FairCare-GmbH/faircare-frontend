@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart' as vmath;
@@ -129,10 +129,10 @@ class ActivityCirclePainter extends CustomPainter {
     this.centerText,
     this.secondaryText,
     this.colors = const [
-      MyColors.prime,
-      MyColors.yellow,
-      MyColors.orange,
-      MyColors.red
+      FCColors.prime,
+      FCColors.yellow,
+      FCColors.orange,
+      FCColors.red
     ],
   });
 
@@ -201,7 +201,7 @@ class ActivityCirclePainter extends CustomPainter {
         _textPainter.text = TextSpan(
             text: centerText,
             style:
-                TextStyle(color: MyColors.black, fontSize: strokeWidth * 1.1));
+                TextStyle(color: FCColors.black, fontSize: strokeWidth * 1.1));
         _textPainter.layout(minWidth: 0, maxWidth: double.maxFinite);
         _textPainter.paint(
             canvas,
@@ -213,7 +213,7 @@ class ActivityCirclePainter extends CustomPainter {
         _textPainter.text = TextSpan(
             text: secondaryText,
             style:
-                TextStyle(color: MyColors.grey, fontSize: strokeWidth * 0.55));
+                TextStyle(color: FCColors.grey, fontSize: strokeWidth * 0.55));
         _textPainter.layout(minWidth: 0, maxWidth: double.maxFinite);
         _textPainter.paint(
             canvas,

@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/app_logo.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -19,7 +19,7 @@ class GettingStartedPage1Widget extends StatelessWidget {
           Text(
             'Herzlich Willkommen',
             style: style(
-              color: MyColors.prime,
+              color: FCColors.prime,
               fontSize: 22,
               fontWeight: FontWeight.w500,
             ),

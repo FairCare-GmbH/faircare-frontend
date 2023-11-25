@@ -1,5 +1,5 @@
 import 'package:faircare/features/tours/tour_visit.model.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -38,7 +38,7 @@ class PatientVisitListItemWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: MyColors.lightGrey,
+          color: FCColors.lightGrey,
         ),
         child: Row(
           children: [
@@ -47,8 +47,8 @@ class PatientVisitListItemWidget extends StatelessWidget {
               width: 32,
               decoration: BoxDecoration(
                 color: patient?.pflegegrad != null
-                    ? MyColors.yellow
-                    : MyColors.prime,
+                    ? FCColors.yellow
+                    : FCColors.prime,
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -62,7 +62,7 @@ class PatientVisitListItemWidget extends StatelessWidget {
                               : throw Exception('unknown type'))
                       : (patient!.pflegegrad?.toString() ?? 'V'),
                   style: style(
-                    color: MyColors.white,
+                    color: FCColors.white,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -92,8 +92,8 @@ class PatientVisitListItemWidget extends StatelessWidget {
                     //: '${days[model.dayOfWeek]}s',
                     style: style(
                       color: patient?.pflegegrad != null
-                          ? MyColors.yellow
-                          : MyColors.prime,
+                          ? FCColors.yellow
+                          : FCColors.prime,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -113,7 +113,7 @@ class PatientVisitListItemWidget extends StatelessWidget {
             if (visit == null)
               const Icon(
                 Icons.chevron_right,
-                color: MyColors.grey,
+                color: FCColors.grey,
               ),
             if (visit != null)
               Text(
@@ -121,8 +121,8 @@ class PatientVisitListItemWidget extends StatelessWidget {
                     .substring(0, 5),
                 style: style(
                   color: patient?.pflegegrad != null
-                      ? MyColors.yellow
-                      : MyColors.darkGrey,
+                      ? FCColors.yellow
+                      : FCColors.darkGrey,
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
                 ),

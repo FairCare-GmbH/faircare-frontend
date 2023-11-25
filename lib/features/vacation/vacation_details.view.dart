@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/heading.dart';
@@ -25,7 +25,7 @@ class VacationDetailsView extends StatelessWidget {
             '09.09.2023',
             style: style(
               fontSize: 20,
-              color: MyColors.black,
+              color: FCColors.black,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -52,7 +52,7 @@ class VacationDetailsView extends StatelessWidget {
                         '29.10.2023',
                         style: style(
                           fontSize: 16,
-                          color: MyColors.prime,
+                          color: FCColors.prime,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -71,7 +71,7 @@ class VacationDetailsView extends StatelessWidget {
                         '31.10.2023',
                         style: style(
                           fontSize: 16,
-                          color: MyColors.prime,
+                          color: FCColors.prime,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -94,7 +94,7 @@ class VacationDetailsView extends StatelessWidget {
                   '3',//TODO display number of vacation days
                   style: style(
                     fontSize: 16,
-                    color: MyColors.darkGrey,
+                    color: FCColors.darkGrey,
                     fontWeight: FontWeight.w500,
                   ),
                 ),

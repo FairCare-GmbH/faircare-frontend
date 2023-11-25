@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
@@ -87,34 +87,34 @@ class CalendarWidget extends StatelessWidget {
       DateTime day, PreferenceLoaded state, BuildContext context) {
     final pref = state.getDayPref(day);
     final Color fBgColor = pref.isFAssigned && pref.isU
-        ? MyColors.red
+        ? FCColors.red
         : pref.isFAssigned
-            ? MyColors.green
-            : MyColors.prime;
+            ? FCColors.green
+            : FCColors.prime;
     final Color sBgColor = pref.isU && pref.isSAssigned
-        ? MyColors.red
+        ? FCColors.red
         : pref.isSAssigned
-            ? MyColors.green
-            : MyColors.prime;
+            ? FCColors.green
+            : FCColors.prime;
     final Color uBgColor = pref.isUAssigned
-        ? MyColors.orange
+        ? FCColors.orange
         : (pref.isFAssigned || pref.isSAssigned)
-            ? MyColors.red
-            : MyColors.grey;
+            ? FCColors.red
+            : FCColors.grey;
     final Color bgColor = pref.isU
         ? uBgColor.withOpacity(0.2)
         : (pref.isFAssigned || pref.isSAssigned)
-            ? MyColors.green.withOpacity(0.2)
+            ? FCColors.green.withOpacity(0.2)
             : (pref.isF || pref.isS)
-                ? MyColors.prime.withOpacity(0.2)
-                : MyColors.border;
+                ? FCColors.prime.withOpacity(0.2)
+                : FCColors.border;
     Color color = pref.isU
         ? uBgColor
         : (pref.isFAssigned || pref.isSAssigned)
-            ? MyColors.green
+            ? FCColors.green
             : (pref.isF || pref.isS)
-                ? MyColors.prime
-                : MyColors.darkGrey;
+                ? FCColors.prime
+                : FCColors.darkGrey;
 
     Color? vacationColor;
 
@@ -122,19 +122,19 @@ class CalendarWidget extends StatelessWidget {
       final cubit = BlocProvider.of<VacationCubit>(context);
       if (cubit.state.startDate != null) {
         if (cubit.state.startDate!.isSameDay(day)) {
-          vacationColor = MyColors.darkGrey.withOpacity(.6);
-          color = MyColors.white;
+          vacationColor = FCColors.darkGrey.withOpacity(.6);
+          color = FCColors.white;
         }
 
         if (cubit.state.endDate != null) {
           if (cubit.state.endDate!.isSameDay(day)) {
-            vacationColor = MyColors.darkGrey.withOpacity(.6);
-            color = MyColors.white;
+            vacationColor = FCColors.darkGrey.withOpacity(.6);
+            color = FCColors.white;
           }
           if (cubit.state.startDate!.isBefore(day) &&
               cubit.state.endDate!.isAfter(day)) {
-            vacationColor = MyColors.grey.withOpacity(.3);
-            color = MyColors.white;
+            vacationColor = FCColors.grey.withOpacity(.3);
+            color = FCColors.white;
           }
         }
       }
@@ -184,12 +184,12 @@ class CalendarWidget extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 color: day.isToday
-                    ? MyColors.prime.withOpacity(0.1)
+                    ? FCColors.prime.withOpacity(0.1)
                     : !pref.isInPast
                         ? bgColor
-                        : MyColors.border,
+                        : FCColors.border,
                 border: Border.all(
-                  color: MyColors.black,
+                  color: FCColors.black,
                   width: 0.1,
                 ),
               ),
@@ -219,7 +219,7 @@ class CalendarWidget extends StatelessWidget {
                 right: 0,
                 child: Text(
                   'S',
-                  style: style(color: MyColors.white, fontSize: 10),
+                  style: style(color: FCColors.white, fontSize: 10),
                 ),
               ),
 
@@ -240,7 +240,7 @@ class CalendarWidget extends StatelessWidget {
                 right: 0,
                 child: Text(
                   'U',
-                  style: style(color: MyColors.white, fontSize: 10),
+                  style: style(color: FCColors.white, fontSize: 10),
                 ),
               ),
 
@@ -261,7 +261,7 @@ class CalendarWidget extends StatelessWidget {
                 left: 0,
                 child: Text(
                   'F',
-                  style: style(color: MyColors.white, fontSize: 10),
+                  style: style(color: FCColors.white, fontSize: 10),
                 ),
               ),
 
@@ -270,7 +270,7 @@ class CalendarWidget extends StatelessWidget {
               child: Text(
                 DateFormat('d').format(day),
                 style: style(
-                  color: pref.isInPast ? MyColors.darkGrey : color,
+                  color: pref.isInPast ? FCColors.darkGrey : color,
                   fontWeight: day.isToday ? FontWeight.bold : FontWeight.normal,
                   fontSize: 16,
                 ),
@@ -291,9 +291,9 @@ class CalendarWidget extends StatelessWidget {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: MyColors.border,
+              color: FCColors.border,
               border: Border.all(
-                color: MyColors.grey,
+                color: FCColors.grey,
                 width: 0.1,
               ),
             ),
@@ -304,7 +304,7 @@ class CalendarWidget extends StatelessWidget {
             child: Text(
               DateFormat('d').format(day),
               style: style(
-                color: MyColors.grey,
+                color: FCColors.grey,
                 fontSize: 16,
               ),
             ),

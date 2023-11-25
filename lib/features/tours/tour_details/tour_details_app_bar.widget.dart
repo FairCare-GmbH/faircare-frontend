@@ -1,5 +1,5 @@
 import 'package:faircare/features/users/user_settings/user_profile_image.widget.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -25,7 +25,7 @@ class ToursDetailsAppBarWidget extends StatelessWidget {
                 child: Text(
                   title,
                   style: style(
-                    color: MyColors.black,
+                    color: FCColors.black,
                     fontSize: 20,
                   ),
                 ),

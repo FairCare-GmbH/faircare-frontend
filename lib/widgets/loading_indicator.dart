@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:flutter/material.dart';
 
 class LoadingIndicator extends StatelessWidget {
@@ -16,7 +16,7 @@ class LoadingIndicator extends StatelessWidget {
         children: [
           Container(),
           const CircularProgressIndicator(
-            color: MyColors.prime,
+            color: FCColors.prime,
             strokeWidth: 2,
           ),
         ],

@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ class MyTextField extends StatelessWidget {
       children: [
         Text(
           label,
-          style: style(color: MyColors.grey),
+          style: style(color: FCColors.grey),
         ),
         const VerticalSpacer(6),
         Container(
@@ -49,7 +49,7 @@ class MyTextField extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(radius),
             border: Border.all(
-              color: color ?? MyColors.border,
+              color: color ?? FCColors.border,
             ),
           ),
           child: TextField(
@@ -63,10 +63,10 @@ class MyTextField extends StatelessWidget {
             focusNode: focusNode,
             keyboardType: type,
             textAlign: align,
-            style: style(fontSize: 16, color: MyColors.black),
+            style: style(fontSize: 16, color: FCColors.black),
             maxLines: lines,
             obscuringCharacter: '●',
-            cursorColor: MyColors.black,
+            cursorColor: FCColors.black,
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: const EdgeInsets.symmetric(

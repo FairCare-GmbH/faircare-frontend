@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,10 +35,10 @@ class MySwitch extends StatelessWidget {
               scale: 0.9,
               child: CupertinoSwitch(
                 value: value,
-                activeColor: MyColors.prime,
+                activeColor: FCColors.prime,
                 thumbColor:
-                    value ? MyColors.primeLight : MyColors.blueGreyLight,
-                trackColor: MyColors.blueGreyDark,
+                    value ? FCColors.primeLight : FCColors.blueGreyLight,
+                trackColor: FCColors.blueGreyDark,
                 onChanged: (value) {
                   if (onChanged != null) {
                     onChanged!(value);

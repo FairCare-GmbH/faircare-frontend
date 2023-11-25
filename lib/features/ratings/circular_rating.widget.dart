@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -33,18 +33,18 @@ class CircularRatingWidget extends StatelessWidget {
                   rating?.toStringAsFixed(2) ?? '-',
                   style: style(
                     fontSize: 32,
-                    color: MyColors.darkGrey,
+                    color: FCColors.darkGrey,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
                   '$totalRating Bewertungen',
-                  style: style(color: MyColors.grey),
+                  style: style(color: FCColors.grey),
                 ),
               ],
             ),
             backgroundColor: Colors.transparent,
-            progressColor: MyColors.red,
+            progressColor: FCColors.red,
           ),
           CircularPercentIndicator(
             radius: 100,
@@ -52,7 +52,7 @@ class CircularRatingWidget extends StatelessWidget {
             percent: (rating ?? 0) / 5,
             circularStrokeCap: CircularStrokeCap.round,
             backgroundColor: Colors.transparent,
-            progressColor: MyColors.green,
+            progressColor: FCColors.green,
           ),
         ],
       ),

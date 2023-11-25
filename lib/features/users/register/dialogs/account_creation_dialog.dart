@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/features/users/login.view.dart';
@@ -20,7 +20,7 @@ class AccountCreationDialog extends StatelessWidget {
             'Account in Erstellung',
             style: style(
               fontSize: 20,
-              color: MyColors.black,
+              color: FCColors.black,
             ),
           ),
           const VerticalSpacer(16),
@@ -28,7 +28,7 @@ class AccountCreationDialog extends StatelessWidget {
             'Vielen Dank, dass du dich bei uns angemeldet hast. '
             'Wir werden deine Angaben innerhalb von 24h prüfen '
             'und dich bzgl. deiner Anmeldedaten kontaktieren.',
-            style: style(color: MyColors.darkGrey, height: 1.4),
+            style: style(color: FCColors.darkGrey, height: 1.4),
           ),
           const VerticalSpacer(16),
           Text.rich(
@@ -37,11 +37,11 @@ class AccountCreationDialog extends StatelessWidget {
               children: [
                 TextSpan(
                   text: '089-2000 60201',
-                  style: style(color: MyColors.prime, height: 1.4),
+                  style: style(color: FCColors.prime, height: 1.4),
                 ),
               ],
             ),
-            style: style(color: MyColors.darkGrey, height: 1.4),
+            style: style(color: FCColors.darkGrey, height: 1.4),
           ),
           const VerticalSpacer(20),
           Button(

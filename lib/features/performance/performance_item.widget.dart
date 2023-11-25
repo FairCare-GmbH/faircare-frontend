@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +21,11 @@ class PerformanceItemWidget extends StatelessWidget {
       width: 200,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: MyColors.primeLightest,
+        color: FCColors.primeLightest,
       ),
       child: Row(
         children: [
-          Icon(icon, color: MyColors.prime, size: 36),
+          Icon(icon, color: FCColors.prime, size: 36),
           const HorizontalSpacer(16),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -34,7 +34,7 @@ class PerformanceItemWidget extends StatelessWidget {
               Text(
                 title,
                 style: style(
-                  color: MyColors.darkGrey,
+                  color: FCColors.darkGrey,
                   fontSize: 13,
                 ),
               ),
@@ -42,7 +42,7 @@ class PerformanceItemWidget extends StatelessWidget {
               Text(
                 count,
                 style: style(
-                  color: MyColors.prime,
+                  color: FCColors.prime,
                   fontSize: 20,
                   fontWeight: FontWeight.w500,
                 ),

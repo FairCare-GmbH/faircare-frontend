@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +12,7 @@ class HorizontalTile extends StatelessWidget {
     this.text, {
     required this.mainText,
     this.secondaryText = '',
-    this.secondaryColor = MyColors.prime,
+    this.secondaryColor = FCColors.prime,
     this.onTap,
     Key? key,
   }) : super(key: key);
@@ -44,7 +44,7 @@ class HorizontalTile extends StatelessWidget {
               style: style(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
-                color: MyColors.prime,
+                color: FCColors.prime,
               ),
             ),
           ],

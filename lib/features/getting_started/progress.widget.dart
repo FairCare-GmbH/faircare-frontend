@@ -1,5 +1,5 @@
 import 'package:faircare/features/getting_started/getting_started_progress_cubit.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,22 +16,22 @@ class GettingStartedPageProgress extends StatelessWidget {
             Container(
               height: 5,
               width: 30,
-              color: MyColors.prime,
+              color: FCColors.prime,
             ),
             Container(
               height: 5,
               width: 30,
-              color: state >= 1 ? MyColors.prime : MyColors.border,
+              color: state >= 1 ? FCColors.prime : FCColors.border,
             ),
             Container(
               height: 5,
               width: 30,
-              color: state >= 2 ? MyColors.prime : MyColors.border,
+              color: state >= 2 ? FCColors.prime : FCColors.border,
             ),
             Container(
               height: 5,
               width: 30,
-              color: state >= 3 ? MyColors.prime : MyColors.border,
+              color: state >= 3 ? FCColors.prime : FCColors.border,
             ),
           ],
         );

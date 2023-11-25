@@ -1,5 +1,5 @@
 import 'package:faircare/features/vacation/vacation.cubit.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/features/tours/tour.model.dart';
@@ -59,7 +59,7 @@ class VacationDatesWidget extends StatelessWidget {
                               : '-',
                           style: style(
                             fontSize: 16,
-                            color: MyColors.prime,
+                            color: FCColors.prime,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -80,7 +80,7 @@ class VacationDatesWidget extends StatelessWidget {
                               : '-',
                           style: style(
                             fontSize: 16,
-                            color: MyColors.prime,
+                            color: FCColors.prime,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -103,7 +103,7 @@ class VacationDatesWidget extends StatelessWidget {
                     '$vacationDays', //TODO how many vacation dates
                     style: style(
                       fontSize: 16,
-                      color: MyColors.darkGrey,
+                      color: FCColors.darkGrey,
                       fontWeight: FontWeight.w500,
                     ),
                   ),

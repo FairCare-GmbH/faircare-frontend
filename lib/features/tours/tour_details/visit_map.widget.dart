@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -31,8 +31,8 @@ class VisitMapWidgetState extends State<VisitMapWidget> {
       circleId: const CircleId('1'),
       center: LatLng(widget.latitude, widget.longitude),
       radius: widget.obfuscate ? 3000.toDouble() : 100.toDouble(),
-      fillColor: MyColors.prime.withOpacity(0.3),
-      strokeColor: MyColors.prime.withOpacity(0.6),
+      fillColor: FCColors.prime.withOpacity(0.3),
+      strokeColor: FCColors.prime.withOpacity(0.6),
       strokeWidth: 3);
 
   late final Marker marker = Marker(

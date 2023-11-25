@@ -11,7 +11,7 @@ import 'features/getting_started/getting_started_progress_cubit.dart';
 import 'features/navigation/nav_bar.cubit.dart';
 import 'features/navigation/navigation.view.dart';
 import 'features/notifications/notifications.bloc.dart';
-import 'global/colors.dart';
+import 'global/fc_colors.dart';
 
 class FairCareApp extends StatelessWidget {
   const FairCareApp({Key? key}) : super(key: key);
@@ -67,7 +67,7 @@ class FairCareApp extends StatelessWidget {
                 //mainAxisAlsignment: MainAxisAlignment.center,//TODO was this necessary? not sure why this suddenly wasn't available. perhaps because of the upgrade to the dart SDK (3.0)
                 children: [SafeArea(
                   child: Scaffold(
-                    backgroundColor: MyColors.white,
+                    backgroundColor: FCColors.white,
                     //TODO rest of splash screen
                   ),
                 )],

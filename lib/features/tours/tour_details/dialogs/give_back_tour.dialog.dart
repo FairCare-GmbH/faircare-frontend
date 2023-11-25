@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -19,7 +19,7 @@ class GiveBackTourDialog extends StatelessWidget {
             'Tour abgeben?',
             style: style(
               fontSize: 20,
-              color: MyColors.black,
+              color: FCColors.black,
             ),
           ),
           const VerticalSpacer(16),
@@ -30,7 +30,7 @@ class GiveBackTourDialog extends StatelessWidget {
                 TextSpan(
                   text: 'Hinweis: ',
                   style: style(
-                    color: MyColors.darkGrey,
+                    color: FCColors.darkGrey,
                     height: 1.4,
                     fontWeight: FontWeight.w600,
                   ),
@@ -38,25 +38,25 @@ class GiveBackTourDialog extends StatelessWidget {
                 TextSpan(
                   text: 'Bis zur Umplanung der Tour durch FairCare, '
                       'muss sie weiter gefahren werden.\n\n',
-                  style: style(color: MyColors.darkGrey, height: 1.4),
+                  style: style(color: FCColors.darkGrey, height: 1.4),
                 ),
                 TextSpan(
                   text: 'In dringenden Fällen oder bei Fragen, stehen wir dir '
                       'unter der',
-                  style: style(color: MyColors.darkGrey, height: 1.4),
+                  style: style(color: FCColors.darkGrey, height: 1.4),
                 ),
                 TextSpan(
                   text: ' 089-2000 60201 ',
-                  style: style(height: 1.4, color: MyColors.prime),
+                  style: style(height: 1.4, color: FCColors.prime),
                 ),
                 TextSpan(
                   text: 'jederzeit zur Verfügung.',
-                  style: style(color: MyColors.darkGrey, height: 1.4),
+                  style: style(color: FCColors.darkGrey, height: 1.4),
                 ),
               ],
             ),
             style: style(
-              color: MyColors.darkGrey,
+              color: FCColors.darkGrey,
               height: 1.4,
             ),
           ),

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/features/tours/tour.model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -54,8 +54,8 @@ class TourMapWidgetState extends State<TourMapWidget> {
         circleId: CircleId(widget.tour.id.toString()),
         center: LatLng(widget.tour.centerLatitude, widget.tour.centerLongitude),
         radius: widget.tour.plannedCommuteRadius.toDouble(),
-        fillColor: MyColors.prime.withOpacity(0.3),
-        strokeColor: MyColors.prime.withOpacity(0.6),
+        fillColor: FCColors.prime.withOpacity(0.3),
+        strokeColor: FCColors.prime.withOpacity(0.6),
         strokeWidth: 3);
     _showMap = false;
 

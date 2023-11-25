@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:faircare/features/vacation/vacation_dates.widget.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
@@ -35,7 +35,7 @@ class RequestVacationView extends StatelessWidget {
             'Urlaub beantragen',
             style: style(
               fontSize: 20,
-              color: MyColors.black,
+              color: FCColors.black,
               fontWeight: FontWeight.w500,
             ),
           ),

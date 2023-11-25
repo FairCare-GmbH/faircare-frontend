@@ -1,7 +1,7 @@
 import 'package:faircare/features/users/register/pages/register_pages.widget.dart';
 import 'package:faircare/features/users/register/widgets/next_button.widget.dart';
 import 'package:faircare/features/users/register/widgets/page_progress.widget.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/app_logo.dart';
@@ -34,7 +34,7 @@ class _RegisterViewState extends State<RegisterView> {
                 ),
                 margin: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: MyColors.white,
+                  color: FCColors.white,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Column(

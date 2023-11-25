@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -28,7 +28,7 @@ class DesiredToursWidget extends StatelessWidget {
             Text(
               'Aktive Touren',
               style: style(
-                color: MyColors.green,
+                color: FCColors.green,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
@@ -37,7 +37,7 @@ class DesiredToursWidget extends StatelessWidget {
             Text(
               'Verfügbar',
               style: style(
-                color: MyColors.prime,
+                color: FCColors.prime,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
@@ -46,7 +46,7 @@ class DesiredToursWidget extends StatelessWidget {
             Text(
               'Urlaub',
               style: style(
-                color: MyColors.darkGrey,
+                color: FCColors.darkGrey,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),
@@ -55,7 +55,7 @@ class DesiredToursWidget extends StatelessWidget {
             Text(
               'in Beantragung',
               style: style(
-                color: MyColors.red,
+                color: FCColors.red,
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
               ),

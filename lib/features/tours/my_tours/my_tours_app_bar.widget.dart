@@ -1,6 +1,6 @@
 import 'package:faircare/features/tours/my_tours/my_tours_search.cubit.dart';
 import 'package:faircare/features/users/user_settings/user_profile_image.widget.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/notification_button.dart';
@@ -33,7 +33,7 @@ class MyToursAppBarWidget extends StatelessWidget {
                       child: Text(
                         'Meine Touren',
                         style: style(
-                          color: MyColors.black,
+                          color: FCColors.black,
                           fontSize: 20,
                         ),
                       ),
@@ -61,7 +61,7 @@ class MyToursAppBarWidget extends StatelessWidget {
             // divider
             const Divider(
               height: 8,
-              color: MyColors.border,
+              color: FCColors.border,
               thickness: 1,
             ),
           ],

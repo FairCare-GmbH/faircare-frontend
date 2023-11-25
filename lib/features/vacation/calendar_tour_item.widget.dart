@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/extensions.dart';
@@ -69,7 +69,7 @@ class CalendarTourItemWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: MyColors.lightGrey,
+          color: FCColors.lightGrey,
         ),
         child: Row(
           children: [
@@ -77,7 +77,7 @@ class CalendarTourItemWidget extends StatelessWidget {
               height: 32,
               width: 32,
               decoration: const BoxDecoration(
-                color: MyColors.prime,
+                color: FCColors.prime,
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -85,13 +85,13 @@ class CalendarTourItemWidget extends StatelessWidget {
                     ? Text(
                         '1x',
                         style: style(
-                          color: MyColors.white,
+                          color: FCColors.white,
                           fontWeight: FontWeight.w600,
                         ),
                       )
                     : const Icon(
                         Icons.all_inclusive,
-                        color: MyColors.white,
+                        color: FCColors.white,
                         size: 18,
                       ),
               ),
@@ -106,7 +106,7 @@ class CalendarTourItemWidget extends StatelessWidget {
                         ? DateFormat('dd.MM.yyyy').format(model.startDate)
                         : '${days[model.dayOfWeek]}s',
                     style: style(
-                      color: MyColors.prime,
+                      color: FCColors.prime,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -115,7 +115,7 @@ class CalendarTourItemWidget extends StatelessWidget {
                   Text(
                     tourType[model.type - 1],
                     style: style(
-                      color: MyColors.darkGrey,
+                      color: FCColors.darkGrey,
                       fontSize: 13,
                     ),
                   ),

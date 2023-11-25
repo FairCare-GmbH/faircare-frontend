@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
@@ -40,12 +40,12 @@ class CalendarWeekDayWidget extends StatelessWidget {
               final isS = s != null;
 
               Color bgColor = (!isF && !isS)
-                  ? MyColors.white
+                  ? FCColors.white
                   : (pref.isF || pref.isS)
-                      ? MyColors.prime
-                      : MyColors.prime.withOpacity(.5);
+                      ? FCColors.prime
+                      : FCColors.prime.withOpacity(.5);
               Color textColor =
-                  (!isF && !isS) ? MyColors.darkGrey : MyColors.white;
+                  (!isF && !isS) ? FCColors.darkGrey : FCColors.white;
 
               return Flexible(
                 child: InkWell(

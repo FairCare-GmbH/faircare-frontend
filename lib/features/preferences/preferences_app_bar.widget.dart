@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:faircare/api/api_exception.dart';
 import 'package:faircare/features/preferences/state/preferences.bloc.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/notification_button.dart';
 import 'package:faircare/widgets/snack_bar.dart';
@@ -29,7 +29,7 @@ class PreferencesAppBarWidget extends StatelessWidget {
                 child: Text(
                   'Präferenzen',
                   style: style(
-                    color: MyColors.black,
+                    color: FCColors.black,
                     fontSize: 20,
                   ),
                 ),
@@ -43,7 +43,7 @@ class PreferencesAppBarWidget extends StatelessWidget {
         // divider
         const Divider(
           height: 8,
-          color: MyColors.border,
+          color: FCColors.border,
           thickness: 1,
         ),
       ],

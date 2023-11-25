@@ -1,5 +1,5 @@
 import 'package:faircare/features/users/register/register_progress.cubit.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,12 +16,12 @@ class RegisterPageProgressWidget extends StatelessWidget {
             Container(
               height: 5,
               width: 60,
-              color: MyColors.prime,
+              color: FCColors.prime,
             ),
             Container(
               height: 5,
               width: 60,
-              color: state == 1 ? MyColors.prime : MyColors.border,
+              color: state == 1 ? FCColors.prime : FCColors.border,
             ),
           ],
         );

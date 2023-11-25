@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MyColors {
+class FCColors {
   static const Color prime = Color(0xFF304FFD);
   static const Color primeLight = Color(0xFFBFDBFE);
   static const Color primeLightest = Color(0xFFEFF6FF);

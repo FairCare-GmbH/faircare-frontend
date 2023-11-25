@@ -1,6 +1,6 @@
 import 'package:faircare/api/api.dart';
 import 'package:faircare/api/api_exception.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/app_logo.dart';
@@ -48,7 +48,7 @@ class _LoginViewState extends State<LoginView> {
                   ),
                   margin: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: MyColors.white,
+                    color: FCColors.white,
                     borderRadius: BorderRadius.circular(24),
                   ),
                   child: ListView(
@@ -77,7 +77,7 @@ class _LoginViewState extends State<LoginView> {
                           children: [
                             SvgIcon(
                               icon: 'hide',
-                              color: MyColors.darkGrey,
+                              color: FCColors.darkGrey,
                               size: 24,
                             ),
                           ],

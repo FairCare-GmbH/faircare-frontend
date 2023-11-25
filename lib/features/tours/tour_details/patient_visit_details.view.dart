@@ -1,5 +1,5 @@
 import 'package:faircare/features/tours/tour_details/visit_map.widget.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/features/patients/patient.model.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/horizontal_tile.dart';
@@ -81,8 +81,8 @@ class PatientVisitDetailsView extends StatelessWidget {
                           : '',
                       secondaryColor: visit!.plannedCareDuration <=
                               (visit!.actualCareDuration ?? 0)
-                          ? MyColors.green
-                          : MyColors.red,
+                          ? FCColors.green
+                          : FCColors.red,
                     ),
 
                   // if (visit != null)
@@ -111,8 +111,8 @@ class PatientVisitDetailsView extends StatelessWidget {
                           : '',
                       secondaryColor: visit!.myPlannedWageCents <=
                               (visit!.myActualWageCents ?? 0)
-                          ? MyColors.green
-                          : MyColors.red,
+                          ? FCColors.green
+                          : FCColors.red,
                     ),
 
                   // if (visit != null)

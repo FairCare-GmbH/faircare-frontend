@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -20,13 +20,13 @@ class SmallCircularRatingWidget extends StatelessWidget {
       lineWidth: 2,
       percent: progress,
       circularStrokeCap: CircularStrokeCap.round,
-      backgroundColor: MyColors.red,
-      progressColor: MyColors.green,
+      backgroundColor: FCColors.red,
+      progressColor: FCColors.green,
       center: Text(
         rating?.toStringAsFixed(1) ?? '-',
         style: style(
           fontSize: 11,
-          color: MyColors.darkGrey,
+          color: FCColors.darkGrey,
           fontWeight: FontWeight.w500,
         ),
       ),

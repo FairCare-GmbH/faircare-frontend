@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
@@ -24,14 +24,14 @@ class RatingItemWidget extends StatelessWidget {
               text,
               style: style(
                 fontSize: 16,
-                color: MyColors.darkGrey,
+                color: FCColors.darkGrey,
               ),
             ),
             Text(
               '$rating/5',
               style: style(
                 fontSize: 16,
-                color: MyColors.darkGrey,
+                color: FCColors.darkGrey,
               ),
             ),
           ],
@@ -55,7 +55,7 @@ class ProgressWidget extends StatelessWidget {
     return Container(
       height: 6,
       decoration: BoxDecoration(
-        color: MyColors.border,
+        color: FCColors.border,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
@@ -79,9 +79,9 @@ class ProgressWidget extends StatelessWidget {
   }
 
   Color getColor() {
-    if (rating == 5 || rating == 4) return MyColors.green;
-    if (rating == 3) return MyColors.orange;
-    if (rating == 2 || rating == 1) return MyColors.red;
-    return MyColors.green;
+    if (rating == 5 || rating == 4) return FCColors.green;
+    if (rating == 3) return FCColors.orange;
+    if (rating == 2 || rating == 1) return FCColors.red;
+    return FCColors.green;
   }
 }

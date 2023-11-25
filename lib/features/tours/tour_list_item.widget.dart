@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/global.dart';
@@ -70,7 +70,7 @@ class TourListItemWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: MyColors.lightGrey,
+          color: FCColors.lightGrey,
         ),
         child: Row(
           children: [
@@ -78,7 +78,7 @@ class TourListItemWidget extends StatelessWidget {
               height: 32,
               width: 32,
               decoration: const BoxDecoration(
-                color: MyColors.prime,
+                color: FCColors.prime,
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -86,7 +86,7 @@ class TourListItemWidget extends StatelessWidget {
                     Text(
                   days[tour.dayOfWeek - 1].substring(0, 2),
                   style: style(
-                    color: MyColors.white,
+                    color: FCColors.white,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -107,7 +107,7 @@ class TourListItemWidget extends StatelessWidget {
                     DateFormat('dd.MM.yyyy').format(tour.tourDate),
                     //: '${days[model.dayOfWeek]}s',
                     style: style(
-                      color: MyColors.prime,
+                      color: FCColors.prime,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -116,7 +116,7 @@ class TourListItemWidget extends StatelessWidget {
                   Text(
                     tourType[tour.type - 1],
                     style: style(
-                      color: MyColors.darkGrey,
+                      color: FCColors.darkGrey,
                       fontSize: 13,
                     ),
                   ),
@@ -127,7 +127,7 @@ class TourListItemWidget extends StatelessWidget {
             Text(
               '${((tour.actualDurationMinutes ?? tour.plannedDurationMinutes) ~/ 60).toString().padLeft(1, '0')}h ${((tour.actualDurationMinutes ?? tour.plannedDurationMinutes) % 60).toString().padLeft(2, '0')}m',
               style: style(
-                color: MyColors.darkGrey,
+                color: FCColors.darkGrey,
                 fontWeight: FontWeight.w500,
                 fontSize: 16,
               ),

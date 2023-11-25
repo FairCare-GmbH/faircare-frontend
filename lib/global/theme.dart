@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -6,16 +6,16 @@ import 'package:google_fonts/google_fonts.dart';
 final themeData = ThemeData(
   primarySwatch: Colors.blue,
   fontFamily: GoogleFonts.readexPro().fontFamily,
-  scaffoldBackgroundColor: MyColors.white,
+  scaffoldBackgroundColor: FCColors.white,
   appBarTheme: AppBarTheme(
-    backgroundColor: MyColors.white,
+    backgroundColor: FCColors.white,
     elevation: 0,
     titleSpacing: 12,
     titleTextStyle: style(
-      color: MyColors.black,
+      color: FCColors.black,
       fontSize: 18,
       fontWeight: FontWeight.w500,
     ),
-    iconTheme: const IconThemeData(color: MyColors.black),
+    iconTheme: const IconThemeData(color: FCColors.black),
   ),
 );

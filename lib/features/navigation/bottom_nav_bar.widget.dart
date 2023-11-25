@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'bottom_nav_bar_item.widget.dart';
@@ -15,7 +15,7 @@ class BottomNavBarWidget extends StatelessWidget {
           Divider(
             height: 1,
             thickness: 1,
-            color: MyColors.border,
+            color: FCColors.border,
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 8),

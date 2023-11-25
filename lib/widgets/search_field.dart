@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -21,8 +21,8 @@ class SearchField extends StatelessWidget {
       child: TextField(
         controller: controller,
         onChanged: onChanged,
-        style: style(fontSize: 18, color: MyColors.black),
-        cursorColor: MyColors.black,
+        style: style(fontSize: 18, color: FCColors.black),
+        cursorColor: FCColors.black,
         decoration: InputDecoration(
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -31,12 +31,12 @@ class SearchField extends StatelessWidget {
           border: InputBorder.none,
           hintText: 'Suche',
           hintStyle: style(fontSize: 18),
-          prefixIcon: const Icon(Icons.search, color: MyColors.black),
+          prefixIcon: const Icon(Icons.search, color: FCColors.black),
           suffixIcon: InkWell(
             onTap: onCloseTap,
             child: const Icon(
               Icons.close,
-              color: MyColors.black,
+              color: FCColors.black,
             ),
           ),
         ),

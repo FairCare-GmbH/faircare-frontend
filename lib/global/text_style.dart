@@ -1,10 +1,10 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 TextStyle style(
     {double fontSize = 14,
-    Color color = MyColors.grey,
+    Color color = FCColors.grey,
     FontWeight fontWeight = FontWeight.w400,
     double? height,
     TextStyle? textStyle}) {

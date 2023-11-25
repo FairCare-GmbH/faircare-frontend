@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +22,7 @@ class CalendarHeaderWidget extends StatelessWidget {
                 '${months[state.getDate().month - 1]} ${state.getDate().year}',
                 style: style(
                   fontSize: 16,
-                  color: MyColors.prime,
+                  color: FCColors.prime,
                 ),
               ),
             ),

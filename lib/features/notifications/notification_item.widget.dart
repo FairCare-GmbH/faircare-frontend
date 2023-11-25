@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/features/notifications/notification.model.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -15,7 +15,7 @@ class NotificationItemWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: MyColors.border.withOpacity(0.3),
+        color: FCColors.border.withOpacity(0.3),
       ),
       child: Row(
         children: [
@@ -23,14 +23,14 @@ class NotificationItemWidget extends StatelessWidget {
             height: 32,
             width: 32,
             decoration: const BoxDecoration(
-              color: MyColors.prime,
+              color: FCColors.prime,
               shape: BoxShape.circle,
             ),
             child: Center(
               child: Text(
                 '1x',
                 style: style(
-                  color: MyColors.white,
+                  color: FCColors.white,
                   fontWeight: FontWeight.w600,
                 ),
               ),
@@ -44,7 +44,7 @@ class NotificationItemWidget extends StatelessWidget {
                 Text(
                   model.title,
                   style: style(
-                    color: MyColors.prime,
+                    color: FCColors.prime,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),
@@ -53,7 +53,7 @@ class NotificationItemWidget extends StatelessWidget {
                 Text(
                   model.subtitle,
                   style: style(
-                    color: MyColors.darkGrey,
+                    color: FCColors.darkGrey,
                     fontSize: 13,
                   ),
                 ),
@@ -63,7 +63,7 @@ class NotificationItemWidget extends StatelessWidget {
           const HorizontalSpacer(12),
           const Icon(
             Icons.delete,
-            color: MyColors.darkGrey,
+            color: FCColors.darkGrey,
           ),
         ],
       ),

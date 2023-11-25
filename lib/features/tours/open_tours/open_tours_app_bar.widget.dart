@@ -1,6 +1,6 @@
 import 'package:faircare/features/tours/open_tours/open_tours_search.cubit.dart';
 import 'package:faircare/features/users/user_settings/user_profile_image.widget.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/notification_button.dart';
@@ -33,7 +33,7 @@ class OpenToursAppBar extends StatelessWidget {
                       child: Text(
                         'Offene Touren',
                         style: style(
-                          color: MyColors.black,
+                          color: FCColors.black,
                           fontSize: 20,
                         ),
                       ),
@@ -61,7 +61,7 @@ class OpenToursAppBar extends StatelessWidget {
             // divider
             const Divider(
               height: 8,
-              color: MyColors.border,
+              color: FCColors.border,
               thickness: 1,
             ),
           ],

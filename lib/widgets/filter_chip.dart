@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class MyFilterChip extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: selected ? MyColors.primeLight : MyColors.primeLightest,
+          color: selected ? FCColors.primeLight : FCColors.primeLightest,
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,
@@ -34,7 +34,7 @@ class MyFilterChip extends StatelessWidget {
             Text(
               text,
               style: style(
-                color: MyColors.black,
+                color: FCColors.black,
                 fontWeight: FontWeight.w500,
               ),
             ),

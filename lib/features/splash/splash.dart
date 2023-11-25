@@ -1,5 +1,5 @@
 import 'package:faircare/features/getting_started/getting_started.view.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +28,7 @@ class _SplashPageState extends State<SplashPage> {
   Widget build(BuildContext context) {
     return const SafeArea(
       child: Scaffold(
-        backgroundColor: MyColors.white,
+        backgroundColor: FCColors.white,
       ),
     );
   }

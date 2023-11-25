@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class MyDropdown extends StatelessWidget {
       children: [
         Text(
           label,
-          style: style(color: MyColors.grey),
+          style: style(color: FCColors.grey),
         ),
         const VerticalSpacer(6),
         Container(
@@ -33,7 +33,7 @@ class MyDropdown extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: MyColors.border,
+              color: FCColors.border,
             ),
           ),
           child: DropdownButton(

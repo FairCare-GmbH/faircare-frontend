@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/features/users/login.view.dart';
@@ -40,7 +40,7 @@ class _GettingStartedViewState extends State<GettingStartedView> {
                         ),
                         margin: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                          color: MyColors.white,
+                          color: FCColors.white,
                           borderRadius: BorderRadius.circular(24),
                         ),
                         child: Column(
@@ -70,7 +70,7 @@ class _GettingStartedViewState extends State<GettingStartedView> {
                       onTap: () => navigateRemove(context, const LoginView()),
                       child: Text(
                         'Einführung überspringen',
-                        style: style(color: MyColors.white),
+                        style: style(color: FCColors.white),
                       ),
                     ),
                   ],

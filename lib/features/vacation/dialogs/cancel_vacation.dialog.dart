@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -19,7 +19,7 @@ class CancelVacationDialog extends StatelessWidget {
             'Urlaubsantrag zurückziehen?',
             style: style(
               fontSize: 20,
-              color: MyColors.black,
+              color: FCColors.black,
             ),
           ),
           const VerticalSpacer(16),
@@ -27,7 +27,7 @@ class CancelVacationDialog extends StatelessWidget {
             'Hiermit brichst du deinen Urlaubsantrag ab. '
             'Bestehende Touren müssen weiterhin gefahren werden.',
             style: style(
-              color: MyColors.darkGrey,
+              color: FCColors.darkGrey,
               height: 1.4,
             ),
           ),

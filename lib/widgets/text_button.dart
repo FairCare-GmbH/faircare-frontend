@@ -1,11 +1,11 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:flutter/material.dart';
 
 class MyTextButton extends StatelessWidget {
   const MyTextButton(
     this.text, {
-    this.color = MyColors.prime,
+    this.color = FCColors.prime,
     this.onTap,
     Key? key,
   }) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:faircare/features/preferences/state/preferences.bloc.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/features/vacation/vacation.model.dart';
@@ -28,7 +28,7 @@ class VacationItemWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
-        color: MyColors.border.withOpacity(0.3),
+        color: FCColors.border.withOpacity(0.3),
       ),
       child: Row(
         children: [
@@ -43,7 +43,7 @@ class VacationItemWidget extends StatelessWidget {
               child: Icon(
                 getIcon(),
                 size: 20,
-                color: MyColors.white,
+                color: FCColors.white,
               ),
             ),
           ),
@@ -67,7 +67,7 @@ class VacationItemWidget extends StatelessWidget {
                 Text(
                   'Urlaub',
                   style: style(
-                    color: MyColors.darkGrey,
+                    color: FCColors.darkGrey,
                     fontSize: 13,
                   ),
                 ),
@@ -108,7 +108,7 @@ class VacationItemWidget extends StatelessWidget {
           showSnackBar(
             context,
             'Problem beim zurückziehen des Urlaubs.',
-            bgColor: MyColors.red,
+            bgColor: FCColors.red,
             icon: Icons.error,
           );
           if (kDebugMode) {
@@ -135,21 +135,21 @@ class VacationItemWidget extends StatelessWidget {
 
   Color getColor(bool before) {
     if (model.daysApproved == 0) {
-      return MyColors.red;
+      return FCColors.red;
     } else if (model.daysRequested == model.daysApproved) {
-      return MyColors.green;
+      return FCColors.green;
     } else {
-      return MyColors.yellow;
+      return FCColors.yellow;
     }
   }
 
   Color getActionColor(bool before) {
     if (model.daysApproved == 0) {
-      return MyColors.red;
+      return FCColors.red;
     } else if (model.daysRequested == model.daysApproved) {
-      return MyColors.green;
+      return FCColors.green;
     } else {
-      return MyColors.yellow;
+      return FCColors.yellow;
     }
   }
 }

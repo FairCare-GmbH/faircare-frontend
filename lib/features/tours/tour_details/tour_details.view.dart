@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../api/api.dart';
-import '../../../global/colors.dart';
+import '../../../global/fc_colors.dart';
 import '../tour_details.bloc.dart';
 import '../tour_visits_list.widget.dart';
 import 'dialogs/cancel_give_back_request.dialog.dart';
@@ -69,8 +69,8 @@ class TourDetailsView extends StatelessWidget {
                           : '',
                       secondaryColor: tour.plannedDurationMinutes >=
                               (tour.actualDurationMinutes ?? 0)
-                          ? MyColors.green
-                          : MyColors.red,
+                          ? FCColors.green
+                          : FCColors.red,
                     ),
 
                     HorizontalTile(
@@ -83,8 +83,8 @@ class TourDetailsView extends StatelessWidget {
                           : '',
                       secondaryColor: tour.plannedCareDuration <=
                               (tour.actualCareDuration ?? 0)
-                          ? MyColors.green
-                          : MyColors.red,
+                          ? FCColors.green
+                          : FCColors.red,
                     ),
 
                     HorizontalTile(
@@ -97,8 +97,8 @@ class TourDetailsView extends StatelessWidget {
                           : '',
                       secondaryColor: tour.plannedCommuteDuration <=
                               (tour.actualCommuteDuration ?? 0)
-                          ? MyColors.green
-                          : MyColors.red,
+                          ? FCColors.green
+                          : FCColors.red,
                     ),
 
                     HorizontalTile(
@@ -110,8 +110,8 @@ class TourDetailsView extends StatelessWidget {
                           : '',
                       secondaryColor: tour.myPlannedWageCents <=
                               (tour.myActualWageCents ?? 0)
-                          ? MyColors.green
-                          : MyColors.red,
+                          ? FCColors.green
+                          : FCColors.red,
                     ),
 
                     // HorizontalTile(
@@ -224,7 +224,7 @@ class TourDetailsView extends StatelessWidget {
                         tour.ownerNurseId == Api.getUser()!.id)
                       Button(
                         'Abgabe abbrechen',
-                        buttonColor: MyColors.red,
+                        buttonColor: FCColors.red,
                         onPressed: () {
                           showCancelGiveBackDialog(context).then((value) {
                             if (value == true) {

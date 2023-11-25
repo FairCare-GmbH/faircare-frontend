@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/notification_button.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -23,7 +23,7 @@ class PerformanceAppBarWidget extends StatelessWidget {
                 child: Text(
                   'Meine Umsätze',
                   style: style(
-                    color: MyColors.black,
+                    color: FCColors.black,
                     fontSize: 20,
                   ),
                 ),
@@ -36,7 +36,7 @@ class PerformanceAppBarWidget extends StatelessWidget {
         // divider
         const Divider(
           height: 8,
-          color: MyColors.border,
+          color: FCColors.border,
           thickness: 1,
         ),
       ],

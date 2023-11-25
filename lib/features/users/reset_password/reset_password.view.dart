@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/app_logo.dart';
@@ -36,7 +36,7 @@ class _ResetPasswordViewState extends State<ResetPasswordView> {
                 ),
                 margin: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: MyColors.white,
+                  color: FCColors.white,
                   borderRadius: BorderRadius.circular(24),
                 ),
                 child: Column(

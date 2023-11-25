@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
@@ -18,8 +18,8 @@ class Button extends StatelessWidget {
     this.icon,
     Key? key,
     this.onPressed,
-    this.buttonColor = MyColors.prime,
-    this.textColor = MyColors.white,
+    this.buttonColor = FCColors.prime,
+    this.textColor = FCColors.white,
     this.height = 48,
     this.borderRadius = 16,
     this.padding = 4,
@@ -37,7 +37,7 @@ class Button extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          color: !disabled ? buttonColor : MyColors.grey,
+          color: !disabled ? buttonColor : FCColors.grey,
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Padding(

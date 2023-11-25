@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +20,8 @@ class HoursSlider extends StatelessWidget {
     return SliderTheme(
       data: SliderThemeData(
         showValueIndicator: ShowValueIndicator.always,
-        valueIndicatorColor: MyColors.prime,
-        valueIndicatorTextStyle: style(color: MyColors.white, fontSize: 14),
+        valueIndicatorColor: FCColors.prime,
+        valueIndicatorTextStyle: style(color: FCColors.white, fontSize: 14),
       ),
       child: RangeSlider(
         values: selectedRange,
@@ -31,8 +31,8 @@ class HoursSlider extends StatelessWidget {
           selectedRange.start.toInt().toString(),
           selectedRange.end.toInt().toString(),
         ),
-        activeColor: MyColors.prime,
-        inactiveColor: MyColors.border,
+        activeColor: FCColors.prime,
+        inactiveColor: FCColors.border,
         onChanged: onChanged,
       ),
     );

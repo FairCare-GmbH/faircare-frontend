@@ -1,5 +1,5 @@
 import 'package:faircare/features/navigation/nav_bar.cubit.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +33,7 @@ class BottomNavBarItemWidget extends StatelessWidget {
                 children: [
                   Icon(
                     icon,
-                    color: index == state ? MyColors.prime : MyColors.darkGrey,
+                    color: index == state ? FCColors.prime : FCColors.darkGrey,
                   ),
                   const VerticalSpacer(4),
                   Text(
@@ -42,7 +42,7 @@ class BottomNavBarItemWidget extends StatelessWidget {
                     style: style(
                       fontSize: 12,
                       color:
-                          index == state ? MyColors.prime : MyColors.darkGrey,
+                          index == state ? FCColors.prime : FCColors.darkGrey,
                     ),
                   ),
                 ],

@@ -1,4 +1,4 @@
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/heading.dart';
@@ -61,8 +61,8 @@ class DesiredHoursWidget extends StatelessWidget {
                                       : (state.userModel.weeklyHourMaximum <= 34
                                           ? 1
                                           : 2)]
-                              ? MyColors.prime
-                              : MyColors.grey,
+                              ? FCColors.prime
+                              : FCColors.grey,
                           onTap: () {
                             bloc.add(UpdatePreferenceUser(state.userModel
                                 .copyWith(
@@ -91,7 +91,7 @@ class DesiredHoursWidget extends StatelessWidget {
                           '${state.userModel.weeklyHourMinimum * 24 * 4} € - '
                           '${state.userModel.weeklyHourMaximum * 28 * 4} €',
                       style: style(
-                        color: MyColors.prime,
+                        color: FCColors.prime,
                         fontSize: 14,
                         height: 1.4,
                       ),
@@ -99,7 +99,7 @@ class DesiredHoursWidget extends StatelessWidget {
                   ],
                 ),
                 style: style(
-                  color: MyColors.grey,
+                  color: FCColors.grey,
                   fontSize: 14,
                   height: 1.4,
                 ),

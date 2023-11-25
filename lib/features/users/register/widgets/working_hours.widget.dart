@@ -1,5 +1,5 @@
 import 'package:faircare/features/users/register/register_cubit.dart';
-import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/features/users/register/register.model.dart';
@@ -23,7 +23,7 @@ class WorkingHoursWidget extends StatelessWidget {
             // working hours
             Text(
               'Gewünschte Arbeitszeit in Stunden pro Woche',
-              style: style(color: MyColors.grey),
+              style: style(color: FCColors.grey),
             ),
             const VerticalSpacer(0),
 
@@ -51,8 +51,8 @@ class WorkingHoursWidget extends StatelessWidget {
                       (e) => MyTextButton(
                         e,
                         color: state.hoursType == e
-                            ? MyColors.prime
-                            : MyColors.grey,
+                            ? FCColors.prime
+                            : FCColors.grey,
                         onTap: () {
                           cubit.setHoursType(e);
                           if (e == hoursTypes[0]) {
@@ -84,7 +84,7 @@ class WorkingHoursWidget extends StatelessWidget {
                         '${state.weeklyHourMinimum * 24 * 4} € - '
                         '${state.weeklyHourMaximum * 24 * 4} €',
                     style: style(
-                      color: MyColors.prime,
+                      color: FCColors.prime,
                       fontSize: 14,
                       height: 1.4,
                     ),
@@ -92,7 +92,7 @@ class WorkingHoursWidget extends StatelessWidget {
                 ],
               ),
               style: style(
-                color: MyColors.grey,
+                color: FCColors.grey,
                 fontSize: 14,
                 height: 1.4,
               ),
