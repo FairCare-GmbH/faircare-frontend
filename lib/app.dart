@@ -1,6 +1,6 @@
 import 'package:faircare/blocs/bloc_providers.dart';
 import 'package:faircare/global/theme.dart';
-import 'package:faircare/features/login/login.view.dart';
+import 'package:faircare/features/users/login/login.view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -9,8 +9,8 @@ import 'api/api.dart';
 import 'features/navigation/navigation.view.dart';
 import 'global/colors.dart';
 
-class FaircareApp extends StatelessWidget {
-  const FaircareApp({Key? key}) : super(key: key);
+class FairCareApp extends StatelessWidget {
+  const FairCareApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

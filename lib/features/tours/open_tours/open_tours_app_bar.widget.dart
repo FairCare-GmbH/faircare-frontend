@@ -1,4 +1,5 @@
-import 'package:faircare/blocs/search/my_tours_search_cubit.dart';
+import 'package:faircare/blocs/search/available_tours_search_cubit.dart';
+import 'package:faircare/features/users/user_settings/user_profile_image.widget.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/text_style.dart';
@@ -8,15 +9,12 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../users/user_settings/user_profile_image.widget.dart';
-
-
-class PatientsAppBarWidget extends StatelessWidget {
-  const PatientsAppBarWidget({Key? key}) : super(key: key);
+class OpenToursAppBar extends StatelessWidget {
+  const OpenToursAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<MyToursSearchCubit, SearchState>(
+    return BlocBuilder<AvailableToursSearchCubit, SearchState>(
       builder: (context, state) {
         return Column(
           children: [
@@ -33,7 +31,7 @@ class PatientsAppBarWidget extends StatelessWidget {
                     const HorizontalSpacer(12),
                     Expanded(
                       child: Text(
-                        'Meine Patienten',
+                        'Offene Touren',
                         style: style(
                           color: MyColors.black,
                           fontSize: 20,
@@ -44,7 +42,7 @@ class PatientsAppBarWidget extends StatelessWidget {
                     // IconButton(
                     //   icon: const Icon(Icons.search),
                     //   onPressed: () {
-                    //     context.read<MyToursSearchCubit>().showSearch();
+                    //     context.read<AvailableToursSearchCubit>().showSearch();
                     //   },
                     // )
                   ],
@@ -56,7 +54,7 @@ class PatientsAppBarWidget extends StatelessWidget {
               SearchField(
                 TextEditingController(),
                 onCloseTap: () {
-                  context.read<MyToursSearchCubit>().hideSearch();
+                  context.read<AvailableToursSearchCubit>().hideSearch();
                 },
               ),
 

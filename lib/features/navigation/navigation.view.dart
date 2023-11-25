@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../my_tours/tours.view.dart';
-import '../open_tours/open_tours.view.dart';
 import '../patients/patients.view.dart';
 import '../performance/performance.view.dart';
+import '../tours/my_tours/my_tours.view.dart';
+import '../tours/open_tours/open_tours.view.dart';
 
 class NavigationView extends StatefulWidget {
   const NavigationView({Key? key}) : super(key: key);

@@ -1,9 +1,10 @@
-import 'package:faircare/features/user_settings/user_profile_image.widget.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
+
+import '../users/user_settings/user_profile_image.widget.dart';
 
 class PatientDetailsAppBarWidget extends StatelessWidget {
   const PatientDetailsAppBarWidget({Key? key, required this.title}) : super(key: key);

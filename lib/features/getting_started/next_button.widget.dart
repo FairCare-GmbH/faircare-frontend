@@ -1,6 +1,6 @@
 import 'package:faircare/blocs/intro/progress/intro_progress_cubit.dart';
 import 'package:faircare/global/global.dart';
-import 'package:faircare/features/login/login.view.dart';
+import 'package:faircare/features/users/login/login.view.dart';
 import 'package:faircare/widgets/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,13 +1,15 @@
+import 'package:faircare/features/users/user_settings/user_profile_image.widget.dart';
 import 'package:faircare/global/colors.dart';
+import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/widgets/notification_button.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
-import '../users/user_settings/user_profile_image.widget.dart';
+class ToursDetailsAppBarWidget extends StatelessWidget {
+  const ToursDetailsAppBarWidget({Key? key, required this.title})
+      : super(key: key);
 
-class PerformanceAppBarWidget extends StatelessWidget {
-  const PerformanceAppBarWidget({Key? key}) : super(key: key);
+  final String title;
 
   @override
   Widget build(BuildContext context) {
@@ -21,24 +23,21 @@ class PerformanceAppBarWidget extends StatelessWidget {
               const HorizontalSpacer(12),
               Expanded(
                 child: Text(
-                  'Meine Umsätze',
+                  title,
                   style: style(
                     color: MyColors.black,
                     fontSize: 20,
                   ),
                 ),
               ),
-              const NotificationButton(),
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => pop(context),
+              )
             ],
           ),
         ),
-
-        // divider
-        const Divider(
-          height: 8,
-          color: MyColors.border,
-          thickness: 1,
-        ),
+        const Divider(height: 8),
       ],
     );
   }

@@ -3,7 +3,7 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../widgets/loading_indicator.dart';
-import '../my_tours/patient_visit_list_item.widget.dart';
+import '../tours/patient_visit_list_item.widget.dart';
 import 'patients.bloc.dart';
 import 'patients_app_bar.widget.dart';
 

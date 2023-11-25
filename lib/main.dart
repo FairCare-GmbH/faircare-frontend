@@ -8,5 +8,5 @@ void main() {
   // Than we setup preferred orientations,
   // and only after it finished we run our app
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
-      .then((value) => runApp(const FaircareApp()));
+      .then((value) => runApp(const FairCareApp()));
 }

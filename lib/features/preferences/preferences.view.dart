@@ -2,7 +2,7 @@ import 'package:faircare/features/preferences/preferences_app_bar.widget.dart';
 import 'package:faircare/features/preferences/sections/desired_hours.widget.dart';
 import 'package:faircare/features/preferences/sections/desired_tours.widget.dart';
 import 'package:faircare/features/preferences/sections/general_prefs.widget.dart';
-import 'package:faircare/features/preferences/sections/vacations.widget.dart';
+import 'package:faircare/features/vacation/vacations_list.widget.dart';
 import 'package:faircare/features/preferences/state/preferences.bloc.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/spacer.dart';
@@ -52,7 +52,7 @@ class _PreferencesViewState extends State<PreferencesView> {
                 const VerticalSpacer(32),
 
                 // vacations
-                const VacationsWidget(),
+                const VacationsListWidget(),
               ],
             ),
           )
