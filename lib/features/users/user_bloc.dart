@@ -1,13 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:faircare/models/nurse_rating.model.dart';
+import 'package:faircare/features/ratings/nurse_rating.model.dart';
 import 'package:flutter/foundation.dart';
 
-import '../../../api/api.dart';
-
-part 'user_event.dart';
-
-part 'user_state.dart';
+import '../../api/api.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
   UserBloc() : super(UserDataInitial()) {
@@ -33,4 +29,30 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       },
     );
   }
+}
+
+abstract class UserEvent {
+  UserEvent();
+}
+
+class GetUserData extends UserEvent {}
+
+abstract class UserState {
+  UserState();
+}
+
+class UserDataInitial extends UserState {}
+
+class UserDataLoading extends UserState {}
+
+class UserDataLoaded extends UserState {
+  final NurseRatingModel ratings;
+
+  UserDataLoaded({required this.ratings});
+}
+
+class UserDataError extends UserState {
+  final String error;
+
+  UserDataError(this.error);
 }

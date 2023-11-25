@@ -1,7 +1,7 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/features/users/login/login.view.dart';
+import 'package:faircare/features/users/login.view.dart';
 import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:faircare/global/extensions.dart';
 
-import '../../../models/preference.model.dart';
+import '../preference_item.model.dart';
 
 class CalendarMonthCubit extends Cubit<PrefsCalendarMonthCubitState> {
   CalendarMonthCubit() : super(PrefsCalendarMonthCubitState());
@@ -42,10 +42,10 @@ class PrefsCalendarMonthCubitState {
   DateTime getDate() => _dateTime;
 }
 
-class PrefsCalendarDaysCubit extends Cubit<List<PreferenceModel>> {
+class PrefsCalendarDaysCubit extends Cubit<List<PreferenceItemModel>> {
   PrefsCalendarDaysCubit() : super([]);
 
-  void setInitialData(List<PreferenceModel> data) {
+  void setInitialData(List<PreferenceItemModel> data) {
     emit(data);
   }
 }

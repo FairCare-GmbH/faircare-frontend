@@ -1,4 +1,4 @@
-import 'package:faircare/blocs/intro/progress/intro_progress_cubit.dart';
+import 'package:faircare/features/getting_started/getting_started_progress_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -56,7 +56,7 @@ class GettingStartedPagesWidget extends StatelessWidget {
           ),
         ],
         onPageChanged: (v) {
-          BlocProvider.of<IntroProgressCubit>(context).setPage(v);
+          BlocProvider.of<GettingStartedProgressCubit>(context).setPage(v);
         },
       ),
     );

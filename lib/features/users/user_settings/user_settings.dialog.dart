@@ -1,4 +1,4 @@
-import 'package:faircare/blocs/user/user/user_bloc.dart';
+import 'package:faircare/features/users/user_bloc.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/features/ratings/small_circular_rating.widget.dart';
@@ -10,9 +10,9 @@ import 'package:faircare/widgets/text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../blocs/master/navbar/nav_bar_cubit.dart';
+import '../../navigation/nav_bar.cubit.dart';
 import '../../ratings/rating.dialog.dart';
-import '../login/login.view.dart';
+import '../login.view.dart';
 
 class UserSettingsDialog extends StatelessWidget {
   const UserSettingsDialog({Key? key}) : super(key: key);

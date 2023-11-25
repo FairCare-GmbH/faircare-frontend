@@ -1,4 +1,4 @@
-
+ 
 class UserModel {
   int id;
   String prefix;

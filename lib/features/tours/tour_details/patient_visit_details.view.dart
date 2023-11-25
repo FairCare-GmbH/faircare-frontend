@@ -1,6 +1,6 @@
 import 'package:faircare/features/tours/tour_details/visit_map.widget.dart';
 import 'package:faircare/global/colors.dart';
-import 'package:faircare/models/patient.model.dart';
+import 'package:faircare/features/patients/patient.model.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/horizontal_tile.dart';
 import 'package:faircare/widgets/spacer.dart';

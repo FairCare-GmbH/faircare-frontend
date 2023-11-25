@@ -1,14 +1,14 @@
 import 'package:faircare/global/extensions.dart';
 
-import '../../../models/preference.model.dart';
-import '../../../models/tour_model.dart';
-import '../../../models/vacation_model.dart';
+import '../preference_item.model.dart';
+import '../../tours/tour.model.dart';
+import '../../vacation/vacation.model.dart';
 import 'calendar_week.model.dart';
 
 class CalendarDayModel {
   final DateTime day;
 
-  final List<PreferenceModel> dayPrefs;
+  final List<PreferenceItemModel> dayPrefs;
   final CalendarWeekModel weekPrefs;
   final List<TourModel> tours;
   final VacationModel? vacationRequest;
@@ -22,11 +22,11 @@ class CalendarDayModel {
     weekPrefs.dayPrefs.add(this);
   }
 
-  PreferenceModel? get f =>
+  PreferenceItemModel? get f =>
       dayPrefs.where((e) => e.type == 1).firstOrNull ??
       weekPrefs.getFForDate(day.ymd);
 
-  PreferenceModel? get s =>
+  PreferenceItemModel? get s =>
       dayPrefs.where((e) => e.type == 2).firstOrNull ??
       weekPrefs.getSForDate(day.ymd);
 
@@ -78,14 +78,14 @@ class CalendarDayModel {
       if (isS) {
         dayPrefs.remove(s);
       } else {
-        dayPrefs.add(PreferenceModel(
+        dayPrefs.add(PreferenceItemModel(
             startDate: day, endDate: day, dayOfWeek: day.weekday, type: 2));
       }
     } else if (isSWeek || isSAssigned) {
       if (isF) {
         dayPrefs.remove(f);
       } else {
-        dayPrefs.add(PreferenceModel(
+        dayPrefs.add(PreferenceItemModel(
             startDate: day, endDate: day, dayOfWeek: day.weekday, type: 1));
       }
     } else {
@@ -93,10 +93,10 @@ class CalendarDayModel {
         dayPrefs.clear();
       } else if (isF) {
         dayPrefs.remove(f);
-        dayPrefs.add(PreferenceModel(
+        dayPrefs.add(PreferenceItemModel(
             startDate: day, endDate: day, dayOfWeek: day.weekday, type: 2));
       } else {
-        dayPrefs.add(PreferenceModel(
+        dayPrefs.add(PreferenceItemModel(
             startDate: day, endDate: day, dayOfWeek: day.weekday, type: 1));
       }
     }

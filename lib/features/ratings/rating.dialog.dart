@@ -1,4 +1,4 @@
-import 'package:faircare/blocs/user/user/user_bloc.dart';
+import 'package:faircare/features/users/user_bloc.dart';
 import 'package:faircare/features/ratings/rating_item.widget.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/widgets/heading.dart';

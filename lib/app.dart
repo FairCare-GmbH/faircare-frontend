@@ -1,12 +1,16 @@
-import 'package:faircare/blocs/bloc_providers.dart';
+import 'package:faircare/features/users/login.view.dart';
 import 'package:faircare/global/theme.dart';
-import 'package:faircare/features/users/login/login.view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'api/api.dart';
+import 'features/users/register/register_progress.cubit.dart';
+import 'features/users/register/register_cubit.dart';
+import 'features/getting_started/getting_started_progress_cubit.dart';
+import 'features/navigation/nav_bar.cubit.dart';
 import 'features/navigation/navigation.view.dart';
+import 'features/notifications/notifications.bloc.dart';
 import 'global/colors.dart';
 
 class FairCareApp extends StatelessWidget {
@@ -15,7 +19,30 @@ class FairCareApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: BlocProviders.providers,
+      providers: [
+        // intro
+        BlocProvider<GettingStartedProgressCubit>(
+          create: (_) => GettingStartedProgressCubit(),
+        ),
+
+        // register
+        BlocProvider<RegisterProgressCubit>(
+          create: (_) => RegisterProgressCubit(),
+        ),
+        BlocProvider<RegisterCubit>(
+          create: (_) => RegisterCubit(),
+        ),
+
+        // master
+        BlocProvider<NavBarCubit>(
+          create: (_) => NavBarCubit(),
+        ),
+
+        // notifications
+        BlocProvider<NotificationsBloc>(
+          create: (_) => NotificationsBloc()..add(GetNotifications()),
+        ),
+      ],
       child: MaterialApp(
         title: 'Faircare',
         debugShowCheckedModeBanner: false,

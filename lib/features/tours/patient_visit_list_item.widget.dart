@@ -5,7 +5,7 @@ import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 
-import '../../models/patient.model.dart';
+import '../patients/patient.model.dart';
 import 'tour_details/patient_visit_details.view.dart';
 
 class PatientVisitListItemWidget extends StatelessWidget {

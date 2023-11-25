@@ -1,4 +1,4 @@
-import 'package:faircare/blocs/search/available_tours_search_cubit.dart';
+import 'package:faircare/features/tours/open_tours/open_tours_search.cubit.dart';
 import 'package:faircare/features/users/user_settings/user_profile_image.widget.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/enums.dart';

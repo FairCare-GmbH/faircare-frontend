@@ -1,4 +1,4 @@
-import 'package:faircare/models/patient.model.dart';
+import 'package:faircare/features/patients/patient.model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -4,11 +4,11 @@ import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:faircare/api/api.dart';
 import 'package:faircare/global/extensions.dart';
-import 'package:faircare/models/user_model.dart';
+import 'package:faircare/features/users/user.model.dart';
 
-import '../../../models/preference.model.dart';
-import '../../../models/tour_model.dart';
-import '../../../models/vacation_model.dart';
+import '../preference_item.model.dart';
+import '../../tours/tour.model.dart';
+import '../../vacation/vacation.model.dart';
 import 'calendar_day.model.dart';
 import 'calendar_week.model.dart';
 
@@ -30,7 +30,7 @@ class PreferencesBloc extends Bloc<PreferenceEvent, PreferenceState> {
 
         emit(PreferenceLoaded(
             (data['preferences'] as List)
-                .map((e) => PreferenceModel.fromJson(e))
+                .map((e) => PreferenceItemModel.fromJson(e))
                 .toList(growable: false),
             UserModel.fromJson(data['nurse']),
             (data['vacationRequests'] as List)
@@ -98,7 +98,7 @@ class UpdatePreferenceUser extends PreferenceEvent {
 }
 
 class UpdatePreferenceData extends PreferenceEvent {
-  final List<PreferenceModel> preferences;
+  final List<PreferenceItemModel> preferences;
   final UserModel userModel;
   final List<VacationModel> vacationRequests;
 
@@ -106,7 +106,7 @@ class UpdatePreferenceData extends PreferenceEvent {
 }
 
 class UpdatePreferenceList extends PreferenceEvent {
-  final List<PreferenceModel> preferences;
+  final List<PreferenceItemModel> preferences;
 
   UpdatePreferenceList(this.preferences);
 }
@@ -148,13 +148,13 @@ class PreferenceLoaded extends PreferenceState {
   final List<VacationModel> vacationRequests;
   final List<TourModel> tours;
 
-  PreferenceLoaded(List<PreferenceModel> preferences, this.userModel,
+  PreferenceLoaded(List<PreferenceItemModel> preferences, this.userModel,
       this.vacationRequests, this.tours) {
-    final Map<DateTime, List<PreferenceModel>> prefsDayCache =
+    final Map<DateTime, List<PreferenceItemModel>> prefsDayCache =
         HashMap(equals: (a, b) => a.isSameDay(b), hashCode: (d) => d.hashCode);
     final Map<DateTime, List<TourModel>> toursCache =
         HashMap(equals: (a, b) => a.isSameDay(b), hashCode: (d) => d.hashCode);
-    final Map<int, List<PreferenceModel>> prefsWeekCache =
+    final Map<int, List<PreferenceItemModel>> prefsWeekCache =
         HashMap(equals: (a, b) => a == b, hashCode: (d) => d.hashCode);
 
     for (var p in preferences) {
@@ -208,8 +208,8 @@ class PreferenceLoaded extends PreferenceState {
     }
   }
 
-  List<PreferenceModel> get preferences {
-    final Set<PreferenceModel> p = {};
+  List<PreferenceItemModel> get preferences {
+    final Set<PreferenceItemModel> p = {};
     for (CalendarWeekModel w in _weekPrefs.values) {
       p.addAll(w.weekPrefs);
     }

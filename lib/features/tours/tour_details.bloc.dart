@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:faircare/features/tours/tour_visit.model.dart';
-import 'package:faircare/models/tour_model.dart';
+import 'package:faircare/features/tours/tour.model.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../api/api.dart';
-import '../../models/patient.model.dart';
+import '../patients/patient.model.dart';
 
 
 class TourDetailsBloc extends Bloc<TourDetailsEvent, TourDetailsState> {

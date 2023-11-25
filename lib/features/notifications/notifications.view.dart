@@ -1,4 +1,3 @@
-import 'package:faircare/blocs/notifications/notifications/notifications_bloc.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
@@ -9,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'notification_item.widget.dart';
+import 'notifications.bloc.dart';
 
 class NotificationsView extends StatelessWidget {
   const NotificationsView({Key? key}) : super(key: key);

@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../blocs/vacations/vacation_cubit.dart';
+import '../../vacation/vacation.cubit.dart';
 import '../state/calendar_month.cubit.dart';
 import '../state/preferences.bloc.dart';
 import 'calendar_header.widget.dart';

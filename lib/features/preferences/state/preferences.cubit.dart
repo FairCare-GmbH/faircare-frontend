@@ -1,10 +1,10 @@
 import 'package:bloc/bloc.dart';
-import 'package:faircare/models/preferences_model.dart';
+import 'package:faircare/features/preferences/care_preferences.model.dart';
 
 import '../../../global/constants.dart';
 
-class PreferencesCubit extends Cubit<PreferencesModel> {
-  PreferencesCubit() : super(PreferencesModel());
+class PreferencesCubit extends Cubit<CarePreferencesModel> {
+  PreferencesCubit() : super(CarePreferencesModel());
 
   void setAvailability(bool value) {
     emit(state.copyWith(openForPatients: value));

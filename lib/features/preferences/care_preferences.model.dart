@@ -1,6 +1,6 @@
 import 'package:faircare/global/constants.dart';
 
-class PreferencesModel {
+class CarePreferencesModel {
   final bool openForPatients;
   final int maximumCareRadius;
   final int weeklyHourMinimum;
@@ -13,7 +13,7 @@ class PreferencesModel {
   final bool allowHousekeeping;
   final bool allowCompanionship;
 
-  PreferencesModel({
+  CarePreferencesModel({
     this.openForPatients = false,
     int? maximumCareRadius,
     this.weeklyHourMinimum = 1,
@@ -28,8 +28,8 @@ class PreferencesModel {
   })  : maximumCareRadius = maximumCareRadius ?? distances[0],
         hoursType = hoursType ?? hoursTypes[0];
 
-  factory PreferencesModel.fromJson(Map<String, dynamic> json) {
-    return PreferencesModel(
+  factory CarePreferencesModel.fromJson(Map<String, dynamic> json) {
+    return CarePreferencesModel(
       openForPatients: json['openForPatients'],
       maximumCareRadius: json['maximumCareRadius'],
       weeklyHourMinimum: json['weeklyHourMinimum'],
@@ -60,7 +60,7 @@ class PreferencesModel {
     };
   }
 
-  PreferencesModel copyWith({
+  CarePreferencesModel copyWith({
     bool? openForPatients,
     int? maximumCareRadius,
     int? weeklyHourMinimum,
@@ -73,7 +73,7 @@ class PreferencesModel {
     bool? allowHousekeeping,
     bool? allowCompanionship,
   }) {
-    return PreferencesModel(
+    return CarePreferencesModel(
       openForPatients: openForPatients ?? this.openForPatients,
       maximumCareRadius: maximumCareRadius ?? this.maximumCareRadius,
       weeklyHourMinimum: weeklyHourMinimum ?? this.weeklyHourMinimum,

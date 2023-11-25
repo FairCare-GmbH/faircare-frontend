@@ -3,7 +3,7 @@ import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/models/preference.model.dart';
+import 'package:faircare/features/preferences/preference_item.model.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,7 +15,7 @@ class CalendarTourItemWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final PreferenceModel model;
+  final PreferenceItemModel model;
   final TourState state;
 
   @override

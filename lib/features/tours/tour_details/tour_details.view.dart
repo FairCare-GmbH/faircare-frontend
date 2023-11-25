@@ -2,7 +2,7 @@ import 'package:faircare/features/tours/tour_details/tour_details_app_bar.widget
 import 'package:faircare/features/tours/tour_details/tour_map.widget.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/extensions.dart';
-import 'package:faircare/models/tour_model.dart';
+import 'package:faircare/features/tours/tour.model.dart';
 import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/horizontal_tile.dart';

@@ -1,4 +1,4 @@
-import 'package:faircare/models/tour_model.dart';
+import 'package:faircare/features/tours/tour.model.dart';
 
 class NotificationModel {
   int id;

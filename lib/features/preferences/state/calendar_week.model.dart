@@ -1,11 +1,11 @@
 import 'package:faircare/global/extensions.dart';
 
-import '../../../models/preference.model.dart';
+import '../preference_item.model.dart';
 import 'calendar_day.model.dart';
 
 class CalendarWeekModel {
   final int weekday;
-  final List<PreferenceModel> weekPrefs;
+  final List<PreferenceItemModel> weekPrefs;
 
   final List<CalendarDayModel> dayPrefs = [];
 
@@ -14,20 +14,20 @@ class CalendarWeekModel {
     required this.weekPrefs,
   });
 
-  PreferenceModel? get f =>
+  PreferenceItemModel? get f =>
       weekPrefs.where((e) => e.type == 1 && e.endDate.isInFuture).firstOrNull;
 
-  PreferenceModel? get s =>
+  PreferenceItemModel? get s =>
       weekPrefs.where((e) => e.type == 2 && e.endDate.isInFuture).firstOrNull;
 
-  PreferenceModel? getFForDate(DateTime day) => weekPrefs
+  PreferenceItemModel? getFForDate(DateTime day) => weekPrefs
       .where((e) =>
           e.type == 1 &&
           e.startDate.isSameDayOrBefore(day) &&
           e.endDate.isSameDayOrAfter(day))
       .firstOrNull;
 
-  PreferenceModel? getSForDate(DateTime day) => weekPrefs
+  PreferenceItemModel? getSForDate(DateTime day) => weekPrefs
       .where((e) =>
           e.type == 2 &&
           e.startDate.isSameDayOrBefore(day) &&
@@ -48,7 +48,7 @@ class CalendarWeekModel {
         return incrementWeek();
       }
 
-      final List<PreferenceModel> toAdd = [];
+      final List<PreferenceItemModel> toAdd = [];
       for (var w in weekPrefs) {
         if (!w.startDate.isInFuture && w.endDate.isInFuture) {
           toAdd.add(w.copyWith(endDate: DateTime.now().ymd));
@@ -73,7 +73,7 @@ class CalendarWeekModel {
         }
       }
 
-      weekPrefs.add(PreferenceModel(
+      weekPrefs.add(PreferenceItemModel(
           startDate: DateTime.now().ymd.add(const Duration(days: 1)),
           endDate: DateTime.now().ymd.add(const Duration(days: 365 * 50)),
           dayOfWeek: weekday,
@@ -84,7 +84,7 @@ class CalendarWeekModel {
           d.dayPrefs.remove(d.f);
         }
       }
-      weekPrefs.add(PreferenceModel(
+      weekPrefs.add(PreferenceItemModel(
           startDate: DateTime.now().ymd.add(const Duration(days: 1)),
           endDate: DateTime.now().ymd.add(const Duration(days: 365 * 50)),
           dayOfWeek: weekday,

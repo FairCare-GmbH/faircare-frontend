@@ -1,4 +1,4 @@
-import 'package:faircare/blocs/auth/progress/register_progress_cubit.dart';
+import 'package:faircare/features/users/register/register_progress.cubit.dart';
 import 'package:faircare/features/users/register/pages/register_page_1.widget.dart';
 import 'package:faircare/features/users/register/pages/register_page_2.widget.dart';
 import 'package:flutter/material.dart';

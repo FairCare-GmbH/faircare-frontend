@@ -1,8 +1,8 @@
-import 'package:faircare/blocs/auth/register_cubit/register_cubit.dart';
+import 'package:faircare/features/users/register/register_cubit.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/models/register_model.dart';
+import 'package:faircare/features/users/register/register.model.dart';
 import 'package:faircare/widgets/hours_slider.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/text_button.dart';

@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:faircare/models/register_model.dart';
+import 'package:faircare/features/users/register/register.model.dart';
 
 class RegisterCubit extends Cubit<RegisterModel> {
   RegisterCubit() : super(RegisterModel());

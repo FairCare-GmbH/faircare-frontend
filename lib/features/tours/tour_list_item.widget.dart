@@ -4,7 +4,7 @@ import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/models/tour_model.dart';
+import 'package:faircare/features/tours/tour.model.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

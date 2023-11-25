@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
-import 'package:faircare/models/register_model.dart';
-import 'package:faircare/models/user_model.dart';
+import 'package:faircare/features/users/register/register.model.dart';
+import 'package:faircare/features/users/user.model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 

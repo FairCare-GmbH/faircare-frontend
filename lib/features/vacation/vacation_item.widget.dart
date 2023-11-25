@@ -3,7 +3,7 @@ import 'package:faircare/features/preferences/state/preferences.bloc.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/models/vacation_model.dart';
+import 'package:faircare/features/vacation/vacation.model.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

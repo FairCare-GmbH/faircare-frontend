@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../api/api.dart';
 import '../../api/api_exception.dart';
-import '../../blocs/vacations/vacation_cubit.dart';
+import 'vacation.cubit.dart';
 import '../../widgets/snack_bar.dart';
 import '../preferences/calendar/calendar.widget.dart';
 import '../preferences/state/preferences.bloc.dart';

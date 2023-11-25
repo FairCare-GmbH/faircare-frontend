@@ -1,18 +1,18 @@
-class PreferenceModel {
+class PreferenceItemModel {
   final DateTime startDate;
   final DateTime endDate;
   final int dayOfWeek;
   final int type;
 
-  PreferenceModel({
+  PreferenceItemModel({
     required this.startDate,
     required this.endDate,
     required this.dayOfWeek,
     required this.type,
   });
 
-  factory PreferenceModel.fromJson(Map<String, dynamic> json) {
-    return PreferenceModel(
+  factory PreferenceItemModel.fromJson(Map<String, dynamic> json) {
+    return PreferenceItemModel(
       startDate: DateTime.parse(json['startDate']),
       endDate: DateTime.parse(json['endDate']),
       dayOfWeek: json['dayOfWeek'],
@@ -29,13 +29,13 @@ class PreferenceModel {
     };
   }
 
-  PreferenceModel copyWith({
+  PreferenceItemModel copyWith({
     DateTime? startDate,
     DateTime? endDate,
     int? dayOfWeek,
     int? type,
   }) {
-    return PreferenceModel(
+    return PreferenceItemModel(
       startDate: startDate ?? this.startDate,
       endDate: endDate ?? this.endDate,
       dayOfWeek: dayOfWeek ?? this.dayOfWeek,

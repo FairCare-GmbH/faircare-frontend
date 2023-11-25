@@ -1,7 +1,7 @@
 import 'package:faircare/features/performance/performance_app_bar.widget.dart';
 import 'package:faircare/features/performance/performance_item.widget.dart';
 import 'package:faircare/global/extensions.dart';
-import 'package:faircare/widgets/activity_circle.widget.dart';
+import 'package:faircare/features/performance/activity_circle.widget.dart';
 import 'package:faircare/widgets/filter_chip.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
@@ -9,7 +9,7 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/tour_model.dart';
+import '../tours/tour.model.dart';
 import 'completed_tours.bloc.dart';
 import 'completed_tours_list.widget.dart';
 
