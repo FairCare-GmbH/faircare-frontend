@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'dart:ui';
 
 import 'package:faircare/global/colors.dart';
 import 'package:flutter/cupertino.dart';

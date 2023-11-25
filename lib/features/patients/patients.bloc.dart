@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:equatable/equatable.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/models/patient.model.dart';
-import 'package:faircare/models/tour_model.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../api/api.dart';

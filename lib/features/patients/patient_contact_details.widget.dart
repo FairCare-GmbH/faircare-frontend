@@ -2,11 +2,7 @@ import 'package:faircare/models/patient.model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../global/colors.dart';
-import '../../widgets/button.dart';
-import '../../widgets/heading.dart';
 import '../../widgets/horizontal_tile.dart';
-import '../../widgets/spacer.dart';
 
 class PatientContactDetailsWidget extends StatelessWidget {
   final PatientModel patient;

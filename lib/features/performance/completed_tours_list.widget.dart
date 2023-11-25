@@ -1,4 +1,3 @@
-import 'package:faircare/global/enums.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
