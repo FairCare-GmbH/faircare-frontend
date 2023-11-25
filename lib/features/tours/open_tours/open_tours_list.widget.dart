@@ -21,7 +21,8 @@ class OpenToursListWidget extends StatelessWidget {
             itemCount: state.tours.length,
             itemBuilder: (_, i) {
               return TourListItemWidget(
-                  state.tours[i],
+                  tour: state.tours[i],
+                  refreshCallback:
                   () => BlocProvider.of<OpenToursBloc>(context).add(
                       GetOpenTours(
                           from: state.from,

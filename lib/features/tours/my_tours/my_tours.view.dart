@@ -52,9 +52,10 @@ class MyToursView extends StatelessWidget {
                           itemCount: today.length,
                           itemBuilder: (_, i) {
                             return TourListItemWidget(
-                                today[i],
-                                () => BlocProvider.of<MyToursBloc>(context)
-                                    .add(GetMyTours()));
+                                tour: today[i],
+                                refreshCallback: () =>
+                                    BlocProvider.of<MyToursBloc>(context)
+                                        .add(GetMyTours()));
                           },
                         ),
                       if (releasing.isNotEmpty) const VerticalSpacer(32),
@@ -68,9 +69,10 @@ class MyToursView extends StatelessWidget {
                           itemCount: releasing.length,
                           itemBuilder: (_, i) {
                             return TourListItemWidget(
-                                releasing[i],
-                                () => BlocProvider.of<MyToursBloc>(context)
-                                    .add(GetMyTours()));
+                                tour: releasing[i],
+                                refreshCallback: () =>
+                                    BlocProvider.of<MyToursBloc>(context)
+                                        .add(GetMyTours()));
                           },
                         ),
                       if (assigned.isNotEmpty) const VerticalSpacer(32),
@@ -84,9 +86,10 @@ class MyToursView extends StatelessWidget {
                           itemCount: assigned.length,
                           itemBuilder: (_, i) {
                             return TourListItemWidget(
-                                assigned[i],
-                                () => BlocProvider.of<MyToursBloc>(context)
-                                    .add(GetMyTours()));
+                                tour: assigned[i],
+                                refreshCallback: () =>
+                                    BlocProvider.of<MyToursBloc>(context)
+                                        .add(GetMyTours()));
                           },
                         ),
                     ],

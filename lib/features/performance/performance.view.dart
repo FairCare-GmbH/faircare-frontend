@@ -1,5 +1,7 @@
 import 'package:faircare/features/performance/performance_app_bar.widget.dart';
 import 'package:faircare/features/performance/performance_item.widget.dart';
+import 'package:faircare/features/performance/performance_tab.widget.dart';
+import 'package:faircare/features/performance/performance_tabs.cubit.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/features/performance/activity_circle.widget.dart';
 import 'package:faircare/widgets/filter_chip.dart';
@@ -160,57 +162,102 @@ class PerformanceView extends StatelessWidget {
                                   .reduce((v, e) => v + e) /
                               60
                           : 0;
-                      return Column(
-                        children: [
-                          const ActivityCircleWidget(
-                            percentBonus: .8,
-                            percentRating: .8,
-                            percentServiceComplete: .8,
-                          ),
-                          SizedBox(
-                            height: 80,
-                            child: ListView(
-                              scrollDirection: Axis.horizontal,
-                              children: [
-                                PerformanceItemWidget(
-                                  icon: Icons.euro_symbol,
-                                  title: 'Einnahmen',
-                                  count: '${revenue.toStringAsFixed(2)} €',
-                                ),
-                                const HorizontalSpacer(12),
-                                PerformanceItemWidget(
-                                  icon: Icons.published_with_changes,
-                                  title: 'Stundenlohn',
-                                  count:
-                                      '${(hours == 0 ? 0 : (revenue / hours)).toStringAsFixed(2)} €',
-                                ),
-                                const HorizontalSpacer(12),
-                                PerformanceItemWidget(
-                                  icon: Icons.hourglass_bottom,
-                                  title: 'Arbeitstunden',
-                                  count: hours.toStringAsFixed(1),
-                                ),
-                                const HorizontalSpacer(12),
-                                PerformanceItemWidget(
-                                  icon: Icons.directions_car,
-                                  title: 'Touren',
-                                  count: state.tours.length.toString(),
-                                ),
-                              ],
+                      return BlocProvider<PerformanceTabsCubit>(
+                        create: (_) => PerformanceTabsCubit('t'),
+                        child: Column(
+                          children: [
+                            SizedBox(
+                              height: 80,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  PerformanceItemWidget(
+                                    icon: Icons.euro,
+                                    title: 'Einnahmen',
+                                    count: '${revenue.toStringAsFixed(2)} €',
+                                  ),
+                                  const HorizontalSpacer(12),
+                                  PerformanceItemWidget(
+                                    icon: Icons.timelapse,
+                                    title: 'Arbeitstunden',
+                                    count: hours.toStringAsFixed(1),
+                                  ),
+                                  const HorizontalSpacer(12),
+                                  PerformanceItemWidget(
+                                    icon: Icons.work_outline,
+                                    title: 'Stundenlohn',
+                                    count:
+                                        '${(hours == 0 ? 0 : (revenue / hours)).toStringAsFixed(2)} €',
+                                  ),
+                                  const HorizontalSpacer(12),
+                                  PerformanceItemWidget(
+                                    icon: Icons.directions_car,
+                                    title: 'Touren',
+                                    count: state.tours.length.toString(),
+                                  ),
+                                ],
+                              ),
                             ),
-                          )
-                        ],
+                            const ActivityCircleWidget(
+                              percentBonus: .8,
+                              percentRating: .8,
+                              percentServiceComplete: .8,
+                            ),
+                            SizedBox(
+                              height: 80,
+                              child: BlocBuilder<PerformanceTabsCubit, String>(
+                                builder: (BuildContext context, String state) =>
+                                    Row(
+                                  children: [
+                                    PerformanceTabItemWidget(
+                                      value: (4.1).toStringAsFixed(1),
+                                      description: 'Bewertung',
+                                      isSelected: state == '>',
+                                      onTap: () =>
+                                          BlocProvider.of<PerformanceTabsCubit>(
+                                                  context)
+                                              .setSelectedIndex('>'),
+                                    ),
+                                    const HorizontalSpacer(12),
+                                    PerformanceTabItemWidget(
+                                      value:
+                                          '${(.756 * 100).toStringAsFixed(0)}%',
+                                      description: 'Erbrachte Leistung',
+                                      isSelected: state == '%',
+                                      onTap: () =>
+                                          BlocProvider.of<PerformanceTabsCubit>(
+                                                  context)
+                                              .setSelectedIndex('%'),
+                                    ),
+                                    const HorizontalSpacer(12),
+                                    PerformanceTabItemWidget(
+                                      value:
+                                          '${(1200 / 100).toStringAsFixed(0)}€',
+                                      description: 'Erhaltener Bonus',
+                                      isSelected: state == '€',
+                                      onTap: () =>
+                                          BlocProvider.of<PerformanceTabsCubit>(
+                                                  context)
+                                              .setSelectedIndex('€'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            const VerticalSpacer(32),
+                            const MyHeading('Abgeschlossene Touren'),
+                            const VerticalSpacer(12),
+                            BlocBuilder<PerformanceTabsCubit, String>(
+                                builder: (BuildContext context, String state) =>
+                                    CompletedToursListWidget(
+                                        displayType: state)),
+                          ],
+                        ),
                       );
                     } else {
                       return const LoadingIndicator();
                     }
                   }),
-                  const VerticalSpacer(32),
-
-                  // completed tours
-                  const MyHeading('Abgeschlossene Touren'),
-                  const VerticalSpacer(12),
-                  const CompletedToursListWidget(),
                 ],
               ),
             )

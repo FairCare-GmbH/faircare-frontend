@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:faircare/global/fc_colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart' as vmath;
 
@@ -9,12 +8,18 @@ class ActivityCircleWidget extends StatefulWidget {
   final double percentBonus;
   final double percentRating;
   final double percentServiceComplete;
+  final Function? onPercentBonusTap;
+  final Function? onPercentRatingTap;
+  final Function? onPercentServiceCompleteTap;
 
   const ActivityCircleWidget(
       {super.key,
       required this.percentBonus,
       required this.percentRating,
-      required this.percentServiceComplete});
+      required this.percentServiceComplete,
+      this.onPercentBonusTap,
+      this.onPercentRatingTap,
+      this.onPercentServiceCompleteTap});
 
   @override
   State<StatefulWidget> createState() => ActivityCircleWidgetState();
@@ -71,34 +76,74 @@ class ActivityCircleWidgetState extends State<ActivityCircleWidget>
 
   @override
   Widget build(BuildContext context) {
-  final xy = MediaQuery.of(context).size.width - 102;
-    return SizedBox(
-      height: xy,
-      child: CustomPaint(
-        painter: ActivityCirclePainter(
-          degrees: [
-            Curves.ease.transform(_animationController.value) *
-                widget.percentBonus *
-                360,
-            Curves.ease.transform(_animationController.value) *
-                widget.percentRating *
-                360,
-            Curves.ease.transform(_animationController.value) *
-                widget.percentServiceComplete *
-                360,
-          ],
-          width: xy,
-          height: xy,
-          // centerText: (max(
-          //         0,
-          //         (Curves.ease.transform(_animationController.value) *
-          //                     widget.hourlyRevenueCents -
-          //                 2400) /
-          //             100))
-          //     .toStringAsFixed(2),
-          // secondaryText: 'Bonus/h'
+    final xy = MediaQuery.of(context).size.width - 102;
+    final strokeWidth = xy * .11;
+
+    final List<double> degrees = [
+      Curves.ease.transform(_animationController.value) *
+          widget.percentBonus *
+          360,
+      Curves.ease.transform(_animationController.value) *
+          widget.percentRating *
+          360,
+      Curves.ease.transform(_animationController.value) *
+          widget.percentServiceComplete *
+          360,
+    ];
+
+    final List<Function?> callbacks = [
+      widget.onPercentBonusTap,
+      widget.onPercentRatingTap,
+      widget.onPercentServiceCompleteTap
+    ];
+
+    return InkWell(
+      onTapUp: (TapUpDetails tud) {
+        final center = Offset(xy / 2, xy / 2);
+
+        final List<Path> paths = degrees
+            .map((d) => Path()
+              ..addArc(
+                  Rect.fromCenter(
+                      center: center,
+                      width: xy -
+                          strokeWidth * (degrees.indexOf(d) * 2 + 1) -
+                          degrees.indexOf(d) * 6,
+                      height: xy -
+                          strokeWidth * (degrees.indexOf(d) * 2 + 1) -
+                          degrees.indexOf(d) * 6),
+                  vmath.radians(-90),
+                  vmath.radians(min(360, d))))
+            .toList(growable: false);
+
+        for (var i = 0; i < paths.length; i++) {
+          if (paths[i].contains(tud.localPosition)) {
+            if (callbacks[i] != null) {
+              callbacks[i]!();
+            }
+            break;
+          }
+        }
+      },
+      child: SizedBox(
+        height: xy,
+        child: CustomPaint(
+          painter: ActivityCirclePainter(
+            degrees: degrees,
+            width: xy,
+            height: xy,
+            strokeWidth: strokeWidth,
+            // centerText: (max(
+            //         0,
+            //         (Curves.ease.transform(_animationController.value) *
+            //                     widget.hourlyRevenueCents -
+            //                 2400) /
+            //             100))
+            //     .toStringAsFixed(2),
+            // secondaryText: 'Bonus/h'
+          ),
+          child: Container(),
         ),
-        child: Container(),
       ),
     );
   }
@@ -116,6 +161,7 @@ class ActivityCirclePainter extends CustomPainter {
   final double height;
   final String? centerText;
   final String? secondaryText;
+  final double strokeWidth;
 
   final List<Color> colors;
 
@@ -126,6 +172,7 @@ class ActivityCirclePainter extends CustomPainter {
     required this.degrees,
     required this.width,
     required this.height,
+    required this.strokeWidth,
     this.centerText,
     this.secondaryText,
     this.colors = const [
@@ -140,7 +187,6 @@ class ActivityCirclePainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     // Get the center of the canvas
     final center = Offset(size.width / 2, size.height / 2);
-    final strokeWidth = min(width, height) * .11;
 
     for (var c = 0; c < degrees.length; c++) {
       // Draw the gray background seen on the progress indicator

@@ -16,14 +16,17 @@ import '../../widgets/snack_bar.dart';
 import 'tour_details/tour_details.view.dart';
 
 class TourListItemWidget extends StatelessWidget {
-  const TourListItemWidget(
-    this.tour,
-    this.refreshCallback, {
+  const TourListItemWidget({
+    required this.tour,
+    required this.refreshCallback,
+    this.displayType = 't',
     Key? key,
   }) : super(key: key);
 
   final TourModel tour;
   final Function refreshCallback;
+  final String
+      displayType; // '' = nothing, '€' = revenue, 't' = time, '%' = percent complete, '>' = chevron
 
   @override
   Widget build(BuildContext context) {
@@ -124,14 +127,25 @@ class TourListItemWidget extends StatelessWidget {
               ),
             ),
             const HorizontalSpacer(12),
-            Text(
-              '${((tour.actualDurationMinutes ?? tour.plannedDurationMinutes) ~/ 60).toString().padLeft(1, '0')}h ${((tour.actualDurationMinutes ?? tour.plannedDurationMinutes) % 60).toString().padLeft(2, '0')}m',
-              style: style(
-                color: FCColors.darkGrey,
-                fontWeight: FontWeight.w500,
-                fontSize: 16,
+            if (displayType == 't')
+              Text(
+                '${((tour.actualDurationMinutes ?? tour.plannedDurationMinutes) ~/ 60).toString().padLeft(1, '0')}h ${((tour.actualDurationMinutes ?? tour.plannedDurationMinutes) % 60).toString().padLeft(2, '0')}m',
+                style: style(
+                  color: FCColors.darkGrey,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
               ),
-            ),
+            if (displayType == '€')
+              Text(
+                '${((tour.myActualWageCents ?? tour.myPlannedWageCents) / 100).toStringAsFixed(2)} €',
+                style: style(
+                  color: FCColors.darkGrey,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
+            if (displayType == '>') const Icon(Icons.chevron_right),
           ],
         ),
       ),

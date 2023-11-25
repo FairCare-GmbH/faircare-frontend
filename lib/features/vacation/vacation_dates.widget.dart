@@ -122,9 +122,11 @@ class VacationDatesWidget extends StatelessWidget {
                 itemCount: tours.length,
                 itemBuilder: (context, index) {
                   return TourListItemWidget(
-                      tours[index],
-                      () => BlocProvider.of<PreferencesBloc>(context)
-                        ..add(GetPreferenceData()));
+                      tour: tours[index],
+                      displayType: '',
+                      refreshCallback: () =>
+                          BlocProvider.of<PreferencesBloc>(context)
+                            ..add(GetPreferenceData()));
                 },
               ),
             ],

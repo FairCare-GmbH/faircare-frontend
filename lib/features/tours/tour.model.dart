@@ -215,4 +215,6 @@ class TourModel {
   int? get myActualWageCents => actualDurationMinutes == null
       ? null
       : (Api.getUser()!.hourlyWage * (actualDurationMinutes! / 60)).round();
+
+  int? get myActualCompletionPercentage => null;//TODO implement
 }
