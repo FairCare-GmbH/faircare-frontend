@@ -1,12 +1,13 @@
-import 'package:faircare/views/preferences/state/calendar.cubit.dart';
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/views/preferences/state/calendar_week.model.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../views/preferences/state/preferences.bloc.dart';
+import '../features/preferences/state/calendar_month.cubit.dart';
+import '../features/preferences/state/calendar_week.model.dart';
+import '../features/preferences/state/preferences.bloc.dart';
+
 
 class CalendarWeekDayWidget extends StatelessWidget {
   const CalendarWeekDayWidget(this.text, this.weekDay, this.isVacationPlanner,
@@ -22,7 +23,7 @@ class CalendarWeekDayWidget extends StatelessWidget {
     return BlocBuilder<PreferencesBloc, PreferenceState>(
       builder: (context, prefs) {
         if (prefs is PreferenceLoaded) {
-          return BlocBuilder<PrefsCalendarMonthCubit,
+          return BlocBuilder<CalendarMonthCubit,
               PrefsCalendarMonthCubitState>(
             builder: (context, state) {
               CalendarWeekModel pref = prefs.getWeekPref(weekDay);

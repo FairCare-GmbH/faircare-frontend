@@ -1,12 +1,13 @@
 import 'package:faircare/blocs/bloc_providers.dart';
 import 'package:faircare/global/theme.dart';
-import 'package:faircare/views/login/login.dart';
-import 'package:faircare/views/master/master.dart';
+import 'package:faircare/features/login/login.view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'api/api.dart';
+import 'features/navigation/navigation.view.dart';
+import 'global/colors.dart';
 
 class FaircareApp extends StatelessWidget {
   const FaircareApp({Key? key}) : super(key: key);
@@ -37,22 +38,17 @@ class FaircareApp extends StatelessWidget {
               return const Center(
                   child: Column(
                 //mainAxisAlsignment: MainAxisAlignment.center,//TODO was this necessary? not sure why this suddenly wasn't available. perhaps because of the upgrade to the dart SDK (3.0)
-                children: [
-                  SizedBox(
-                    width: 60,
-                    height: 60,
-                    child: CircularProgressIndicator(),
+                children: [SafeArea(
+                  child: Scaffold(
+                    backgroundColor: MyColors.white,
+                    //TODO rest of splash screen
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 16),
-                    child: Text('Lädt...'),
-                  )
-                ],
+                )],
               ));
             } else if (snapshot.data!) {
-              return const MasterPage();
+              return const NavigationView();
             } else {
-              return const LoginPage();
+              return const LoginView();
             }
           },
         ),

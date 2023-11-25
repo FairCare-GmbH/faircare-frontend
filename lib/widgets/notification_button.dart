@@ -1,7 +1,8 @@
 import 'package:faircare/global/colors.dart';
 import 'package:faircare/global/global.dart';
-import 'package:faircare/views/notifications/notifications.dart';
 import 'package:flutter/material.dart';
+
+import '../features/notifications/notifications.view.dart';
 
 class NotificationButton extends StatelessWidget {
   const NotificationButton({Key? key}) : super(key: key);
@@ -14,7 +15,7 @@ class NotificationButton extends StatelessWidget {
           child: IconButton(
             icon: const Icon(Icons.notifications),
             onPressed: () {
-              navigate(context, const NotificationsPage());
+              navigate(context, const NotificationsView());
             },
           ),
         ),
