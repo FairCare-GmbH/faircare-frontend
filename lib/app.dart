@@ -62,16 +62,12 @@ class FairCareApp extends StatelessWidget {
                   onTimeout: () => false),
           builder: (context, snapshot) {
             if (!snapshot.hasData) {
-              return const Center(
-                  child: Column(
-                //mainAxisAlsignment: MainAxisAlignment.center,//TODO was this necessary? not sure why this suddenly wasn't available. perhaps because of the upgrade to the dart SDK (3.0)
-                children: [SafeArea(
-                  child: Scaffold(
-                    backgroundColor: FCColors.white,
-                    //TODO rest of splash screen
-                  ),
-                )],
-              ));
+              return const SafeArea(
+                child: Scaffold(
+                  backgroundColor: FCColors.white,
+                  //TODO rest of splash screen
+                ),
+              );
             } else if (snapshot.data!) {
               return const NavigationView();
             } else {
