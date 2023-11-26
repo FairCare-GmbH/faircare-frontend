@@ -218,22 +218,20 @@ class PerformanceView extends StatelessWidget {
                                                   context)
                                               .setSelectedIndex('>'),
                                     ),
-                                    const HorizontalSpacer(12),
                                     PerformanceTabItemWidget(
                                       value:
                                           '${(.756 * 100).toStringAsFixed(0)}%',
-                                      description: 'Erbrachte Leistung',
+                                      description: 'Leistung',
                                       isSelected: state == '%',
                                       onTap: () =>
                                           BlocProvider.of<PerformanceTabsCubit>(
                                                   context)
                                               .setSelectedIndex('%'),
                                     ),
-                                    const HorizontalSpacer(12),
                                     PerformanceTabItemWidget(
                                       value:
                                           '${(1200 / 100).toStringAsFixed(0)}€',
-                                      description: 'Erhaltener Bonus',
+                                      description: 'Bonus',
                                       isSelected: state == '€',
                                       onTap: () =>
                                           BlocProvider.of<PerformanceTabsCubit>(

@@ -18,35 +18,38 @@ class PerformanceTabItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-        onTap: onTap,
-        child: Container(
-          decoration:
-              BoxDecoration(boxShadow: isSelected ? [const BoxShadow()] : []),
-          child: Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  value,
-                  style: style(
-                    color: FCColors.prime,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+            border: isSelected
+                ? const Border(bottom: BorderSide(color: FCColors.darkGrey, width: 2))
+                : null),
+        child: InkWell(
+          onTap: onTap,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                value,
+                style: style(
+                  color: FCColors.prime,
+                  fontSize: 26,
+                  fontWeight: FontWeight.w500,
                 ),
-                const VerticalSpacer(2),
-                Text(
-                  description,
-                  style: style(
-                    color: FCColors.darkGrey,
-                    fontSize: 13,
-                  ),
+              ),
+              const VerticalSpacer(2),
+              Text(
+                description,
+                style: style(
+                  color: FCColors.darkGrey,
+                  fontSize: 13,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

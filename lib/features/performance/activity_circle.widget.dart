@@ -97,53 +97,54 @@ class ActivityCircleWidgetState extends State<ActivityCircleWidget>
       widget.onPercentServiceCompleteTap
     ];
 
-    return InkWell(
-      onTapUp: (TapUpDetails tud) {
-        final center = Offset(xy / 2, xy / 2);
-
-        final List<Path> paths = degrees
-            .map((d) => Path()
-              ..addArc(
-                  Rect.fromCenter(
-                      center: center,
-                      width: xy -
-                          strokeWidth * (degrees.indexOf(d) * 2 + 1) -
-                          degrees.indexOf(d) * 6,
-                      height: xy -
-                          strokeWidth * (degrees.indexOf(d) * 2 + 1) -
-                          degrees.indexOf(d) * 6),
-                  vmath.radians(-90),
-                  vmath.radians(min(360, d))))
-            .toList(growable: false);
-
-        for (var i = 0; i < paths.length; i++) {
-          if (paths[i].contains(tud.localPosition)) {
-            if (callbacks[i] != null) {
-              callbacks[i]!();
-            }
-            break;
-          }
-        }
-      },
-      child: SizedBox(
-        height: xy,
-        child: CustomPaint(
-          painter: ActivityCirclePainter(
-            degrees: degrees,
-            width: xy,
-            height: xy,
-            strokeWidth: strokeWidth,
-            // centerText: (max(
-            //         0,
-            //         (Curves.ease.transform(_animationController.value) *
-            //                     widget.hourlyRevenueCents -
-            //                 2400) /
-            //             100))
-            //     .toStringAsFixed(2),
-            // secondaryText: 'Bonus/h'
-          ),
-          child: Container(),
+    // return GestureDetector(
+    //   onTapUp: (TapUpDetails tud) {
+    //     final center = Offset(xy / 2, xy / 2);
+    //
+    //     final List<Path> paths = degrees
+    //         .map((d) => Path()
+    //           ..addArc(
+    //               Rect.fromCenter(
+    //                   center: center,
+    //                   width: xy -
+    //                       strokeWidth * (degrees.indexOf(d) * 2 + 1) -
+    //                       degrees.indexOf(d) * 6,
+    //                   height: xy -
+    //                       strokeWidth * (degrees.indexOf(d) * 2 + 1) -
+    //                       degrees.indexOf(d) * 6),
+    //               vmath.radians(-90),
+    //               vmath.radians(min(360, d))))
+    //         .toList(growable: false);
+    //
+    //     for (var i = 0; i < paths.length; i++) {
+    //       if (paths[i].contains(tud.localPosition)) {
+    //         print(tud.localPosition);
+    //         if (callbacks[i] != null) {
+    //           callbacks[i]!();
+    //         }
+    //         break;
+    //       }
+    //     }
+    //   },
+    //   child:
+    return SizedBox(
+      height: xy,
+      child: CustomPaint(
+        painter: ActivityCirclePainter(
+          degrees: degrees,
+          width: xy,
+          height: xy,
+          strokeWidth: strokeWidth,
+          // centerText: (max(
+          //         0,
+          //         (Curves.ease.transform(_animationController.value) *
+          //                     widget.hourlyRevenueCents -
+          //                 2400) /
+          //             100))
+          //     .toStringAsFixed(2),
+          // secondaryText: 'Bonus/h'
         ),
+        child: Container(),
       ),
     );
   }
