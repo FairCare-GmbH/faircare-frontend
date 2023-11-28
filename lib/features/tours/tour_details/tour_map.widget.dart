@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/features/tours/tour.model.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -19,28 +19,18 @@ class TourMapWidget extends StatefulWidget {
 }
 
 class TourMapWidgetState extends State<TourMapWidget> {
-  late bool _showMap;
-
   late final Completer<GoogleMapController> _controller;
-
-  late final CameraPosition cameraPosition;
-
-  late final Circle circle;
-
-  late final Set<Marker> markers;
-
-  late final GoogleMap map;
 
   @override
   void initState() {
     _controller = Completer<GoogleMapController>();
-    cameraPosition = CameraPosition(
-      target: LatLng(widget.tour.centerLatitude, widget.tour.centerLongitude),
-      zoom:
-          10, //TODO calculate optimal zoom based on widget.tour.plannedCommuteRadius
-    );
 
-    markers = <Marker>{};
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final Set<Marker> markers = <Marker>{};
     if (widget.visits.isNotEmpty) {
       for (var e in widget.visits) {
         if (e.patient == null) continue;
@@ -50,17 +40,23 @@ class TourMapWidgetState extends State<TourMapWidget> {
       }
     }
 
-    circle = Circle(
+    final Circle circle = Circle(
         circleId: CircleId(widget.tour.id.toString()),
         center: LatLng(widget.tour.centerLatitude, widget.tour.centerLongitude),
         radius: widget.tour.plannedCommuteRadius.toDouble(),
         fillColor: FCColors.prime.withOpacity(0.3),
         strokeColor: FCColors.prime.withOpacity(0.6),
         strokeWidth: 3);
-    _showMap = false;
 
-    loadMap() async {
-      map = GoogleMap(
+    final CameraPosition cameraPosition = CameraPosition(
+      target: LatLng(widget.tour.centerLatitude, widget.tour.centerLongitude),
+      zoom:
+      10, //TODO calculate optimal zoom based on widget.tour.plannedCommuteRadius
+    );
+
+    return SizedBox(
+      height: 200,
+      child: GoogleMap(
         mapType: MapType.normal,
         myLocationEnabled: true,
         zoomGesturesEnabled: true,
@@ -72,22 +68,7 @@ class TourMapWidgetState extends State<TourMapWidget> {
         },
         markers: widget.visits.isEmpty ? {} : markers,
         circles: widget.visits.isEmpty ? {circle} : {},
-      );
-    }
-
-    loadMap().then((value) {
-      setState(() {
-        _showMap = true;
-      });
-    });
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 200,
-      child: _showMap ? map : Container(),
+      ),
     );
   }
 }

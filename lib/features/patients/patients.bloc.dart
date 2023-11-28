@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:faircare/global/extensions.dart';
 import 'package:faircare/features/patients/patient.model.dart';
+import 'package:faircare/global/extensions.dart';
 import 'package:flutter/foundation.dart';
 
 import '../../api/api.dart';
@@ -20,6 +20,8 @@ class PatientsBloc extends Bloc<MyPatientsEvent, MyPatientsState> {
               }))
               .map((e) => PatientModel.fromJson(e))
               .toList(growable: false);
+          patients.sort((a, b) => '${a.lastName}, ${a.firstName}'
+              .compareTo('${b.lastName}, ${b.firstName}'));
           emit(MyPatientsLoaded(patients));
         } catch (e, s) {
           if (kDebugMode) {

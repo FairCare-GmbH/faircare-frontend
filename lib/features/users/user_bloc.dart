@@ -5,13 +5,13 @@ import 'package:flutter/foundation.dart';
 
 import '../../api/api.dart';
 
-class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc() : super(UserDataInitial()) {
-    on<GetUserData>(
+class RatingsBloc extends Bloc<RatingsEvent, RatingsState> {
+  RatingsBloc() : super(RatingsDataInitial()) {
+    on<GetRatingsData>(
       (event, emit) async {
         try {
-          emit(UserDataLoading());
-          emit(UserDataLoaded(
+          emit(RatingsDataLoading());
+          emit(RatingsDataLoaded(
               ratings: NurseRatingModel.fromJson(await Api.request(
                   '/nurses/my/ratings',
                   options: Options(method: 'GET'),
@@ -31,27 +31,27 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 }
 
-abstract class UserEvent {
-  UserEvent();
+abstract class RatingsEvent {
+  RatingsEvent();
 }
 
-class GetUserData extends UserEvent {}
+class GetRatingsData extends RatingsEvent {}
 
-abstract class UserState {
-  UserState();
+abstract class RatingsState {
+  RatingsState();
 }
 
-class UserDataInitial extends UserState {}
+class RatingsDataInitial extends RatingsState {}
 
-class UserDataLoading extends UserState {}
+class RatingsDataLoading extends RatingsState {}
 
-class UserDataLoaded extends UserState {
+class RatingsDataLoaded extends RatingsState {
   final NurseRatingModel ratings;
 
-  UserDataLoaded({required this.ratings});
+  RatingsDataLoaded({required this.ratings});
 }
 
-class UserDataError extends UserState {
+class UserDataError extends RatingsState {
   final String error;
 
   UserDataError(this.error);

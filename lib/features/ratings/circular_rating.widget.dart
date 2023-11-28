@@ -30,7 +30,7 @@ class CircularRatingWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  rating?.toStringAsFixed(2) ?? '-',
+                  rating?.toStringAsFixed(1) ?? '-',
                   style: style(
                     fontSize: 32,
                     color: FCColors.darkGrey,

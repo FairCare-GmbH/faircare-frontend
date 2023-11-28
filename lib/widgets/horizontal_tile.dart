@@ -25,28 +25,53 @@ class HorizontalTile extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: 16),
         child: Row(
           children: [
-            Expanded(
+            SizedBox(
+              width: 100,
               child: Text(
                 text,
                 style: style(fontSize: 16),
               ),
             ),
-            Text(
-              secondaryText,
-              style: style(
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
-                color: secondaryColor,
+            if (secondaryText.isNotEmpty)
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    secondaryText,
+                    overflow: TextOverflow.ellipsis,
+                    style: style(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: secondaryColor,
+                    ),
+                  ),
+                ),
               ),
-            ),
+            if (secondaryText.isNotEmpty)
             Text(
               mainText,
+              overflow: TextOverflow.ellipsis,
               style: style(
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
                 color: FCColors.prime,
               ),
             ),
+            if (secondaryText.isEmpty)
+              Expanded(
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    mainText,
+                    overflow: TextOverflow.ellipsis,
+                    style: style(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                      color: FCColors.prime,
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),

@@ -5,12 +5,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'api/api.dart';
-import 'features/users/register/register_progress.cubit.dart';
-import 'features/users/register/register_cubit.dart';
 import 'features/getting_started/getting_started_progress_cubit.dart';
 import 'features/navigation/nav_bar.cubit.dart';
 import 'features/navigation/navigation.view.dart';
 import 'features/notifications/notifications.bloc.dart';
+import 'features/users/register/register_cubit.dart';
+import 'features/users/register/register_progress.cubit.dart';
+import 'features/users/user_bloc.dart';
 import 'global/fc_colors.dart';
 
 class FairCareApp extends StatelessWidget {
@@ -41,6 +42,10 @@ class FairCareApp extends StatelessWidget {
         // notifications
         BlocProvider<NotificationsBloc>(
           create: (_) => NotificationsBloc()..add(GetNotifications()),
+        ),
+
+        BlocProvider(
+          create: (_) => RatingsBloc()..add(GetRatingsData()),
         ),
       ],
       child: MaterialApp(

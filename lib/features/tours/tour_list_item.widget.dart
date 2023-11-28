@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
-import 'package:faircare/global/fc_colors.dart';
+import 'package:faircare/features/tours/tour.model.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/enums.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
-import 'package:faircare/features/tours/tour.model.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class TourListItemWidget extends StatelessWidget {
   final TourModel tour;
   final Function refreshCallback;
   final String
-      displayType; // '' = nothing, '€' = revenue, 't' = time, '%' = percent complete, '>' = chevron
+      displayType; // '' = nothing, '€' = wage + bonus, 't' = time taken, e = euro per hour (wage + bonus), 'f' = time faster than plan, '%' = percent complete, 'r' = rating, 'b' = bonus, '>' = chevron
 
   @override
   Widget build(BuildContext context) {
@@ -136,11 +136,73 @@ class TourListItemWidget extends StatelessWidget {
                   fontSize: 16,
                 ),
               ),
+            if (displayType == 'r')
+              Text(
+                '${tour.rating?.toStringAsFixed(1) ?? ' - '} Ø',
+                style: style(
+                  color: tour.rating == null
+                      ? FCColors.darkGrey
+                      : tour.rating! < 3.75
+                          ? FCColors.red
+                          : tour.rating! < 4
+                              ? FCColors.orange
+                              : tour.rating! < 4.5
+                                  ? FCColors.green
+                                  : FCColors.yellow,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
+            if (displayType == 'f')
+              Text(
+                '${((tour.plannedDurationMinutes - (tour.actualDurationMinutes ?? tour.plannedDurationMinutes)) ~/ 60).toString().padLeft(1, '0')}h ${((tour.plannedDurationMinutes - (tour.actualDurationMinutes ?? tour.plannedDurationMinutes)) % 60).toString().padLeft(2, '0')}m',
+                style: style(
+                  color: tour.actualDurationMinutes == null
+                      ? FCColors.darkGrey
+                      : tour.actualDurationMinutes! <=
+                              tour.plannedDurationMinutes
+                          ? FCColors.green
+                          : FCColors.red,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
             if (displayType == '€')
               Text(
                 '${((tour.myActualWageCents ?? tour.myPlannedWageCents) / 100).toStringAsFixed(2)} €',
                 style: style(
+                  color: tour.myActualWageCents == null
+                      ? FCColors.darkGrey
+                      : tour.myActualWageCents! >= tour.myPlannedWageCents
+                          ? FCColors.green
+                          : FCColors.red,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
+            if (displayType == '%')
+              Text(
+                '${((tour.myActualCompletionPercentage ?? 0) * 100).toStringAsFixed(0)} %',
+                style: style(
                   color: FCColors.darkGrey,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
+            if (displayType == 'b')
+              Text(
+                '${((tour.bonus) / 100).toStringAsFixed(2)} €',
+                style: style(
+                  color: tour.bonus == 0 ? FCColors.darkGrey : FCColors.yellow,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
+            if (displayType == 'e')
+              Text(
+                '${((tour.actualHourlyWageCents ?? tour.plannedHourlyWageCents) / 100).toStringAsFixed(2)} €',
+                style: style(
+                  color: tour.bonus == 0 ? FCColors.darkGrey : FCColors.yellow,
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
                 ),

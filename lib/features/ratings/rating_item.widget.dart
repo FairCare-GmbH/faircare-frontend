@@ -28,7 +28,7 @@ class RatingItemWidget extends StatelessWidget {
               ),
             ),
             Text(
-              '$rating/5',
+              '${rating.toStringAsFixed(1)}/5',
               style: style(
                 fontSize: 16,
                 color: FCColors.darkGrey,

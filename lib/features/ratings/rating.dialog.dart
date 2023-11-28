@@ -14,10 +14,10 @@ class RatingDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserBloc>(context).add(GetUserData());
-    return BlocBuilder<UserBloc, UserState>(
+    BlocProvider.of<RatingsBloc>(context).add(GetRatingsData());
+    return BlocBuilder<RatingsBloc, RatingsState>(
       builder: (context, state) {
-        if (state is UserDataLoaded) {
+        if (state is RatingsDataLoaded) {
           return Container(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Column(

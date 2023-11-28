@@ -1,4 +1,5 @@
 import 'package:faircare/features/users/register/pages/register_pages.widget.dart';
+import 'package:faircare/features/users/register/register_progress.cubit.dart';
 import 'package:faircare/features/users/register/widgets/next_button.widget.dart';
 import 'package:faircare/features/users/register/widgets/page_progress.widget.dart';
 import 'package:faircare/global/fc_colors.dart';
@@ -9,6 +10,7 @@ import 'package:faircare/widgets/bg_image.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/text_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -41,7 +43,30 @@ class _RegisterViewState extends State<RegisterView> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     // logo
-                    const AppLogo(),
+                    BlocBuilder<RegisterProgressCubit, int>(
+                        builder: (BuildContext context, state) => SizedBox(
+                            height: 36,
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 64,
+                                  child: state == 1 ? InkWell(
+                                    onTap: () {
+                                      pageController.jumpToPage(0);
+                                      BlocProvider.of<RegisterProgressCubit>(
+                                              context)
+                                          .setPage(0);
+                                    },
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(0),
+                                      child: Icon(Icons.chevron_left,
+                                          color: FCColors.prime, size: 42),
+                                    ),
+                                  ) : Container(),
+                                ),
+                                const AppLogo(),
+                              ],
+                            ))),
                     const VerticalSpacer(24),
 
                     // pages

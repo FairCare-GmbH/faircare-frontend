@@ -1,9 +1,12 @@
+import 'dart:math';
+
+import 'package:faircare/features/performance/activity_circle.widget.dart';
 import 'package:faircare/features/performance/performance_app_bar.widget.dart';
 import 'package:faircare/features/performance/performance_item.widget.dart';
 import 'package:faircare/features/performance/performance_tab.widget.dart';
 import 'package:faircare/features/performance/performance_tabs.cubit.dart';
 import 'package:faircare/global/extensions.dart';
-import 'package:faircare/features/performance/activity_circle.widget.dart';
+import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/widgets/filter_chip.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
@@ -134,9 +137,6 @@ class PerformanceView extends StatelessWidget {
                   ),
                   const VerticalSpacer(32),
 
-                  // overview
-                  const MyHeading('Übersicht'),
-                  const VerticalSpacer(12),
                   BlocBuilder<CompletedToursBloc, CompletedToursState>(
                       builder: (context, state) {
                     if (state is CompletedToursLoaded) {
@@ -148,6 +148,14 @@ class PerformanceView extends StatelessWidget {
                                   .reduce((v, e) => v + e)) /
                           100;
 
+                      final bonusCents = (state.tours.isEmpty
+                          ? 0
+                          : state.tours
+                              .map((e) => e.bonus * (e.rating ?? 0) >= 3.75
+                                  ? 1
+                                  : 0)
+                              .reduce((v, e) => v + e));
+
                       final List<TourModel> tours = state.tours.isEmpty
                           ? []
                           : state.tours
@@ -156,14 +164,46 @@ class PerformanceView extends StatelessWidget {
                                   e.actualEndTime != null)
                               .toList();
 
-                      final hours = tours.isNotEmpty
+                      final actualMinutes = tours.isNotEmpty
                           ? tours
-                                  .map((e) => e.actualDurationMinutes ?? 0)
-                                  .reduce((v, e) => v + e) /
-                              60
+                              .map((e) => e.actualDurationMinutes ?? 0)
+                              .reduce((v, e) => v + e)
                           : 0;
+
+                      final plannedMinutes = tours.isNotEmpty
+                          ? tours
+                              .map((e) => e.plannedDurationMinutes ?? 0)
+                              .reduce((v, e) => v + e)
+                          : 0;
+
+                      final maxBonusCents = plannedMinutes == 0
+                          ? 0
+                          : (state.tours.isEmpty
+                              ? 0
+                              : state.tours
+                                  .map((e) => e.bonus)
+                                  .reduce((v, e) => v + e));
+
+                      final percentageTaskComplete = tours.isNotEmpty
+                          ? tours
+                                  .map((e) =>
+                                      e.myActualCompletionPercentage ?? 0)
+                                  .reduce((v, e) => v + e) /
+                              tours.length
+                          : 0.0;
+
+                      final ratingCount = tours.isNotEmpty
+                          ? tours.where((e) => e.rating != null).length
+                          : 0;
+                      final rating = ratingCount > 0
+                          ? tours
+                                  .where((e) => e.rating != null)
+                                  .map((e) => e.rating!)
+                                  .reduce((v, e) => v + e) /
+                              ratingCount
+                          : 0.0;
                       return BlocProvider<PerformanceTabsCubit>(
-                        create: (_) => PerformanceTabsCubit('t'),
+                        create: (_) => PerformanceTabsCubit('b'),
                         child: Column(
                           children: [
                             SizedBox(
@@ -175,19 +215,32 @@ class PerformanceView extends StatelessWidget {
                                     icon: Icons.euro,
                                     title: 'Einnahmen',
                                     count: '${revenue.toStringAsFixed(2)} €',
+                                    onTap: (context) =>
+                                        BlocProvider.of<PerformanceTabsCubit>(
+                                                context)
+                                            .setSelectedIndex('€'),
                                   ),
                                   const HorizontalSpacer(12),
                                   PerformanceItemWidget(
                                     icon: Icons.timelapse,
                                     title: 'Arbeitstunden',
-                                    count: hours.toStringAsFixed(1),
+                                    count:
+                                        (actualMinutes / 60).toStringAsFixed(1),
+                                    onTap: (context) =>
+                                        BlocProvider.of<PerformanceTabsCubit>(
+                                                context)
+                                            .setSelectedIndex('t'),
                                   ),
                                   const HorizontalSpacer(12),
                                   PerformanceItemWidget(
                                     icon: Icons.work_outline,
                                     title: 'Stundenlohn',
                                     count:
-                                        '${(hours == 0 ? 0 : (revenue / hours)).toStringAsFixed(2)} €',
+                                        '${(actualMinutes == 0 ? 0 : (revenue / (actualMinutes / 60))).toStringAsFixed(2)} €',
+                                    onTap: (context) =>
+                                        BlocProvider.of<PerformanceTabsCubit>(
+                                                context)
+                                            .setSelectedIndex('e'),
                                   ),
                                   const HorizontalSpacer(12),
                                   PerformanceItemWidget(
@@ -198,11 +251,22 @@ class PerformanceView extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            const ActivityCircleWidget(
-                              percentBonus: .8,
-                              percentRating: .8,
-                              percentServiceComplete: .8,
+                            const VerticalSpacer(32),
+                            ActivityCircleWidget(
+                              percentRating: rating / 5.0,
+                              percentPlanRating: 3.75 / 5.0,
+                              percentTaskComplete: percentageTaskComplete,
+                              percentPlanTaskComplete: .75,
+                              percentHours:
+                                  (plannedMinutes / actualMinutes) * .75,
+                              percentPlanHours: .75,
+                              amountBonusCents: bonusCents,
+                              maxBonusCents: maxBonusCents,
+                              onBonusTap: (context) =>
+                                  BlocProvider.of<PerformanceTabsCubit>(context)
+                                      .setSelectedIndex('b'),
                             ),
+                            const VerticalSpacer(12),
                             SizedBox(
                               height: 80,
                               child: BlocBuilder<PerformanceTabsCubit, String>(
@@ -210,33 +274,40 @@ class PerformanceView extends StatelessWidget {
                                     Row(
                                   children: [
                                     PerformanceTabItemWidget(
-                                      value: (4.1).toStringAsFixed(1),
-                                      description: 'Bewertung',
-                                      isSelected: state == '>',
+                                      value: plannedMinutes - actualMinutes >=
+                                              60
+                                          ? '${((plannedMinutes - actualMinutes) / 60).toStringAsFixed(0)} h'
+                                          : '${max(plannedMinutes - actualMinutes, 0)} m',
+                                      description: 'Gesparte Zeit',
+                                      isSelected: state == 'f',
+                                      color: FCColors.primeDark,
                                       onTap: () =>
                                           BlocProvider.of<PerformanceTabsCubit>(
                                                   context)
-                                              .setSelectedIndex('>'),
+                                              .setSelectedIndex('f'),
                                     ),
                                     PerformanceTabItemWidget(
                                       value:
-                                          '${(.756 * 100).toStringAsFixed(0)}%',
+                                          '${(percentageTaskComplete * 100).toStringAsFixed(0)} %',
                                       description: 'Leistung',
                                       isSelected: state == '%',
+                                      color: FCColors.prime,
                                       onTap: () =>
                                           BlocProvider.of<PerformanceTabsCubit>(
                                                   context)
                                               .setSelectedIndex('%'),
                                     ),
                                     PerformanceTabItemWidget(
-                                      value:
-                                          '${(1200 / 100).toStringAsFixed(0)}€',
-                                      description: 'Bonus',
-                                      isSelected: state == '€',
+                                      value: rating == 0
+                                          ? '- Ø'
+                                          : '${rating.toStringAsFixed(1)} Ø',
+                                      description: 'Bewertung',
+                                      isSelected: state == 'r',
+                                      color: FCColors.indigo,
                                       onTap: () =>
                                           BlocProvider.of<PerformanceTabsCubit>(
                                                   context)
-                                              .setSelectedIndex('€'),
+                                              .setSelectedIndex('r'),
                                     ),
                                   ],
                                 ),

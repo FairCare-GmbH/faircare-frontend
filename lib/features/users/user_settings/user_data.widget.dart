@@ -12,7 +12,7 @@ class UserDataWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserBloc, UserState>(
+    return BlocBuilder<RatingsBloc, RatingsState>(
       builder: (context, state) {
         if (Api.getUser() != null) {
           final data = Api.getUser()!;

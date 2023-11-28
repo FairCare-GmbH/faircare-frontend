@@ -31,6 +31,9 @@ class TourModel {
   final int plannedCommuteDistance;
   final int? actualCommuteDistance;
   final int plannedCommuteRadius;
+  final double? rating;
+  final int taskCount;
+  final int? taskCompleteCount;
 
   TourModel({
     required this.id,
@@ -60,6 +63,9 @@ class TourModel {
     required this.plannedCommuteDistance,
     this.actualCommuteDistance,
     required this.plannedCommuteRadius,
+    this.rating,
+    required this.taskCount,
+    this.taskCompleteCount,
   });
 
   TourModel copyWith({
@@ -90,6 +96,9 @@ class TourModel {
     bool? hasHousekeeping,
     bool? hasCompanionship,
     int? type,
+    double? rating,
+    int? taskCount,
+    int? taskCompleteCount,
   }) =>
       TourModel(
         id: id ?? this.id,
@@ -123,6 +132,9 @@ class TourModel {
         hasHousekeeping: hasHousekeeping ?? this.hasHousekeeping,
         hasCompanionship: hasCompanionship ?? this.hasCompanionship,
         type: type ?? this.type,
+        rating: rating ?? this.rating,
+        taskCount: taskCount ?? this.taskCount,
+        taskCompleteCount: taskCompleteCount ?? this.taskCompleteCount,
       );
 
   factory TourModel.fromRawJson(String str) =>
@@ -158,6 +170,9 @@ class TourModel {
         hasHousekeeping: json["hasHousekeeping"],
         hasCompanionship: json["hasCompanionship"],
         type: json["type"],
+        rating: json["rating"],
+        taskCount: json["taskCount"],
+        taskCompleteCount: json["taskCompleteCount"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -188,6 +203,9 @@ class TourModel {
         "hasHousekeeping": hasHousekeeping,
         "hasCompanionship": hasCompanionship,
         "type": type,
+        "rating": rating,
+        "taskCount": taskCount,
+        "taskCompleteCount": taskCompleteCount,
       };
 
   int get plannedDurationMinutes =>
@@ -202,12 +220,12 @@ class TourModel {
               (actualStartTime!.time.hour * 60 + actualStartTime!.time.minute))
           .toInt();
 
-  int get plannedHourlyRevenueCents =>
-      ((revenue / plannedDurationMinutes) * 60).round();
+  int get plannedHourlyWageCents => Api.getUser()!.hourlyWage;
 
-  int? get actualHourlyRevenueCents => actualDurationMinutes == null
+  int? get actualHourlyWageCents => actualDurationMinutes == null
       ? null
-      : ((revenue / actualDurationMinutes!) * 60).round();
+      : (Api.getUser()!.hourlyWage + bonus / (actualDurationMinutes! / 60))
+          .round();
 
   int get myPlannedWageCents =>
       (Api.getUser()!.hourlyWage * (plannedDurationMinutes / 60)).round();
@@ -216,5 +234,6 @@ class TourModel {
       ? null
       : (Api.getUser()!.hourlyWage * (actualDurationMinutes! / 60)).round();
 
-  int? get myActualCompletionPercentage => null;//TODO implement
+  double? get myActualCompletionPercentage =>
+      taskCompleteCount == null ? null : taskCompleteCount! / taskCount;
 }

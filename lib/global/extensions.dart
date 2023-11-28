@@ -5,19 +5,19 @@ extension StringExtension on String {
     return "${this[0].toUpperCase()}${substring(1)}";
   }
 
-  // String padLeft({int pad = 0}) {
-  //   var paddingToAdd = pad - length;
-  //   return (paddingToAdd > 0)
-  //       ? "${List.filled(paddingToAdd, '0').join('')}$this"
-  //       : this;
-  // }
-  //
-  // String padRight({int pad = 0}) {
-  //   var paddingToAdd = pad - length;
-  //   return (paddingToAdd > 0)
-  //       ? "$this${List.filled(paddingToAdd, '0').join('')}"
-  //       : this;
-  // }
+// String padLeft({int pad = 0}) {
+//   var paddingToAdd = pad - length;
+//   return (paddingToAdd > 0)
+//       ? "${List.filled(paddingToAdd, '0').join('')}$this"
+//       : this;
+// }
+//
+// String padRight({int pad = 0}) {
+//   var paddingToAdd = pad - length;
+//   return (paddingToAdd > 0)
+//       ? "$this${List.filled(paddingToAdd, '0').join('')}"
+//       : this;
+// }
 }
 
 extension DateTimeExt on DateTime {

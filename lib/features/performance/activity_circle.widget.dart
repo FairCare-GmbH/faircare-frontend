@@ -5,21 +5,30 @@ import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math.dart' as vmath;
 
 class ActivityCircleWidget extends StatefulWidget {
-  final double percentBonus;
+  final int amountBonusCents;
+  final int maxBonusCents;
+  final Function? onBonusTap;
+
   final double percentRating;
-  final double percentServiceComplete;
-  final Function? onPercentBonusTap;
-  final Function? onPercentRatingTap;
-  final Function? onPercentServiceCompleteTap;
+  final double percentPlanRating;
+
+  final double percentTaskComplete;
+  final double percentPlanTaskComplete;
+
+  final double percentHours;
+  final double percentPlanHours;
 
   const ActivityCircleWidget(
       {super.key,
-      required this.percentBonus,
+      required this.amountBonusCents,
+      required this.maxBonusCents,
+      this.onBonusTap,
       required this.percentRating,
-      required this.percentServiceComplete,
-      this.onPercentBonusTap,
-      this.onPercentRatingTap,
-      this.onPercentServiceCompleteTap});
+      required this.percentPlanRating,
+      required this.percentTaskComplete,
+      required this.percentPlanTaskComplete,
+      required this.percentHours,
+      required this.percentPlanHours});
 
   @override
   State<StatefulWidget> createState() => ActivityCircleWidgetState();
@@ -28,6 +37,7 @@ class ActivityCircleWidget extends StatefulWidget {
 class ActivityCircleWidgetState extends State<ActivityCircleWidget>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
+  late AnimationController _bonusAnimationController;
 
   @override
   void initState() {
@@ -40,7 +50,15 @@ class ActivityCircleWidgetState extends State<ActivityCircleWidget>
       duration: const Duration(milliseconds: 750),
     );
 
+    _bonusAnimationController = AnimationController(
+      vsync: this,
+      value: 0,
+      upperBound: 1,
+      duration: const Duration(milliseconds: 750),
+    );
+
     _animationController.addListener(() => setState(() {}));
+    _bonusAnimationController.addListener(() => setState(() {}));
 
     _animationController.forward();
   }
@@ -76,26 +94,35 @@ class ActivityCircleWidgetState extends State<ActivityCircleWidget>
 
   @override
   Widget build(BuildContext context) {
-    final xy = MediaQuery.of(context).size.width - 102;
+    final xy = MediaQuery.of(context).size.width - 108;
     final strokeWidth = xy * .11;
 
     final List<double> degrees = [
       Curves.ease.transform(_animationController.value) *
-          widget.percentBonus *
+          widget.percentHours *
+          360,
+      Curves.ease.transform(_animationController.value) *
+          widget.percentTaskComplete *
           360,
       Curves.ease.transform(_animationController.value) *
           widget.percentRating *
           360,
-      Curves.ease.transform(_animationController.value) *
-          widget.percentServiceComplete *
-          360,
     ];
 
-    final List<Function?> callbacks = [
-      widget.onPercentBonusTap,
-      widget.onPercentRatingTap,
-      widget.onPercentServiceCompleteTap
+    final List<double> planDegrees = [
+      widget.percentPlanHours * 360,
+      widget.percentPlanTaskComplete * 360,
+      widget.percentPlanRating * 360,
     ];
+
+    final isCenterLocked = degrees[2] < planDegrees[2] ||
+        (degrees[0] < planDegrees[0] && degrees[1] < planDegrees[1]);
+
+    if (!isCenterLocked &&
+        !_bonusAnimationController.isAnimating &&
+        !_bonusAnimationController.isCompleted) {
+      _bonusAnimationController.forward();
+    }
 
     // return GestureDetector(
     //   onTapUp: (TapUpDetails tud) {
@@ -127,24 +154,60 @@ class ActivityCircleWidgetState extends State<ActivityCircleWidget>
     //     }
     //   },
     //   child:
-    return SizedBox(
-      height: xy,
-      child: CustomPaint(
-        painter: ActivityCirclePainter(
-          degrees: degrees,
-          width: xy,
-          height: xy,
-          strokeWidth: strokeWidth,
-          // centerText: (max(
-          //         0,
-          //         (Curves.ease.transform(_animationController.value) *
-          //                     widget.hourlyRevenueCents -
-          //                 2400) /
-          //             100))
-          //     .toStringAsFixed(2),
-          // secondaryText: 'Bonus/h'
+    return GestureDetector(
+      onTapUp: (TapUpDetails tud) {
+        if (widget.onBonusTap == null) return;
+        final center = Offset(xy / 2, xy / 2);
+        final path = Path()
+          ..addOval(Rect.fromCenter(
+              center: center,
+              width: xy -
+                  strokeWidth * ((degrees.length - 1) * 2 + 1) -
+                  (degrees.length - 1) * 6 +
+                  12,
+              height: xy -
+                  strokeWidth * ((degrees.length - 1) * 2 + 1) -
+                  (degrees.length - 1) * 6 +
+                  12));
+        if (path.contains(tud.localPosition)) {
+          widget.onBonusTap!(context);
+        }
+      },
+      child: SizedBox(
+        height: xy,
+        child: CustomPaint(
+          painter: ActivityCirclePainter(
+            circleDegrees: degrees,
+            planDegrees: planDegrees,
+            isCenterLocked: isCenterLocked,
+            width: xy,
+            height: xy,
+            strokeWidth: strokeWidth,
+            innerFillPercentage: widget.maxBonusCents == 0
+                ? 0
+                : Curves.ease.transform(_bonusAnimationController.value) *
+                    (widget.amountBonusCents / widget.maxBonusCents),
+            centerText:
+                '${(Curves.ease.transform(_bonusAnimationController.value) * widget.amountBonusCents / 100).toStringAsFixed(0)}€',
+            secondaryText:
+                'von ${(widget.maxBonusCents / 100).toStringAsFixed(0)}€',
+            colors: const [
+              FCColors.primeDark,
+              FCColors.prime,
+              FCColors.indigo,
+              FCColors.yellow
+            ],
+            // centerText: (max(
+            //         0,
+            //         (Curves.ease.transform(_animationController.value) *
+            //                     widget.hourlyRevenueCents -
+            //                 2400) /
+            //             100))
+            //     .toStringAsFixed(2),
+            // secondaryText: 'Bonus/h'
+          ),
+          child: Container(),
         ),
-        child: Container(),
       ),
     );
   }
@@ -157,7 +220,10 @@ class ActivityCircleWidgetState extends State<ActivityCircleWidget>
 }
 
 class ActivityCirclePainter extends CustomPainter {
-  final List<double> degrees;
+  final List<double> circleDegrees;
+  final List<double> planDegrees;
+  final bool isCenterLocked;
+  final double innerFillPercentage;
   final double width;
   final double height;
   final String? centerText;
@@ -170,18 +236,16 @@ class ActivityCirclePainter extends CustomPainter {
 
   ActivityCirclePainter({
     super.repaint,
-    required this.degrees,
+    required this.innerFillPercentage,
+    required this.isCenterLocked,
+    required this.circleDegrees,
+    required this.planDegrees,
     required this.width,
     required this.height,
     required this.strokeWidth,
     this.centerText,
     this.secondaryText,
-    this.colors = const [
-      FCColors.prime,
-      FCColors.yellow,
-      FCColors.orange,
-      FCColors.red
-    ],
+    required this.colors,
   });
 
   @override
@@ -189,7 +253,109 @@ class ActivityCirclePainter extends CustomPainter {
     // Get the center of the canvas
     final center = Offset(size.width / 2, size.height / 2);
 
-    for (var c = 0; c < degrees.length; c++) {
+    if (isCenterLocked) {
+      const icon = Icons.lock_outline;
+      TextPainter textPainter = TextPainter(textDirection: TextDirection.ltr);
+      textPainter.text = TextSpan(
+        text: String.fromCharCode(icon.codePoint),
+        style: TextStyle(
+          color: colors[circleDegrees.length],
+          fontSize: strokeWidth * 1.4,
+          fontFamily: icon.fontFamily,
+          //fontWeight: FontWeight.bold,
+          package: icon
+              .fontPackage, // This line is mandatory for external icon packs
+        ),
+      );
+      textPainter.layout();
+      textPainter.paint(
+          canvas,
+          Offset(center.dx - strokeWidth / (2 / 1.4),
+              center.dy - strokeWidth / (2 / 1.4)));
+    } else {
+      canvas.save();
+
+      canvas.clipPath(Path()
+        ..addOval(Rect.fromCenter(
+            center: center,
+            width: width -
+                strokeWidth * (circleDegrees.length * 2) -
+                circleDegrees.length * 6,
+            height: height -
+                strokeWidth * (circleDegrees.length * 2) -
+                circleDegrees.length * 6)));
+
+      // canvas.drawOval(
+      //     Rect.fromCenter(
+      //         center: center,
+      //         width: width -
+      //             strokeWidth * (1 + (circleDegrees.length - 1) * 2) -
+      //             (circleDegrees.length - 1) * 6,
+      //         height: (height -
+      //                 strokeWidth * (1 + (circleDegrees.length - 1) * 2) -
+      //                 (circleDegrees.length - 1) * 6) *
+      //             innerFillPercentage),
+      //     Paint()
+      //       ..style = PaintingStyle.fill
+      //       ..strokeCap = StrokeCap.butt
+      //       ..color = FCColors.white
+      //       ..strokeWidth = strokeWidth);
+
+      final double circleHeight = (height -
+              strokeWidth * (1 + (circleDegrees.length - 1) * 2) -
+              (circleDegrees.length - 1) * 6) *
+          innerFillPercentage;
+
+      canvas.drawRect(
+          Rect.fromCenter(
+            center: Offset(
+                size.width / 2,
+                size.height / 2 +
+                    (width -
+                        strokeWidth * (circleDegrees.length * 2) -
+                        circleDegrees.length * 6) -
+                    circleHeight),
+            width: width -
+                strokeWidth * (1 + (circleDegrees.length - 1) * 2) -
+                (circleDegrees.length - 1) * 6,
+            height: circleHeight,
+          ),
+          Paint()
+            ..style = PaintingStyle.fill
+            ..strokeCap = StrokeCap.butt
+            ..color = colors[circleDegrees.length]
+            ..strokeWidth = strokeWidth);
+
+      if (centerText != null) {
+        _textPainter.text = TextSpan(
+            text: centerText,
+            style: TextStyle(
+                color: FCColors.blueGrey,
+                fontSize: strokeWidth * .75,
+                fontWeight: FontWeight.bold));
+        _textPainter.layout(minWidth: 0, maxWidth: double.maxFinite);
+        _textPainter.paint(
+            canvas,
+            Offset(center.dx - _textPainter.width / 2,
+                center.dy - _textPainter.height / 2));
+      }
+
+      if (secondaryText != null) {
+        _textPainter.text = TextSpan(
+            text: secondaryText,
+            style:
+                TextStyle(color: FCColors.grey, fontSize: strokeWidth * 0.3));
+        _textPainter.layout(minWidth: 0, maxWidth: double.maxFinite);
+        _textPainter.paint(
+            canvas,
+            Offset(center.dx - _textPainter.width / 2,
+                center.dy - _textPainter.height / 2 + strokeWidth * .5));
+      }
+
+      canvas.restore();
+    }
+
+    for (var c = 0; c < circleDegrees.length; c++) {
       // Draw the gray background seen on the progress indicator
       // This will act as the background layer.
       canvas.drawOval(
@@ -220,7 +386,7 @@ class ActivityCirclePainter extends CustomPainter {
       //     ..strokeWidth = 2,
       // );
 
-      var d = degrees[c];
+      var d = circleDegrees[c];
       var i = 0;
       do {
         canvas.drawArc(
@@ -244,28 +410,57 @@ class ActivityCirclePainter extends CustomPainter {
         i++;
       } while (d > 0);
 
-      if (centerText != null) {
-        _textPainter.text = TextSpan(
-            text: centerText,
-            style:
-                TextStyle(color: FCColors.black, fontSize: strokeWidth * 1.1));
-        _textPainter.layout(minWidth: 0, maxWidth: double.maxFinite);
-        _textPainter.paint(
-            canvas,
-            Offset(center.dx - _textPainter.width / 2,
-                center.dy - _textPainter.height / 2));
-      }
+      final radius = min(width, height) - strokeWidth * (1 + (c) * 2) - (c) * 6;
 
-      if (secondaryText != null) {
-        _textPainter.text = TextSpan(
-            text: secondaryText,
-            style:
-                TextStyle(color: FCColors.grey, fontSize: strokeWidth * 0.55));
-        _textPainter.layout(minWidth: 0, maxWidth: double.maxFinite);
-        _textPainter.paint(
-            canvas,
-            Offset(center.dx - _textPainter.width / 2,
-                center.dy - _textPainter.height / 2 + strokeWidth));
+      canvas.drawLine(
+        center +
+            Offset(
+                ((radius + strokeWidth) / 2) *
+                    cos(vmath.radians(planDegrees[c] - 90)),
+                ((radius + strokeWidth) / 2) *
+                    sin(vmath.radians(planDegrees[c] - 90))),
+        center +
+            Offset(
+                ((radius - strokeWidth) / 2) *
+                    cos(vmath.radians(planDegrees[c] - 90)),
+                ((radius - strokeWidth) / 2) *
+                    sin(vmath.radians(planDegrees[c] - 90))),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.butt
+          ..color = circleDegrees[c] >= planDegrees[c]
+              ? colors[planDegrees.length]
+              : colors[c]
+          ..strokeWidth = 4,
+      );
+
+      if (isCenterLocked && circleDegrees[c] < planDegrees[c]) {
+        const icon = Icons.lock_outline;
+        TextPainter textPainter = TextPainter(textDirection: TextDirection.ltr);
+        textPainter.text = TextSpan(
+          text: String.fromCharCode(icon.codePoint),
+          style: TextStyle(
+            color: colors[c],
+            fontSize: 16,
+            fontFamily: icon.fontFamily,
+            //fontWeight: FontWeight.bold,
+            package: icon
+                .fontPackage, // This line is mandatory for external icon packs
+          ),
+        );
+        textPainter.layout();
+
+        canvas.save();
+        final pivot = center +
+            Offset(
+                ((radius + 15) / 2) * cos(vmath.radians(planDegrees[c] - 90)),
+                ((radius + 15) / 2) * sin(vmath.radians(planDegrees[c] - 90)));
+        canvas.translate(pivot.dx, pivot.dy);
+        canvas.rotate(vmath.radians(planDegrees[c] + 90));
+        canvas.translate(-pivot.dx, -pivot.dy);
+
+        textPainter.paint(canvas, pivot);
+        canvas.restore();
       }
     }
 
@@ -291,7 +486,6 @@ class ActivityCirclePainter extends CustomPainter {
     //   Rect.fromCenter(center: center, width: 200, height: 200),
     //   Paint(),
     // );
-    // canvas.restore();
   }
 
   @override

@@ -4,6 +4,7 @@ class FCColors {
   static const Color prime = Color(0xFF304FFD);
   static const Color primeLight = Color(0xFFBFDBFE);
   static const Color primeLightest = Color(0xFFEFF6FF);
+  static const Color primeDark = Color(0xFF253985);
   static const Color white = Colors.white;
   static const Color black = Colors.black;
 
@@ -19,4 +20,5 @@ class FCColors {
   static const Color red = Color(0xFFF87171);
   static const Color orange = Color(0xFFFF965D);
   static const Color yellow = Color(0xFFFACC15);
+  static const Color indigo = Color(0xFF4E46DD);
 }

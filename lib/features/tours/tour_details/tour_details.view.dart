@@ -1,8 +1,8 @@
+import 'package:faircare/features/tours/tour.model.dart';
 import 'package:faircare/features/tours/tour_details/tour_details_app_bar.widget.dart';
 import 'package:faircare/features/tours/tour_details/tour_map.widget.dart';
 import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/extensions.dart';
-import 'package:faircare/features/tours/tour.model.dart';
 import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/heading.dart';
 import 'package:faircare/widgets/horizontal_tile.dart';
@@ -79,7 +79,7 @@ class TourDetailsView extends StatelessWidget {
                           '${tour.actualDurationMinutes != null ? ' / ' : ''}'
                           '${(tour.plannedCareDuration ~/ 3600).toString().padLeft(1, '0')}h ${((tour.plannedCareDuration % 3600) ~/ 60).toString().padLeft(2, '0')}m',
                       secondaryText: tour.actualDurationMinutes != null
-                          ? '${(tour.actualCareDuration! ~/ 3600).toString().padLeft(1, '0')}h ${((tour.actualCareDuration! % 3600) ~/ 60).toString().padLeft(2, '0')}m'
+                          ? '${((tour.actualCareDuration ?? 0) ~/ 3600).toString().padLeft(1, '0')}h ${(((tour.actualCareDuration ?? 0) % 3600) ~/ 60).toString().padLeft(2, '0')}m'
                           : '',
                       secondaryColor: tour.plannedCareDuration <=
                               (tour.actualCareDuration ?? 0)
@@ -93,7 +93,7 @@ class TourDetailsView extends StatelessWidget {
                           '${tour.actualDurationMinutes != null ? ' / ' : ''}'
                           '${(tour.plannedCommuteDuration ~/ 3600).toString().padLeft(1, '0')}h ${((tour.plannedCommuteDuration % 3600) ~/ 60).toString().padLeft(2, '0')}m',
                       secondaryText: tour.actualDurationMinutes != null
-                          ? '${(tour.actualCommuteDuration! ~/ 3600).toString().padLeft(1, '0')}h ${((tour.actualCommuteDuration! % 3600) ~/ 60).toString().padLeft(2, '0')}m'
+                          ? '${((tour.actualCommuteDuration ?? 0) ~/ 3600).toString().padLeft(1, '0')}h ${(((tour.actualCommuteDuration ?? 0) % 3600) ~/ 60).toString().padLeft(2, '0')}m'
                           : '',
                       secondaryColor: tour.plannedCommuteDuration <=
                               (tour.actualCommuteDuration ?? 0)
@@ -114,16 +114,16 @@ class TourDetailsView extends StatelessWidget {
                           : FCColors.red,
                     ),
 
-                    // HorizontalTile(
-                    //   'Bonus',
-                    //   mainText: '',
-                    //   secondaryText:
-                    //       '${tour.bonus > 0 ? '+' : ''} ${((tour.bonus) / 100).toStringAsFixed(2)} €',
-                    //   secondaryColor: tour.plannedDurationMinutes >=
-                    //           (tour.actualDurationMinutes ?? 0)
-                    //       ? (tour.bonus > 0 ? MyColors.green : MyColors.prime)
-                    //       : MyColors.red,
-                    // ),
+                    HorizontalTile(
+                      'Bonus',
+                      mainText: '',
+                      secondaryText:
+                          '${tour.bonus > 0 ? '+' : ''} ${((tour.bonus) / 100).toStringAsFixed(2)} €',
+                      secondaryColor: tour.plannedDurationMinutes >=
+                              (tour.actualDurationMinutes ?? 0)
+                          ? (tour.bonus > 0 ? FCColors.green : FCColors.prime)
+                          : FCColors.red,
+                    ),
 
                     // HorizontalTile(
                     //   'Vergütung',
@@ -189,6 +189,10 @@ class TourDetailsView extends StatelessWidget {
                     const VerticalSpacer(12),
 
                     if (tour.ownerNurseId == Api.getUser()!.id)
+                      const MyHeading('Einsätze'),
+                    if (tour.ownerNurseId == Api.getUser()!.id)
+                    const VerticalSpacer(12),
+                    if (tour.ownerNurseId == Api.getUser()!.id)
                       TourVisitsListWidget(tourId: tour.id),
 
                     const VerticalSpacer(12),
@@ -197,7 +201,7 @@ class TourDetailsView extends StatelessWidget {
                         tour.isOpen &&
                         tour.ownerNurseId != Api.getUser()!.id)
                       Button(
-                        'Anfragen',
+                        'Anfordern',
                         onPressed: () {
                           showRequestDialog(context).then((value) {
                             if (value == true) {

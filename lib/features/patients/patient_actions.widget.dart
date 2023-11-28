@@ -14,8 +14,14 @@ class PatientActionsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Button(
-        'Änderungswünsche',
+        'Wunschzeiten Anpassen',
         buttonColor: FCColors.prime,
+        onPressed: () {},
+      ),
+      const VerticalSpacer(8),
+      Button(
+        'Leistungen Anpassen',
+        buttonColor: FCColors.orange,
         onPressed: () {},
       ),
       const VerticalSpacer(8),

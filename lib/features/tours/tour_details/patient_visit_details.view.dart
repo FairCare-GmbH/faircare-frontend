@@ -28,7 +28,7 @@ class PatientVisitDetailsView extends StatelessWidget {
         body: Column(
           children: [
             PatientDetailsAppBarWidget(
-                title: '${patient.firstName} ${patient.lastName}'),
+                title: '${patient.lastName}, ${patient.firstName}'),
             // overview
 
             VisitMapWidget(

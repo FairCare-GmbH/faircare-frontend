@@ -8,11 +8,13 @@ class PerformanceTabItemWidget extends StatelessWidget {
     required this.value,
     required this.description,
     required this.isSelected,
+    this.color = FCColors.prime,
     this.onTap,
     Key? key,
   }) : super(key: key);
 
   final String value, description;
+  final Color color;
   final bool isSelected;
   final Function()? onTap;
 
@@ -22,7 +24,7 @@ class PerformanceTabItemWidget extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
             border: isSelected
-                ? const Border(bottom: BorderSide(color: FCColors.darkGrey, width: 2))
+                ? const Border(bottom: BorderSide(color: FCColors.primeDark, width: 2))
                 : null),
         child: InkWell(
           onTap: onTap,
@@ -33,7 +35,7 @@ class PerformanceTabItemWidget extends StatelessWidget {
               Text(
                 value,
                 style: style(
-                  color: FCColors.prime,
+                  color: color,
                   fontSize: 26,
                   fontWeight: FontWeight.w500,
                 ),

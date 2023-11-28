@@ -47,8 +47,10 @@ class PatientVisitListItemWidget extends StatelessWidget {
               width: 32,
               decoration: BoxDecoration(
                 color: patient?.pflegegrad != null
-                    ? FCColors.yellow
-                    : FCColors.prime,
+                    ? FCColors.prime
+                    : visit?.type == 1 || patient != null
+                        ? FCColors.primeDark
+                        : FCColors.grey,
                 shape: BoxShape.circle,
               ),
               child: Center(
@@ -81,19 +83,23 @@ class PatientVisitListItemWidget extends StatelessWidget {
                   Text(
                     // model.fromDate.isSameDay(model.toDate)
                     visit == null || visit?.type == 1
-                        ? '${patient!.firstName} ${patient!.lastName}'
+                        ? '${patient!.lastName}, ${patient!.firstName}'
                         : visit?.type == 2
                             ? 'Pause'
                             : visit?.type == 4
                                 ? (visit?.patientId == 1
                                     ? 'Koordinationszeit'
-                                    : 'Verwaltungstätigkeit')
+                                    : visit?.patientId == 2
+                                        ? 'Dienstbesprechung'
+                                        : 'Verwaltungstätigkeit')
                                 : throw Exception('unknown type'),
                     //: '${days[model.dayOfWeek]}s',
                     style: style(
                       color: patient?.pflegegrad != null
-                          ? FCColors.yellow
-                          : FCColors.prime,
+                          ? FCColors.prime
+                          : visit?.type == 1 || patient != null
+                              ? FCColors.primeDark
+                              : FCColors.grey,
                       fontSize: 16,
                       fontWeight: FontWeight.w500,
                     ),
@@ -121,8 +127,10 @@ class PatientVisitListItemWidget extends StatelessWidget {
                     .substring(0, 5),
                 style: style(
                   color: patient?.pflegegrad != null
-                      ? FCColors.yellow
-                      : FCColors.darkGrey,
+                      ? FCColors.prime
+                      : visit?.type == 1 || patient != null
+                          ? FCColors.primeDark
+                          : FCColors.grey,
                   fontWeight: FontWeight.w500,
                   fontSize: 16,
                 ),
