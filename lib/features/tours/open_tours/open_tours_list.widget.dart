@@ -4,6 +4,7 @@ import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../performance/tour_list_performance_display_type.enum.dart';
 import 'open_tours.bloc.dart';
 
 class OpenToursListWidget extends StatelessWidget {
@@ -22,6 +23,7 @@ class OpenToursListWidget extends StatelessWidget {
             itemBuilder: (_, i) {
               return TourListItemWidget(
                   tour: state.tours[i],
+                  displayType: TourListPerformanceDisplayType.workTime,
                   refreshCallback:
                   () => BlocProvider.of<OpenToursBloc>(context).add(
                       GetOpenTours(

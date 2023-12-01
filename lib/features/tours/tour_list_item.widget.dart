@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:faircare/features/performance/measurable_display_item.widget.dart';
 import 'package:faircare/features/tours/tour.model.dart';
 import 'package:faircare/global/constants.dart';
 import 'package:faircare/global/enums.dart';
@@ -13,26 +14,26 @@ import 'package:intl/intl.dart';
 import '../../api/api.dart';
 import '../../api/api_exception.dart';
 import '../../widgets/snack_bar.dart';
+import '../performance/tour_list_performance_display_type.enum.dart';
 import 'tour_details/tour_details.view.dart';
 
 class TourListItemWidget extends StatelessWidget {
   const TourListItemWidget({
     required this.tour,
     required this.refreshCallback,
-    this.displayType = 't',
+    this.displayType,
     Key? key,
   }) : super(key: key);
 
   final TourModel tour;
   final Function refreshCallback;
-  final String
-      displayType; // '' = nothing, '€' = wage + bonus, 't' = time taken, e = euro per hour (wage + bonus), 'f' = time faster than plan, '%' = percent complete, 'r' = rating, 'b' = bonus, '>' = chevron
+  final TourListPerformanceDisplayType? displayType;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        navigate<TourState?>(context, TourDetailsView(tour)).then((value) {
+        navigate(context, TourDetailsView(tour)).then((value) {
           if (value is TourState) {
             String snackMessage, endpoint;
             if (value == TourState.requested) {
@@ -127,90 +128,12 @@ class TourListItemWidget extends StatelessWidget {
               ),
             ),
             const HorizontalSpacer(12),
-            if (displayType == 't')
-              Text(
-                '${((tour.actualDurationMinutes ?? tour.plannedDurationMinutes) ~/ 60).toString().padLeft(1, '0')}h ${((tour.actualDurationMinutes ?? tour.plannedDurationMinutes) % 60).toString().padLeft(2, '0')}m',
-                style: style(
-                  color: FCColors.darkGrey,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
-              ),
-            if (displayType == 'r')
-              Text(
-                '${tour.rating?.toStringAsFixed(1) ?? ' - '} Ø',
-                style: style(
-                  color: tour.rating == null
-                      ? FCColors.darkGrey
-                      : tour.rating! < 3.75
-                          ? FCColors.red
-                          : tour.rating! < 4
-                              ? FCColors.orange
-                              : tour.rating! < 4.5
-                                  ? FCColors.green
-                                  : FCColors.yellow,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
-              ),
-            if (displayType == 'f')
-              Text(
-                '${((tour.plannedDurationMinutes - (tour.actualDurationMinutes ?? tour.plannedDurationMinutes)) ~/ 60).toString().padLeft(1, '0')}h ${((tour.plannedDurationMinutes - (tour.actualDurationMinutes ?? tour.plannedDurationMinutes)) % 60).toString().padLeft(2, '0')}m',
-                style: style(
-                  color: tour.actualDurationMinutes == null
-                      ? FCColors.darkGrey
-                      : tour.actualDurationMinutes! <=
-                              tour.plannedDurationMinutes
-                          ? FCColors.green
-                          : FCColors.red,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
-              ),
-            if (displayType == '€')
-              Text(
-                '${((tour.myActualWageCents ?? tour.myPlannedWageCents) / 100).toStringAsFixed(2)} €',
-                style: style(
-                  color: tour.myActualWageCents == null
-                      ? FCColors.darkGrey
-                      : tour.myActualWageCents! >= tour.myPlannedWageCents
-                          ? FCColors.green
-                          : FCColors.red,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
-              ),
-            if (displayType == '%')
-              Text(
-                '${((tour.myActualCompletionPercentage ?? 0) * 100).toStringAsFixed(0)} %',
-                style: style(
-                  color: FCColors.darkGrey,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
-              ),
-            if (displayType == 'b')
-              Text(
-                '${((tour.bonus) / 100).toStringAsFixed(2)} €',
-                style: style(
-                  color: tour.bonus == 0 ? FCColors.darkGrey : FCColors.yellow,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
-              ),
-            if (displayType == 'e')
-              Text(
-                '${((tour.actualHourlyWageCents ?? tour.plannedHourlyWageCents) / 100).toStringAsFixed(2)} €',
-                style: style(
-                  color: tour.bonus == 0 ? FCColors.darkGrey : FCColors.yellow,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
-              ),
-            if (displayType == '>') const Icon(Icons.chevron_right),
+            MeasurableDisplayItemWidget(measurable: tour, displayType: displayType,),
           ],
         ),
       ),
     );
   }
 }
+
+// '' = nothing, '€' = wage + bonus, 't' = time taken, e = euro per hour (wage + bonus), 'f' = time faster than plan, '%' = percent complete, 'r' = rating, 'b' = bonus, '>' = chevron

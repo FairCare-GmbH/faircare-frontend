@@ -1,3 +1,4 @@
+import 'package:faircare/features/performance/measurable_details.widget.dart';
 import 'package:faircare/features/tours/tour.model.dart';
 import 'package:faircare/features/tours/tour_details/tour_details_app_bar.widget.dart';
 import 'package:faircare/features/tours/tour_details/tour_map.widget.dart';
@@ -5,7 +6,6 @@ import 'package:faircare/global/enums.dart';
 import 'package:faircare/global/extensions.dart';
 import 'package:faircare/widgets/button.dart';
 import 'package:faircare/widgets/heading.dart';
-import 'package:faircare/widgets/horizontal_tile.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:faircare/widgets/switch.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../api/api.dart';
 import '../../../global/fc_colors.dart';
+import '../../performance/tour_list_performance_display_type.enum.dart';
 import '../tour_details.bloc.dart';
 import '../tour_visits_list.widget.dart';
 import 'dialogs/cancel_give_back_request.dialog.dart';
@@ -35,9 +36,7 @@ class TourDetailsView extends StatelessWidget {
         child: Scaffold(
           body: Column(
             children: [
-              ToursDetailsAppBarWidget(
-                  title:
-                      'F${tour.tourDate.year}${tour.tourDate.month}${tour.tourDate.day}-${tour.id}'),
+              ToursDetailsAppBarWidget(title: tour.name),
               // overview
 
               BlocBuilder<TourDetailsBloc, TourDetailsState>(
@@ -59,70 +58,8 @@ class TourDetailsView extends StatelessWidget {
                     const VerticalSpacer(12),
 
                     // start and end time
-                    HorizontalTile(
-                      'Start/Ende',
-                      mainText:
-                          '${tour.actualDurationMinutes != null ? ' / ' : ''}'
-                          '${tour.plannedStartTime.substring(0, 5)} - ${tour.plannedEndTime.substring(0, 5)}',
-                      secondaryText: tour.actualDurationMinutes != null
-                          ? '${tour.actualStartTime?.substring(0, 5)} - ${tour.actualEndTime?.substring(0, 5)}'
-                          : '',
-                      secondaryColor: tour.plannedDurationMinutes >=
-                              (tour.actualDurationMinutes ?? 0)
-                          ? FCColors.green
-                          : FCColors.red,
-                    ),
-
-                    HorizontalTile(
-                      'Pflegezeit',
-                      mainText:
-                          '${tour.actualDurationMinutes != null ? ' / ' : ''}'
-                          '${(tour.plannedCareDuration ~/ 3600).toString().padLeft(1, '0')}h ${((tour.plannedCareDuration % 3600) ~/ 60).toString().padLeft(2, '0')}m',
-                      secondaryText: tour.actualDurationMinutes != null
-                          ? '${((tour.actualCareDuration ?? 0) ~/ 3600).toString().padLeft(1, '0')}h ${(((tour.actualCareDuration ?? 0) % 3600) ~/ 60).toString().padLeft(2, '0')}m'
-                          : '',
-                      secondaryColor: tour.plannedCareDuration <=
-                              (tour.actualCareDuration ?? 0)
-                          ? FCColors.green
-                          : FCColors.red,
-                    ),
-
-                    HorizontalTile(
-                      'Fahrtzeit',
-                      mainText:
-                          '${tour.actualDurationMinutes != null ? ' / ' : ''}'
-                          '${(tour.plannedCommuteDuration ~/ 3600).toString().padLeft(1, '0')}h ${((tour.plannedCommuteDuration % 3600) ~/ 60).toString().padLeft(2, '0')}m',
-                      secondaryText: tour.actualDurationMinutes != null
-                          ? '${((tour.actualCommuteDuration ?? 0) ~/ 3600).toString().padLeft(1, '0')}h ${(((tour.actualCommuteDuration ?? 0) % 3600) ~/ 60).toString().padLeft(2, '0')}m'
-                          : '',
-                      secondaryColor: tour.plannedCommuteDuration <=
-                              (tour.actualCommuteDuration ?? 0)
-                          ? FCColors.green
-                          : FCColors.red,
-                    ),
-
-                    HorizontalTile(
-                      'Vergütung',
-                      mainText: '${tour.myActualWageCents != null ? ' / ' : ''}'
-                          '${(tour.myPlannedWageCents / 100).toStringAsFixed(2)} €',
-                      secondaryText: tour.actualDurationMinutes != null
-                          ? '${(tour.myActualWageCents! / 100).toStringAsFixed(2)} €'
-                          : '',
-                      secondaryColor: tour.myPlannedWageCents <=
-                              (tour.myActualWageCents ?? 0)
-                          ? FCColors.green
-                          : FCColors.red,
-                    ),
-
-                    HorizontalTile(
-                      'Bonus',
-                      mainText: '',
-                      secondaryText:
-                          '${tour.bonus > 0 ? '+' : ''} ${((tour.bonus) / 100).toStringAsFixed(2)} €',
-                      secondaryColor: tour.plannedDurationMinutes >=
-                              (tour.actualDurationMinutes ?? 0)
-                          ? (tour.bonus > 0 ? FCColors.green : FCColors.prime)
-                          : FCColors.red,
+                    MeasurableDetailsWidget(
+                      measurable: tour,
                     ),
 
                     // HorizontalTile(
@@ -191,9 +128,14 @@ class TourDetailsView extends StatelessWidget {
                     if (tour.ownerNurseId == Api.getUser()!.id)
                       const MyHeading('Einsätze'),
                     if (tour.ownerNurseId == Api.getUser()!.id)
-                    const VerticalSpacer(12),
+                      const VerticalSpacer(12),
                     if (tour.ownerNurseId == Api.getUser()!.id)
-                      TourVisitsListWidget(tourId: tour.id),
+                      TourVisitsListWidget(
+                        tourId: tour.id,
+                        displayType: tour.isClosed
+                            ? null
+                            : TourListPerformanceDisplayType.workTime,
+                      ),
 
                     const VerticalSpacer(12),
 

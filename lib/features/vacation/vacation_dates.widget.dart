@@ -1,14 +1,15 @@
-import 'package:faircare/features/vacation/vacation.cubit.dart';
-import 'package:faircare/global/fc_colors.dart';
-import 'package:faircare/global/extensions.dart';
-import 'package:faircare/global/text_style.dart';
 import 'package:faircare/features/tours/tour.model.dart';
+import 'package:faircare/features/vacation/vacation.cubit.dart';
+import 'package:faircare/global/extensions.dart';
+import 'package:faircare/global/fc_colors.dart';
+import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../widgets/heading.dart';
+import '../performance/tour_list_performance_display_type.enum.dart';
 import '../preferences/state/preferences.bloc.dart';
 import '../tours/tour_list_item.widget.dart';
 
@@ -123,7 +124,7 @@ class VacationDatesWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return TourListItemWidget(
                       tour: tours[index],
-                      displayType: '',
+                      displayType: TourListPerformanceDisplayType.chevron,
                       refreshCallback: () =>
                           BlocProvider.of<PreferencesBloc>(context)
                             ..add(GetPreferenceData()));

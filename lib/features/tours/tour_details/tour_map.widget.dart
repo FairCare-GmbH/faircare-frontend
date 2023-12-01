@@ -51,7 +51,7 @@ class TourMapWidgetState extends State<TourMapWidget> {
     final CameraPosition cameraPosition = CameraPosition(
       target: LatLng(widget.tour.centerLatitude, widget.tour.centerLongitude),
       zoom:
-      10, //TODO calculate optimal zoom based on widget.tour.plannedCommuteRadius
+          10, //TODO calculate optimal zoom based on widget.tour.plannedCommuteRadius
     );
 
     return SizedBox(

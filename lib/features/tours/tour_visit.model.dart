@@ -1,72 +1,87 @@
 import 'dart:convert';
 
-import '../../api/api.dart';
+import 'package:faircare/features/performance/measurable.model.dart';
 
-
-class TourVisitModel {
+class TourVisitModel extends Measurable {
   final int id;
   final int tourId;
   final int type;
   final int patientId;
-  final DateTime tourDate;
-  final String plannedStartTime;
-  final String plannedEndTime;
+
   final String? desiredStartFrom;
   final String? desiredStartTo;
-  final String? actualStartTime;
-  final String? actualEndTime;
-  final int plannedCareDuration;
-  final int plannedCommuteDuration;
-  final int? actualCareDuration;
-  final int? actualCommuteDuration;
-  final int plannedCommuteDistance;
-  final int? actualCommuteDistance;
-  final int revenue;
-  final int bonus;
 
   TourVisitModel({
     required this.id,
     required this.tourId,
     required this.type,
     required this.patientId,
-    required this.tourDate,
-    required this.plannedStartTime,
-    required this.plannedEndTime,
+    required super.tourDate,
+    required super.plannedStartTime,
+    required super.plannedEndTime,
     required this.desiredStartFrom,
     required this.desiredStartTo,
-    required this.actualStartTime,
-    required this.actualEndTime,
-    required this.plannedCareDuration,
-    required this.plannedCommuteDuration,
-    required this.actualCareDuration,
-    required this.actualCommuteDuration,
-    required this.plannedCommuteDistance,
-    required this.actualCommuteDistance,
-    required this.revenue,
-    required this.bonus,
+    required super.actualStartTime,
+    required super.actualEndTime,
+    required super.plannedCareDuration,
+    required super.plannedCommuteDuration,
+    required super.actualCareDuration,
+    required super.actualCommuteDuration,
+    required super.plannedCommuteDistance,
+    required super.plannedRevenue,
+    required super.maxBonus,
+    required super.plannedAdminDuration,
+    super.actualAdminDuration,
+    required super.plannedBreakDuration,
+    super.actualBreakDuration,
+    super.rating,
+    required super.plannedTaskCount,
+    super.actualTaskCount,
+    required super.isClosed,
+    super.actualBonus,
+    required super.hasInfectiousDisease,
+    required super.hasMedicalCare,
+    required super.hasBasicCare,
+    required super.hasWoundCare,
+    required super.hasHousekeeping,
+    required super.hasCompanionship,
   });
 
-  TourVisitModel copyWith({
-    int? id,
-    int? tourId,
-    int? type,
-    int? patientId,
-    DateTime? tourDate,
-    String? plannedStartTime,
-    String? plannedEndTime,
-    String? desiredStartFrom,
-    String? desiredStartTo,
-    String? actualStartTime,
-    String? actualEndTime,
-    int? plannedCareDuration,
-    int? plannedCommuteDuration,
-    int? actualCareDuration,
-    int? actualCommuteDuration,
-    int? plannedCommuteDistance,
-    int? actualCommuteDistance,
-    int? revenue,
-    int? bonus,
-  }) =>
+  TourVisitModel copyWith(
+          {int? id,
+          int? tourId,
+          int? type,
+          int? patientId,
+          DateTime? tourDate,
+          String? plannedStartTime,
+          String? plannedEndTime,
+          String? desiredStartFrom,
+          String? desiredStartTo,
+          String? actualStartTime,
+          String? actualEndTime,
+          int? plannedCareDuration,
+          int? plannedCommuteDuration,
+          int? actualCareDuration,
+          int? actualCommuteDuration,
+          int? plannedCommuteDistance,
+          int? actualCommuteDistance,
+          int? plannedRevenue,
+          int? maxBonus,
+          int? plannedAdminDuration,
+          int? actualAdminDuration,
+          int? plannedBreakDuration,
+          int? actualBreakDuration,
+          double? rating,
+          int? plannedTaskCount,
+          int? actualTaskCount,
+          bool? isClosed,
+          int? actualBonus,
+          bool? hasInfectiousDisease,
+          bool? hasMedicalCare,
+          bool? hasBasicCare,
+          bool? hasWoundCare,
+          bool? hasHousekeeping,
+          bool? hasCompanionship}) =>
       TourVisitModel(
         id: id ?? this.id,
         tourId: tourId ?? this.tourId,
@@ -87,10 +102,23 @@ class TourVisitModel {
             actualCommuteDuration ?? this.actualCommuteDuration,
         plannedCommuteDistance:
             plannedCommuteDistance ?? this.plannedCommuteDistance,
-        actualCommuteDistance:
-            actualCommuteDistance ?? this.actualCommuteDistance,
-        revenue: revenue ?? this.revenue,
-        bonus: bonus ?? this.bonus,
+        plannedRevenue: plannedRevenue ?? this.plannedRevenue,
+        maxBonus: maxBonus ?? this.maxBonus,
+        plannedAdminDuration: plannedAdminDuration ?? this.plannedAdminDuration,
+        actualAdminDuration: actualAdminDuration ?? this.actualAdminDuration,
+        actualBreakDuration: actualBreakDuration ?? this.actualBreakDuration,
+        rating: rating ?? this.rating,
+        plannedTaskCount: plannedTaskCount ?? this.plannedTaskCount,
+        actualTaskCount: actualTaskCount ?? this.actualTaskCount,
+        isClosed: isClosed ?? this.isClosed,
+        actualBonus: actualBonus ?? this.actualBonus,
+        plannedBreakDuration: plannedBreakDuration ?? this.plannedBreakDuration,
+        hasInfectiousDisease: hasInfectiousDisease ?? this.hasInfectiousDisease,
+        hasMedicalCare: hasMedicalCare ?? this.hasMedicalCare,
+        hasBasicCare: hasBasicCare ?? this.hasBasicCare,
+        hasWoundCare: hasWoundCare ?? this.hasWoundCare,
+        hasHousekeeping: hasHousekeeping ?? this.hasHousekeeping,
+        hasCompanionship: hasCompanionship ?? this.hasCompanionship,
       );
 
   factory TourVisitModel.fromRawJson(String str) =>
@@ -115,9 +143,23 @@ class TourVisitModel {
         actualCareDuration: json["actualCareDuration"],
         actualCommuteDuration: json["actualCommuteDuration"],
         plannedCommuteDistance: json["plannedCommuteDistance"],
-        actualCommuteDistance: json["actualCommuteDistance"],
-        revenue: json["revenue"],
-        bonus: json["bonus"],
+        plannedRevenue: json["plannedRevenue"],
+        maxBonus: json["maxBonus"],
+        plannedAdminDuration: json["plannedAdminDuration"],
+        actualAdminDuration: json["actualAdminDuration"],
+        actualBreakDuration: json["actualBreakDuration"],
+        rating: json["rating"]?.toDouble(),
+        plannedTaskCount: json["plannedTaskCount"],
+        actualTaskCount: json["actualTaskCount"],
+        isClosed: json["isClosed"],
+        actualBonus: json["actualBonus"],
+        plannedBreakDuration: json["plannedBreakDuration"],
+        hasInfectiousDisease: json["hasInfectiousDisease"],
+        hasMedicalCare: json["hasMedicalCare"],
+        hasBasicCare: json["hasBasicCare"],
+        hasWoundCare: json["hasWoundCare"],
+        hasHousekeeping: json["hasHousekeeping"],
+        hasCompanionship: json["hasCompanionship"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -137,37 +179,22 @@ class TourVisitModel {
         "actualCareDuration": actualCareDuration,
         "actualCommuteDuration": actualCommuteDuration,
         "plannedCommuteDistance": plannedCommuteDistance,
-        "actualCommuteDistance": actualCommuteDistance,
-        "revenue": revenue,
-        "bonus": bonus,
+        "plannedRevenue": plannedRevenue,
+        "maxBonus": maxBonus,
+        "plannedAdminDuration": plannedAdminDuration,
+        "actualAdminDuration": actualAdminDuration,
+        "actualBreakDuration": actualBreakDuration,
+        "rating": rating,
+        "plannedTaskCount": plannedTaskCount,
+        "actualTaskCount": actualTaskCount,
+        "isClosed": isClosed,
+        "actualBonus": actualBonus,
+        "plannedBreakDuration": plannedBreakDuration,
+        "hasInfectiousDisease": hasInfectiousDisease,
+        "hasMedicalCare": hasMedicalCare,
+        "hasBasicCare": hasBasicCare,
+        "hasWoundCare": hasWoundCare,
+        "hasHousekeeping": hasHousekeeping,
+        "hasCompanionship": hasCompanionship,
       };
-
-  int get plannedDurationMinutes =>
-      plannedCareDuration + plannedCommuteDuration;
-
-  int? get actualDurationMinutes =>
-      actualCareDuration == null || actualCommuteDuration == null
-          ? null
-          : (actualCareDuration! + actualCommuteDuration!);
-
-  int get plannedHourlyRevenueCents =>
-      ((revenue / (plannedCareDuration + plannedCommuteDuration)) * 3600)
-          .round();
-
-  int? get actualHourlyRevenueCents =>
-      actualCareDuration == null || actualCommuteDuration == null
-          ? null
-          : ((revenue / (actualCareDuration! + actualCommuteDuration!)) * 3600)
-              .round();
-
-  int get myPlannedWageCents => (Api.getUser()!.hourlyWage *
-          ((plannedCareDuration + plannedCommuteDuration) / 3600))
-      .round();
-
-  int? get myActualWageCents =>
-      actualCareDuration == null || actualCommuteDuration == null
-          ? null
-          : (Api.getUser()!.hourlyWage *
-                  ((actualCareDuration! + actualCommuteDuration!) / 3600))
-              .round();
 }

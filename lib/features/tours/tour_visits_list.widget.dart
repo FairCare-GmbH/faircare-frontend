@@ -1,3 +1,4 @@
+import 'package:faircare/features/performance/tour_list_performance_display_type.enum.dart';
 import 'package:faircare/features/tours/patient_visit_list_item.widget.dart';
 import 'package:faircare/features/tours/tour_details.bloc.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
@@ -7,8 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TourVisitsListWidget extends StatelessWidget {
   final int tourId;
+  final TourListPerformanceDisplayType? displayType;
 
-  const TourVisitsListWidget({required this.tourId, Key? key})
+  const TourVisitsListWidget({required this.tourId, this.displayType, Key? key})
       : super(key: key);
 
   @override
@@ -24,6 +26,7 @@ class TourVisitsListWidget extends StatelessWidget {
             itemBuilder: (_, i) {
               return PatientVisitListItemWidget(
                   visit: state.visits[i].visit,
+                  displayType: displayType,
                   patient: state.visits[i].patient);
             },
           );

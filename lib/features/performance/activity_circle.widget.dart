@@ -1,13 +1,15 @@
 import 'dart:math';
 
+import 'package:faircare/features/performance/performance_tabs.cubit.dart';
+import 'package:faircare/features/performance/tour_list_performance_display_type.enum.dart';
 import 'package:faircare/global/fc_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vector_math/vector_math.dart' as vmath;
 
 class ActivityCircleWidget extends StatefulWidget {
   final int amountBonusCents;
   final int maxBonusCents;
-  final Function? onBonusTap;
 
   final double percentRating;
   final double percentPlanRating;
@@ -22,7 +24,6 @@ class ActivityCircleWidget extends StatefulWidget {
       {super.key,
       required this.amountBonusCents,
       required this.maxBonusCents,
-      this.onBonusTap,
       required this.percentRating,
       required this.percentPlanRating,
       required this.percentTaskComplete,
@@ -156,7 +157,8 @@ class ActivityCircleWidgetState extends State<ActivityCircleWidget>
     //   child:
     return GestureDetector(
       onTapUp: (TapUpDetails tud) {
-        if (widget.onBonusTap == null) return;
+        final cubit = BlocProvider.of<PerformanceTabsCubit>(context);
+        if (cubit == null) return;
         final center = Offset(xy / 2, xy / 2);
         final path = Path()
           ..addOval(Rect.fromCenter(
@@ -170,45 +172,51 @@ class ActivityCircleWidgetState extends State<ActivityCircleWidget>
                   (degrees.length - 1) * 6 +
                   12));
         if (path.contains(tud.localPosition)) {
-          widget.onBonusTap!(context);
+          cubit.setSelectedIndex(TourListPerformanceDisplayType.totalBonus);
         }
       },
       child: SizedBox(
-        height: xy,
-        child: CustomPaint(
-          painter: ActivityCirclePainter(
-            circleDegrees: degrees,
-            planDegrees: planDegrees,
-            isCenterLocked: isCenterLocked,
-            width: xy,
-            height: xy,
-            strokeWidth: strokeWidth,
-            innerFillPercentage: widget.maxBonusCents == 0
-                ? 0
-                : Curves.ease.transform(_bonusAnimationController.value) *
-                    (widget.amountBonusCents / widget.maxBonusCents),
-            centerText:
-                '${(Curves.ease.transform(_bonusAnimationController.value) * widget.amountBonusCents / 100).toStringAsFixed(0)}€',
-            secondaryText:
-                'von ${(widget.maxBonusCents / 100).toStringAsFixed(0)}€',
-            colors: const [
-              FCColors.primeDark,
-              FCColors.prime,
-              FCColors.indigo,
-              FCColors.yellow
-            ],
-            // centerText: (max(
-            //         0,
-            //         (Curves.ease.transform(_animationController.value) *
-            //                     widget.hourlyRevenueCents -
-            //                 2400) /
-            //             100))
-            //     .toStringAsFixed(2),
-            // secondaryText: 'Bonus/h'
-          ),
-          child: Container(),
-        ),
-      ),
+          height: xy,
+          child:
+              BlocBuilder<PerformanceTabsCubit, TourListPerformanceDisplayType>(
+            builder:
+                (BuildContext context, TourListPerformanceDisplayType state) =>
+                    CustomPaint(
+              painter: ActivityCirclePainter(
+                isCenterSelected:
+                    state == TourListPerformanceDisplayType.totalBonus,
+                circleDegrees: degrees,
+                planDegrees: planDegrees,
+                isCenterLocked: isCenterLocked,
+                width: xy,
+                height: xy,
+                strokeWidth: strokeWidth,
+                innerFillPercentage: widget.maxBonusCents == 0
+                    ? 0
+                    : Curves.ease.transform(_bonusAnimationController.value) *
+                        (widget.amountBonusCents / widget.maxBonusCents),
+                centerText:
+                    '${(Curves.ease.transform(_bonusAnimationController.value) * widget.amountBonusCents / 100).toStringAsFixed(0)}€',
+                secondaryText:
+                    'von ${(widget.maxBonusCents / 100).toStringAsFixed(0)}€',
+                colors: const [
+                  FCColors.primeDark,
+                  FCColors.prime,
+                  FCColors.indigo,
+                  FCColors.yellow
+                ],
+                // centerText: (max(
+                //         0,
+                //         (Curves.ease.transform(_animationController.value) *
+                //                     widget.hourlyRevenueCents -
+                //                 2400) /
+                //             100))
+                //     .toStringAsFixed(2),
+                // secondaryText: 'Bonus/h'
+              ),
+              child: Container(),
+            ),
+          )),
     );
   }
 
@@ -232,6 +240,8 @@ class ActivityCirclePainter extends CustomPainter {
 
   final List<Color> colors;
 
+  final bool isCenterSelected;
+
   final _textPainter = TextPainter(textDirection: TextDirection.ltr);
 
   ActivityCirclePainter({
@@ -246,6 +256,7 @@ class ActivityCirclePainter extends CustomPainter {
     this.centerText,
     this.secondaryText,
     required this.colors,
+    required this.isCenterSelected,
   });
 
   @override
@@ -311,10 +322,10 @@ class ActivityCirclePainter extends CustomPainter {
             center: Offset(
                 size.width / 2,
                 size.height / 2 +
-                    (width -
+                    (size.height -
                         strokeWidth * (circleDegrees.length * 2) -
                         circleDegrees.length * 6) -
-                    circleHeight),
+                    circleHeight / 2),
             width: width -
                 strokeWidth * (1 + (circleDegrees.length - 1) * 2) -
                 (circleDegrees.length - 1) * 6,
@@ -462,6 +473,24 @@ class ActivityCirclePainter extends CustomPainter {
         textPainter.paint(canvas, pivot);
         canvas.restore();
       }
+    }
+
+    if (isCenterSelected) {
+      canvas.drawOval(
+        Rect.fromCenter(
+            center: center,
+            width: width -
+                strokeWidth * (1 + (circleDegrees.length) * 2) +
+                strokeWidth / 1.5,
+            height: height -
+                strokeWidth * (1 + (circleDegrees.length) * 2) +
+                strokeWidth / 1.5),
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeCap = StrokeCap.butt
+          ..color = colors[colors.length - 1].withOpacity(.4)
+          ..strokeWidth = strokeWidth / 3,
+      );
     }
 
     // Draw the dark green portion of the progress indicator

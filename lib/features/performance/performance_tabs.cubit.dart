@@ -1,14 +1,11 @@
-import 'dart:ffi';
-
 import 'package:bloc/bloc.dart';
-import 'package:faircare/features/preferences/care_preferences.model.dart';
+import 'package:faircare/features/performance/tour_list_performance_display_type.enum.dart';
 
-import '../../../global/constants.dart';
+class PerformanceTabsCubit extends Cubit<TourListPerformanceDisplayType> {
+  PerformanceTabsCubit(TourListPerformanceDisplayType initialState)
+      : super(initialState);
 
-class PerformanceTabsCubit extends Cubit<String> {
-  PerformanceTabsCubit(String initialState) : super(initialState);
-
-  void setSelectedIndex(String value) {
+  void setSelectedIndex(TourListPerformanceDisplayType value) {
     emit(value);
   }
 }

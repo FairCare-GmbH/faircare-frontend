@@ -26,7 +26,7 @@ class HorizontalTile extends StatelessWidget {
         child: Row(
           children: [
             SizedBox(
-              width: 100,
+              width: 120,
               child: Text(
                 text,
                 style: style(fontSize: 16),

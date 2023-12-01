@@ -1,3 +1,5 @@
+import 'package:faircare/features/performance/measurable_display_item.widget.dart';
+import 'package:faircare/features/performance/tour_list_performance_display_type.enum.dart';
 import 'package:faircare/features/tours/tour_visit.model.dart';
 import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
@@ -12,11 +14,13 @@ class PatientVisitListItemWidget extends StatelessWidget {
   const PatientVisitListItemWidget({
     this.visit,
     this.patient,
+    this.displayType,
     Key? key,
   }) : super(key: key);
 
   final TourVisitModel? visit;
   final PatientModel? patient;
+  final TourListPerformanceDisplayType? displayType;
 
   @override
   Widget build(BuildContext context) {
@@ -116,25 +120,12 @@ class PatientVisitListItemWidget extends StatelessWidget {
               ),
             ),
             const HorizontalSpacer(12),
-            if (visit == null)
-              const Icon(
-                Icons.chevron_right,
-                color: FCColors.grey,
-              ),
-            if (visit != null)
-              Text(
-                (visit?.actualStartTime ?? visit!.plannedStartTime)
-                    .substring(0, 5),
-                style: style(
-                  color: patient?.pflegegrad != null
-                      ? FCColors.prime
-                      : visit?.type == 1 || patient != null
-                          ? FCColors.primeDark
-                          : FCColors.grey,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
-              ),
+            visit == null
+                ? const Icon(Icons.chevron_right)
+                : MeasurableDisplayItemWidget(
+                    measurable: visit!,
+              displayType: displayType,
+                  )
           ],
         ),
       ),

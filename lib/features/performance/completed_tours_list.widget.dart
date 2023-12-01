@@ -1,3 +1,4 @@
+import 'package:faircare/features/performance/tour_list_performance_display_type.enum.dart';
 import 'package:faircare/widgets/loading_indicator.dart';
 import 'package:faircare/widgets/spacer.dart';
 import 'package:flutter/material.dart';
@@ -7,10 +8,11 @@ import '../tours/tour_list_item.widget.dart';
 import 'completed_tours.bloc.dart';
 
 class CompletedToursListWidget extends StatelessWidget {
-  const CompletedToursListWidget({Key? key, this.displayType = 't'})
+  const CompletedToursListWidget(
+      {Key? key, this.displayType = TourListPerformanceDisplayType.workTime})
       : super(key: key);
 
-  final String displayType;
+  final TourListPerformanceDisplayType displayType;
 
   @override
   Widget build(BuildContext context) {
@@ -26,11 +28,12 @@ class CompletedToursListWidget extends StatelessWidget {
               return TourListItemWidget(
                   tour: state.tours[i],
                   displayType: displayType,
-                  refreshCallback: () => BlocProvider.of<CompletedToursBloc>(context).add(
-                      GetCompletedTours(
-                          from: state.from,
-                          to: state.to,
-                          searchType: state.searchType)));
+                  refreshCallback: () =>
+                      BlocProvider.of<CompletedToursBloc>(context).add(
+                          GetCompletedTours(
+                              from: state.from,
+                              to: state.to,
+                              searchType: state.searchType)));
             },
           );
         }

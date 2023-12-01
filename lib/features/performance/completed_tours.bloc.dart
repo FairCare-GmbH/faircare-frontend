@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:faircare/features/tours/tour.model.dart';
+import 'package:flutter/foundation.dart';
 
 import '../../api/api.dart';
 
@@ -23,7 +24,11 @@ class CompletedToursBloc
               .toList(growable: false);
           emit(CompletedToursLoaded(
               tours, event.from, event.to, event.searchType));
-        } catch (e) {
+        } catch (e, stack) {
+          if(kDebugMode){
+            print(e);
+            print(stack);
+          }
           emit(CompletedToursError(e.toString()));
         }
       },

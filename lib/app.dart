@@ -9,6 +9,8 @@ import 'features/getting_started/getting_started_progress_cubit.dart';
 import 'features/navigation/nav_bar.cubit.dart';
 import 'features/navigation/navigation.view.dart';
 import 'features/notifications/notifications.bloc.dart';
+import 'features/performance/performance_tabs.cubit.dart';
+import 'features/performance/tour_list_performance_display_type.enum.dart';
 import 'features/users/register/register_cubit.dart';
 import 'features/users/register/register_progress.cubit.dart';
 import 'features/users/user_bloc.dart';
@@ -47,6 +49,9 @@ class FairCareApp extends StatelessWidget {
         BlocProvider(
           create: (_) => RatingsBloc()..add(GetRatingsData()),
         ),
+        BlocProvider<PerformanceTabsCubit>(
+            create: (_) =>
+                PerformanceTabsCubit(TourListPerformanceDisplayType.startTime)),
       ],
       child: MaterialApp(
         title: 'Faircare',

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../widgets/heading.dart';
 import '../../../widgets/loading_indicator.dart';
+import '../../performance/tour_list_performance_display_type.enum.dart';
 import '../tour_list_item.widget.dart';
 import 'my_tours.bloc.dart';
 
@@ -53,6 +54,7 @@ class MyToursView extends StatelessWidget {
                           itemBuilder: (_, i) {
                             return TourListItemWidget(
                                 tour: today[i],
+                                displayType: TourListPerformanceDisplayType.startTime,
                                 refreshCallback: () =>
                                     BlocProvider.of<MyToursBloc>(context)
                                         .add(GetMyTours()));
@@ -70,6 +72,7 @@ class MyToursView extends StatelessWidget {
                           itemBuilder: (_, i) {
                             return TourListItemWidget(
                                 tour: releasing[i],
+                                displayType: TourListPerformanceDisplayType.workTime,
                                 refreshCallback: () =>
                                     BlocProvider.of<MyToursBloc>(context)
                                         .add(GetMyTours()));
@@ -87,6 +90,7 @@ class MyToursView extends StatelessWidget {
                           itemBuilder: (_, i) {
                             return TourListItemWidget(
                                 tour: assigned[i],
+                                displayType: TourListPerformanceDisplayType.workTime,
                                 refreshCallback: () =>
                                     BlocProvider.of<MyToursBloc>(context)
                                         .add(GetMyTours()));
