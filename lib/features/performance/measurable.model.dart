@@ -9,9 +9,10 @@ abstract class Measurable {
   final bool hasWoundCare;
   final bool hasHousekeeping;
   final bool hasCompanionship;
-  final int? maxBonus;
-  final int? actualBonus;
+  final int maxBonus;
+  final int actualBonus;
   final int plannedRevenue;
+  final int actualRevenue;
 
   final String plannedStartTime;
   final String plannedEndTime;
@@ -19,21 +20,21 @@ abstract class Measurable {
   final String? actualEndTime;
 
   final int plannedCareDuration;
-  final int? actualCareDuration;
+  final int actualCareDuration;
 
   final int plannedCommuteDuration;
-  final int? actualCommuteDuration;
+  final int actualCommuteDuration;
 
   final int plannedAdminDuration;
-  final int? actualAdminDuration;
+  final int actualAdminDuration;
 
   final int plannedBreakDuration;
-  final int? actualBreakDuration;
+  final int actualBreakDuration;
 
   final int plannedCommuteDistance;
   final double? rating;
   final int plannedTaskCount;
-  final int? actualTaskCount;
+  final int actualTaskCount;
   final bool isClosed;
 
   Measurable({
@@ -64,6 +65,7 @@ abstract class Measurable {
     required this.hasWoundCare,
     required this.hasHousekeeping,
     required this.hasCompanionship,
+    required this.actualRevenue,
   });
 
   int get plannedTotalDurationMinutes =>
@@ -74,10 +76,10 @@ abstract class Measurable {
 
   int? get actualTotalDurationMinutes => !isClosed
       ? null
-      : ((actualAdminDuration ?? 0) +
-              (actualCareDuration ?? 0) +
-              (actualCommuteDuration ?? 0) +
-              (actualBreakDuration ?? 0)) ~/
+      : (actualAdminDuration +
+              actualCareDuration +
+              actualCommuteDuration +
+              actualBreakDuration) ~/
           60;
 
   int get plannedWorkDurationMinutes =>
@@ -86,27 +88,26 @@ abstract class Measurable {
 
   int? get actualWorkDurationMinutes => !isClosed
       ? null
-      : ((actualAdminDuration ?? 0) +
-              (actualCareDuration ?? 0) +
-              (actualCommuteDuration ?? 0)) ~/
+      : (actualAdminDuration + actualCareDuration + actualCommuteDuration) ~/
           60;
 
   int get plannedHourlyWageCents => Api.getUser()!.hourlyWage;
 
-  int? get actualHourlyWageCents => actualWorkDurationMinutes == null
+  int? get actualHourlyWageCents => !isClosed || actualWorkDurationMinutes == 0
       ? null
       : (Api.getUser()!.hourlyWage +
-          (actualBonus ?? 0) ~/ (actualWorkDurationMinutes! / 60));
+          actualBonus ~/ (actualWorkDurationMinutes! / 60));
 
-  int? get myActualWageCents => actualWorkDurationMinutes == null
+  int? get myActualWageCents => !isClosed
       ? null
       : (Api.getUser()!.hourlyWage * (actualWorkDurationMinutes! / 60) +
-              (actualBonus ?? 0))
+              actualBonus)
           .round();
 
   int get myPlannedWageCents =>
       (Api.getUser()!.hourlyWage * (plannedWorkDurationMinutes / 60)).round();
 
-  double? get myActualCompletionPercentage =>
-      actualTaskCount == null ? null : actualTaskCount! / plannedTaskCount;
+  double? get myActualCompletionPercentage => !isClosed
+      ? null
+      : actualRevenue / (plannedRevenue > 0 ? plannedRevenue : 1);
 }

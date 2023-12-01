@@ -1,6 +1,6 @@
 import 'package:faircare/features/performance/measurable_display_item.widget.dart';
 import 'package:faircare/features/performance/tour_list_performance_display_type.enum.dart';
-import 'package:faircare/features/tours/tour_visit.model.dart';
+import 'package:faircare/features/tours/visit.model.dart';
 import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
 import 'package:faircare/global/text_style.dart';
@@ -18,7 +18,7 @@ class PatientVisitListItemWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final TourVisitModel? visit;
+  final VisitModel? visit;
   final PatientModel? patient;
   final TourListPerformanceDisplayType? displayType;
 

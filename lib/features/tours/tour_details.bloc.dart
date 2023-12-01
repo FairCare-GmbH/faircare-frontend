@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
-import 'package:faircare/features/tours/tour_visit.model.dart';
+import 'package:faircare/features/tours/visit.model.dart';
 import 'package:faircare/features/tours/tour.model.dart';
 import 'package:flutter/foundation.dart';
 
@@ -19,7 +19,7 @@ class TourDetailsBloc extends Bloc<TourDetailsEvent, TourDetailsState> {
 
           final stops = (data['stops'] as List)
               .map((e) => TourDetailsItem(
-                  visit: TourVisitModel.fromJson(e['visit']),
+                  visit: VisitModel.fromJson(e['visit']),
                   patient: e['patient'] != null
                       ? PatientModel.fromJson(e['patient'])
                       : null))
@@ -58,7 +58,7 @@ class TourDetailsInitial extends TourDetailsState {}
 class TourDetailsLoading extends TourDetailsState {}
 
 class TourDetailsItem {
-  final TourVisitModel visit;
+  final VisitModel visit;
   final PatientModel? patient;
 
   TourDetailsItem({required this.visit, required this.patient});

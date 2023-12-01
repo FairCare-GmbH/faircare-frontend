@@ -9,7 +9,7 @@ import 'api_exception.dart';
 
 class Api {
   static const _baseUrl =
-      !kDebugMode ? 'https://app.getfaircare.de' : 'http://172.19.248.18:3000'; //68.104:3000'; //.26:3000';
+      !kDebugMode ? 'https://app.getfaircare.de' : 'http://192.168.68.104:3000'; //68.104:3000'; //.26:3000';
   static final Dio _client = Dio(BaseOptions(
     connectTimeout: const Duration(milliseconds: 2000),
     receiveTimeout: const Duration(milliseconds: 4000),

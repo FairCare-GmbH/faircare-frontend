@@ -32,24 +32,25 @@ class TourModel extends Measurable {
     required super.tourDate,
     required super.plannedStartTime,
     required super.plannedEndTime,
-    super.actualStartTime,
-    super.actualEndTime,
+    required super.actualStartTime,
+    required super.actualEndTime,
     required super.plannedCareDuration,
     required super.plannedCommuteDuration,
-    super.actualCareDuration,
-    super.actualCommuteDuration,
+    required super.actualCareDuration,
+    required super.actualCommuteDuration,
     required super.plannedCommuteDistance,
-    super.rating,
+    required super.rating,
     required super.plannedTaskCount,
-    super.actualTaskCount,
+    required super.actualTaskCount,
     required this.name,
     required super.plannedAdminDuration,
     required super.plannedBreakDuration,
     required super.actualAdminDuration,
     required super.actualBreakDuration,
     required super.isClosed,
-    super.actualBonus,
+    required super.actualBonus,
     required this.plannedCommuteRadius,
+    required super.actualRevenue,
   });
 
   factory TourModel.fromRawJson(String str) =>
@@ -94,6 +95,7 @@ class TourModel extends Measurable {
         isClosed: json["isClosed"],
         actualBonus: json["actualBonus"],
         plannedCommuteRadius: json["plannedCommuteRadius"].toDouble(),
+        actualRevenue: json["actualRevenue"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -133,5 +135,6 @@ class TourModel extends Measurable {
         "isClosed": isClosed,
         "actualBonus": actualBonus,
         "plannedCommuteRadius": plannedCommuteRadius,
+        "actualRevenue": actualRevenue,
       };
 }

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:faircare/features/performance/measurable.model.dart';
 
-class TourVisitModel extends Measurable {
+class VisitModel extends Measurable {
   final int id;
   final int tourId;
   final int type;
@@ -11,7 +11,7 @@ class TourVisitModel extends Measurable {
   final String? desiredStartFrom;
   final String? desiredStartTo;
 
-  TourVisitModel({
+  VisitModel({
     required this.id,
     required this.tourId,
     required this.type,
@@ -19,8 +19,8 @@ class TourVisitModel extends Measurable {
     required super.tourDate,
     required super.plannedStartTime,
     required super.plannedEndTime,
-    required this.desiredStartFrom,
-    required this.desiredStartTo,
+    this.desiredStartFrom,
+    this.desiredStartTo,
     required super.actualStartTime,
     required super.actualEndTime,
     required super.plannedCareDuration,
@@ -31,102 +31,29 @@ class TourVisitModel extends Measurable {
     required super.plannedRevenue,
     required super.maxBonus,
     required super.plannedAdminDuration,
-    super.actualAdminDuration,
+    required super.actualAdminDuration,
     required super.plannedBreakDuration,
-    super.actualBreakDuration,
-    super.rating,
+    required super.actualBreakDuration,
+    required super.rating,
     required super.plannedTaskCount,
-    super.actualTaskCount,
+    required super.actualTaskCount,
     required super.isClosed,
-    super.actualBonus,
+    required super.actualBonus,
     required super.hasInfectiousDisease,
     required super.hasMedicalCare,
     required super.hasBasicCare,
     required super.hasWoundCare,
     required super.hasHousekeeping,
     required super.hasCompanionship,
+    required super.actualRevenue,
   });
 
-  TourVisitModel copyWith(
-          {int? id,
-          int? tourId,
-          int? type,
-          int? patientId,
-          DateTime? tourDate,
-          String? plannedStartTime,
-          String? plannedEndTime,
-          String? desiredStartFrom,
-          String? desiredStartTo,
-          String? actualStartTime,
-          String? actualEndTime,
-          int? plannedCareDuration,
-          int? plannedCommuteDuration,
-          int? actualCareDuration,
-          int? actualCommuteDuration,
-          int? plannedCommuteDistance,
-          int? actualCommuteDistance,
-          int? plannedRevenue,
-          int? maxBonus,
-          int? plannedAdminDuration,
-          int? actualAdminDuration,
-          int? plannedBreakDuration,
-          int? actualBreakDuration,
-          double? rating,
-          int? plannedTaskCount,
-          int? actualTaskCount,
-          bool? isClosed,
-          int? actualBonus,
-          bool? hasInfectiousDisease,
-          bool? hasMedicalCare,
-          bool? hasBasicCare,
-          bool? hasWoundCare,
-          bool? hasHousekeeping,
-          bool? hasCompanionship}) =>
-      TourVisitModel(
-        id: id ?? this.id,
-        tourId: tourId ?? this.tourId,
-        type: type ?? this.type,
-        patientId: patientId ?? this.patientId,
-        tourDate: tourDate ?? this.tourDate,
-        plannedStartTime: plannedStartTime ?? this.plannedStartTime,
-        plannedEndTime: plannedEndTime ?? this.plannedEndTime,
-        desiredStartFrom: desiredStartFrom ?? this.desiredStartFrom,
-        desiredStartTo: desiredStartTo ?? this.desiredStartTo,
-        actualStartTime: actualStartTime ?? this.actualStartTime,
-        actualEndTime: actualEndTime ?? this.actualEndTime,
-        plannedCareDuration: plannedCareDuration ?? this.plannedCareDuration,
-        plannedCommuteDuration:
-            plannedCommuteDuration ?? this.plannedCommuteDuration,
-        actualCareDuration: actualCareDuration ?? this.actualCareDuration,
-        actualCommuteDuration:
-            actualCommuteDuration ?? this.actualCommuteDuration,
-        plannedCommuteDistance:
-            plannedCommuteDistance ?? this.plannedCommuteDistance,
-        plannedRevenue: plannedRevenue ?? this.plannedRevenue,
-        maxBonus: maxBonus ?? this.maxBonus,
-        plannedAdminDuration: plannedAdminDuration ?? this.plannedAdminDuration,
-        actualAdminDuration: actualAdminDuration ?? this.actualAdminDuration,
-        actualBreakDuration: actualBreakDuration ?? this.actualBreakDuration,
-        rating: rating ?? this.rating,
-        plannedTaskCount: plannedTaskCount ?? this.plannedTaskCount,
-        actualTaskCount: actualTaskCount ?? this.actualTaskCount,
-        isClosed: isClosed ?? this.isClosed,
-        actualBonus: actualBonus ?? this.actualBonus,
-        plannedBreakDuration: plannedBreakDuration ?? this.plannedBreakDuration,
-        hasInfectiousDisease: hasInfectiousDisease ?? this.hasInfectiousDisease,
-        hasMedicalCare: hasMedicalCare ?? this.hasMedicalCare,
-        hasBasicCare: hasBasicCare ?? this.hasBasicCare,
-        hasWoundCare: hasWoundCare ?? this.hasWoundCare,
-        hasHousekeeping: hasHousekeeping ?? this.hasHousekeeping,
-        hasCompanionship: hasCompanionship ?? this.hasCompanionship,
-      );
-
-  factory TourVisitModel.fromRawJson(String str) =>
-      TourVisitModel.fromJson(json.decode(str));
+  factory VisitModel.fromRawJson(String str) =>
+      VisitModel.fromJson(json.decode(str));
 
   String toRawJson() => json.encode(toJson());
 
-  factory TourVisitModel.fromJson(Map<String, dynamic> json) => TourVisitModel(
+  factory VisitModel.fromJson(Map<String, dynamic> json) => VisitModel(
         id: json["id"],
         tourId: json["tourId"],
         type: json["type"],
@@ -160,6 +87,7 @@ class TourVisitModel extends Measurable {
         hasWoundCare: json["hasWoundCare"],
         hasHousekeeping: json["hasHousekeeping"],
         hasCompanionship: json["hasCompanionship"],
+        actualRevenue: json["actualRevenue"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -196,5 +124,6 @@ class TourVisitModel extends Measurable {
         "hasWoundCare": hasWoundCare,
         "hasHousekeeping": hasHousekeeping,
         "hasCompanionship": hasCompanionship,
+        "actualRevenue": actualRevenue,
       };
 }

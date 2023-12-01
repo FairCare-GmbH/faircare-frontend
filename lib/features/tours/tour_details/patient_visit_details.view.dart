@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import '../../patients/patient_actions.widget.dart';
 import '../../patients/patient_contact_details.widget.dart';
 import '../../patients/patient_details_app_bar.widget.dart';
-import '../tour_visit.model.dart';
+import '../visit.model.dart';
 
 class PatientVisitDetailsView extends StatelessWidget {
   const PatientVisitDetailsView({
@@ -17,7 +17,7 @@ class PatientVisitDetailsView extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final TourVisitModel? visit;
+  final VisitModel? visit;
   final PatientModel patient;
 
   @override
