@@ -1,5 +1,5 @@
 import 'package:faircare/api/api.dart';
-import 'package:faircare/features/users/user_bloc.dart';
+import 'package:faircare/features/users/ratings_bloc.dart';
 import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/text_style.dart';
 import 'package:faircare/widgets/loading_indicator.dart';

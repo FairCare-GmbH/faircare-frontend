@@ -23,7 +23,7 @@ class UserModel {
   double maximumCareRadius;
   int weeklyHourMinimum;
   int weeklyHourMaximum;
-  String marketingSource;
+  String? leadSource;
   DateTime dateCreated;
   bool openForPatients;
   bool isActive;
@@ -53,7 +53,7 @@ class UserModel {
     required this.maximumCareRadius,
     required this.weeklyHourMinimum,
     required this.weeklyHourMaximum,
-    required this.marketingSource,
+    this.leadSource,
     required this.dateCreated,
     required this.openForPatients,
     required this.isActive,
@@ -90,7 +90,7 @@ class UserModel {
     double? maximumCareRadius,
     int? weeklyHourMinimum,
     int? weeklyHourMaximum,
-    String? marketingSource,
+    String? leadSource,
     DateTime? dateCreated,
     bool? openForPatients,
     bool? isActive,
@@ -121,7 +121,7 @@ class UserModel {
         maximumCareRadius: maximumCareRadius ?? this.maximumCareRadius,
         weeklyHourMinimum: weeklyHourMinimum ?? this.weeklyHourMinimum,
         weeklyHourMaximum: weeklyHourMaximum ?? this.weeklyHourMaximum,
-        marketingSource: marketingSource ?? this.marketingSource,
+        leadSource: leadSource ?? this.leadSource,
         dateCreated: dateCreated ?? this.dateCreated,
         openForPatients: openForPatients ?? this.openForPatients,
         isActive: isActive ?? this.isActive,
@@ -152,7 +152,7 @@ class UserModel {
         maximumCareRadius: json["maximumCareRadius"].toDouble(),
         weeklyHourMinimum: json["weeklyHourMinimum"],
         weeklyHourMaximum: json["weeklyHourMaximum"],
-        marketingSource: json["marketingSource"],
+        leadSource: json["leadSource"],
         dateCreated: DateTime.parse(json["dateCreated"]),
         openForPatients: json["openForPatients"],
         isActive: json["isActive"],
@@ -183,7 +183,7 @@ class UserModel {
         "maximumCareRadius": maximumCareRadius,
         "weeklyHourMinimum": weeklyHourMinimum,
         "weeklyHourMaximum": weeklyHourMaximum,
-        "marketingSource": marketingSource,
+        "leadSource": leadSource,
         "dateCreated": dateCreated.toIso8601String(),
         "openForPatients": openForPatients,
         "isActive": isActive,

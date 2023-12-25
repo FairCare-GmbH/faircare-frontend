@@ -13,7 +13,7 @@ import 'features/performance/performance_tabs.cubit.dart';
 import 'features/performance/tour_list_performance_display_type.enum.dart';
 import 'features/users/register/register_cubit.dart';
 import 'features/users/register/register_progress.cubit.dart';
-import 'features/users/user_bloc.dart';
+import 'features/users/ratings_bloc.dart';
 import 'global/fc_colors.dart';
 
 class FairCareApp extends StatelessWidget {

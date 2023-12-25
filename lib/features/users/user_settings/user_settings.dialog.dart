@@ -1,5 +1,5 @@
 import 'package:faircare/features/ratings/small_circular_rating.widget.dart';
-import 'package:faircare/features/users/user_bloc.dart';
+import 'package:faircare/features/users/ratings_bloc.dart';
 import 'package:faircare/features/users/user_settings/user_data.widget.dart';
 import 'package:faircare/global/fc_colors.dart';
 import 'package:faircare/global/global.dart';
